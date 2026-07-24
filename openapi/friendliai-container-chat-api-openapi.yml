@@ -1,0 +1,1529 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Container.Chat API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Container.Chat
+paths:
+  /v1/chat/completions:
+    servers:
+    - url: http://localhost:8000
+    post:
+      tags:
+      - Container.Chat
+      summary: Chat completions
+      description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+      operationId: containerChatComplete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerChatCompletionBody'
+        required: true
+      responses:
+        '200':
+          description: Successfully generated a chat response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerChatCompleteSuccess'
+              examples:
+                Example:
+                  value:
+                    id: chatcmpl-4b71d12c86d94e719c7e3984a7bb7941
+                    object: chat.completion
+                    choices:
+                    - index: 0
+                      message:
+                        role: assistant
+                        content: Hello there, how may I assist you today?
+                      finish_reason: stop
+                    usage:
+                      prompt_tokens: 9
+                      completion_tokens: 11
+                      total_tokens: 20
+                    created: 1735722153
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: complete
+      x-mint:
+        metadata:
+          title: Container Chat Completions
+          sidebarTitle: Chat Completions
+          og:title: Container Chat Completions
+          description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+          og:description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+        href: /openapi/container/chat-completions
+        content: 'Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/container/chat-completions-chunk-object).'
+  /v1/chat/completions#stream:
+    servers:
+    - url: http://localhost:8000
+    post:
+      tags:
+      - Container.Chat
+      summary: Stream chat completions
+      description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+      operationId: containerChatStream
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerChatCompletionStreamBody'
+        required: true
+      responses:
+        '200':
+          description: Successfully generated a chat response.
+          content:
+            text/event-stream:
+              examples:
+                Example:
+                  value: 'data: {"id":"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"role":"assistant","content":"This"},"finish_reason":null,"logprobs":null}],"usage":null,"created":1726294381}
+
+
+                    data: {"id":"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941","object":"chat.completion.chunk","choices":[{"index":0,"delta":{"content":" is"},"finish_reason":null,"logprobs":null}],"usage":null,"created":1726294381}
+
+
+                    ...
+
+
+                    data: {"id":"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941","object":"chat.completion.chunk","choices":[{"index":0,"delta":{},"finish_reason":"stop","logprobs":null}],"usage":null,"created":1726294383}
+
+
+                    data: {"id":"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941","object":"chat.completion.chunk","choices":[],"usage":{"prompt_tokens":8,"completion_tokens":4,"total_tokens":12},"created":1726294402}
+
+
+                    data: [DONE]
+
+                    '
+              x-speakeasy-sse-sentinel: '[DONE]'
+              schema:
+                $ref: '#/components/schemas/ContainerChatCompletionStreamSuccess'
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: stream
+      x-mint:
+        metadata:
+          title: Container Stream Chat Completions
+          sidebarTitle: Stream Chat Completions
+          og:title: Container Stream Chat Completions
+          description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+          og:description: Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+        content: 'Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/container/chat-completions-chunk-object).'
+components:
+  schemas:
+    VideoContent:
+      properties:
+        type:
+          type: string
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
+      type: object
+      required:
+      - type
+      - video_url
+      title: VideoContent
+    StreamedToolCallResult:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool.
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The ID of the tool call.
+        index:
+          type: integer
+          title: Index
+          description: The index of the tool call being generated.
+        function:
+          $ref: '#/components/schemas/StreamedFunctionResult'
+      type: object
+      required:
+      - type
+      - index
+      - function
+      title: StreamedToolCallResult
+    ToolCallResult:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool.
+        id:
+          type: string
+          title: Id
+          description: The ID of the tool call.
+        function:
+          $ref: '#/components/schemas/FunctionResult'
+      type: object
+      required:
+      - type
+      - id
+      - function
+      title: ToolCallResult
+    SystemMessage:
+      properties:
+        role:
+          type: string
+          const: system
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of system message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: SystemMessage
+    Tool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
+      type: object
+      required:
+      - type
+      - function
+      title: Tool
+    AssistantMessageToolCall:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of tool call.
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of tool call.
+        function:
+          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
+          description: The function specification
+      type: object
+      required:
+      - id
+      - type
+      - function
+      title: AssistantMessageToolCall
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image_url
+          title: Type
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ImageContent
+    StreamOptions:
+      properties:
+        include_usage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Usage
+          description: 'When set to `true`,
+
+            the number of tokens used will be included at the end of the stream result in the form of
+
+            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
+
+            '
+      type: object
+      title: StreamOptions
+    AssistantMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the messages author.
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The content of assistant message. Required unless `tool_calls` is specified.
+        reasoning_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning Content
+          description: The intermediate reasoning content of assistant message.
+        reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning
+          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AssistantMessageToolCall'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: AssistantMessage
+    Message:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+        title: System
+      - $ref: '#/components/schemas/UserMessage'
+        title: User
+      - $ref: '#/components/schemas/AssistantMessage'
+        title: Assistant
+      - $ref: '#/components/schemas/ToolMessage'
+        title: Tool
+      discriminator:
+        propertyName: role
+        mapping:
+          assistant: '#/components/schemas/AssistantMessage'
+          system: '#/components/schemas/SystemMessage'
+          tool: '#/components/schemas/ToolMessage'
+          user: '#/components/schemas/UserMessage'
+    ResponseFormatJsonSchemaSchema:
+      properties:
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+          description: The schema for the response format, described as a JSON Schema object.
+      type: object
+      required:
+      - schema
+      title: ResponseFormatJsonSchemaSchema
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    ContainerChatCompletionStreamBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+          title: Messages
+          description: A list of messages comprising the conversation so far.
+          examples:
+          - - content: You are a helpful assistant.
+              role: system
+            - content: Hello!
+              role: user
+        chat_template_kwargs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Chat Template Kwargs
+          description: Additional keyword arguments supplied to the template renderer. These parameters will be available for use within the chat template.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logit_bias:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Logit Bias
+          description: Accepts a JSON object that maps tokens to an associated bias value. Mathematically, the bias is added to the logits generated by the model prior to sampling. The exact effect will vary per model.
+        logprobs:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Logprobs
+          description: Whether to return log probabilities of the output tokens or not.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        parallel_tool_calls:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parallel Tool Calls
+          description: Whether to enable parallel function calling.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        reasoning_effort:
+          anyOf:
+          - type: string
+            enum:
+            - minimal
+            - low
+            - medium
+            - high
+            - xhigh
+            - max
+            - ultracode
+          - type: 'null'
+          title: Reasoning Effort
+          description: Sets how much reasoning the model does before answering. Higher values give more thorough responses but take longer. This affects reasoning models only, and the available options depend on the model.
+        reasoning_budget:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reasoning Budget
+          description: Specifies a positive integer that defines a limit on the number of tokens used for internal reasoning tokens. This parameter is only effective for reasoning models.
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, random seed is used for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: When one of the stop phrases appears in the generation result, the API will stop generation. The stop phrases are excluded from the result. Defaults to empty list.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        parse_reasoning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parse Reasoning
+          description: 'Parses model reasoning into `reasoning_content` while keeping the answer in `content`. Default value may vary between endpoints.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/reasoning#reasoning-parsing-with-friendli).'
+        include_reasoning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Reasoning
+          description: 'When `parse_reasoning=true`, include parsed reasoning (`reasoning_content`). Defaults to true.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/reasoning#reasoning-parsing-with-friendli).'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        tool_choice:
+          anyOf:
+          - $ref: '#/components/schemas/ChatCompleteBodyToolChoice'
+          - type: string
+          title: Tool Choice
+          description: 'Determines the tool calling behavior of the model.
+
+            When set to `none`, the model will bypass tool execution and generate a response directly.
+
+            In `auto` mode (the default), the model dynamically decides whether to call a tool or respond with a message.
+
+            Alternatively, setting `required` ensures that the model invokes at least one tool before responding to the user.
+
+            You can also specify a particular tool by `{"type": "function", "function": {"name": "my_function"}}`.
+
+            '
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+        top_logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top Logprobs
+          description: The number of most likely tokens to return at each token position, each with an associated log probability. `logprobs` must be set to true if this parameter is used.
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Tool'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'A list of tools the model may call.
+
+            Use this to provide a list of functions the model may generate JSON inputs for.
+
+
+            **When `tools` is specified, `min_tokens` and `response_format` fields are unsupported.**'
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `tools` or `response_format` is specified.**'
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+          description: 'The enforced format of the model''s output.
+
+
+            Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
+
+
+            ***Important***
+
+            You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
+
+            Otherwise, the model may result in an unending stream of whitespace or other characters.
+
+
+            **This field is unsupported when `tools` is specified.**
+
+            **When `response_format` is specified, `min_tokens` field is unsupported.**'
+      type: object
+      required:
+      - messages
+      title: ContainerChatCompletionStreamBody
+      example:
+        messages:
+        - content: You are a helpful assistant.
+          role: system
+        - content: Hello!
+          role: user
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message content.
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+      type: object
+      required:
+      - type
+      - text
+      title: TextContent
+    FunctionResult:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+          description: 'The arguments for calling the function, generated by the model in JSON format.
+
+            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
+        name:
+          type: string
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - arguments
+      - name
+      title: FunctionResult
+    StreamedFunctionResult:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+          description: 'The arguments for calling the function, generated by the model in JSON format.
+
+            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - arguments
+      title: StreamedFunctionResult
+    ChatResult:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the chat completion.
+        choices:
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/ChatUsage'
+        object:
+          type: string
+          const: chat.completion
+          title: Object
+          description: The object type, which is always set to `chat.completion`.
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the generation completed.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - choices
+      - usage
+      - object
+      - created
+      title: ChatResult
+    ResponseFormat:
+      oneOf:
+      - $ref: '#/components/schemas/ResponseFormatJsonSchema'
+        title: Json Schema
+      - $ref: '#/components/schemas/ResponseFormatJsonObject'
+        title: Json Object
+      - $ref: '#/components/schemas/ResponseFormatRegex'
+        title: Regex
+      - $ref: '#/components/schemas/ResponseFormatText'
+        title: Text
+      description: 'The enforced format of the model''s output.
+
+
+        Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
+
+
+        ***Important***
+
+        You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
+
+        Otherwise, the model may result in an unending stream of whitespace or other characters.
+
+
+        **When `response_format` is specified, `min_tokens` field is unsupported.**'
+      discriminator:
+        propertyName: type
+        mapping:
+          json_object: '#/components/schemas/ResponseFormatJsonObject'
+          json_schema: '#/components/schemas/ResponseFormatJsonSchema'
+          regex: '#/components/schemas/ResponseFormatRegex'
+          text: '#/components/schemas/ResponseFormatText'
+    ChatChoiceMessage:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          type: string
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: ChatChoiceMessage
+    AudioData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the audio.
+      type: object
+      required:
+      - url
+      title: AudioData
+    ResponseFormatText:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: 'The type of the response format: `text`'
+      type: object
+      required:
+      - type
+      title: ResponseFormatText
+    ContainerChatCompleteSuccess:
+      $ref: '#/components/schemas/ChatResult'
+      title: ContainerChatCompleteSuccess
+    ChatCompleteBodyToolChoiceFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+      type: object
+      required:
+      - name
+      title: ChatCompleteBodyToolChoiceFunction
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
+    AssistantMessageToolCallFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
+      type: object
+      required:
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    ResponseFormatJsonSchema:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: 'The type of the response format: `json_schema`'
+        json_schema:
+          $ref: '#/components/schemas/ResponseFormatJsonSchemaSchema'
+      type: object
+      required:
+      - type
+      - json_schema
+      title: ResponseFormatJsonSchema
+    ResponseFormatJsonObject:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: 'The type of the response format: `json_object`'
+      type: object
+      required:
+      - type
+      title: ResponseFormatJsonObject
+    ChatChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: 'null'
+        message:
+          $ref: '#/components/schemas/ChatChoiceMessage'
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          - tool_calls
+          title: Finish Reason
+          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
+
+            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+            `tool_calls` means the API has generated tool calls.'
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: ChatChoice
+    ImageData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: ImageData
+    ChatLogprobsContent:
+      properties:
+        token:
+          type: string
+          title: Token
+          description: The token.
+        logprob:
+          type: number
+          title: Logprob
+          description: The log probability of this token.
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
+        top_logprobs:
+          items:
+            $ref: '#/components/schemas/ChatLogprobsContentTopLogprob'
+          type: array
+          title: Top Logprobs
+          description: List of the most likely tokens and their log probability, at this token position.
+      type: object
+      required:
+      - token
+      - logprob
+      - top_logprobs
+      title: ChatLogprobsContent
+    VideoData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the video.
+      type: object
+      required:
+      - url
+      title: VideoData
+    ToolMessage:
+      properties:
+        role:
+          type: string
+          const: tool
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of tool message that contains the result of tool calling.
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of tool call corresponding to this message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: An optional name of the tool call corresponding to this message.
+      type: object
+      required:
+      - role
+      - content
+      - tool_call_id
+      title: ToolMessage
+    ResponseFormatRegex:
+      properties:
+        type:
+          type: string
+          const: regex
+          title: Type
+          description: 'The type of the response format: `regex`'
+        schema:
+          type: string
+          title: Schema
+          description: The schema of the output. Lookaheads or lookbehinds (e.g., `\a`, `\z`, `^`, `$`, `(?=)`, `(?!)`, `(?<=...)`, `(?<!...)`) are not supported. Group specials (e.g., `\w`, `\W`, `\d`, `\D`, `\s`, `\S`) do not support non-ASCII characters. Unicode escape patterns (e.g., `\N`, `\p`, `\P`) are not supported. Additionally, conditional matching (`(?(`) and back-references can cause inefficiency.
+      type: object
+      required:
+      - type
+      - schema
+      title: ResponseFormatRegex
+    StreamedChatChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: 'null'
+        delta:
+          $ref: '#/components/schemas/StreamedChatChoiceDelta'
+        finish_reason:
+          anyOf:
+          - type: string
+            enum:
+            - stop
+            - length
+            - tool_calls
+            - 'null'
+          - type: 'null'
+          title: Finish Reason
+          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
+
+            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+            `tool_calls` means the API has generated tool calls.'
+      type: object
+      required:
+      - index
+      - delta
+      title: StreamedChatChoice
+    StreamedChatResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedChatData'
+      type: object
+      required:
+      - data
+      title: StreamedChatResult
+    Function:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: 'The parameters the functions accepts, described as a JSON Schema object.
+
+            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
+
+            '
+      type: object
+      required:
+      - name
+      - parameters
+      title: Function
+    ContainerChatCompletionStreamSuccess:
+      $ref: '#/components/schemas/StreamedChatResult'
+      title: ContainerChatCompletionStreamSuccess
+    AudioContent:
+      properties:
+        type:
+          type: string
+          const: audio_url
+          title: Type
+          description: The type of the message content.
+        audio_url:
+          $ref: '#/components/schemas/AudioData'
+          description: The audio URL data.
+      type: object
+      required:
+      - type
+      - audio_url
+      title: AudioContent
+    StreamedChatData:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the chat completion.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/ChatUsage'
+          - type: 'null'
+        object:
+          type: string
+          const: chat.completion.chunk
+          title: Object
+          description: The object type, which is always set to `chat.completion.chunk`.
+        choices:
+          items:
+            $ref: '#/components/schemas/StreamedChatChoice'
+          type: array
+          title: Choices
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the token is sampled.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - object
+      - choices
+      - created
+      title: StreamedChatData
+    ChatLogprobsContentTopLogprob:
+      properties:
+        token:
+          type: string
+          title: Token
+          description: The token.
+        logprob:
+          type: number
+          title: Logprob
+          description: The log probability of this token.
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
+      type: object
+      required:
+      - token
+      - logprob
+      title: ChatLogprobsContentTopLogprob
+    ContainerChatCompletionBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+          title: Messages
+          description: A list of messages comprising the conversation so far.
+          examples:
+          - - content: You are a helpful assistant.
+              role: system
+            - content: Hello!
+              role: user
+        chat_template_kwargs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Chat Template Kwargs
+          description: Additional keyword arguments supplied to the template renderer. These parameters will be available for use within the chat template.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logit_bias:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Logit Bias
+          description: Accepts a JSON object that maps tokens to an associated bias value. Mathematically, the bias is added to the logits generated by the model prior to sampling. The exact effect will vary per model.
+        logprobs:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Logprobs
+          description: Whether to return log probabilities of the output tokens or not.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        parallel_tool_calls:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parallel Tool Calls
+          description: Whether to enable parallel function calling.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        reasoning_effort:
+          anyOf:
+          - type: string
+            enum:
+            - minimal
+            - low
+            - medium
+            - high
+            - xhigh
+            - max
+            - ultracode
+          - type: 'null'
+          title: Reasoning Effort
+          description: Sets how much reasoning the model does before answering. Higher values give more thorough responses but take longer. This affects reasoning models only, and the available options depend on the model.
+        reasoning_budget:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reasoning Budget
+          description: Specifies a positive integer that defines a limit on the number of tokens used for internal reasoning tokens. This parameter is only effective for reasoning models.
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, random seed is used for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: When one of the stop phrases appears in the generation result, the API will stop generation. The stop phrases are excluded from the result. Defaults to empty list.
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: false
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        parse_reasoning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parse Reasoning
+          description: 'Parses model reasoning into `reasoning_content` while keeping the answer in `content`. Default value may vary between endpoints.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/reasoning#reasoning-parsing-with-friendli).'
+        include_reasoning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Reasoning
+          description: 'When `parse_reasoning=true`, include parsed reasoning (`reasoning_content`). Defaults to true.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/reasoning#reasoning-parsing-with-friendli).'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        tool_choice:
+          anyOf:
+          - $ref: '#/components/schemas/ChatCompleteBodyToolChoice'
+          - type: string
+          title: Tool Choice
+          description: 'Determines the tool calling behavior of the model.
+
+            When set to `none`, the model will bypass tool execution and generate a response directly.
+
+            In `auto` mode (the default), the model dynamically decides whether to call a tool or respond with a message.
+
+            Alternatively, setting `required` ensures that the model invokes at least one tool before responding to the user.
+
+            You can also specify a particular tool by `{"type": "function", "function": {"name": "my_function"}}`.
+
+            '
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+        top_logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top Logprobs
+          description: The number of most likely tokens to return at each token position, each with an associated log probability. `logprobs` must be set to true if this parameter is used.
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Tool'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'A list of tools the model may call.
+
+            Use this to provide a list of functions the model may generate JSON inputs for.
+
+
+            **When `tools` is specified, `min_tokens` and `response_format` fields are unsupported.**'
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `tools` or `response_format` is specified.**'
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+          description: 'The enforced format of the model''s output.
+
+
+            Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
+
+
+            For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
+
+
+            ***Important***
+
+            You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
+
+            Otherwise, the model may result in an unending stream of whitespace or other characters.
+
+
+            **This field is unsupported when `tools` is specified.**
+
+            **When `response_format` is specified, `min_tokens` field is unsupported.**'
+      type: object
+      required:
+      - messages
+      title: ContainerChatCompletionBody
+      example:
+        messages:
+        - content: You are a helpful assistant.
+          role: system
+        - content: Hello!
+          role: user
+    ChatUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated chat completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: ChatUsage
+    StreamedChatChoiceDelta:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StreamedToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      title: StreamedChatChoiceDelta
+    ChatCompleteBodyToolChoice:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/ChatCompleteBodyToolChoiceFunction'
+      type: object
+      required:
+      - type
+      - function
+      title: ChatCompleteBodyToolChoice
+    ChatLogprobs:
+      properties:
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChatLogprobsContent'
+            type: array
+          - type: 'null'
+          title: Content
+          description: A list of message content tokens with log probability information.
+      type: object
+      title: ChatLogprobs
+    UserMessage:
+      properties:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: The role of the message's author.
+        content:
+          anyOf:
+          - type: string
+            description: 'The content of user message, which is plain text.
+
+
+              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
+          - items:
+              $ref: '#/components/schemas/UserMessageContentMultiModal'
+            type: array
+            description: 'The content of user message.
+
+
+              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          title: Content
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: UserMessage
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

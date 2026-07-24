@@ -1,0 +1,523 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio File API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: File
+paths:
+  /beta/file:
+    post:
+      tags:
+      - File
+      summary: Initiate file upload
+      description: Initiate file upload.
+      operationId: init_upload
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FileInitUploadRequest'
+      responses:
+        '200':
+          description: OK - File is already uploaded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileInitUploadResponse'
+        '202':
+          description: Accepted - Return upload URL.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileInitUploadResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: initUpload
+      x-mint:
+        metadata:
+          title: Initiate File Upload
+          sidebarTitle: Initiate File Upload
+          og:title: Initiate File Upload
+          description: Start a new file upload to Friendli Suite via the API. Returns a file ID and pre-signed upload URL to begin transferring your file data.
+          og:description: Start a new file upload to Friendli Suite via the API. Returns a file ID and pre-signed upload URL to begin transferring your file data.
+        href: /openapi/file/init-file-upload
+        content: 'Initiate file upload.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/file/{file_id}:
+    patch:
+      tags:
+      - File
+      summary: Complete file upload
+      description: Complete file upload.
+      operationId: complete_upload
+      security:
+      - token: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: File ID
+          title: File Id
+        description: File ID
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: completeUpload
+      x-mint:
+        metadata:
+          title: Complete File Upload
+          sidebarTitle: Complete File Upload
+          og:title: Complete File Upload
+          description: Finalize a multipart file upload to Friendli Suite via the API. Call this endpoint after all file parts have been uploaded to mark the file as ready.
+          og:description: Finalize a multipart file upload to Friendli Suite via the API. Call this endpoint after all file parts have been uploaded to mark the file as ready.
+        href: /openapi/file/complete-file-upload
+        content: 'Complete file upload.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - File
+      summary: Get file info
+      description: Get file info.
+      operationId: get_info
+      security:
+      - token: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: File ID
+          title: File Id
+        description: File ID
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileInfo'
+              examples:
+                Example:
+                  value:
+                    id: file-id
+                    name: file-name
+                    size: 1024
+                    digest: file-digest
+                    project_id: project-id
+                    creator_id: creator-id
+                    created_at: 1705244400
+                    expires_at: 1765724399
+                    status: UPLOADED
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: getInfo
+      x-mint:
+        metadata:
+          title: Get File Info
+          sidebarTitle: Get File Info
+          og:title: Get File Info
+          description: Retrieve metadata for a file stored in Friendli Suite by file ID via the API. Returns filename, size, upload status, and creation timestamp.
+          og:description: Retrieve metadata for a file stored in Friendli Suite by file ID via the API. Returns filename, size, upload status, and creation timestamp.
+        href: /openapi/file/get-file-info
+        content: 'Get file info.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/file/{file_id}/download_url:
+    get:
+      tags:
+      - File
+      summary: Get file download URL
+      description: Get file download URL.
+      operationId: get_download_url
+      security:
+      - token: []
+      parameters:
+      - name: file_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: File ID
+          title: File Id
+        description: File ID
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileGetDownloadUrlResponse'
+              examples:
+                Example:
+                  value:
+                    id: file-id
+                    s3_uri: s3-uri
+                    download_url: download-url
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: getDownloadUrl
+      x-mint:
+        metadata:
+          title: Get File Download URL
+          sidebarTitle: Get File Download URL
+          og:title: Get File Download URL
+          description: Get a pre-signed download URL for a file stored in Friendli Suite via the API. Use the returned URL to download the file with standard HTTP clients.
+          og:description: Get a pre-signed download URL for a file stored in Friendli Suite via the API. Use the returned URL to download the file with standard HTTP clients.
+        href: /openapi/file/get-file-download-url
+        content: 'Get file download URL.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+components:
+  schemas:
+    FileInitUploadRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the file.
+        size:
+          type: integer
+          title: Size
+          description: Size of the file in bytes.
+        digest:
+          type: string
+          pattern: ^[a-zA-Z0-9_+.-]+:[a-fA-F0-9]+$
+          title: Digest
+          description: Digest of the file.
+        projectId:
+          type: string
+          title: Projectid
+          description: ID of the project the file belongs to.
+      type: object
+      required:
+      - name
+      - size
+      - digest
+      - projectId
+      title: FileInitUploadRequest
+      description: Initiate file upload request.
+    FileInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the file.
+        name:
+          type: string
+          title: Name
+          description: Name of the file.
+        size:
+          type: integer
+          title: Size
+          description: Size of the file in bytes.
+        digest:
+          type: string
+          title: Digest
+          description: SHA256 hash of the file.
+        projectId:
+          type: string
+          title: Projectid
+          description: ID of the project the file belongs to.
+        creatorId:
+          type: string
+          title: Creatorid
+          description: ID of the creator of the file.
+        createdAt:
+          type: string
+          format: date-time
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the file was created.
+        expiresAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expiresat
+          description: Unix timestamp (in seconds) of when the file will expire.
+        status:
+          $ref: '#/components/schemas/AccountFileStatus'
+          description: Status of the file upload.
+      type: object
+      required:
+      - id
+      - name
+      - size
+      - digest
+      - projectId
+      - creatorId
+      - createdAt
+      - expiresAt
+      - status
+      title: FileInfo
+      description: File information.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccountFileStatus:
+      type: string
+      enum:
+      - UPLOADING
+      - UPLOADED
+      - FAILED
+      - DELETED
+      title: AccountFileStatus
+      description: AccountFile status.
+    FileInitUploadResponse:
+      properties:
+        fileId:
+          type: string
+          title: Fileid
+          description: ID of the file.
+        uploadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uploadurl
+          description: Upload URL of the file. `None` if the file is already uploaded.
+        aws:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Aws
+          description: AWS fields to be uploaded with file.
+      type: object
+      required:
+      - fileId
+      title: FileInitUploadResponse
+      description: Initiate file upload response.
+    FileGetDownloadUrlResponse:
+      properties:
+        fileId:
+          type: string
+          title: Fileid
+          description: ID of the file.
+        s3Uri:
+          type: string
+          title: S3Uri
+          description: S3 URI of the file.
+        downloadUrl:
+          type: string
+          title: Downloadurl
+          description: Download URL of the file.
+      type: object
+      required:
+      - fileId
+      - s3Uri
+      - downloadUrl
+      title: FileGetDownloadUrlResponse
+      description: Get download URL response.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

@@ -1,0 +1,1691 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dedicated.Responses API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dedicated.Responses
+paths:
+  /dedicated/v1/responses:
+    post:
+      tags:
+      - Dedicated.Responses
+      summary: Responses
+      description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+      operationId: dedicatedResponses
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedResponsesBody'
+      responses:
+        '200':
+          description: Successfully generated a response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedResponsesSuccess'
+              examples:
+                Example:
+                  value:
+                    id: resp_4b71d12c86d94e719c7e3984a7bb7941
+                    object: response
+                    created_at: 1735722153
+                    status: completed
+                    output:
+                    - type: message
+                      id: msg_4b71d12c86d94e719c7e3984a7bb7941
+                      status: completed
+                      role: assistant
+                      content:
+                      - type: output_text
+                        text: Hello there, how may I assist you today?
+                    usage:
+                      input_tokens: 9
+                      input_tokens_details:
+                        cached_tokens: 0
+                      output_tokens: 11
+                      output_tokens_details:
+                        reasoning_tokens: 0
+                      total_tokens: 20
+                    model: (endpoint-id)
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: responses
+      x-mint:
+        metadata:
+          title: Dedicated Responses
+          sidebarTitle: Responses
+          og:title: Dedicated Responses
+          description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+          og:description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+          tag: Beta
+        href: /openapi/dedicated/inference/responses
+        content: 'Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/responses-chunk-object).
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/v1/responses#stream:
+    post:
+      tags:
+      - Dedicated.Responses
+      summary: Stream responses
+      description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+      operationId: dedicatedResponsesStream
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedResponsesStreamBody'
+      responses:
+        '200':
+          description: Successfully generated a streamed response.
+          content:
+            text/event-stream:
+              examples:
+                Example:
+                  value: 'event: response.created
+
+                    data: {"type":"response.created","response":{"id":"resp_4b71d12c86d94e719c7e3984a7bb7941","object":"response","created_at":1735722153,"status":"in_progress","output":[]},"sequence_number":0}
+
+
+                    event: response.output_item.added
+
+                    data: {"type":"response.output_item.added","output_index":0,"item":{"type":"message","id":"msg_4b71d12c86d94e719c7e3984a7bb7941","status":"in_progress","role":"assistant","content":[]},"sequence_number":1}
+
+
+                    event: response.content_part.added
+
+                    data: {"type":"response.content_part.added","item_id":"msg_4b71d12c86d94e719c7e3984a7bb7941","output_index":0,"content_index":0,"part":{"type":"output_text","text":""},"sequence_number":2}
+
+
+                    event: response.output_text.delta
+
+                    data: {"type":"response.output_text.delta","item_id":"msg_4b71d12c86d94e719c7e3984a7bb7941","output_index":0,"content_index":0,"delta":"Hello","sequence_number":3}
+
+
+                    ...
+
+
+                    event: response.output_text.done
+
+                    data: {"type":"response.output_text.done","item_id":"msg_4b71d12c86d94e719c7e3984a7bb7941","output_index":0,"content_index":0,"text":"Hello there, how may I assist you today?","sequence_number":8}
+
+
+                    event: response.content_part.done
+
+                    data: {"type":"response.content_part.done","item_id":"msg_4b71d12c86d94e719c7e3984a7bb7941","output_index":0,"content_index":0,"part":{"type":"output_text","text":"Hello there, how may I assist you today?"},"sequence_number":9}
+
+
+                    event: response.output_item.done
+
+                    data: {"type":"response.output_item.done","output_index":0,"item":{"type":"message","id":"msg_4b71d12c86d94e719c7e3984a7bb7941","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Hello there, how may I assist you today?"}]},"sequence_number":10}
+
+
+                    event: response.completed
+
+                    data: {"type":"response.completed","response":{"id":"resp_4b71d12c86d94e719c7e3984a7bb7941","object":"response","created_at":1735722153,"status":"completed","output":[{"type":"message","id":"msg_4b71d12c86d94e719c7e3984a7bb7941","status":"completed","role":"assistant","content":[{"type":"output_text","text":"Hello there, how may I assist you today?"}]}],"usage":{"input_tokens":9,"input_tokens_details":{"cached_tokens":0},"output_tokens":11,"output_tokens_details":{"reasoning_tokens":0},"total_tokens":20},"model":"(endpoint-id)"},"sequence_number":11}
+
+                    '
+              schema:
+                $ref: '#/components/schemas/DedicatedResponsesStreamSuccess'
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: stream
+      x-mint:
+        metadata:
+          title: Dedicated Stream Responses
+          sidebarTitle: Stream Responses
+          og:title: Dedicated Stream Responses
+          description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+          og:description: Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+          tag: Beta
+        content: 'Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/responses-chunk-object).
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+components:
+  schemas:
+    ResponsesStreamResponseEvent:
+      properties:
+        type:
+          type: string
+          enum:
+          - response.created
+          - response.in_progress
+          - response.completed
+          - response.incomplete
+          - response.failed
+          title: Type
+          description: The type of the event.
+        response:
+          $ref: '#/components/schemas/ResponsesSuccess'
+          description: The response snapshot associated with this lifecycle event.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - response
+      - sequence_number
+      title: ResponsesStreamResponseEvent
+    ResponsesStreamReasoningTextDone:
+      properties:
+        type:
+          type: string
+          const: response.reasoning_text.done
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the reasoning output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the reasoning content part.
+        text:
+          type: string
+          title: Text
+          description: The full text of the completed reasoning content.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - text
+      - sequence_number
+      title: ResponsesStreamReasoningTextDone
+    ResponsesInputTokensDetails:
+      properties:
+        cached_tokens:
+          type: integer
+          title: Cached Tokens
+          description: The number of tokens that were retrieved from the cache.
+      type: object
+      required:
+      - cached_tokens
+      title: ResponsesInputTokensDetails
+    ResponsesTextFormatJsonSchema:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: The type of response format being defined. Always `json_schema`.
+        name:
+          type: string
+          title: Name
+          description: The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+          description: The schema for the response format, described as a JSON Schema object.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the response format is for, used by the model to determine how to respond in the format.
+        strict:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict
+          description: Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`.
+      type: object
+      required:
+      - type
+      - name
+      - schema
+      title: ResponsesTextFormatJsonSchema
+    ResponsesFunctionTool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the function tool. Always `function`.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to call.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: A JSON schema object describing the parameters of the function.
+        strict:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict
+          description: Whether to enforce strict parameter validation. Default `true`.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of the function. Used by the model to determine whether or not to call the function.
+      type: object
+      required:
+      - type
+      - name
+      - parameters
+      title: ResponsesFunctionTool
+    ResponsesInputText:
+      properties:
+        type:
+          type: string
+          const: input_text
+          title: Type
+          description: The type of the input item. Always `input_text`.
+        text:
+          type: string
+          title: Text
+          description: The text input to the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesInputText
+    ResponsesFunctionCallOutput:
+      properties:
+        type:
+          type: string
+          const: function_call_output
+          title: Type
+          description: The type of the function tool call output. Always `function_call_output`.
+        call_id:
+          type: string
+          title: Call Id
+          description: The unique ID of the function tool call generated by the model.
+        output:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesFunctionCallOutputContent'
+            type: array
+          title: Output
+          description: Text or image output of the function tool call. Can be a JSON string of the output, or an array of content parts (text or image).
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The unique ID of the function tool call output.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - in_progress
+            - completed
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
+      type: object
+      required:
+      - type
+      - call_id
+      - output
+      title: ResponsesFunctionCallOutput
+    ResponsesTextFormatText:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of response format being defined. Always `text`.
+      type: object
+      required:
+      - type
+      title: ResponsesTextFormatText
+    ResponsesContentBlock:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesInputText'
+        title: Input Text
+      - $ref: '#/components/schemas/ResponsesInputImage'
+        title: Input Image
+      - $ref: '#/components/schemas/ResponsesOutputText'
+        title: Output Text
+      - $ref: '#/components/schemas/ResponsesRefusal'
+        title: Refusal
+      discriminator:
+        propertyName: type
+        mapping:
+          input_image: '#/components/schemas/ResponsesInputImage'
+          input_text: '#/components/schemas/ResponsesInputText'
+          output_text: '#/components/schemas/ResponsesOutputText'
+          refusal: '#/components/schemas/ResponsesRefusal'
+    ResponsesReasoningSummaryText:
+      properties:
+        type:
+          type: string
+          const: summary_text
+          title: Type
+          description: The type of the object. Always `summary_text`.
+        text:
+          type: string
+          title: Text
+          description: A summary of the reasoning output from the model so far.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesReasoningSummaryText
+    ResponsesStreamFunctionCallArgumentsDone:
+      properties:
+        type:
+          type: string
+          const: response.function_call_arguments.done
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        arguments:
+          type: string
+          title: Arguments
+          description: The function-call arguments.
+        name:
+          type: string
+          title: Name
+          description: The name of the function that was called.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - arguments
+      - name
+      - sequence_number
+      title: ResponsesStreamFunctionCallArgumentsDone
+    ResponsesSuccess:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for this response.
+        object:
+          type: string
+          const: response
+          title: Object
+          description: The object type of this resource - always set to `response`.
+        created_at:
+          type: integer
+          title: Created At
+          description: Unix timestamp (in seconds) of when this response was created.
+        error:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesError'
+          - type: 'null'
+          description: An error object returned when the model fails to generate a Response.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - completed
+            - failed
+            - in_progress
+            - cancelled
+            - queued
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
+        output:
+          items:
+            $ref: '#/components/schemas/ResponsesOutputItem'
+          type: array
+          title: Output
+          description: An array of content items generated by the model.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesUsage'
+          - type: 'null'
+          description: Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
+        incomplete_details:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesIncompleteDetails'
+          - type: 'null'
+          description: Details about why the response is incomplete.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Model ID used to generate the response.
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - object
+      - created_at
+      - output
+      title: ResponsesSuccess
+    ResponsesStreamOutputItemDone:
+      properties:
+        type:
+          type: string
+          const: response.output_item.done
+          title: Type
+          description: The type of the event.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item that was marked done.
+        item:
+          $ref: '#/components/schemas/ResponsesOutputItem'
+          description: The completed output item.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - output_index
+      - item
+      - sequence_number
+      title: ResponsesStreamOutputItemDone
+    ResponsesInputItem:
+      anyOf:
+      - $ref: '#/components/schemas/ResponsesInputMessage'
+      - $ref: '#/components/schemas/ResponsesFunctionCall'
+      - $ref: '#/components/schemas/ResponsesFunctionCallOutput'
+      - $ref: '#/components/schemas/ResponsesCustomToolCall'
+      - $ref: '#/components/schemas/ResponsesCustomToolCallOutput'
+      - $ref: '#/components/schemas/ResponsesReasoningItem'
+      title: ResponsesInputItem
+    ResponsesStreamContentPartAdded:
+      properties:
+        type:
+          type: string
+          const: response.content_part.added
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item the content part was added to.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        part:
+          $ref: '#/components/schemas/ResponsesContentPart'
+          description: The content part that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - part
+      - sequence_number
+      title: ResponsesStreamContentPartAdded
+    ResponsesCustomToolCallOutputContent:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesInputText'
+        title: Input Text
+      - $ref: '#/components/schemas/ResponsesInputImage'
+        title: Input Image
+      discriminator:
+        propertyName: type
+        mapping:
+          input_image: '#/components/schemas/ResponsesInputImage'
+          input_text: '#/components/schemas/ResponsesInputText'
+    ResponsesRefusal:
+      properties:
+        type:
+          type: string
+          const: refusal
+          title: Type
+          description: The type of the refusal. Always `refusal`.
+        refusal:
+          type: string
+          title: Refusal
+          description: The refusal explanation from the model.
+      type: object
+      required:
+      - type
+      - refusal
+      title: ResponsesRefusal
+    ResponsesCustomToolCall:
+      properties:
+        type:
+          type: string
+          const: custom_tool_call
+          title: Type
+          description: The type of the custom tool call. Always `custom_tool_call`.
+        call_id:
+          type: string
+          title: Call Id
+          description: An identifier used to map this custom tool call to a tool call output.
+        name:
+          type: string
+          title: Name
+          description: The name of the custom tool being called.
+        input:
+          type: string
+          title: Input
+          description: The input for the custom tool call generated by the model.
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The unique ID of the custom tool call.
+      type: object
+      required:
+      - type
+      - call_id
+      - name
+      - input
+      title: ResponsesCustomToolCall
+    ResponsesToolChoiceCustom:
+      properties:
+        type:
+          type: string
+          const: custom
+          title: Type
+          description: For custom tool calling, the type is always `custom`.
+        name:
+          type: string
+          title: Name
+          description: The name of the custom tool to call.
+      type: object
+      required:
+      - type
+      - name
+      title: ResponsesToolChoiceCustom
+    ResponsesStreamEvent:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesStreamResponseEvent'
+        title: Response
+      - $ref: '#/components/schemas/ResponsesStreamOutputItemAdded'
+        title: Output Item Added
+      - $ref: '#/components/schemas/ResponsesStreamOutputItemDone'
+        title: Output Item Done
+      - $ref: '#/components/schemas/ResponsesStreamContentPartAdded'
+        title: Content Part Added
+      - $ref: '#/components/schemas/ResponsesStreamContentPartDone'
+        title: Content Part Done
+      - $ref: '#/components/schemas/ResponsesStreamOutputTextDelta'
+        title: Output Text Delta
+      - $ref: '#/components/schemas/ResponsesStreamOutputTextDone'
+        title: Output Text Done
+      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDelta'
+        title: Reasoning Text Delta
+      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDone'
+        title: Reasoning Text Done
+      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
+        title: Function Call Arguments Delta
+      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
+        title: Function Call Arguments Done
+      discriminator:
+        propertyName: type
+        mapping:
+          response.completed: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.content_part.added: '#/components/schemas/ResponsesStreamContentPartAdded'
+          response.content_part.done: '#/components/schemas/ResponsesStreamContentPartDone'
+          response.created: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.failed: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.function_call_arguments.delta: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
+          response.function_call_arguments.done: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
+          response.in_progress: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.incomplete: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.output_item.added: '#/components/schemas/ResponsesStreamOutputItemAdded'
+          response.output_item.done: '#/components/schemas/ResponsesStreamOutputItemDone'
+          response.output_text.delta: '#/components/schemas/ResponsesStreamOutputTextDelta'
+          response.output_text.done: '#/components/schemas/ResponsesStreamOutputTextDone'
+          response.reasoning_text.delta: '#/components/schemas/ResponsesStreamReasoningTextDelta'
+          response.reasoning_text.done: '#/components/schemas/ResponsesStreamReasoningTextDone'
+    DedicatedResponsesStreamSuccess:
+      properties:
+        data:
+          $ref: '#/components/schemas/ResponsesStreamEvent'
+          description: A server-sent event containing a streamed Responses API update.
+      type: object
+      required:
+      - data
+      title: DedicatedResponsesStreamSuccess
+    ResponsesStreamFunctionCallArgumentsDelta:
+      properties:
+        type:
+          type: string
+          const: response.function_call_arguments.delta
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        delta:
+          type: string
+          title: Delta
+          description: The function-call arguments delta that is added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - delta
+      - sequence_number
+      title: ResponsesStreamFunctionCallArgumentsDelta
+    ResponsesError:
+      properties:
+        code:
+          type: string
+          enum:
+          - server_error
+          - rate_limit_exceeded
+          - invalid_prompt
+          - vector_store_timeout
+          - invalid_image
+          - invalid_image_format
+          - invalid_base64_image
+          - invalid_image_url
+          - image_too_large
+          - image_too_small
+          - image_parse_error
+          - image_content_policy_violation
+          - invalid_image_mode
+          - image_file_too_large
+          - unsupported_image_media_type
+          - empty_image_file
+          - failed_to_download_image
+          - image_file_not_found
+          title: Code
+          description: The error code for the response.
+        message:
+          type: string
+          title: Message
+          description: A human-readable description of the error.
+      type: object
+      required:
+      - code
+      - message
+      title: ResponsesError
+    ResponsesCustomToolCallOutput:
+      properties:
+        type:
+          type: string
+          const: custom_tool_call_output
+          title: Type
+          description: The type of the custom tool call output. Always `custom_tool_call_output`.
+        call_id:
+          type: string
+          title: Call Id
+          description: The call ID, used to map this custom tool call output to a custom tool call.
+        output:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesCustomToolCallOutputContent'
+            type: array
+          title: Output
+          description: Text or image output of the custom tool call generated by your code. Can be a string of the output, or an array of content parts (text or image).
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The unique ID of the custom tool call output.
+      type: object
+      required:
+      - type
+      - call_id
+      - output
+      title: ResponsesCustomToolCallOutput
+    ResponsesOutputMessage:
+      properties:
+        type:
+          type: string
+          const: message
+          title: Type
+          description: The type of the output message. Always `message`.
+        id:
+          type: string
+          title: Id
+          description: The unique ID of the output message.
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the output message. Always `assistant`.
+        status:
+          type: string
+          enum:
+          - in_progress
+          - completed
+          - incomplete
+          title: Status
+          description: The status of the message. One of `in_progress`, `completed`, or `incomplete`.
+        content:
+          items:
+            $ref: '#/components/schemas/ResponsesOutputText'
+          type: array
+          title: Content
+          description: The content of the output message.
+      type: object
+      required:
+      - type
+      - id
+      - role
+      - status
+      - content
+      title: ResponsesOutputMessage
+    ResponsesFunctionCallOutputContent:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesInputText'
+        title: Input Text
+      - $ref: '#/components/schemas/ResponsesInputImage'
+        title: Input Image
+      discriminator:
+        propertyName: type
+        mapping:
+          input_image: '#/components/schemas/ResponsesInputImage'
+          input_text: '#/components/schemas/ResponsesInputText'
+    ResponsesOutputTokensDetails:
+      properties:
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+          description: The number of reasoning tokens.
+      type: object
+      required:
+      - reasoning_tokens
+      title: ResponsesOutputTokensDetails
+    DedicatedResponsesBody:
+      properties:
+        input:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesInputItem'
+            type: array
+          title: Input
+          description: Text or image inputs to the model, used to generate a response.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: A system (or developer) message inserted into the model's context.
+        max_output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Output Tokens
+          description: An upper bound for the number of tokens that can be generated for a response, including visible output tokens and reasoning tokens.
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with `top_p` probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or `temperature` but not both.
+        parallel_tool_calls:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parallel Tool Calls
+          description: Whether to allow the model to run tool calls in parallel.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResponsesTool'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.
+        tool_choice:
+          anyOf:
+          - anyOf:
+            - type: string
+              enum:
+              - none
+              - auto
+              - required
+            - $ref: '#/components/schemas/ResponsesToolChoiceFunction'
+            - $ref: '#/components/schemas/ResponsesToolChoiceCustom'
+            description: Controls which (if any) tool is called by the model. `none` means the model will not call any tool and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `required` means the model must call one or more tools. An object can be used to force the model to call a specific function or custom tool.
+          - type: 'null'
+          title: Tool Choice
+          description: How the model should select which tool (or tools) to use when generating a response. See the `tools` parameter to see how to specify which tools the model can call.
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesTextConfig'
+          - type: 'null'
+          description: Configuration options for a text response from the model. Can be plain text or structured JSON data.
+        reasoning:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesReasoningConfig'
+          - type: 'null'
+          description: Configuration options for reasoning models.
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, the response is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: false
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+      additionalProperties: true
+      type: object
+      required:
+      - input
+      - model
+      title: DedicatedResponsesBody
+      example:
+        input: Hello!
+        model: (endpoint-id)
+    ResponsesIncompleteDetails:
+      properties:
+        reason:
+          anyOf:
+          - type: string
+            const: max_output_tokens
+          - type: 'null'
+          title: Reason
+          description: The reason why the response is incomplete.
+      type: object
+      title: ResponsesIncompleteDetails
+    ResponsesOutputText:
+      properties:
+        type:
+          type: string
+          const: output_text
+          title: Type
+          description: The type of the output text. Always `output_text`.
+        text:
+          type: string
+          title: Text
+          description: The text output from the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesOutputText
+    ResponsesReasoningText:
+      properties:
+        type:
+          type: string
+          const: reasoning_text
+          title: Type
+          description: The type of the reasoning text. Always `reasoning_text`.
+        text:
+          type: string
+          title: Text
+          description: The reasoning text from the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesReasoningText
+    ResponsesUsage:
+      properties:
+        input_tokens:
+          type: integer
+          title: Input Tokens
+          description: The number of input tokens.
+        input_tokens_details:
+          $ref: '#/components/schemas/ResponsesInputTokensDetails'
+          description: A detailed breakdown of the input tokens.
+        output_tokens:
+          type: integer
+          title: Output Tokens
+          description: The number of output tokens.
+        output_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesOutputTokensDetails'
+          - type: 'null'
+          description: A detailed breakdown of the output tokens.
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: The total number of tokens used.
+      type: object
+      required:
+      - input_tokens
+      - input_tokens_details
+      - output_tokens
+      - total_tokens
+      title: ResponsesUsage
+    ResponsesTextFormatJsonObject:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: The type of response format being defined. Always `json_object`.
+      type: object
+      required:
+      - type
+      title: ResponsesTextFormatJsonObject
+    ResponsesStreamReasoningTextDelta:
+      properties:
+        type:
+          type: string
+          const: response.reasoning_text.delta
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the reasoning output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the reasoning content part.
+        delta:
+          type: string
+          title: Delta
+          description: The text delta that was added to the reasoning content.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - delta
+      - sequence_number
+      title: ResponsesStreamReasoningTextDelta
+    ResponsesReasoningConfig:
+      properties:
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - none
+            - minimal
+            - low
+            - medium
+            - high
+            - xhigh
+            - max
+            - ultracode
+          - type: 'null'
+          title: Effort
+          description: Constrains effort on reasoning for reasoning models. Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, and `ultracode`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+      type: object
+      title: ResponsesReasoningConfig
+    ResponsesStreamOutputItemAdded:
+      properties:
+        type:
+          type: string
+          const: response.output_item.added
+          title: Type
+          description: The type of the event.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item that was added.
+        item:
+          $ref: '#/components/schemas/ResponsesOutputItem'
+          description: The output item that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - output_index
+      - item
+      - sequence_number
+      title: ResponsesStreamOutputItemAdded
+    ResponsesTool:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesFunctionTool'
+        title: Function
+      - $ref: '#/components/schemas/ResponsesCustomTool'
+        title: Custom
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/ResponsesCustomTool'
+          function: '#/components/schemas/ResponsesFunctionTool'
+    ResponsesReasoningItem:
+      properties:
+        type:
+          type: string
+          const: reasoning
+          title: Type
+          description: The type of the object. Always `reasoning`.
+        id:
+          type: string
+          title: Id
+          description: The unique identifier of the reasoning content.
+        summary:
+          items:
+            $ref: '#/components/schemas/ResponsesReasoningSummaryText'
+          type: array
+          title: Summary
+          description: Reasoning summary content.
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResponsesReasoningText'
+            type: array
+          - type: 'null'
+          title: Content
+          description: Reasoning text content.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - in_progress
+            - completed
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
+      type: object
+      required:
+      - type
+      - id
+      - summary
+      title: ResponsesReasoningItem
+    ResponsesContentPart:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesOutputText'
+        title: Output Text
+      - $ref: '#/components/schemas/ResponsesReasoningText'
+        title: Reasoning Text
+      discriminator:
+        propertyName: type
+        mapping:
+          output_text: '#/components/schemas/ResponsesOutputText'
+          reasoning_text: '#/components/schemas/ResponsesReasoningText'
+    ResponsesTextConfig:
+      properties:
+        format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesTextFormat'
+          - type: 'null'
+          description: 'An object specifying the format that the model must output. Configuring `{ "type": "json_schema" }` enables Structured Outputs. The default format is `{ "type": "text" }`.'
+      type: object
+      title: ResponsesTextConfig
+    ResponsesTextFormat:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesTextFormatText'
+        title: Text
+      - $ref: '#/components/schemas/ResponsesTextFormatJsonSchema'
+        title: JSON Schema
+      - $ref: '#/components/schemas/ResponsesTextFormatJsonObject'
+        title: JSON Object
+      discriminator:
+        propertyName: type
+        mapping:
+          json_object: '#/components/schemas/ResponsesTextFormatJsonObject'
+          json_schema: '#/components/schemas/ResponsesTextFormatJsonSchema'
+          text: '#/components/schemas/ResponsesTextFormatText'
+    ResponsesOutputItem:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesOutputMessage'
+        title: Message
+      - $ref: '#/components/schemas/ResponsesReasoningItem'
+        title: Reasoning
+      - $ref: '#/components/schemas/ResponsesFunctionCall'
+        title: Function Tool Call
+      discriminator:
+        propertyName: type
+        mapping:
+          function_call: '#/components/schemas/ResponsesFunctionCall'
+          message: '#/components/schemas/ResponsesOutputMessage'
+          reasoning: '#/components/schemas/ResponsesReasoningItem'
+    ResponsesInputMessage:
+      properties:
+        role:
+          type: string
+          enum:
+          - user
+          - assistant
+          - system
+          - developer
+          title: Role
+          description: The role of the message input. One of `user`, `assistant`, `system`, or `developer`.
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesContentBlock'
+            type: array
+          title: Content
+          description: Text or image input to the model. Can also contain previous assistant responses.
+        type:
+          anyOf:
+          - type: string
+            const: message
+          - type: 'null'
+          title: Type
+          description: The type of the message input. Always `message`.
+      type: object
+      required:
+      - role
+      - content
+      title: ResponsesInputMessage
+    ResponsesStreamContentPartDone:
+      properties:
+        type:
+          type: string
+          const: response.content_part.done
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item the content part belongs to.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        part:
+          $ref: '#/components/schemas/ResponsesContentPart'
+          description: The completed content part.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - part
+      - sequence_number
+      title: ResponsesStreamContentPartDone
+    ResponsesToolChoiceFunction:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: For function calling, the type is always `function`.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - type
+      - name
+      title: ResponsesToolChoiceFunction
+    DedicatedResponsesSuccess:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: Unique identifier for this response.
+        object:
+          type: string
+          const: response
+          title: Object
+          description: The object type of this resource - always set to `response`.
+        created_at:
+          type: integer
+          title: Created At
+          description: Unix timestamp (in seconds) of when this response was created.
+        error:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesError'
+          - type: 'null'
+          description: An error object returned when the model fails to generate a Response.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - completed
+            - failed
+            - in_progress
+            - cancelled
+            - queued
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
+        output:
+          items:
+            $ref: '#/components/schemas/ResponsesOutputItem'
+          type: array
+          title: Output
+          description: An array of content items generated by the model.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesUsage'
+          - type: 'null'
+          description: Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
+        incomplete_details:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesIncompleteDetails'
+          - type: 'null'
+          description: Details about why the response is incomplete.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Model ID used to generate the response.
+      additionalProperties: true
+      type: object
+      required:
+      - id
+      - object
+      - created_at
+      - output
+      title: DedicatedResponsesSuccess
+    DedicatedResponsesStreamBody:
+      properties:
+        input:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesInputItem'
+            type: array
+          title: Input
+          description: Text or image inputs to the model, used to generate a response.
+        instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instructions
+          description: A system (or developer) message inserted into the model's context.
+        max_output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Output Tokens
+          description: An upper bound for the number of tokens that can be generated for a response, including visible output tokens and reasoning tokens.
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both.
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with `top_p` probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or `temperature` but not both.
+        parallel_tool_calls:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Parallel Tool Calls
+          description: Whether to allow the model to run tool calls in parallel.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResponsesTool'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: An array of tools the model may call while generating a response. You can specify which tool to use by setting the `tool_choice` parameter.
+        tool_choice:
+          anyOf:
+          - anyOf:
+            - type: string
+              enum:
+              - none
+              - auto
+              - required
+            - $ref: '#/components/schemas/ResponsesToolChoiceFunction'
+            - $ref: '#/components/schemas/ResponsesToolChoiceCustom'
+            description: Controls which (if any) tool is called by the model. `none` means the model will not call any tool and instead generates a message. `auto` means the model can pick between generating a message or calling one or more tools. `required` means the model must call one or more tools. An object can be used to force the model to call a specific function or custom tool.
+          - type: 'null'
+          title: Tool Choice
+          description: How the model should select which tool (or tools) to use when generating a response. See the `tools` parameter to see how to specify which tools the model can call.
+        text:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesTextConfig'
+          - type: 'null'
+          description: Configuration options for a text response from the model. Can be plain text or structured JSON data.
+        reasoning:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesReasoningConfig'
+          - type: 'null'
+          description: Configuration options for reasoning models.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, the response is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+      additionalProperties: true
+      type: object
+      required:
+      - input
+      - model
+      title: DedicatedResponsesStreamBody
+      example:
+        input: Hello!
+        model: (endpoint-id)
+    ResponsesStreamOutputTextDelta:
+      properties:
+        type:
+          type: string
+          const: response.output_text.delta
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        delta:
+          type: string
+          title: Delta
+          description: The text delta that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - delta
+      - sequence_number
+      title: ResponsesStreamOutputTextDelta
+    ResponsesStreamOutputTextDone:
+      properties:
+        type:
+          type: string
+          const: response.output_text.done
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        text:
+          type: string
+          title: Text
+          description: The text content that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - text
+      - sequence_number
+      title: ResponsesStreamOutputTextDone
+    ResponsesInputImage:
+      properties:
+        type:
+          type: string
+          const: input_image
+          title: Type
+          description: The type of the input item. Always `input_image`.
+        image_url:
+          type: string
+          title: Image Url
+          description: The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ResponsesInputImage
+    ResponsesCustomTool:
+      properties:
+        type:
+          type: string
+          const: custom
+          title: Type
+          description: The type of the custom tool. Always `custom`.
+        name:
+          type: string
+          title: Name
+          description: The name of the custom tool, used to identify it in tool calls.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Optional description of the custom tool, used to provide more context.
+      type: object
+      required:
+      - type
+      - name
+      title: ResponsesCustomTool
+    ResponsesFunctionCall:
+      properties:
+        type:
+          type: string
+          const: function_call
+          title: Type
+          description: The type of the function tool call. Always `function_call`.
+        call_id:
+          type: string
+          title: Call Id
+          description: The unique ID of the function tool call generated by the model.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to run.
+        arguments:
+          type: string
+          title: Arguments
+          description: A JSON string of the arguments to pass to the function.
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The unique ID of the function tool call.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - in_progress
+            - completed
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
+      type: object
+      required:
+      - type
+      - call_id
+      - name
+      - arguments
+      title: ResponsesFunctionCall
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

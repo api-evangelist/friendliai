@@ -1,0 +1,266 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Container.Image API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Container.Image
+paths:
+  /v1/images/generations:
+    servers:
+    - url: http://localhost:8000
+    post:
+      tags:
+      - Container.Image
+      summary: Image generations
+      description: Generate an image from a text prompt.
+      operationId: containerImagesGenerate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerImageGenerationBody'
+        required: true
+      responses:
+        '200':
+          description: Successfully generated image.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerImageGenerateSuccess'
+              examples:
+                Example:
+                  value:
+                    image: <base64 encoded image>
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: generate
+      x-mint:
+        metadata:
+          title: Container Image Generations
+          sidebarTitle: Image Generations
+          og:title: Container Image Generations
+          description: Generate an image from a text prompt.
+          og:description: Generate an image from a text prompt.
+        href: /openapi/container/image-generations
+        content: Generate an image from a text prompt.
+  /v1/images/edits:
+    servers:
+    - url: http://localhost:8000
+    post:
+      tags:
+      - Container.Image
+      summary: Image edits
+      description: Edit an image based on a text prompt.
+      operationId: containerImagesEdit
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerImageEditBody'
+        required: true
+      responses:
+        '200':
+          description: Successfully edited image.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerImageEditSuccess'
+              examples:
+                Example:
+                  value:
+                    image: <base64 encoded image>
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: edit
+      x-mint:
+        metadata:
+          title: Container Image Edits
+          sidebarTitle: Image Edits
+          og:title: Container Image Edits
+          description: Edit an image based on a text prompt.
+          og:description: Edit an image based on a text prompt.
+        href: /openapi/container/image-edits
+        content: Edit an image based on a text prompt.
+components:
+  schemas:
+    ImageGenerationContainerResult:
+      properties:
+        image:
+          type: string
+          format: binary
+          title: Image
+          description: The base64-encoded image.
+      type: object
+      required:
+      - image
+      title: ImageGenerationContainerResult
+    ContainerImageEditSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageEditSuccess
+    ImageInput:
+      properties:
+        image:
+          type: string
+          title: Image
+          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
+          examples:
+          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
+          - data:image/png;base64,...
+      type: object
+      required:
+      - image
+      title: ImageInput
+    ContainerImageGenerationBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        prompt:
+          type: string
+          title: Prompt
+          description: A text description of the desired image.
+        num_inference_steps:
+          type: integer
+          title: Num Inference Steps
+          description: 'The number of inference steps to use during image generation. Defaults to 20. Supported range: [1, 50].'
+          default: 20
+        guidance_scale:
+          type: number
+          title: Guidance Scale
+          description: Adjusts the alignment of the generated image with the input prompt. Higher values (e.g., 8-10) make the output more faithful to the prompt, while lower values (e.g., 1-5) encourage more creative freedom. Defaults to 0. This parameter may be irrelevant for certain models, such as `FLUX.Schnell`.
+          default: 0.0
+        seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: The seed to use for image generation.
+        response_format:
+          anyOf:
+          - type: string
+            enum:
+            - raw
+            - jpeg
+          - type: 'null'
+          title: Response Format
+          description: The format in which the generated image will be returned. One of `raw` and `jpeg`.
+          default: jpeg
+        control_images:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ImageInput'
+            type: array
+          - type: 'null'
+          title: Control Images
+          description: Optional input images used to condition or guide the generation process (e.g., for ControlNet or image editing models). This field is only applicable when using ControlNet or image editing models.
+        controlnet_weights:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Controlnet Weights
+          description: A list of weights that determine the influence of each ControlNet model in the generation process. Each value must be within [0, 1], where 0 disables the corresponding ControlNet and 1 applies it fully. When multiple ControlNet models are used, the list length must match the number of control images. If omitted, all ControlNet models default to full influence (1.0). This field is only applicable when using ControlNet models.
+      type: object
+      required:
+      - prompt
+      title: ContainerImageGenerationBody
+      example:
+        guidance_scale: 3.5
+        num_inference_steps: 10
+        prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
+    ContainerImageGenerateSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageGenerateSuccess
+    ContainerImageEditBody:
+      properties:
+        image:
+          anyOf:
+          - $ref: '#/components/schemas/ImageInput'
+          - items:
+              $ref: '#/components/schemas/ImageInput'
+            type: array
+          title: Image
+          description: The image(s) to edit. Must be in a supported image format.
+        prompt:
+          type: string
+          title: Prompt
+          description: A text description of the desired image.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        num_inference_steps:
+          type: integer
+          title: Num Inference Steps
+          description: 'The number of inference steps to use during image generation. Defaults to 20. Supported range: [1, 50].'
+          default: 20
+        guidance_scale:
+          type: number
+          title: Guidance Scale
+          description: Adjusts the alignment of the generated image with the input prompt. Higher values (e.g., 8-10) make the output more faithful to the prompt, while lower values (e.g., 1-5) encourage more creative freedom. Defaults to 0. This parameter may be irrelevant for certain models, such as `FLUX.Schnell`.
+          default: 0.0
+        seed:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: The seed to use for image generation.
+        response_format:
+          anyOf:
+          - type: string
+            enum:
+            - raw
+            - jpeg
+          - type: 'null'
+          title: Response Format
+          description: The format in which the generated image will be returned. One of `raw` and `jpeg`.
+          default: jpeg
+      type: object
+      required:
+      - image
+      - prompt
+      title: ContainerImageEditBody
+      example:
+        guidance_scale: 0.0
+        image: '@/path/to/file/image.png'
+        num_inference_steps: 20
+        prompt: Add a red sports car in the foreground.
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

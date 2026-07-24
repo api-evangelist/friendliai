@@ -1,0 +1,1739 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dataset API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dataset
+paths:
+  /beta/dataset:
+    post:
+      tags:
+      - Dataset
+      summary: Create a new dataset
+      description: Create a new dataset.
+      operationId: create_dataset
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInfo'
+              examples:
+                Example:
+                  value:
+                    id: 123
+                    name: dataset-name
+                    created_at: 1705244400
+                    updated_at: 1765724399
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: createDataset
+      x-mint:
+        metadata:
+          title: Create a New Dataset
+          sidebarTitle: Create a New Dataset
+          og:title: Create a New Dataset
+          description: Create a new dataset in Friendli Suite via the API. Initialize a dataset resource to organize training and evaluation data with splits and versions.
+          og:description: Create a new dataset in Friendli Suite via the API. Initialize a dataset resource to organize training and evaluation data with splits and versions.
+        href: /openapi/dataset/create-a-new-dataset
+        content: 'Create a new dataset.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - Dataset
+      summary: List datasets
+      description: List datasets accessible to the user.
+      operationId: list_datasets
+      security:
+      - token: []
+      parameters:
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          default: 20
+          title: Limit
+      - name: direction
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - asc
+            - desc
+            type: string
+          - type: 'null'
+          title: Direction
+      - name: projectId
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Projectid
+      - name: nameSearch
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Namesearch
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDatasetsResponse'
+              examples:
+                Example:
+                  value:
+                    data:
+                    - id: 123
+                      name: dataset-name
+                      created_at: 1705244400
+                      updated_at: 1765724399
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: listDatasets
+      x-mint:
+        metadata:
+          title: List Datasets
+          sidebarTitle: List Datasets
+          og:title: List Datasets
+          description: List all datasets in your Friendli Suite project via the API. Returns dataset IDs, names, split counts, and creation timestamps for each entry.
+          og:description: List all datasets in your Friendli Suite project via the API. Returns dataset IDs, names, split counts, and creation timestamps for each entry.
+        href: /openapi/dataset/list-datasets
+        content: 'List datasets.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}:
+    get:
+      tags:
+      - Dataset
+      summary: Get dataset info
+      description: Get information about a specific dataset.
+      operationId: get_dataset
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset to retrieve.
+          title: Dataset Id
+        description: ID of the dataset to retrieve.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetInfo'
+              examples:
+                Example:
+                  value:
+                    id: 123
+                    name: dataset-name
+                    created_at: 1705244400
+                    updated_at: 1765724399
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: getDataset
+      x-mint:
+        metadata:
+          title: Get Dataset Info
+          sidebarTitle: Get Dataset Info
+          og:title: Get Dataset Info
+          description: Retrieve metadata for a Friendli dataset by ID via the API. Returns the dataset name, modality, and creation and update timestamps.
+          og:description: Retrieve metadata for a Friendli dataset by ID via the API. Returns the dataset name, modality, and creation and update timestamps.
+        href: /openapi/dataset/get-dataset-info
+        content: 'Get dataset info.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    delete:
+      tags:
+      - Dataset
+      summary: Delete dataset
+      description: Delete a specific dataset.
+      operationId: delete_dataset
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset to delete.
+          title: Dataset Id
+        description: ID of the dataset to delete.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: deleteDataset
+      x-mint:
+        metadata:
+          title: Delete a Dataset
+          sidebarTitle: Delete a Dataset
+          og:title: Delete a Dataset
+          description: Permanently delete a Friendli dataset by ID via the API. Removes the dataset along with all its splits, versions, and sample data.
+          og:description: Permanently delete a Friendli dataset by ID via the API. Removes the dataset along with all its splits, versions, and sample data.
+        href: /openapi/dataset/delete-dataset
+        content: 'Delete a dataset.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/version:
+    post:
+      tags:
+      - Dataset
+      summary: Create a version
+      description: Create a version for the current state of the split.
+      operationId: create_version
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: comment
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Comment
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: createVersion
+      x-mint:
+        metadata:
+          title: Create a New Version
+          sidebarTitle: Create a New Version
+          og:title: Create a New Version
+          description: Create a new version of a Friendli dataset via the API. Snapshot your current dataset state to track changes and enable reproducible training runs.
+          og:description: Create a new version of a Friendli dataset via the API. Snapshot your current dataset state to track changes and enable reproducible training runs.
+        href: /openapi/dataset/create-a-version
+        content: 'Create a new version.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - Dataset
+      summary: List versions
+      description: List versions for a dataset.
+      operationId: list_versions
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVersionsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: listVersions
+      x-mint:
+        metadata:
+          title: List Versions
+          sidebarTitle: List Versions
+          og:title: List Versions
+          description: List all versions of a Friendli dataset via the API. Returns version IDs, tags, and creation timestamps to track your dataset's revision history.
+          og:description: List all versions of a Friendli dataset via the API. Returns version IDs, tags, and creation timestamps to track your dataset's revision history.
+        href: /openapi/dataset/list-versions
+        content: 'List versions.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/version/{version_id}:
+    get:
+      tags:
+      - Dataset
+      summary: Get version info
+      description: Get a dataset version.
+      operationId: get_version
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the version to get.
+          title: Version Id
+        description: ID of the version to get.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: getVersion
+      x-mint:
+        metadata:
+          title: Get Version Info
+          sidebarTitle: Get Version Info
+          og:title: Get Version Info
+          description: Retrieve metadata for a specific version of a Friendli dataset via the API. Returns the version tag, creation date, and snapshot details.
+          og:description: Retrieve metadata for a specific version of a Friendli dataset via the API. Returns the version tag, creation date, and snapshot details.
+        href: /openapi/dataset/get-version-info
+        content: 'Get version info.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    delete:
+      tags:
+      - Dataset
+      summary: Delete a version
+      description: Delete a version from the dataset.
+      operationId: delete_version
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the version to delete.
+          title: Version Id
+        description: ID of the version to delete.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: deleteVersion
+      x-mint:
+        metadata:
+          title: Delete a Version
+          sidebarTitle: Delete a Version
+          og:title: Delete a Version
+          description: Delete a specific version of a Friendli dataset by ID via the API. Permanently removes the version snapshot and its associated metadata.
+          og:description: Delete a specific version of a Friendli dataset by ID via the API. Permanently removes the version snapshot and its associated metadata.
+        href: /openapi/dataset/delete-a-version
+        content: 'Delete a version.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/split:
+    post:
+      tags:
+      - Dataset
+      summary: Create a split
+      description: Create a new split in the dataset.
+      operationId: create_split
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Name
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: createSplit
+      x-mint:
+        metadata:
+          title: Create a New Split
+          sidebarTitle: Create a New Split
+          og:title: Create a New Split
+          description: Create a new split within a Friendli dataset via the API. Use splits to organize data into training, validation, and test partitions.
+          og:description: Create a new split within a Friendli dataset via the API. Use splits to organize data into training, validation, and test partitions.
+        href: /openapi/dataset/create-a-split
+        content: 'Create a new split.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - Dataset
+      summary: List splits
+      description: List splits in the dataset.
+      operationId: list_splits
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          default: 20
+          title: Limit
+      - name: direction
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - asc
+            - desc
+            type: string
+          - type: 'null'
+          title: Direction
+      - name: versionId
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Versionid
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSplitsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: listSplits
+      x-mint:
+        metadata:
+          title: List Splits
+          sidebarTitle: List Splits
+          og:title: List Splits
+          description: List all splits within a Friendli dataset via the API. Returns split IDs, names, and sample counts for training, validation, and test partitions.
+          og:description: List all splits within a Friendli dataset via the API. Returns split IDs, names, and sample counts for training, validation, and test partitions.
+        href: /openapi/dataset/list-splits
+        content: 'List splits.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/split/{split_id}:
+    get:
+      tags:
+      - Dataset
+      summary: Get split info
+      description: Get information about a specific split.
+      operationId: get_split
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SplitInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: getSplit
+      x-mint:
+        metadata:
+          title: Get Split Info
+          sidebarTitle: Get Split Info
+          og:title: Get Split Info
+          description: Retrieve metadata for a specific split within a Friendli dataset via the API. Returns the split name, sample count, and creation timestamp.
+          og:description: Retrieve metadata for a specific split within a Friendli dataset via the API. Returns the split name, sample count, and creation timestamp.
+        href: /openapi/dataset/get-split-info
+        content: 'Get split info.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    delete:
+      tags:
+      - Dataset
+      summary: Delete split
+      description: Delete a specific split.
+      operationId: delete_split
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: deleteSplit
+      x-mint:
+        metadata:
+          title: Delete a Split
+          sidebarTitle: Delete a Split
+          og:title: Delete a Split
+          description: Delete a split from a Friendli dataset by ID via the API. Permanently removes the split and all sample data it contains from the dataset.
+          og:description: Delete a split from a Friendli dataset by ID via the API. Permanently removes the split and all sample data it contains from the dataset.
+        href: /openapi/dataset/delete-split
+        content: 'Delete a split.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/split/{split_id}/sample:
+    post:
+      tags:
+      - Dataset
+      summary: Add samples
+      description: Add samples to the split.
+      operationId: add_samples
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+              title: Samples
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSamplesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: addSamples
+      x-mint:
+        metadata:
+          title: Add Samples
+          sidebarTitle: Add Samples
+          og:title: Add Samples
+          description: Add new data samples to an existing Friendli dataset split via the API. Append training or evaluation data entries to your dataset programmatically.
+          og:description: Add new data samples to an existing Friendli dataset split via the API. Append training or evaluation data entries to your dataset programmatically.
+        href: /openapi/dataset/add-samples
+        content: 'Add samples to dataset.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - Dataset
+      summary: List samples
+      description: List samples from the split.
+      operationId: list_samples
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          default: 20
+          title: Limit
+      - name: direction
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - asc
+            - desc
+            type: string
+          - type: 'null'
+          title: Direction
+      - name: versionId
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Versionid
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListSamplesResponse'
+        '404':
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: listSamples
+      x-mint:
+        metadata:
+          title: List Samples
+          sidebarTitle: List Samples
+          og:title: List Samples
+          description: List data samples in a Friendli dataset split via the API. Paginate through training or evaluation entries with sample IDs and content previews.
+          og:description: List data samples in a Friendli dataset split via the API. Paginate through training or evaluation entries with sample IDs and content previews.
+        href: /openapi/dataset/list-samples
+        content: 'List samples.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    put:
+      tags:
+      - Dataset
+      summary: Update samples
+      description: Update samples as raw file.
+      operationId: upload_raw_samples
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_raw_samples'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSamplesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: updateSamples
+      x-mint:
+        metadata:
+          title: Update Samples
+          sidebarTitle: Update Samples
+          og:title: Update Samples
+          description: Update existing data samples in a Friendli dataset split via the API. Modify sample content by ID without deleting and re-adding entries.
+          og:description: Update existing data samples in a Friendli dataset split via the API. Modify sample content by ID without deleting and re-adding entries.
+        href: /openapi/dataset/update-samples
+        content: 'Update samples.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /beta/dataset/{dataset_id}/split/{split_id}/sample/delete:
+    post:
+      tags:
+      - Dataset
+      summary: Delete samples
+      description: Delete samples from the split.
+      operationId: delete_samples
+      security:
+      - token: []
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the dataset.
+          title: Dataset Id
+        description: ID of the dataset.
+      - name: split_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the split.
+          title: Split Id
+        description: ID of the split.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                anyOf:
+                - type: string
+                - type: integer
+              title: Sampleids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteSamplesResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: deleteSamples
+      x-mint:
+        metadata:
+          title: Delete Samples
+          sidebarTitle: Delete Samples
+          og:title: Delete Samples
+          description: Delete specific data samples from a Friendli dataset split via the API. Remove individual entries by sample ID from your training or evaluation data.
+          og:description: Delete specific data samples from a Friendli dataset split via the API. Remove individual entries by sample ID from your training or evaluation data.
+        href: /openapi/dataset/delete-samples
+        content: 'Delete samples.
+
+
+          To request successfully, it is required to enter a **Personal API Key** (e.g. flp_XXX) in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn more and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+components:
+  schemas:
+    CreateDatasetRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the dataset.
+        projectId:
+          type: string
+          title: Projectid
+          description: ID of the project.
+        modality:
+          $ref: '#/components/schemas/DedicatedDatasetModality'
+          description: Modality of the dataset.
+      type: object
+      required:
+      - name
+      - projectId
+      - modality
+      title: CreateDatasetRequest
+      description: Create dataset request.
+    SplitInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the split.
+        name:
+          type: string
+          title: Name
+          description: Name of the split.
+        createdAt:
+          type: integer
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the split was created.
+        updatedAt:
+          type: integer
+          title: Updatedat
+          description: Unix timestamp (in seconds) of when the split was last modified.
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      title: SplitInfo
+      description: Split info.
+    ListSamplesResponse:
+      properties:
+        data:
+          items:
+            prefixItems:
+            - type: string
+            - type: string
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Data
+          description: List of items.
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Nextcursor
+          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+      type: object
+      required:
+      - data
+      title: ListSamplesResponse
+      description: List samples response.
+    ListVersionsResponse:
+      properties:
+        versions:
+          items:
+            $ref: '#/components/schemas/VersionInfo'
+          type: array
+          title: Versions
+          description: List of versions.
+      type: object
+      required:
+      - versions
+      title: ListVersionsResponse
+      description: List versions response.
+    Body_upload_raw_samples:
+      properties:
+        file:
+          type: string
+          format: binary
+          title: File
+          description: File to update samples.
+      type: object
+      required:
+      - file
+      title: Body_upload_raw_samples
+    ListSplitsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/SplitInfo'
+          type: array
+          title: Data
+          description: List of items.
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Nextcursor
+          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+      type: object
+      required:
+      - data
+      title: ListSplitsResponse
+      description: List splits response.
+    VersionInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the version.
+        comment:
+          type: string
+          title: Comment
+          description: Comment for the version.
+        createdAt:
+          type: integer
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the version was created.
+      type: object
+      required:
+      - id
+      - comment
+      - createdAt
+      title: VersionInfo
+      description: Version info.
+    AddSamplesResponse:
+      properties:
+        samples:
+          items:
+            prefixItems:
+            - type: string
+            - type: string
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Samples
+          description: List of sample IDs that were added to the dataset.
+      type: object
+      required:
+      - samples
+      title: AddSamplesResponse
+      description: Add samples response.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DedicatedDatasetModality:
+      properties:
+        input_modals:
+          items:
+            $ref: '#/components/schemas/DedicatedDatasetModalityType'
+          type: array
+          title: Input Modals
+          default: []
+        output_modals:
+          items:
+            $ref: '#/components/schemas/DedicatedDatasetModalityType'
+          type: array
+          title: Output Modals
+          default: []
+      type: object
+      title: DedicatedDatasetModality
+      description: Dataset modality.
+    DeleteSamplesResponse:
+      properties:
+        sampleIds:
+          items:
+            type: string
+          type: array
+          title: Sampleids
+          description: List of sample IDs that were deleted from the dataset.
+      type: object
+      required:
+      - sampleIds
+      title: DeleteSamplesResponse
+      description: Delete samples response.
+    DatasetInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the dataset.
+        name:
+          type: string
+          title: Name
+          description: Name of the dataset.
+        createdAt:
+          type: integer
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the dataset was created.
+        updatedAt:
+          type: integer
+          title: Updatedat
+          description: Unix timestamp (in seconds) of when the dataset was last modified.
+        modality:
+          $ref: '#/components/schemas/DedicatedDatasetModality'
+          description: Modality of the dataset.
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - modality
+      title: DatasetInfo
+      description: Dataset info.
+    DedicatedDatasetModalityType:
+      type: string
+      enum:
+      - VIDEO
+      - IMAGE
+      - AUDIO
+      - TEXT
+      title: DedicatedDatasetModalityType
+      description: Modality type.
+    ListDatasetsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetInfo'
+          type: array
+          title: Data
+          description: List of items.
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Nextcursor
+          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+      type: object
+      required:
+      - data
+      title: ListDatasetsResponse
+      description: List datasets response.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

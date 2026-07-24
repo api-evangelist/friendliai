@@ -1,0 +1,371 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Usage API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Usage
+paths:
+  /v1/team/usage:
+    get:
+      tags:
+      - Usage
+      summary: Get usage details for the team.
+      operationId: getUsage
+      security:
+      - token: []
+      parameters:
+      - name: start_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).
+          title: Start Time
+        description: RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).
+      - name: end_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          description: RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.
+          title: End Time
+        description: RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.
+      - name: bucket_width
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/UsageBucketWidth'
+          - type: 'null'
+          description: Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.
+          default: 1d
+          title: Bucket Width
+        description: Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          description: 'Specifies the number of buckets to return.
+
+            - `bucket_width=1d`: default limit = 7, max limit = 31
+
+            - `bucket_width=1h`: default limit = 24, max limit = 168
+
+            - `bucket_width=5m`: default limit = 12, max limit = 288'
+          title: Limit
+        description: 'Specifies the number of buckets to return.
+
+          - `bucket_width=1d`: default limit = 7, max limit = 31
+
+          - `bucket_width=1h`: default limit = 24, max limit = 168
+
+          - `bucket_width=5m`: default limit = 12, max limit = 288'
+      - name: page
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+          title: Page
+        description: A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.
+      - name: group_by
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/UsageGroupBy'
+          - type: 'null'
+          description: Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.
+          title: Group By
+        description: Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.
+      - name: models
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.
+          title: Models
+        description: Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.
+      - name: user_ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Return only usage for these users.
+          title: User Ids
+        description: Return only usage for these users.
+      - name: product_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/ProductType'
+          - type: 'null'
+          description: Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.
+          title: Product Types
+        description: Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.
+      - name: gpu_types
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.
+          title: Gpu Types
+        description: Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Team usage response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+              example:
+                has_more: false
+                data:
+                - start_time: '2023-11-07T00:00:00Z'
+                  end_time: '2023-11-08T00:00:00Z'
+                  results:
+                  - num_model_requests: 1200
+                    input_tokens: 180000
+                    input_cached_tokens: 45000
+                    output_tokens: 62000
+                    product_type: model_apis
+                    model: zai-org/GLM-5.2
+                    user_id: user_id_123
+                - start_time: '2023-11-08T00:00:00Z'
+                  end_time: '2023-11-09T00:00:00Z'
+                  results:
+                  - num_model_requests: 800
+                    input_tokens: 120000
+                    input_cached_tokens: 30000
+                    output_tokens: 41000
+                    product_type: dedicated_endpoints
+                    model: dedicated-endpoint-01
+                    user_id: user_id_456
+                    gpu_usage:
+                      a100: 120000
+                      h100: 80000
+        '400':
+          description: Invalid request parameters
+        '429':
+          description: Rate limit exceeded
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: getUsage
+      x-mint:
+        metadata:
+          title: Usage
+          sidebarTitle: Usage
+          og:title: Usage
+          description: Get usage details for the team.
+          og:description: Get usage details for the team.
+        href: /openapi/administration/usage
+        content: 'Get usage details for the team.
+
+
+          If `X-Friendli-Team` is omitted, this endpoint uses the default team configured in Friendli Suite.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
+components:
+  schemas:
+    UsageBucket:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        results:
+          items:
+            $ref: '#/components/schemas/UsageResult'
+          type: array
+          title: Results
+      type: object
+      required:
+      - start_time
+      - end_time
+      - results
+      title: UsageBucket
+    ProductType:
+      type: string
+      enum:
+      - model_apis
+      - dedicated_endpoints
+      title: ProductType
+    UsageResult:
+      properties:
+        product_type:
+          anyOf:
+          - $ref: '#/components/schemas/ProductType'
+          - type: 'null'
+          description: When `group_by=product_type`, this field provides the product type of the grouped usage result. Supported values are `model_apis` and `dedicated_endpoints`.
+          examples:
+          - model_apis
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: When `group_by=model`, this field provides the model ID of the grouped usage result. For Model APIs usage, this is the model ID. For Dedicated Endpoints usage, this is the endpoint ID.
+          examples:
+          - zai-org/GLM-5.2
+        user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Id
+          description: When `group_by=user_id`, this field provides the user ID of the grouped usage result.
+          examples:
+          - user_id_123
+        num_model_requests:
+          type: integer
+          title: Num Model Requests
+          description: The count of requests made.
+          examples:
+          - 1200
+        input_tokens:
+          type: integer
+          title: Input Tokens
+          description: The aggregated number of input tokens used, including cached tokens.
+          examples:
+          - 180000
+        input_cached_tokens:
+          type: integer
+          title: Input Cached Tokens
+          description: The aggregated number of input tokens that has been cached.
+          examples:
+          - 45000
+        output_tokens:
+          type: integer
+          title: Output Tokens
+          description: The aggregated number of text output tokens used.
+          examples:
+          - 62000
+        gpu_usage:
+          anyOf:
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Gpu Usage
+          description: The GPU time in seconds, keyed by GPU type. Present when a bucket includes Dedicated Endpoints usage. When `group_by=user_id`, this is attributed to the bucket of the user who created the endpoint.
+          examples:
+          - a100: 120000
+            h100: 80000
+        processed_audio_length_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Processed Audio Length Ms
+          description: The number of processed audio length in milliseconds. Present when bucket includes audio processing usage.
+          examples:
+          - 300000
+      type: object
+      required:
+      - num_model_requests
+      - input_tokens
+      - input_cached_tokens
+      - output_tokens
+      title: UsageResult
+    UsageResponse:
+      properties:
+        has_more:
+          type: boolean
+          title: Has More
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+        data:
+          items:
+            $ref: '#/components/schemas/UsageBucket'
+          type: array
+          title: Data
+      type: object
+      required:
+      - has_more
+      - data
+      title: UsageResponse
+    UsageBucketWidth:
+      type: string
+      enum:
+      - 1d
+      - 1h
+      - 5m
+      title: UsageBucketWidth
+    UsageGroupBy:
+      type: string
+      enum:
+      - model
+      - product_type
+      - user_id
+      title: UsageGroupBy
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

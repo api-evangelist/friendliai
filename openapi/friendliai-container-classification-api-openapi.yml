@@ -1,0 +1,208 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Container.Classification API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Container.Classification
+paths:
+  /classify:
+    servers:
+    - url: http://localhost:8000
+    post:
+      tags:
+      - Container.Classification
+      summary: Text classification
+      description: Classify text input into categories with per-class probabilities.
+      operationId: containerTextClassification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContainerTextClassificationBody'
+        required: true
+      responses:
+        '200':
+          description: Successfully classified the text input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerTextClassificationSuccess'
+              examples:
+                Example:
+                  value:
+                    data:
+                    - index: 0
+                      label: Positive
+                      num_classes: 2
+                      probs:
+                      - 0.9
+                      - 0.1
+                    object: list
+                    usage:
+                      prompt_tokens: 5
+                      total_tokens: 5
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: classify
+      x-mint:
+        metadata:
+          title: Container Text Classification
+          sidebarTitle: Text Classification
+          og:title: Container Text Classification
+          description: Classify text input into categories with per-class probabilities.
+          og:description: Classify text input into categories with per-class probabilities.
+        href: /openapi/container/text-classification
+        content: Classify text input into categories with per-class probabilities.
+components:
+  schemas:
+    TextClassificationResult:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BaseClassificationData'
+          type: array
+          title: Data
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        usage:
+          $ref: '#/components/schemas/TextClassificationUsage'
+      type: object
+      required:
+      - data
+      - object
+      - usage
+      title: TextClassificationResult
+    BaseClassificationData:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the input in the list of inputs.
+          examples:
+          - 0
+        label:
+          type: string
+          title: Label
+          description: The predicted label for the input text.
+          examples:
+          - Positive
+        num_classes:
+          type: integer
+          title: Num Classes
+          description: The number of possible labels the model can predict.
+          examples:
+          - 2
+        probs:
+          items:
+            type: number
+          type: array
+          title: Probs
+          description: A list of logits for each possible label.
+          examples:
+          - - 0.1
+            - 0.9
+      type: object
+      required:
+      - index
+      - label
+      - num_classes
+      - probs
+      title: BaseClassificationData
+    TextClassificationUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the input text.
+          examples:
+          - 10
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request.
+          examples:
+          - 10
+      type: object
+      required:
+      - prompt_tokens
+      - total_tokens
+      title: TextClassificationUsage
+    ContainerTextClassificationSuccess:
+      $ref: '#/components/schemas/TextClassificationResult'
+      title: ContainerTextClassificationSuccess
+    ContainerTextClassificationBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        input:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Input
+          description: 'Input text to classify, encoded as a string or array of strings. To classify multiple inputs in a single request, pass an array of strings.
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - I love programming.
+        tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Tokens
+          description: 'The tokenized prompt (i.e., input tokens).
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - 72
+          - 1563
+          - 2335
+          - 13
+      type: object
+      title: ContainerTextClassificationBody
+      example:
+        input: I love programming.
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

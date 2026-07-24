@@ -1,0 +1,483 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dedicated.ChatRender API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dedicated.ChatRender
+paths:
+  /dedicated/v1/chat/render:
+    post:
+      tags:
+      - Dedicated.ChatRender
+      summary: Chat render
+      description: Render a list of chat messages into the prompt text sent to the model.
+      operationId: dedicatedChatRender
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedChatRenderBody'
+      responses:
+        '200':
+          description: Successfully rendered chat messages into prompt text.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedChatRenderSuccess'
+              examples:
+                Example:
+                  value:
+                    text: '<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+                      You are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+                      Hello!<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+                      '
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: render
+      x-mint:
+        metadata:
+          title: Dedicated Chat Render
+          sidebarTitle: Chat Render
+          og:title: Dedicated Chat Render
+          description: Render a list of chat messages into the prompt text sent to the model.
+          og:description: Render a list of chat messages into the prompt text sent to the model.
+        href: /openapi/dedicated/inference/chat-render
+        content: 'Render a list of chat messages into the prompt text sent to the model.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
+components:
+  schemas:
+    VideoContent:
+      properties:
+        type:
+          type: string
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
+      type: object
+      required:
+      - type
+      - video_url
+      title: VideoContent
+    SystemMessage:
+      properties:
+        role:
+          type: string
+          const: system
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of system message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: SystemMessage
+    Tool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
+      type: object
+      required:
+      - type
+      - function
+      title: Tool
+    AssistantMessageToolCall:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of tool call.
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of tool call.
+        function:
+          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
+          description: The function specification
+      type: object
+      required:
+      - id
+      - type
+      - function
+      title: AssistantMessageToolCall
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image_url
+          title: Type
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ImageContent
+    AssistantMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the messages author.
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The content of assistant message. Required unless `tool_calls` is specified.
+        reasoning_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning Content
+          description: The intermediate reasoning content of assistant message.
+        reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning
+          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AssistantMessageToolCall'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: AssistantMessage
+    Message:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+        title: System
+      - $ref: '#/components/schemas/UserMessage'
+        title: User
+      - $ref: '#/components/schemas/AssistantMessage'
+        title: Assistant
+      - $ref: '#/components/schemas/ToolMessage'
+        title: Tool
+      discriminator:
+        propertyName: role
+        mapping:
+          assistant: '#/components/schemas/AssistantMessage'
+          system: '#/components/schemas/SystemMessage'
+          tool: '#/components/schemas/ToolMessage'
+          user: '#/components/schemas/UserMessage'
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message content.
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+      type: object
+      required:
+      - type
+      - text
+      title: TextContent
+    DedicatedChatRenderSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The rendered text.
+      type: object
+      required:
+      - text
+      title: DedicatedChatRenderSuccess
+    AudioData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the audio.
+      type: object
+      required:
+      - url
+      title: AudioData
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
+    AssistantMessageToolCallFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
+      type: object
+      required:
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    ImageData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: ImageData
+    VideoData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the video.
+      type: object
+      required:
+      - url
+      title: VideoData
+    ToolMessage:
+      properties:
+        role:
+          type: string
+          const: tool
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of tool message that contains the result of tool calling.
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of tool call corresponding to this message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: An optional name of the tool call corresponding to this message.
+      type: object
+      required:
+      - role
+      - content
+      - tool_call_id
+      title: ToolMessage
+    Function:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: 'The parameters the functions accepts, described as a JSON Schema object.
+
+            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
+
+            '
+      type: object
+      required:
+      - name
+      - parameters
+      title: Function
+    AudioContent:
+      properties:
+        type:
+          type: string
+          const: audio_url
+          title: Type
+          description: The type of the message content.
+        audio_url:
+          $ref: '#/components/schemas/AudioData'
+          description: The audio URL data.
+      type: object
+      required:
+      - type
+      - audio_url
+      title: AudioContent
+    DedicatedChatRenderBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        messages:
+          items:
+            $ref: '#/components/schemas/Message'
+          type: array
+          title: Messages
+          description: A list of messages comprising the conversation so far.
+          examples:
+          - - content: You are a helpful assistant.
+              role: system
+            - content: Hello!
+              role: user
+        chat_template_kwargs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Chat Template Kwargs
+          description: Additional keyword arguments supplied to the template renderer. These parameters will be available for use within the chat template.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Tool'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: 'A list of tools the model may call.
+
+            Use this to provide a list of functions the model may generate JSON inputs for.
+
+
+            **When `tools` is specified, `min_tokens` and `response_format` fields are unsupported.**'
+      type: object
+      required:
+      - model
+      - messages
+      title: DedicatedChatRenderBody
+      example:
+        messages:
+        - content: You are a helpful assistant.
+          role: system
+        - content: Hello!
+          role: user
+        model: (endpoint-id)
+    UserMessage:
+      properties:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: The role of the message's author.
+        content:
+          anyOf:
+          - type: string
+            description: 'The content of user message, which is plain text.
+
+
+              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
+          - items:
+              $ref: '#/components/schemas/UserMessageContentMultiModal'
+            type: array
+            description: 'The content of user message.
+
+
+              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          title: Content
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: UserMessage
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

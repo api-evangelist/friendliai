@@ -1,0 +1,432 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Serverless.Audio API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Serverless.Audio
+paths:
+  /serverless/v1/audio/transcriptions:
+    post:
+      tags:
+      - Serverless.Audio
+      summary: Audio transcriptions
+      description: Transcribe an audio file into text.
+      operationId: serverlessAudioTranscriptions
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServerlessAudioTranscriptionBody'
+      responses:
+        '200':
+          description: Successfully transcribed the audio file.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerlessAudioTranscriptionSuccess'
+              examples:
+                Example:
+                  value:
+                    text: Hello, how are you?
+                    usage:
+                      type: tokens
+                      input_tokens: 20
+                      output_tokens: 10
+                      total_tokens: 30
+                      input_audio_length_ms: 18000
+                      processed_audio_length_ms: 24000
+                      input_token_details:
+                        audio_tokens: 10
+                        text_tokens: 10
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: transcribe
+      x-speakeasy-usage-example:
+        tags:
+        - file-upload
+      x-mint:
+        metadata:
+          title: Model APIs Audio Transcriptions
+          sidebarTitle: Audio Transcriptions
+          og:title: Model APIs Audio Transcriptions
+          description: Transcribe an audio file into text.
+          og:description: Transcribe an audio file into text.
+        href: /openapi/model-apis/audio-transcriptions
+        content: 'Transcribe an audio file into text.
+
+
+          See available models at [this pricing table](/guides/model-apis/pricing#billing-methods).
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/model-apis/audio-transcriptions-chunk-object).
+
+
+          <Tip>You can explore examples on the [Friendli Model APIs](https://friendli.ai/get-started/model-apis) playground and adjust settings with just a few clicks.</Tip>'
+  /serverless/v1/audio/transcriptions#stream:
+    post:
+      tags:
+      - Serverless.Audio
+      summary: Stream audio transcriptions
+      description: Transcribe an audio file into text.
+      operationId: serverlessAudioTranscriptionsStream
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ServerlessAudioTranscriptionStreamBody'
+      responses:
+        '200':
+          description: Successfully transcribed the audio file.
+          content:
+            text/event-stream:
+              x-speakeasy-sse-sentinel: '[DONE]'
+              examples:
+                Example:
+                  value: 'data: {"type":"transcript.text.delta","delta":"The"}
+
+
+                    data: {"type":"transcript.text.delta","delta":" quick"}
+
+
+                    ...
+
+
+                    data: {"type":"transcript.text.done","text":"The quick brown fox jumps over the lazy dog.","usage":{"type":"tokens","input_tokens":20,"output_tokens":10,"total_tokens":30,"input_audio_length_ms":18000,"processed_audio_length_ms":24000,"input_token_details":{"audio_tokens":10,"text_tokens":10}}}
+
+
+                    data: [DONE]
+
+                    '
+              schema:
+                $ref: '#/components/schemas/ServerlessAudioTranscriptionStreamSuccess'
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: stream
+      x-mint:
+        metadata:
+          title: Model APIs Stream Audio Transcriptions
+          sidebarTitle: Stream Audio Transcriptions
+          og:title: Model APIs Stream Audio Transcriptions
+          description: Transcribe an audio file into text.
+          og:description: Transcribe an audio file into text.
+        content: 'Transcribe an audio file into text.
+
+
+          See available models at [this pricing table](/guides/model-apis/pricing#billing-methods).
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/model-apis/audio-transcriptions-chunk-object).
+
+
+          <Tip>You can explore examples on the [Friendli Model APIs](https://friendli.ai/get-started/model-apis) playground and adjust settings with just a few clicks.</Tip>'
+components:
+  schemas:
+    AudioTranscriptionResult:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The transcribed text.
+        usage:
+          $ref: '#/components/schemas/AudioTranscriptionUsage'
+      type: object
+      required:
+      - text
+      - usage
+      title: AudioTranscriptionResult
+    ServerlessAudioTranscriptionBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
+          examples:
+          - openai/whisper-large-v3
+        file:
+          type: string
+          format: binary
+          title: File
+          description: 'The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.'
+        chunking_strategy:
+          anyOf:
+          - type: string
+            const: auto
+          - $ref: '#/components/schemas/ServerVadChunkingStrategy'
+          - type: 'null'
+          title: Chunking Strategy
+          description: Controls how the audio is cut into chunks. When set to `"auto"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block.
+        language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Language
+          description: The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stream
+          description: Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: false
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+      type: object
+      required:
+      - model
+      - file
+      title: ServerlessAudioTranscriptionBody
+      example:
+        file: '@/path/to/file/audio.mp3'
+        model: openai/whisper-large-v3
+    ServerlessAudioTranscriptionStreamSuccess:
+      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
+      title: ServerlessAudioTranscriptionStreamSuccess
+    ServerVadChunkingStrategy:
+      properties:
+        type:
+          type: string
+          const: server_vad
+          title: Type
+          description: Must be set to `server_vad` to enable manual chunking using server side VAD.
+        prefix_padding_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prefix Padding Ms
+          description: Amount of audio to include before the VAD detected speech (in milliseconds).
+          default: 300
+        silence_duration_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Silence Duration Ms
+          description: Duration of silence to detect speech stop (in milliseconds). With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
+          default: 200
+        threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold
+          description: Sensitivity threshold (0.0 to 1.0) for voice activity detection. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
+          default: 0.5
+      type: object
+      required:
+      - type
+      title: ServerVadChunkingStrategy
+    AudioTranscriptionUsage:
+      properties:
+        type:
+          type: string
+          const: tokens
+          title: Type
+          description: The type of the usage object. Always `tokens` for this variant.
+        input_tokens:
+          type: integer
+          title: Input Tokens
+          description: Number of input tokens billed for this request.
+        output_tokens:
+          type: integer
+          title: Output Tokens
+          description: Number of output tokens generated.
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used (input + output).
+        input_audio_length_ms:
+          type: integer
+          title: Input Audio Length Ms
+          description: The length of the input audio in milliseconds.
+        processed_audio_length_ms:
+          type: integer
+          title: Processed Audio Length Ms
+          description: The length of the processed audio in milliseconds.
+        input_token_details:
+          anyOf:
+          - $ref: '#/components/schemas/AudioTranscriptionInputTokenDetails'
+          - type: 'null'
+          description: Details about the input tokens billed for this request.
+      type: object
+      required:
+      - type
+      - input_tokens
+      - output_tokens
+      - total_tokens
+      - input_audio_length_ms
+      - processed_audio_length_ms
+      title: AudioTranscriptionUsage
+    ServerlessAudioTranscriptionSuccess:
+      $ref: '#/components/schemas/AudioTranscriptionResult'
+      title: ServerlessAudioTranscriptionSuccess
+    AudioTranscriptionInputTokenDetails:
+      properties:
+        audio_tokens:
+          type: integer
+          title: Audio Tokens
+          description: Number of audio tokens billed for this request.
+        text_tokens:
+          type: integer
+          title: Text Tokens
+          description: Number of text tokens billed for this request.
+      type: object
+      required:
+      - audio_tokens
+      - text_tokens
+      title: AudioTranscriptionInputTokenDetails
+    StreamedAudioTranscriptionResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
+      type: object
+      required:
+      - data
+      title: StreamedAudioTranscriptionResult
+    ServerlessAudioTranscriptionStreamBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
+          examples:
+          - openai/whisper-large-v3
+        file:
+          type: string
+          format: binary
+          title: File
+          description: 'The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.'
+        chunking_strategy:
+          anyOf:
+          - type: string
+            const: auto
+          - $ref: '#/components/schemas/ServerVadChunkingStrategy'
+          - type: 'null'
+          title: Chunking Strategy
+          description: Controls how the audio is cut into chunks. When set to `"auto"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block.
+        language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Language
+          description: The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+      type: object
+      required:
+      - model
+      - file
+      title: ServerlessAudioTranscriptionStreamBody
+      example:
+        file: '@/path/to/file/audio.mp3'
+        model: openai/whisper-large-v3
+    StreamedAudioTranscriptionData:
+      properties:
+        type:
+          type: string
+          enum:
+          - transcript.text.delta
+          - transcript.text.done
+          title: Type
+          description: The event type, which is `transcript.text.delta` or `transcript.text.done`.
+        delta:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delta
+          description: The incremental transcript text.
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text
+          description: The transcribed text.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/AudioTranscriptionUsage'
+          - type: 'null'
+      type: object
+      required:
+      - type
+      title: StreamedAudioTranscriptionData
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dedicated.Embeddings API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dedicated.Embeddings
+paths:
+  /dedicated/v1/embeddings:
+    post:
+      tags:
+      - Dedicated.Embeddings
+      summary: Embeddings
+      description: Generate an embedding vector from input text or token sequence.
+      operationId: dedicatedEmbeddings
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedEmbeddingsBody'
+      responses:
+        '200':
+          description: Successfully generated embeddings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEmbeddingsSuccess'
+              examples:
+                Example:
+                  value:
+                    id: embd-26a1e10db1311bc2adb488d2d205288b
+                    model: (endpoint-id)
+                    object: list
+                    data:
+                    - index: 0
+                      object: embedding
+                      embedding:
+                      - 0.0023064255
+                      - -0.009327292
+                      - -0.0028842222
+                    usage:
+                      prompt_tokens: 26
+                      completion_tokens: 0
+                      total_tokens: 26
+                    created: 1735722153
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: embeddings
+      x-mint:
+        metadata:
+          title: Dedicated Embeddings
+          sidebarTitle: Embeddings
+          og:title: Dedicated Embeddings
+          description: Generate an embedding vector from input text or token sequence.
+          og:description: Generate an embedding vector from input text or token sequence.
+        href: /openapi/dedicated/inference/embeddings
+        content: 'Generate an embedding vector from input text or token sequence.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
+components:
+  schemas:
+    TextUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: TextUsage
+    DedicatedEmbeddingsBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        input:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Input
+          description: 'Input text to embed, encoded as a string or array of tokens. To embed multiple inputs in a single request, pass an array of strings or array of token arrays.
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - The food was delicious and the waiter...
+        tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Tokens
+          description: 'The tokenized prompt (i.e., input tokens).
+
+
+            Either `input` or `tokens` field is required.'
+        encoding_format:
+          anyOf:
+          - type: string
+            enum:
+            - float
+            - base64
+          - type: 'null'
+          title: Encoding Format
+          description: The format to return the embeddings in. Can be either `float` or [`base64`](https://pypi.org/project/pybase64/).
+          default: float
+      type: object
+      required:
+      - model
+      title: DedicatedEmbeddingsBody
+      example:
+        encoding_format: float
+        input: The food was delicious and the waiter...
+        model: (endpoint-id)
+    EmbeddingObject:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the embedding in the list of embeddings.
+        object:
+          type: string
+          const: embedding
+          title: Object
+          description: The object type, which is always set to `embedding`.
+        embedding:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: string
+            format: binary
+          title: Embedding
+          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
+      type: object
+      required:
+      - index
+      - object
+      - embedding
+      title: EmbeddingObject
+    DedicatedEmbeddingsSuccess:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the embeddings.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the embeddings. For dedicated endpoints, it returns the endpoint ID.
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        data:
+          items:
+            $ref: '#/components/schemas/EmbeddingObject'
+          type: array
+          title: Data
+          description: A list of embedding objects.
+        usage:
+          $ref: '#/components/schemas/TextUsage'
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the embeddings were created.
+      type: object
+      required:
+      - id
+      - object
+      - data
+      - usage
+      - created
+      title: DedicatedEmbeddingsSuccess
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

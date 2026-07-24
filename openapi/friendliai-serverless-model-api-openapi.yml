@@ -1,0 +1,408 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Serverless.Model API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Serverless.Model
+paths:
+  /serverless/v1/models:
+    get:
+      tags:
+      - Serverless.Model
+      summary: Retrieve serverless models
+      description: Retrieve list of serverless models.
+      operationId: serverlessModelList
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerlessModelListSuccess'
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: list
+      x-speakeasy-ignore: true
+  /serverless/v1/openrouter/models:
+    get:
+      tags:
+      - Serverless.Model
+      summary: Retrieve serverless models for OpenRouter
+      description: Retrieve list of serverless models for OpenRouter integration.
+      operationId: serverlessOpenrouterModelList
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenRouterModelListSuccess'
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: listOpenrouter
+      x-speakeasy-ignore: true
+components:
+  schemas:
+    OpenRouterModelMetadata:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: OpenRouter model slug
+      type: object
+      required:
+      - slug
+      title: OpenRouterModelMetadata
+      description: OpenRouter model metadata.
+    OpenRouterModelListSuccess:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/OpenRouterModelCatalogResponseItem'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: OpenRouterModelListSuccess
+      description: '`/v1/openrouter/models` API response.'
+    OpenRouterModelCatalogResponseItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        hugging_face_id:
+          type: string
+          title: Hugging Face Id
+          description: Required when the model is hosted on Hugging Face
+          default: ''
+        name:
+          type: string
+          title: Name
+        created:
+          type: integer
+          title: Created
+        input_modalities:
+          items:
+            type: string
+          type: array
+          title: Input Modalities
+        output_modalities:
+          items:
+            type: string
+          type: array
+          title: Output Modalities
+        quantization:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Quantization
+          description: Model quantization level
+        context_length:
+          type: integer
+          title: Context Length
+        max_output_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Output Length
+        pricing:
+          anyOf:
+          - $ref: '#/components/schemas/OpenRouterPricingTier'
+          - items:
+              $ref: '#/components/schemas/OpenRouterPricingTier'
+            type: array
+          title: Pricing
+          description: Token prices in USD per token as strings
+        supported_sampling_parameters:
+          items:
+            type: string
+          type: array
+          title: Supported Sampling Parameters
+        supported_features:
+          items:
+            type: string
+          type: array
+          title: Supported Features
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        deprecation_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deprecation Date
+          description: ISO 8601 UTC hour (YYYY-MM-DDTHH:00:00Z)
+        is_ready:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Ready
+          description: Whether the model is ready to serve traffic on OpenRouter
+        is_free:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Free
+          description: Whether the model is offered as a free endpoint
+        discount_to_user:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount To User
+          description: Fractional discount applied to user-facing pricing
+        capacity_tpm:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Capacity Tpm
+          description: Input tokens per minute capacity
+        openrouter:
+          anyOf:
+          - $ref: '#/components/schemas/OpenRouterModelMetadata'
+          - type: 'null'
+          title: Openrouter
+        datacenters:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/OpenRouterDatacenter'
+            type: array
+          - type: 'null'
+          title: Datacenters
+      type: object
+      required:
+      - id
+      - name
+      - created
+      - input_modalities
+      - output_modalities
+      - context_length
+      - pricing
+      - supported_sampling_parameters
+      - supported_features
+      title: OpenRouterModelCatalogResponseItem
+      description: Model listing in `/v1/openrouter/models` API (OpenRouter provider format).
+    ModelCatalogResponseItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        hugging_face_id:
+          type: string
+          title: Hugging Face Id
+          description: Required when the model is hosted on Hugging Face
+          default: ''
+        name:
+          type: string
+          title: Name
+        created:
+          type: integer
+          title: Created
+        context_length:
+          type: integer
+          title: Context Length
+        max_completion_tokens:
+          type: integer
+          title: Max Completion Tokens
+        pricing:
+          $ref: '#/components/schemas/PricingModel'
+          title: Pricing
+          description: Token prices for input and output
+        functionality:
+          $ref: '#/components/schemas/Functionality'
+          description: Model functionality
+        description:
+          type: string
+          title: Description
+        deprecation_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deprecation Date
+          description: ISO 8601 UTC hour (YYYY-MM-DDTHH:00:00Z)
+        hugging_face_url:
+          type: string
+          minLength: 1
+          format: uri
+          title: Hugging Face Url
+        license:
+          type: string
+          minLength: 1
+          format: uri
+          title: License
+        discount_to_user:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Discount To User
+          description: Fractional discount applied to user-facing pricing
+      type: object
+      required:
+      - id
+      - name
+      - created
+      - context_length
+      - max_completion_tokens
+      - pricing
+      - functionality
+      - description
+      - hugging_face_url
+      - license
+      title: ModelCatalogResponseItem
+      description: Model listing in `/v1/models` API.
+    OpenRouterPricingTier:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+          description: Price per input token in USD
+        completion:
+          type: string
+          title: Completion
+          description: Price per output token in USD
+        image:
+          type: string
+          title: Image
+          description: Price per image in USD (base tier only)
+          default: '0'
+        request:
+          type: string
+          title: Request
+          description: Price per request in USD (base tier only)
+          default: '0'
+        input_cache_read:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        min_context:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Context
+          description: Minimum input tokens for this tier to apply
+      type: object
+      required:
+      - prompt
+      - completion
+      title: OpenRouterPricingTier
+      description: OpenRouter flat or tiered pricing entry (USD per unit as string).
+    OpenRouterDatacenter:
+      properties:
+        country_code:
+          type: string
+          title: Country Code
+          description: ISO 3166-1 alpha-2 country code
+      type: object
+      required:
+      - country_code
+      title: OpenRouterDatacenter
+      description: OpenRouter datacenter metadata.
+    ServerlessModelListSuccess:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ModelCatalogResponseItem'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: ServerlessModelListSuccess
+      description: '`/v1/models` API response.'
+    Functionality:
+      properties:
+        tool_call:
+          type: boolean
+          title: Tool Call
+        builtin_tool:
+          type: boolean
+          title: Built-in Tool
+        parallel_tool_call:
+          type: boolean
+          title: Tool Call Parallel
+        structured_output:
+          type: boolean
+          title: Structured Output
+          default: true
+      type: object
+      required:
+      - tool_call
+      - builtin_tool
+      - parallel_tool_call
+      title: Functionality
+      description: Functionality of the model.
+    PricingModel:
+      properties:
+        input:
+          type: string
+          title: Input
+          description: Price per input token in USD
+        output:
+          type: string
+          title: Output
+          description: Price per output token in USD
+        prompt:
+          type: string
+          title: Prompt
+          description: Price per input token in USD (alias of input)
+        completion:
+          type: string
+          title: Completion
+          description: Price per output token in USD (alias of output)
+        input_cache_read:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        audio_minute:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audio Minute
+          description: Price per audio minute in USD
+      type: object
+      required:
+      - input
+      - output
+      - prompt
+      - completion
+      title: PricingModel
+      description: Pricing model for token-based pricing.
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

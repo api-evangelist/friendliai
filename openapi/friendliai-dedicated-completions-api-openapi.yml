@@ -1,0 +1,1533 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dedicated.Completions API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dedicated.Completions
+paths:
+  /dedicated/v1/completions:
+    post:
+      tags:
+      - Dedicated.Completions
+      summary: Completions
+      description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+      operationId: dedicatedCompletionsComplete
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedCompletionsBody'
+      responses:
+        '200':
+          description: Successfully generated a completion response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedCompletionsSuccess'
+              examples:
+                Example:
+                  value:
+                    id: cmpl-26a1e10db8544bc3adb488d2d205288b
+                    model: (endpoint-id)
+                    object: text_completion
+                    choices:
+                    - index: 0
+                      seed: 42
+                      text: This is indeed a test
+                      tokens:
+                      - 128000
+                      - 2028
+                      - 374
+                      - 13118
+                      - 264
+                      - 1296
+                      finish_reason: stop
+                    usage:
+                      prompt_tokens: 7
+                      completion_tokens: 6
+                      total_tokens: 13
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: complete
+      x-mint:
+        metadata:
+          title: Dedicated Completions
+          sidebarTitle: Completions
+          og:title: Dedicated Completions
+          description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+          og:description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+        href: /openapi/dedicated/inference/completions
+        content: 'Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/completions-chunk-object).'
+  /dedicated/v1/completions#stream:
+    post:
+      tags:
+      - Dedicated.Completions
+      summary: Stream completions
+      description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+      operationId: dedicatedCompletionsStream
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedCompletionsStreamBody'
+      responses:
+        '200':
+          description: Successfully generated a completion response.
+          content:
+            text/event-stream:
+              x-speakeasy-sse-sentinel: '[DONE]'
+              examples:
+                Example:
+                  value: 'data: {"id":"cmpl-26a1e10db8544bc3adb488d2d205288b","object":"text_completion","choices":[{"index":0,"text":" such","token":1778,"finish_reason":null,"logprobs":null}],"created":1733382157}
+
+
+                    data: {"id":"cmpl-26a1e10db8544bc3adb488d2d205288b","object":"text_completion","choices":[{"index":0,"text":" as","token":439,"finish_reason":null,"logprobs":null}],"created":1733382157}
+
+
+                    ...
+
+
+                    data: {"id":"cmpl-26a1e10db8544bc3adb488d2d205288b","object":"text_completion","choices":[{"index":0,"text":"","finish_reason":"length","logprobs":null}],"created":1733382157}
+
+
+                    data: {"id":"cmpl-26a1e10db8544bc3adb488d2d205288b","object":"text_completion","choices":[],"usage":{"prompt_tokens":5,"completion_tokens":10,"total_tokens":15},"created":1733382157}
+
+
+                    data: [DONE]
+
+                    '
+              schema:
+                $ref: '#/components/schemas/DedicatedCompletionsStreamSuccess'
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: stream
+      x-mint:
+        metadata:
+          title: Dedicated Stream Completions
+          sidebarTitle: Stream Completions
+          og:title: Dedicated Stream Completions
+          description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+          og:description: Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+        content: 'Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          When streaming mode is used (i.e., `stream` option is set to `true`), the response is in MIME type `text/event-stream`. Otherwise, the content type is `application/json`.
+
+          You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/completions-chunk-object).'
+components:
+  schemas:
+    StreamedCompletionsResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedCompletionData'
+      type: object
+      required:
+      - data
+      title: StreamedCompletionsResult
+    CompletionsStreamDedicatedBodyWithPrompt:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        bad_word_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Bad Word Tokens
+          description: Same as the above `bad_words` field, but receives token sequences instead of text phrases. This is similar to Hugging Face's [`bad_word_ids`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.bad_words_ids) argument.
+        bad_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Bad Words
+          description: 'Text phrases that should not be generated.
+
+            For a bad word phrase that contains N tokens, if the first N-1 tokens appears at the last of the generated result, the logit for the last token of the phrase is set to -inf.
+
+            Before checking whether a bard word is included in the result, the word is converted into tokens.
+
+            We recommend using `bad_word_tokens` because it is clearer.
+
+            For example, after tokenization, phrases "clear" and " clear" can result in different token sequences due to the prepended space character.
+
+            Defaults to empty list.
+
+            '
+        embedding_to_replace:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Embedding To Replace
+          description: A list of flattened embedding vectors used for replacing the tokens at the specified indices provided via `token_index_to_replace`.
+        encoder_no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Encoder No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size occurring in the input token sequence cannot appear in the generated result. 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Only allowed for encoder-decoder models. Defaults to 1. This is similar to Hugging Face's [`encoder_no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_no_repeat_ngram_size) argument.
+        encoder_repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Encoder Repetition Penalty
+          description: Penalizes tokens that have already appeared in the input tokens. Should be positive value. 1.0 means no penalty. Only allowed for encoder-decoder models. See [Keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`encoder_repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_repetition_penalty) argument.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        forced_output_tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Forced Output Tokens
+          description: A token sequence that is enforced as a generation output. This option can be used when evaluating the model for the datasets with multi-choice problems (e.g., [HellaSwag](https://huggingface.co/datasets/hellaswag), [MMLU](https://huggingface.co/datasets/cais/mmlu)). Use this option with `logprobs` to get logprobs for the evaluation.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Logprobs
+          description: Include the log probabilities on the logprobs most likely output tokens, as well the chosen tokens.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        max_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Total Tokens
+          description: The maximum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `max_tokens` and `max_total_tokens` is allowed. Default value is the model's maximum length. This is similar to Hugging Face's [`max_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_length) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `response_format` is specified.**'
+        min_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Total Tokens
+          description: The minimum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `min_tokens` and `min_total_tokens` is allowed. This is similar to Hugging Face's [`min_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.min_length) argument.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size can only occur once among the generated result (plus the input tokens for decoder-only models). 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Defaults to 1. This is similar to Hugging Face's [`no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.no_repeat_ngram_size) argument.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, the API generate the seed randomly, use it for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: 'When one of the stop phrases appears in the generation result, the API will stop generation.
+
+            The stop phrases are excluded from the result.
+
+            Defaults to empty list.'
+        stop_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Stop Tokens
+          description: Stop generating further tokens when generated token corresponds to any of the tokens in the sequence.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        token_index_to_replace:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Token Index To Replace
+          description: A list of token indices where to replace the embeddings of input tokens provided via either `tokens` or `prompt`.
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+          examples:
+          - 1
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        prompt:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Prompt
+          description: The prompt (i.e., input text) to generate completions for. Either `prompt` or `tokens` field is required.
+          examples:
+          - Say this is a test!
+      type: object
+      required:
+      - model
+      - prompt
+      title: CompletionsStreamDedicatedBodyWithPrompt
+    DedicatedCompletionsStreamSuccess:
+      $ref: '#/components/schemas/StreamedCompletionsResult'
+      title: DedicatedCompletionsStreamSuccess
+    CompletionsStreamDedicatedBodyWithTokens:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        bad_word_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Bad Word Tokens
+          description: Same as the above `bad_words` field, but receives token sequences instead of text phrases. This is similar to Hugging Face's [`bad_word_ids`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.bad_words_ids) argument.
+        bad_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Bad Words
+          description: 'Text phrases that should not be generated.
+
+            For a bad word phrase that contains N tokens, if the first N-1 tokens appears at the last of the generated result, the logit for the last token of the phrase is set to -inf.
+
+            Before checking whether a bard word is included in the result, the word is converted into tokens.
+
+            We recommend using `bad_word_tokens` because it is clearer.
+
+            For example, after tokenization, phrases "clear" and " clear" can result in different token sequences due to the prepended space character.
+
+            Defaults to empty list.
+
+            '
+        embedding_to_replace:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Embedding To Replace
+          description: A list of flattened embedding vectors used for replacing the tokens at the specified indices provided via `token_index_to_replace`.
+        encoder_no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Encoder No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size occurring in the input token sequence cannot appear in the generated result. 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Only allowed for encoder-decoder models. Defaults to 1. This is similar to Hugging Face's [`encoder_no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_no_repeat_ngram_size) argument.
+        encoder_repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Encoder Repetition Penalty
+          description: Penalizes tokens that have already appeared in the input tokens. Should be positive value. 1.0 means no penalty. Only allowed for encoder-decoder models. See [Keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`encoder_repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_repetition_penalty) argument.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        forced_output_tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Forced Output Tokens
+          description: A token sequence that is enforced as a generation output. This option can be used when evaluating the model for the datasets with multi-choice problems (e.g., [HellaSwag](https://huggingface.co/datasets/hellaswag), [MMLU](https://huggingface.co/datasets/cais/mmlu)). Use this option with `logprobs` to get logprobs for the evaluation.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Logprobs
+          description: Include the log probabilities on the logprobs most likely output tokens, as well the chosen tokens.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        max_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Total Tokens
+          description: The maximum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `max_tokens` and `max_total_tokens` is allowed. Default value is the model's maximum length. This is similar to Hugging Face's [`max_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_length) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `response_format` is specified.**'
+        min_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Total Tokens
+          description: The minimum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `min_tokens` and `min_total_tokens` is allowed. This is similar to Hugging Face's [`min_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.min_length) argument.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size can only occur once among the generated result (plus the input tokens for decoder-only models). 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Defaults to 1. This is similar to Hugging Face's [`no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.no_repeat_ngram_size) argument.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, the API generate the seed randomly, use it for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: 'When one of the stop phrases appears in the generation result, the API will stop generation.
+
+            The stop phrases are excluded from the result.
+
+            Defaults to empty list.'
+        stop_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Stop Tokens
+          description: Stop generating further tokens when generated token corresponds to any of the tokens in the sequence.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        token_index_to_replace:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Token Index To Replace
+          description: A list of token indices where to replace the embeddings of input tokens provided via either `tokens` or `prompt`.
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+          examples:
+          - 1
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: The tokenized prompt (i.e., input tokens). Either `prompt` or `tokens` field is required.
+      type: object
+      required:
+      - model
+      - tokens
+      title: CompletionsStreamDedicatedBodyWithTokens
+    StreamOptions:
+      properties:
+        include_usage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Usage
+          description: 'When set to `true`,
+
+            the number of tokens used will be included at the end of the stream result in the form of
+
+            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
+
+            '
+      type: object
+      title: StreamOptions
+    ResponseFormatJsonSchemaSchema:
+      properties:
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+          description: The schema for the response format, described as a JSON Schema object.
+      type: object
+      required:
+      - schema
+      title: ResponseFormatJsonSchemaSchema
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    StreamedCompletionData:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the completion.
+        choices:
+          items:
+            $ref: '#/components/schemas/StreamedCompletionsChoice'
+          type: array
+          title: Choices
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/TextUsage'
+          - type: 'null'
+        object:
+          type: string
+          const: text_completion
+          title: Object
+          description: The object type, which is always set to `text_completion`.
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the token is sampled.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - choices
+      - object
+      - created
+      title: StreamedCompletionData
+    CompletionsResult:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the completion.
+        object:
+          type: string
+          const: text_completion
+          title: Object
+          description: The object type, which is always set to `text_completion`.
+        usage:
+          $ref: '#/components/schemas/TextUsage'
+        choices:
+          items:
+            $ref: '#/components/schemas/CompletionsChoice'
+          type: array
+          title: Choices
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - object
+      - usage
+      - choices
+      title: CompletionsResult
+    ResponseFormat:
+      oneOf:
+      - $ref: '#/components/schemas/ResponseFormatJsonSchema'
+        title: Json Schema
+      - $ref: '#/components/schemas/ResponseFormatJsonObject'
+        title: Json Object
+      - $ref: '#/components/schemas/ResponseFormatRegex'
+        title: Regex
+      - $ref: '#/components/schemas/ResponseFormatText'
+        title: Text
+      description: 'The enforced format of the model''s output.
+
+
+        Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
+
+
+        ***Important***
+
+        You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
+
+        Otherwise, the model may result in an unending stream of whitespace or other characters.
+
+
+        **When `response_format` is specified, `min_tokens` field is unsupported.**'
+      discriminator:
+        propertyName: type
+        mapping:
+          json_object: '#/components/schemas/ResponseFormatJsonObject'
+          json_schema: '#/components/schemas/ResponseFormatJsonSchema'
+          regex: '#/components/schemas/ResponseFormatRegex'
+          text: '#/components/schemas/ResponseFormatText'
+    DedicatedCompletionsStreamBody:
+      anyOf:
+      - $ref: '#/components/schemas/CompletionsStreamDedicatedBodyWithPrompt'
+      - $ref: '#/components/schemas/CompletionsStreamDedicatedBodyWithTokens'
+      title: DedicatedCompletionsStreamBody
+    TextUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: TextUsage
+    ResponseFormatText:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: 'The type of the response format: `text`'
+      type: object
+      required:
+      - type
+      title: ResponseFormatText
+    TokenSequence:
+      properties:
+        tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Tokens
+          description: A List of token IDs.
+      type: object
+      title: TokenSequence
+    CompletionsDedicatedBodyWithPrompt:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        bad_word_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Bad Word Tokens
+          description: Same as the above `bad_words` field, but receives token sequences instead of text phrases. This is similar to Hugging Face's [`bad_word_ids`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.bad_words_ids) argument.
+        bad_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Bad Words
+          description: 'Text phrases that should not be generated.
+
+            For a bad word phrase that contains N tokens, if the first N-1 tokens appears at the last of the generated result, the logit for the last token of the phrase is set to -inf.
+
+            Before checking whether a bard word is included in the result, the word is converted into tokens.
+
+            We recommend using `bad_word_tokens` because it is clearer.
+
+            For example, after tokenization, phrases "clear" and " clear" can result in different token sequences due to the prepended space character.
+
+            Defaults to empty list.
+
+            '
+        embedding_to_replace:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Embedding To Replace
+          description: A list of flattened embedding vectors used for replacing the tokens at the specified indices provided via `token_index_to_replace`.
+        encoder_no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Encoder No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size occurring in the input token sequence cannot appear in the generated result. 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Only allowed for encoder-decoder models. Defaults to 1. This is similar to Hugging Face's [`encoder_no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_no_repeat_ngram_size) argument.
+        encoder_repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Encoder Repetition Penalty
+          description: Penalizes tokens that have already appeared in the input tokens. Should be positive value. 1.0 means no penalty. Only allowed for encoder-decoder models. See [Keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`encoder_repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_repetition_penalty) argument.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        forced_output_tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Forced Output Tokens
+          description: A token sequence that is enforced as a generation output. This option can be used when evaluating the model for the datasets with multi-choice problems (e.g., [HellaSwag](https://huggingface.co/datasets/hellaswag), [MMLU](https://huggingface.co/datasets/cais/mmlu)). Use this option with `logprobs` to get logprobs for the evaluation.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Logprobs
+          description: Include the log probabilities on the logprobs most likely output tokens, as well the chosen tokens.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        max_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Total Tokens
+          description: The maximum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `max_tokens` and `max_total_tokens` is allowed. Default value is the model's maximum length. This is similar to Hugging Face's [`max_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_length) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `response_format` is specified.**'
+        min_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Total Tokens
+          description: The minimum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `min_tokens` and `min_total_tokens` is allowed. This is similar to Hugging Face's [`min_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.min_length) argument.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size can only occur once among the generated result (plus the input tokens for decoder-only models). 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Defaults to 1. This is similar to Hugging Face's [`no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.no_repeat_ngram_size) argument.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, the API generate the seed randomly, use it for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: 'When one of the stop phrases appears in the generation result, the API will stop generation.
+
+            The stop phrases are excluded from the result.
+
+            Defaults to empty list.'
+        stop_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Stop Tokens
+          description: Stop generating further tokens when generated token corresponds to any of the tokens in the sequence.
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: false
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        token_index_to_replace:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Token Index To Replace
+          description: A list of token indices where to replace the embeddings of input tokens provided via either `tokens` or `prompt`.
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+          examples:
+          - 1
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        prompt:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          title: Prompt
+          description: The prompt (i.e., input text) to generate completions for. Either `prompt` or `tokens` field is required.
+          examples:
+          - Say this is a test!
+      type: object
+      required:
+      - model
+      - prompt
+      title: CompletionsDedicatedBodyWithPrompt
+    CompletionsDedicatedBodyWithTokens:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        bad_word_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Bad Word Tokens
+          description: Same as the above `bad_words` field, but receives token sequences instead of text phrases. This is similar to Hugging Face's [`bad_word_ids`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.bad_words_ids) argument.
+        bad_words:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Bad Words
+          description: 'Text phrases that should not be generated.
+
+            For a bad word phrase that contains N tokens, if the first N-1 tokens appears at the last of the generated result, the logit for the last token of the phrase is set to -inf.
+
+            Before checking whether a bard word is included in the result, the word is converted into tokens.
+
+            We recommend using `bad_word_tokens` because it is clearer.
+
+            For example, after tokenization, phrases "clear" and " clear" can result in different token sequences due to the prepended space character.
+
+            Defaults to empty list.
+
+            '
+        embedding_to_replace:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: 'null'
+          title: Embedding To Replace
+          description: A list of flattened embedding vectors used for replacing the tokens at the specified indices provided via `token_index_to_replace`.
+        encoder_no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Encoder No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size occurring in the input token sequence cannot appear in the generated result. 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Only allowed for encoder-decoder models. Defaults to 1. This is similar to Hugging Face's [`encoder_no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_no_repeat_ngram_size) argument.
+        encoder_repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Encoder Repetition Penalty
+          description: Penalizes tokens that have already appeared in the input tokens. Should be positive value. 1.0 means no penalty. Only allowed for encoder-decoder models. See [Keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`encoder_repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.encoder_repetition_penalty) argument.
+        eos_token:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Eos Token
+          description: A list of endpoint sentence tokens.
+        forced_output_tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Forced Output Tokens
+          description: A token sequence that is enforced as a generation output. This option can be used when evaluating the model for the datasets with multi-choice problems (e.g., [HellaSwag](https://huggingface.co/datasets/hellaswag), [MMLU](https://huggingface.co/datasets/cais/mmlu)). Use this option with `logprobs` to get logprobs for the evaluation.
+        frequency_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frequency Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled, taking into account their frequency in the preceding text. This penalization diminishes the model's tendency to reproduce identical lines verbatim.
+        logprobs:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Logprobs
+          description: Include the log probabilities on the logprobs most likely output tokens, as well the chosen tokens.
+        max_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Tokens
+          description: The maximum number of tokens to generate. For decoder-only models like GPT, the length of your input tokens plus `max_tokens` should not exceed the model's maximum length (e.g., 2048 for OpenAI GPT-3). For encoder-decoder models like T5 or BlenderBot, `max_tokens` should not exceed the model's maximum output length. This is similar to Hugging Face's [`max_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_new_tokens) argument.
+        max_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Total Tokens
+          description: The maximum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `max_tokens` and `max_total_tokens` is allowed. Default value is the model's maximum length. This is similar to Hugging Face's [`max_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.max_length) argument.
+        min_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min P
+          description: A scaling factor used to determine the minimum token probability threshold. This threshold is calculated as `min_p` multiplied by the probability of the most likely token. Tokens with probabilities below this scaled threshold are excluded from sampling. Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values result in stricter filtering, while lower values allow for greater diversity. The default value of 0.0 disables filtering, allowing all tokens to be considered for sampling.
+        min_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Tokens
+          description: 'The minimum number of tokens to generate. Default value is 0. This is similar to Hugging Face''s [`min_new_tokens`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.min_new_tokens) argument.
+
+
+            **This field is unsupported when `response_format` is specified.**'
+        min_total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Total Tokens
+          description: The minimum number of tokens including both the generated result and the input tokens. Only allowed for decoder-only models. Only one argument between `min_tokens` and `min_total_tokens` is allowed. This is similar to Hugging Face's [`min_length`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.min_length) argument.
+        n:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: N
+          description: The number of independently generated results for the prompt. Defaults to 1. This is similar to Hugging Face's [`num_return_sequences`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.num_return_sequences) argument.
+        no_repeat_ngram:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: No Repeat Ngram
+          description: If this exceeds 1, every ngram of that size can only occur once among the generated result (plus the input tokens for decoder-only models). 1 means that this mechanism is disabled (i.e., you cannot prevent 1-gram from being generated repeatedly). Defaults to 1. This is similar to Hugging Face's [`no_repeat_ngram_size`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.GenerationConfig.no_repeat_ngram_size) argument.
+        presence_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Presence Penalty
+          description: Number between -2.0 and 2.0. Positive values penalizes tokens that have been sampled at least once in the existing text.
+        repetition_penalty:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Repetition Penalty
+          description: Penalizes tokens that have already appeared in the generated result (plus the input tokens for decoder-only models). Should be positive value (1.0 means no penalty). See [keskar et al., 2019](https://arxiv.org/abs/1909.05858) for more details. This is similar to Hugging Face's [`repetition_penalty`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.repetition_penalty) argument.
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormat'
+          - type: 'null'
+        seed:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: integer
+          - type: 'null'
+          title: Seed
+          description: Seed to control random procedure. If nothing is given, the API generate the seed randomly, use it for sampling, and return the seed along with the generated result. When using the `n` argument, you can pass a list of seed values to control all of the independent generations.
+        stop:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop
+          description: 'When one of the stop phrases appears in the generation result, the API will stop generation.
+
+            The stop phrases are excluded from the result.
+
+            Defaults to empty list.'
+        stop_tokens:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/TokenSequence'
+            type: array
+          - type: 'null'
+          title: Stop Tokens
+          description: Stop generating further tokens when generated token corresponds to any of the tokens in the sequence.
+        stream:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stream
+          description: Whether to stream the generation result. When set to `true`, each token is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: false
+        stream_options:
+          anyOf:
+          - $ref: '#/components/schemas/StreamOptions'
+          - type: 'null'
+          description: 'Options related to stream.
+
+            It can only be used when `stream: true`.'
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Smaller temperature makes the generation result closer to greedy, argmax (i.e., `top_k = 1`) sampling. Defaults to 1.0. This is similar to Hugging Face's [`temperature`](https://huggingface.co/docs/transformers/v4.26.0/en/main_classes/text_generation#transformers.generationconfig.temperature) argument.
+        token_index_to_replace:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Token Index To Replace
+          description: A list of token indices where to replace the embeddings of input tokens provided via either `tokens` or `prompt`.
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the top k tokens with the highest probabilities. Values range from 0 (no filtering) to the model's vocabulary size (inclusive). The default value of 0 applies no filtering, allowing all tokens.
+          examples:
+          - 1
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Keeps only the smallest set of tokens whose cumulative probabilities reach `top_p` or higher. Values range from 0.0 (exclusive) to 1.0 (inclusive). The default value of 1.0 includes all tokens, allowing maximum diversity.
+        xtc_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Threshold
+          description: A probability threshold used to identify “top choice” tokens for exclusion in XTC (Exclude Top Choices) sampling. Tokens with probabilities at or above this threshold are considered viable candidates, and all but the least likely viable token are excluded from sampling. This option reduces the dominance of highly probable tokens while preserving some diversity by keeping the least confident “top choice.” Values range from 0.0 (inclusive) to 1.0 (inclusive). Higher values make the filtering more selective by requiring higher probabilities to trigger exclusion, while lower values apply filtering more broadly. The default value of 0.0 disables XTC filtering entirely.
+        xtc_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Xtc Probability
+          description: The probability that XTC (Exclude Top Choices) filtering will be applied for each sampling decision. When XTC is triggered, high-probability tokens above the `xtc_threshold` are excluded except for the least likely viable token. This stochastic activation allows for a balance between standard sampling and creativity-boosting exclusion filtering. Values range from 0.0 (inclusive) to 1.0 (inclusive), where 0.0 means XTC is never applied, 1.0 means XTC is always applied when viable tokens exist, and intermediate values provide probabilistic activation. The default value of 0.0 disables XTC filtering.
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: The tokenized prompt (i.e., input tokens). Either `prompt` or `tokens` field is required.
+      type: object
+      required:
+      - model
+      - tokens
+      title: CompletionsDedicatedBodyWithTokens
+    ResponseFormatJsonSchema:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: 'The type of the response format: `json_schema`'
+        json_schema:
+          $ref: '#/components/schemas/ResponseFormatJsonSchemaSchema'
+      type: object
+      required:
+      - type
+      - json_schema
+      title: ResponseFormatJsonSchema
+    StreamedCompletionsChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        text:
+          type: string
+          title: Text
+          description: Generated text output.
+          examples:
+          - This is indeed a test
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/CompletionsLogprobs'
+          - type: 'null'
+        finish_reason:
+          anyOf:
+          - type: string
+            enum:
+            - stop
+            - length
+            - 'null'
+          - type: 'null'
+          title: Finish Reason
+          description: Termination condition of the generation. `stop` means the API returned the full completions generated by the model without running into any limits. `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+        token:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Token
+          description: The token.
+      type: object
+      required:
+      - index
+      - text
+      title: StreamedCompletionsChoice
+    DedicatedCompletionsBody:
+      anyOf:
+      - $ref: '#/components/schemas/CompletionsDedicatedBodyWithPrompt'
+      - $ref: '#/components/schemas/CompletionsDedicatedBodyWithTokens'
+      title: DedicatedCompletionsBody
+    ResponseFormatJsonObject:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: 'The type of the response format: `json_object`'
+      type: object
+      required:
+      - type
+      title: ResponseFormatJsonObject
+    CompletionsLogprobs:
+      properties:
+        text_offset:
+          items:
+            type: integer
+          type: array
+          title: Text Offset
+          description: The starting character position of each token in the generated text, useful for mapping tokens back to their exact location for detailed analysis.
+        token_logprobs:
+          items:
+            type: number
+          type: array
+          title: Token Logprobs
+          description: The log probabilities of each generated token, indicating the model's confidence in selecting each token.
+        tokens:
+          items:
+            type: string
+          type: array
+          title: Tokens
+          description: A list of individual tokens generated in the completion, representing segments of text such as words or pieces of words.
+        top_logprobs:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Top Logprobs
+          description: A list of dictionaries, where each dictionary represents the top alternative tokens considered by the model at a specific position in the generated text, along with their log probabilities. The number of items in each dictionary matches the value of `logprobs`.
+      type: object
+      required:
+      - text_offset
+      - token_logprobs
+      - tokens
+      - top_logprobs
+      title: CompletionsLogprobs
+    CompletionsChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        text:
+          type: string
+          title: Text
+          description: Generated text output.
+          examples:
+          - This is indeed a test
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/CompletionsLogprobs'
+          - type: 'null'
+        seed:
+          type: integer
+          title: Seed
+          description: Random seed used for the generation.
+          examples:
+          - 42
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          title: Finish Reason
+          description: Termination condition of the generation. `stop` means the API returned the full completions generated by the model without running into any limits. `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: Generated output tokens.
+          examples:
+          - - 128000
+            - 2028
+            - 374
+            - 13118
+            - 264
+            - 1296
+      type: object
+      required:
+      - index
+      - text
+      - seed
+      - finish_reason
+      - tokens
+      title: CompletionsChoice
+    ResponseFormatRegex:
+      properties:
+        type:
+          type: string
+          const: regex
+          title: Type
+          description: 'The type of the response format: `regex`'
+        schema:
+          type: string
+          title: Schema
+          description: The schema of the output. Lookaheads or lookbehinds (e.g., `\a`, `\z`, `^`, `$`, `(?=)`, `(?!)`, `(?<=...)`, `(?<!...)`) are not supported. Group specials (e.g., `\w`, `\W`, `\d`, `\D`, `\s`, `\S`) do not support non-ASCII characters. Unicode escape patterns (e.g., `\N`, `\p`, `\P`) are not supported. Additionally, conditional matching (`(?(`) and back-references can cause inefficiency.
+      type: object
+      required:
+      - type
+      - schema
+      title: ResponseFormatRegex
+    DedicatedCompletionsSuccess:
+      $ref: '#/components/schemas/CompletionsResult'
+      title: DedicatedCompletionsSuccess
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

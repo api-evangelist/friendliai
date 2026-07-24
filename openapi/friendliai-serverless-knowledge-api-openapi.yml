@@ -1,0 +1,145 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Serverless.Knowledge API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Serverless.Knowledge
+paths:
+  /serverless/v1/knowledge/retrieve:
+    post:
+      tags:
+      - Serverless.Knowledge
+      summary: Retrieve contexts from chosen knowledge base
+      description: Retrieve related documents from knowledge base by similarity.
+      operationId: serverlessKnowledgeRetrieve
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerlessKnowledgeRetrievalBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerlessKnowledgeRetrievalSuccess'
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: retrieve
+      x-speakeasy-ignore: true
+components:
+  schemas:
+    ServerlessKnowledgeRetrievalSuccess:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/KnowledgeRetrievedChunk'
+          type: array
+          title: Results
+          description: A list of result.
+      type: object
+      required:
+      - results
+      title: ServerlessKnowledgeRetrievalSuccess
+      description: Knowledge retrieval response.
+    KnowledgeRetrievedChunk:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Retrieved text matching the search query.
+        score:
+          type: number
+          title: Score
+          description: Numerical relevance score of the retrieved result.
+        contentChunkId:
+          type: string
+          title: Content Chunk Id
+          description: ID of specific text segment.
+        contentId:
+          type: string
+          title: Content Id
+          description: ID of content in knowledge-base.
+      type: object
+      required:
+      - text
+      - score
+      - contentChunkId
+      - contentId
+      title: KnowledgeRetrievedChunk
+      description: Knowledge retrieved chunk.
+    ServerlessKnowledgeRetrievalBody:
+      properties:
+        query:
+          type: string
+          title: Query
+          description: A text string used to find relevant information within the knowledge-base.
+          examples:
+          - Chicken dinner
+        k:
+          type: integer
+          title: K
+          description: Maximum number of top-ranked knowledge-base entries to return in results.
+          examples:
+          - 1
+        knowledgeIds:
+          items:
+            type: string
+          type: array
+          title: Knowledge Ids
+          description: A List of knowledge-base IDs. For now, only one knowledge-base is supported.
+          examples:
+          - - knowledge-base-id-1
+      type: object
+      required:
+      - query
+      - k
+      - knowledgeIds
+      title: ServerlessKnowledgeRetrievalBody
+      description: Knowledge retrieval request.
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true

@@ -1,0 +1,1700 @@
+openapi: 3.1.0
+info:
+  title: Friendli Suite API Reference Container.Audio Dedicated.Endpoint API
+  description: This is an OpenAPI reference of Friendli Suite API.
+  termsOfService: https://friendli.ai/terms-of-service
+  contact:
+    name: FriendliAI Support Team
+    email: support@friendli.ai
+  version: 0.1.0
+servers:
+- url: https://api.friendli.ai
+tags:
+- name: Dedicated.Endpoint
+paths:
+  /dedicated/endpoint/wandb-artifact-create:
+    post:
+      tags:
+      - Dedicated.Endpoint
+      summary: Create endpoint from W&B artifact
+      description: Create an endpoint from Weights & Biases artifact. If the idempotency key is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the project id must be provided.
+      operationId: dedicatedEndpointWandbArtifactCreate
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedEndpointWandbArtifactCreateBody'
+      responses:
+        '200':
+          description: Successfully created the endpoint from W&B artifact.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointWandbArtifactCreateResponse'
+              examples:
+                Example:
+                  value:
+                    endpointId: endpoint-id
+                    endpointName: endpoint-name
+                    projectId: project-id
+                    projectName: project-name
+                    teamId: team-id
+                    teamName: team-name
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: wandbArtifactCreate
+      x-mint:
+        metadata:
+          title: Dedicated Create Endpoint from W&B Artifact
+          sidebarTitle: Create Endpoint from W&B Artifact
+          og:title: Dedicated Create Endpoint from W&B Artifact
+          description: Create a Friendli Dedicated Endpoint from a Weights & Biases artifact via the API. Deploy W&B-managed models directly to dedicated GPU hardware.
+          og:description: Create a Friendli Dedicated Endpoint from a Weights & Biases artifact via the API. Deploy W&B-managed models directly to dedicated GPU hardware.
+        href: /openapi/dedicated/endpoint/wandb-artifact-create
+        content: 'Create an endpoint from Weights & Biases artifact.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
+  /dedicated/beta/endpoint:
+    post:
+      tags:
+      - Dedicated.Endpoint
+      summary: Create a new endpoint
+      description: Create a new endpoint and return its status
+      operationId: dedicatedCreateEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedEndpointCreateBody'
+      responses:
+        '200':
+          description: Successfully created the endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: INITIALIZING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+                    phase: DOWNLOADING_MODEL
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      x-speakeasy-name-override: create
+      x-mint:
+        metadata:
+          title: Dedicated Create Endpoint
+          sidebarTitle: Create an Endpoint with Hugging Face Model
+          og:title: Dedicated Create Endpoint
+          description: Create a Friendli Dedicated Endpoint deployment for a Hugging Face model via the API. Specify GPU type, replica count, and model configuration.
+          og:description: Create a Friendli Dedicated Endpoint deployment for a Hugging Face model via the API. Specify GPU type, replica count, and model configuration.
+        href: /openapi/dedicated/endpoint/create
+        content: 'Create a Dedicated Endpoint deployment for a Hugging Face model.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    get:
+      tags:
+      - Dedicated.Endpoint
+      summary: List all endpoints
+      description: List all endpoint statuses
+      operationId: dedicatedListEndpoints
+      security:
+      - token: []
+      parameters:
+      - name: project_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The ID of the project. If omitted, query all endpoints under the team.
+          default: ''
+          title: Project Id
+        description: The ID of the project. If omitted, query all endpoints under the team.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          description: Cursor for pagination
+          title: Cursor
+        description: Cursor for pagination
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          description: Limit of items per page
+          default: 20
+          title: Limit
+        description: Limit of items per page
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully listed endpoints.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointListResponse'
+              examples:
+                Example:
+                  value:
+                    data:
+                      endpoint-id-1:
+                        status: INITIALIZING
+                        createdAt: '2025-01-01T00:00:00Z'
+                        updatedAt: '2025-01-01T00:00:00Z'
+                        phase: DOWNLOADING_MODEL
+                      endpoint-id-2:
+                        status: RUNNING
+                        createdAt: '2025-01-01T00:00:00Z'
+                        updatedAt: '2025-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: list
+      x-mint:
+        metadata:
+          title: Dedicated List Endpoints
+          sidebarTitle: List Endpoints
+          og:title: Dedicated List Endpoints
+          description: List all Friendli Dedicated Endpoint deployments in your project. Returns endpoint IDs, statuses, model names, and GPU configurations.
+          og:description: List all Friendli Dedicated Endpoint deployments in your project. Returns endpoint IDs, statuses, model names, and GPU configurations.
+        href: /openapi/dedicated/endpoint/list
+        content: 'List Dedicated Endpoint deployments.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}:
+    get:
+      tags:
+      - Dedicated.Endpoint
+      summary: Get endpoint specification
+      description: Get the specification of an endpoint
+      operationId: dedicatedGetEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully retrieved the endpoint specification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointSpec'
+              examples:
+                Example:
+                  value:
+                    name: endpoint-name
+                    gpuType: NVIDIA H100
+                    numGpu: 1
+                    instanceId: instance-id
+                    projectId: project-id
+                    creatorId: creator-id
+                    teamId: team-id
+                    autoscalingMin: 0
+                    autoscalingMax: 1
+                    autoscalingCooldown: 300
+                    maxBatchSize: 10
+                    maxInputLength: 1024
+                    tokenizerSkipSpecialTokens: true
+                    tokenizerAddSpecialTokens: true
+                    currReplicaCnt: 1
+                    desiredReplicaCnt: 1
+                    updatedReplicaCnt: 1
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: getSpec
+      x-mint:
+        metadata:
+          title: Dedicated Get Endpoint
+          sidebarTitle: Retrieve an Endpoint Specification
+          og:title: Dedicated Get Endpoint
+          description: Retrieve the full specification of a Friendli Dedicated Endpoint by ID, including model config, GPU type, replica count, and deployment settings.
+          og:description: Retrieve the full specification of a Friendli Dedicated Endpoint by ID, including model config, GPU type, replica count, and deployment settings.
+        href: /openapi/dedicated/endpoint/get-spec
+        content: 'Given an endpoint ID, return its specification.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    put:
+      tags:
+      - Dedicated.Endpoint
+      summary: Update endpoint spec
+      description: Update the specification of a specific endpoint
+      operationId: dedicatedUpdateEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DedicatedEndpointUpdateBody'
+      responses:
+        '200':
+          description: Successfully updated the endpoint specification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointSpec'
+              examples:
+                Example:
+                  value:
+                    name: endpoint-name
+                    gpuType: NVIDIA H100
+                    numGpu: 1
+                    instanceId: instance-id
+                    projectId: project-id
+                    creatorId: creator-id
+                    teamId: team-id
+                    autoscalingMin: 0
+                    autoscalingMax: 1
+                    autoscalingCooldown: 300
+                    maxBatchSize: 10
+                    maxInputLength: 1024
+                    tokenizerSkipSpecialTokens: true
+                    tokenizerAddSpecialTokens: true
+                    currReplicaCnt: 1
+                    desiredReplicaCnt: 1
+                    updatedReplicaCnt: 1
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: update
+      x-mint:
+        metadata:
+          title: Dedicated Update Endpoint
+          sidebarTitle: Update an Endpoint with New Configuration
+          og:title: Dedicated Update Endpoint
+          description: Update a Friendli Dedicated Endpoint with a new model, GPU type, or replica count. Changes are applied as a new version in the deployment history.
+          og:description: Update a Friendli Dedicated Endpoint with a new model, GPU type, or replica count. Changes are applied as a new version in the deployment history.
+        href: /openapi/dedicated/endpoint/update
+        content: 'Update a Dedicated Endpoint deployment with new configuration.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+    delete:
+      tags:
+      - Dedicated.Endpoint
+      summary: Delete endpoint
+      description: Delete a specific endpoint
+      operationId: dedicatedDeleteEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      x-speakeasy-name-override: delete
+      x-mint:
+        metadata:
+          title: Dedicated Delete Endpoint
+          sidebarTitle: Delete an Endpoint
+          og:title: Dedicated Delete Endpoint
+          description: Permanently delete a Friendli Dedicated Endpoint deployment by ID. This stops the endpoint and releases all associated GPU resources immediately.
+          og:description: Permanently delete a Friendli Dedicated Endpoint deployment by ID. This stops the endpoint and releases all associated GPU resources immediately.
+        href: /openapi/dedicated/endpoint/delete
+        content: 'Delete an endpoint.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/version:
+    get:
+      tags:
+      - Dedicated.Endpoint
+      summary: Get endpoint version history
+      description: Get version history of a specific endpoint
+      operationId: dedicatedGetEndpointVersionHistory
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          description: Cursor for pagination
+          title: Cursor
+        description: Cursor for pagination
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          description: Limit of items per page
+          default: 20
+          title: Limit
+        description: Limit of items per page
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully retrieved the endpoint version history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointVersionHistoryResponse'
+              examples:
+                Example:
+                  value:
+                    data:
+                      '0':
+                        name: endpoint-name
+                        gpuType: NVIDIA H100
+                        numGpu: 1
+                        instanceId: instance-id
+                        projectId: project-id
+                        creatorId: creator-id
+                        teamId: team-id
+                        autoscalingMin: 0
+                        autoscalingMax: 1
+                        autoscalingCooldown: 300
+                        maxBatchSize: 10
+                        maxInputLength: 1024
+                        tokenizerSkipSpecialTokens: true
+                        tokenizerAddSpecialTokens: true
+                        currReplicaCnt: 1
+                        desiredReplicaCnt: 1
+                        updatedReplicaCnt: 1
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: getVersionHistory
+      x-mint:
+        metadata:
+          title: Dedicated Get Endpoint Version
+          sidebarTitle: Retrieve Endpoint Version History
+          og:title: Dedicated Get Endpoint Version
+          description: Retrieve the version history of a Friendli Dedicated Endpoint by ID. View past configurations and rollback points for deployment tracking.
+          og:description: Retrieve the version history of a Friendli Dedicated Endpoint by ID. View past configurations and rollback points for deployment tracking.
+        href: /openapi/dedicated/endpoint/get-version
+        content: 'Given an endpoint ID, return its version history.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/status:
+    get:
+      tags:
+      - Dedicated.Endpoint
+      summary: Get endpoint status
+      description: Get the status of a specific endpoint
+      operationId: dedicatedGetEndpointStatus
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully retrieved the endpoint status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: INITIALIZING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+                    phase: DOWNLOADING_MODEL
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: getStatus
+      x-mint:
+        metadata:
+          title: Dedicated Get Endpoint Status
+          sidebarTitle: Retrieve an Endpoint Status
+          og:title: Dedicated Get Endpoint Status
+          description: Check the current status of a Friendli Dedicated Endpoint by ID. Returns the lifecycle state such as running, sleeping, initializing, or terminated.
+          og:description: Check the current status of a Friendli Dedicated Endpoint by ID. Returns the lifecycle state such as running, sleeping, initializing, or terminated.
+        href: /openapi/dedicated/endpoint/get-status
+        content: 'Given an endpoint ID, return its current status.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/sleep:
+    put:
+      tags:
+      - Dedicated.Endpoint
+      summary: Sleep endpoint
+      description: Put a specific endpoint to sleep
+      operationId: dedicatedSleepEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully requested to put the endpoint to sleep.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: SLEEPING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: sleep
+      x-mint:
+        metadata:
+          title: Dedicated Sleep Endpoint
+          sidebarTitle: Sleep an Endpoint
+          og:title: Dedicated Sleep Endpoint
+          description: Put a Friendli Dedicated Endpoint into sleep mode by ID. The endpoint stops serving but retains its configuration for quick wake-up later.
+          og:description: Put a Friendli Dedicated Endpoint into sleep mode by ID. The endpoint stops serving but retains its configuration for quick wake-up later.
+        href: /openapi/dedicated/endpoint/sleep
+        content: 'Put a Dedicated Endpoint to sleep mode.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/wake:
+    put:
+      tags:
+      - Dedicated.Endpoint
+      summary: Wake endpoint
+      description: Wake up a specific endpoint
+      operationId: dedicatedWakeEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully requested to wake up the endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: AWAKING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+                    phase: ENGINE_INITIALIZING
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      x-speakeasy-name-override: wake
+      x-mint:
+        metadata:
+          title: Dedicated Wake Endpoint
+          sidebarTitle: Wake Up an Endpoint
+          og:title: Dedicated Wake Endpoint
+          description: Wake up a sleeping Friendli Dedicated Endpoint by ID. The endpoint resumes serving with its previous model and GPU configuration intact.
+          og:description: Wake up a sleeping Friendli Dedicated Endpoint by ID. The endpoint resumes serving with its previous model and GPU configuration intact.
+        href: /openapi/dedicated/endpoint/wake
+        content: 'Wake up a sleeping Dedicated Endpoint.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/terminate:
+    put:
+      tags:
+      - Dedicated.Endpoint
+      summary: Terminate endpoint
+      description: Terminate a specific endpoint
+      operationId: dedicatedTerminateEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully requested to terminate the endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: TERMINATING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+      x-speakeasy-name-override: terminate
+      x-mint:
+        metadata:
+          title: Dedicated Terminate Endpoint
+          sidebarTitle: Terminate an Endpoint
+          og:title: Dedicated Terminate Endpoint
+          description: Terminate a running Friendli Dedicated Endpoint by ID. Stops all inference and releases GPU resources while preserving the endpoint configuration.
+          og:description: Terminate a running Friendli Dedicated Endpoint by ID. Stops all inference and releases GPU resources while preserving the endpoint configuration.
+        href: /openapi/dedicated/endpoint/terminate
+        content: 'Terminate an endpoint.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+  /dedicated/beta/endpoint/{endpoint_id}/restart:
+    put:
+      tags:
+      - Dedicated.Endpoint
+      summary: Restart endpoint
+      description: Restart a FAILED or TERMINATED endpoint
+      operationId: dedicatedRestartEndpoint
+      security:
+      - token: []
+      parameters:
+      - name: endpoint_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: The ID of the endpoint
+          title: Endpoint Id
+        description: The ID of the endpoint
+      - name: X-Friendli-Team
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: ID of team to run requests as (optional parameter).
+          title: X-Friendli-Team
+        description: ID of team to run requests as (optional parameter).
+      responses:
+        '200':
+          description: Successfully requested to restart the endpoint.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DedicatedEndpointStatus'
+              examples:
+                Example:
+                  value:
+                    status: INITIALIZING
+                    createdAt: '2025-01-01T00:00:00Z'
+                    updatedAt: '2025-01-01T00:00:00Z'
+                    phase: DOWNLOADING_MODEL
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+        '422':
+          description: Unprocessable Entity
+        '500':
+          description: Internal Server Error
+      x-speakeasy-name-override: restart
+      x-mint:
+        metadata:
+          title: Dedicated Restart Endpoint
+          sidebarTitle: Restart an Endpoint
+          og:title: Dedicated Restart Endpoint
+          description: Restart a failed or terminated Friendli Dedicated Endpoint by ID. The endpoint re-initializes with the same model and GPU configuration.
+          og:description: Restart a failed or terminated Friendli Dedicated Endpoint by ID. The endpoint re-initializes with the same model and GPU configuration.
+        href: /openapi/dedicated/endpoint/restart
+        content: 'Restart a failed or terminated Dedicated Endpoint.
+
+
+          To request successfully, it is mandatory to enter a **Personal API Key** (e.g. flp_XXX) value in the **Bearer Token** field.
+
+          Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.
+
+
+          <Info>
+
+          This API is currently in **Beta**.
+
+          While we strive to provide a stable and reliable experience, this feature is still under active development.
+
+          As a result, you may encounter unexpected behavior or limitations.
+
+          We encourage you to provide feedback to help us improve the feature before its official release.
+
+
+          - [Feature request & feedback](mailto:support@friendli.ai)
+
+          - [Contact support](mailto:support@friendli.ai)
+
+
+          </Info>'
+components:
+  schemas:
+    EndpointSimplescaleConfig:
+      properties:
+        replicas:
+          type: integer
+          minimum: 1.0
+          title: Replicas
+      type: object
+      required:
+      - replicas
+      title: EndpointSimplescaleConfig
+      description: Simple scaling options.
+    DedicatedEndpointStatus:
+      properties:
+        status:
+          $ref: '#/components/schemas/InferenceDeploymentStatus'
+          title: Status
+          description: The current status of the endpoint deployment.
+        errorCode:
+          anyOf:
+          - $ref: '#/components/schemas/InferenceDeploymentErrorCode'
+          - type: 'null'
+          title: Error Code
+          description: Error code if deployment failed.
+        createdAt:
+          type: string
+          format: date-time
+          title: Created At
+          description: When the endpoint was created.
+        updatedAt:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+          description: When the endpoint was last updated.
+        phase:
+          anyOf:
+          - type: string
+            enum:
+            - REQUESTING_VIRTUAL_MACHINE
+            - DOWNLOADING_MODEL
+            - ENGINE_INITIALIZING
+          - type: 'null'
+          title: Phase
+          description: The current phase of the endpoint.
+      type: object
+      required:
+      - status
+      - createdAt
+      title: DedicatedEndpointStatus
+      description: Dedicated endpoint status.
+    DedicatedEndpointListResponse:
+      properties:
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointStatus'
+          type: object
+          title: Data
+          description: The response data containing endpoint statuses.
+          default: {}
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Next Cursor
+          description: The next cursor for pagination.
+      type: object
+      title: DedicatedEndpointListResponse
+      description: Dedicated endpoint list response.
+    AcceleratorRequirement:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: Specifies the instance type.
+        count:
+          type: integer
+          title: Count
+          description: Specifies the number of instances.
+      type: object
+      required:
+      - type
+      - count
+      title: AcceleratorRequirement
+      description: Accelerator requirement.
+    DedicatedEndpointUpdateBody:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the endpoint.
+        advanced:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointAdvancedConfig'
+          - type: 'null'
+          title: Advanced
+          description: The advanced configuration of the endpoint.
+        simplescale:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
+          - type: 'null'
+          title: Simple Scale
+          description: The simple scaling configuration of the endpoint.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Auto Scale Policy
+          description: The auto scaling configuration of the endpoint.
+        hfModelRepo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo
+          description: HF ID of the model.
+        hfModelRepoRevision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo Revision
+          description: HF commit hash of the model.
+        newVersionComment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Version Comment
+          description: Comment for the new version.
+        instanceOptionId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instance Option ID
+          description: 'The ID of the instance option.
+
+
+            Available options:
+
+            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
+
+            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
+
+            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
+
+            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
+
+            - 1x NVIDIA H100: `TwD5AqnBSVN0`
+
+            - 2x NVIDIA H100: `zfTutSiLn0Hq`
+
+            - 4x NVIDIA H100: `lfkRz5G48REc`
+
+            - 8x NVIDIA H100: `GUA4qYFmsYz8`
+
+            - 1x NVIDIA H200: `LnK1wTaKc7WO`
+
+            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
+
+            - 4x NVIDIA H200: `OhTzYtZuomzI`
+
+            - 8x NVIDIA H200: `ahBzWtOuomsI`
+
+            - 1x NVIDIA B200: `8GiQTLKfJNOr`
+
+            - 2x NVIDIA B200: `brTZGIuYgVrs`
+
+            - 4x NVIDIA B200: `AFoZMFXZnAdD`
+
+            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
+      type: object
+      title: DedicatedEndpointUpdateBody
+      description: Dedicated endpoint update request.
+    DedicatedEndpointWandbArtifactCreateBody:
+      properties:
+        wandbArtifactVersionName:
+          type: string
+          title: Wandb Artifact Version Name
+          description: The specific model artifact version from Weights & Biases. The referred artifact will be used to create a new endpoint in Friendli Dedicated Endpoints or rollout an existing one.
+        accelerator:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorRequirement'
+          - type: 'null'
+          title: Accelerator
+          description: Specifies the instance type for the endpoint.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Specifies the name of your endpoint. If not provided, a name will be automatically generated for you.
+        projectId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: Specifies where endpoint will be created in your Friendli Dedicated Endpoints. If not provided, a new project will be created within your default team.
+        idempotencyKey:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency Key
+          description: Used by Friendli Dedicated Endpoints to track which webhook automation triggered an endpoint rollout. If the `idempotencyKey` is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the `projectId` must be provided. Any unique value can be used.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Autoscaling Policy
+          description: Defines autoscaling settings for the endpoint.
+      type: object
+      required:
+      - wandbArtifactVersionName
+      title: DedicatedEndpointWandbArtifactCreateBody
+      description: Endpoint create request.
+      example:
+        wandbArtifactVersionName: org/registry/name:v0
+    DedicatedEndpointWandbArtifactCreateResponse:
+      properties:
+        endpointId:
+          type: string
+          title: Endpoint Id
+          description: The ID of the created endpoint.
+        endpointName:
+          type: string
+          title: Endpoint Name
+          description: The name of the created endpoint.
+        projectId:
+          type: string
+          title: Project Id
+          description: The ID of the project where the endpoint was created.
+        projectName:
+          type: string
+          title: Project Name
+          description: The name of the project where the endpoint was created.
+        teamId:
+          type: string
+          title: Team Id
+          description: The ID of the team where the endpoint was created.
+        teamName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Name
+          description: The name of the team where the endpoint was created.
+      type: object
+      required:
+      - endpointId
+      - endpointName
+      - projectId
+      - projectName
+      - teamId
+      - teamName
+      title: DedicatedEndpointWandbArtifactCreateResponse
+      description: Endpoint create response.
+    AutoscalingPolicy:
+      properties:
+        minReplica:
+          type: integer
+          minimum: 0.0
+          title: Minimum Replica
+          description: Setting `minReplica` to 0 allows the endpoint to sleep when idle, reducing costs. The minimum value is 0.
+          default: 0
+        maxReplica:
+          type: integer
+          maximum: 10.0
+          title: Maximum Replica
+          description: The maximum replicas that the endpoint can scale up to. The maximum value is 10.
+          default: 1
+        cooldownPeriod:
+          type: integer
+          title: Cooldown Period
+          description: Determines how long the endpoint waits before scaling down after the last request.
+          default: 300
+      type: object
+      title: AutoscalingPolicy
+      description: Autoscaling policy.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    DedicatedEndpointSpec:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the endpoint.
+        gpuType:
+          type: string
+          title: GPU Type
+          description: The type of GPU to use for the endpoint.
+        numGpu:
+          type: integer
+          title: Number of GPUs
+          description: The number of GPUs to use per replica.
+        instanceId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instance ID
+          description: The ID of the instance.
+        projectId:
+          type: string
+          title: Project ID
+          description: The ID of the project that owns the endpoint.
+        creatorId:
+          type: string
+          title: Creator ID
+          description: The ID of the user who created the endpoint.
+        teamId:
+          type: string
+          title: Team ID
+          description: The ID of the team that owns the endpoint.
+        autoscalingMin:
+          type: integer
+          title: Minimum Replicas
+          description: The minimum number of replicas to maintain.
+        autoscalingMax:
+          type: integer
+          title: Maximum Replicas
+          description: The maximum number of replicas allowed.
+        autoscalingCooldown:
+          type: integer
+          title: Autoscaling Cooldown
+          description: The cooldown period in seconds between scaling operations.
+        maxBatchSize:
+          type: integer
+          title: Maximum Batch Size
+          description: The maximum batch size for inference requests.
+        maxInputLength:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Maximum Input Length
+          description: The maximum allowed input length.
+        tokenizerSkipSpecialTokens:
+          type: boolean
+          title: Skip Special Tokens
+          description: Whether to skip special tokens in tokenizer output.
+        tokenizerAddSpecialTokens:
+          type: boolean
+          title: Add Special Tokens
+          description: Whether to add special tokens in tokenizer input.
+        currReplicaCnt:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Current Replica Count
+          description: The current number of replicas.
+        desiredReplicaCnt:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Desired Replica Count
+          description: The desired number of replicas.
+        updatedReplicaCnt:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Updated Replica Count
+          description: The updated number of replicas.
+      type: object
+      required:
+      - name
+      - gpuType
+      - numGpu
+      - projectId
+      - creatorId
+      - teamId
+      - autoscalingMin
+      - autoscalingMax
+      - autoscalingCooldown
+      - maxBatchSize
+      - tokenizerSkipSpecialTokens
+      - tokenizerAddSpecialTokens
+      title: DedicatedEndpointSpec
+      description: Dedicated endpoint specification.
+    DedicatedEndpointVersionHistoryResponse:
+      properties:
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointSpec'
+          type: object
+          title: Data
+          description: The response data containing endpoint versions.
+          default: {}
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Next Cursor
+          description: The next cursor for pagination.
+      type: object
+      title: DedicatedEndpointVersionHistoryResponse
+      description: Dedicated endpoint version history response.
+    DedicatedEndpointCreateBody:
+      properties:
+        projectId:
+          type: string
+          title: Project ID
+          description: The ID of the project that owns the endpoint.
+        name:
+          type: string
+          title: Name
+          description: The name of the endpoint.
+        instanceOptionId:
+          type: string
+          title: Instance Option ID
+          description: 'The ID of the instance option.
+
+
+            Available options:
+
+            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
+
+            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
+
+            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
+
+            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
+
+            - 1x NVIDIA H100: `TwD5AqnBSVN0`
+
+            - 2x NVIDIA H100: `zfTutSiLn0Hq`
+
+            - 4x NVIDIA H100: `lfkRz5G48REc`
+
+            - 8x NVIDIA H100: `GUA4qYFmsYz8`
+
+            - 1x NVIDIA H200: `LnK1wTaKc7WO`
+
+            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
+
+            - 4x NVIDIA H200: `OhTzYtZuomzI`
+
+            - 8x NVIDIA H200: `ahBzWtOuomsI`
+
+            - 1x NVIDIA B200: `8GiQTLKfJNOr`
+
+            - 2x NVIDIA B200: `brTZGIuYgVrs`
+
+            - 4x NVIDIA B200: `AFoZMFXZnAdD`
+
+            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
+        advanced:
+          $ref: '#/components/schemas/EndpointAdvancedConfig'
+          title: Advanced
+          description: The advanced configuration of the endpoint.
+        simplescale:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
+          - type: 'null'
+          title: Simple Scale
+          description: The simple scaling configuration of the endpoint.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Auto Scale Policy
+          description: The auto scaling configuration of the endpoint.
+        hfModelRepo:
+          type: string
+          title: HF Model Repo
+          description: HF ID of the model.
+        hfModelRepoRevision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo Revision
+          description: HF commit hash of the model.
+        initialVersionComment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Initial Version Comment
+          description: The comment for the initial version.
+      type: object
+      required:
+      - projectId
+      - name
+      - instanceOptionId
+      - advanced
+      - hfModelRepo
+      title: DedicatedEndpointCreateBody
+      description: Dedicated endpoint create request.
+    EndpointAdvancedConfig:
+      properties:
+        max_batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Batch Size
+        tokenizer_skip_special_tokens:
+          type: boolean
+          title: Tokenizer Skip Special Tokens
+        tokenizer_add_special_tokens:
+          type: boolean
+          title: Tokenizer Add Special Tokens
+        max_token_count:
+          type: integer
+          title: Max Token Count
+          default: 2560
+        enable_content_logging:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Content Logging
+        max_input_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Input Length
+        queue_timeout_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Timeout Ms
+        queue_backpressure_metric_kind:
+          anyOf:
+          - $ref: '#/components/schemas/QueueBackpressureMetricKind'
+          - type: 'null'
+        queue_backpressure_metric_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Queue Backpressure Metric Threshold
+      type: object
+      required:
+      - tokenizer_skip_special_tokens
+      - tokenizer_add_special_tokens
+      title: EndpointAdvancedConfig
+      description: Endpoint advanced config.
+    InferenceDeploymentErrorCode:
+      type: string
+      enum:
+      - WORKLOAD_INIT_UNKNOWN_ERROR
+      - WORKLOAD_INIT_SETTINGS_ERROR
+      - WORKLOAD_INIT_GRPC_ERROR
+      - WORKLOAD_INIT_MANIFEST_NOT_FOUND_ERROR
+      - WORKLOAD_INIT_MANIFEST_TYPE_ERROR
+      - WORKLOAD_INIT_DOWNLOAD_ERROR
+      - WORKLOAD_INIT_INVALID_TOKEN_ERROR
+      - WORKLOAD_INIT_CANNOT_ACCESS_REPO_ERROR
+      - WORKLOAD_INIT_HF_WANDB_API_ERROR
+      - WORKLOAD_INIT_INSUFFICIENT_DISK_ERROR
+      - INFERENCE_ENGINE_UNKNOWN_ERROR
+      - INFERENCE_ENGINE_INVALID_ARGUMENT_ERROR
+      - INFERENCE_ENGINE_MEMORY_ERROR
+      - INFERENCE_ENGINE_METERING_CLIENT_CONFIG_ERROR
+      title: InferenceDeploymentErrorCode
+      description: ErrorCode type.
+    QueueBackpressureMetricKind:
+      type: string
+      enum:
+      - TPOT_MS
+      - TTFT_MS
+      - REQUEST_COUNT
+      - WORKSPACE_UTILIZATION
+      - QUEUED_PREFILL_TOKENS
+      title: QueueBackpressureMetricKind
+      description: Queue backpressure metric kind.
+    InferenceDeploymentStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - INITIALIZING
+      - RUNNING
+      - UPDATING
+      - SLEEPING
+      - AWAKING
+      - FAILED
+      - STOPPING
+      - TERMINATING
+      - TERMINATED
+      - READY
+      title: InferenceDeploymentStatus
+      description: Status of inference deployment.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    token:
+      type: http
+      description: 'When using Friendli Suite API for inference requests, you need to provide a **Friendli Token** for authentication and authorization purposes.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/openapi/introduction#authentication).'
+      scheme: bearer
+x-speakeasy-retries:
+  strategy: backoff
+  backoff:
+    initialInterval: 500
+    maxInterval: 60000
+    maxElapsedTime: 3600000
+    exponent: 1.5
+  statusCodes:
+  - 429
+  - 500
+  - 502
+  - 503
+  - 504
+  retryConnectionErrors: true
