@@ -1,0 +1,43 @@
+arazzo: 1.0.1
+info:
+  title: FriendliAI deploy a Dedicated Endpoint and infer
+  version: 1.0.0
+  summary: Create a Dedicated Endpoint, wait for it to be ready, then run a chat completion.
+sourceDescriptions:
+  - name: friendli
+    url: ../openapi/friendliai-openapi-original.yml
+    type: openapi
+workflows:
+  - workflowId: deploy-and-infer
+    summary: Create a Dedicated Endpoint, poll status, then send inference to it.
+    inputs:
+      type: object
+      properties:
+        token:
+          type: string
+        model:
+          type: string
+        prompt:
+          type: string
+    steps:
+      - stepId: createEndpoint
+        operationId: dedicatedCreateEndpoint
+        outputs:
+          endpointId: $response.body#/id
+      - stepId: checkStatus
+        operationId: dedicatedGetEndpointStatus
+        parameters:
+          - name: endpoint_id
+            in: path
+            value: $steps.createEndpoint.outputs.endpointId
+      - stepId: infer
+        operationId: dedicatedChatComplete
+        requestBody:
+          contentType: application/json
+          payload:
+            model: $inputs.model
+            messages:
+              - role: user
+                content: $inputs.prompt
+        outputs:
+          content: $response.body

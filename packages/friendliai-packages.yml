@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source: PyPI, npm, GitHub friendliai org
+packages:
+  - language: python
+    registry: pypi
+    name: friendli
+    url: https://pypi.org/project/friendli/
+    install: pip install friendli
+    repo: https://github.com/friendliai/friendli-python
+    description: Friendli Suite Python SDK (Speakeasy-generated) for Model APIs, Dedicated Endpoints, and Container.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@friendliai/ai-provider"
+    url: https://www.npmjs.com/package/@friendliai/ai-provider
+    install: npm install @friendliai/ai-provider
+    repo: https://github.com/friendliai/web
+    homepage: https://friendli.ai/docs/sdk/integrations/vercel-ai-sdk
+    description: FriendliAI provider for the Vercel AI SDK.
+    official: true
+  - language: python
+    registry: pypi
+    name: friendli-client
+    url: https://pypi.org/project/friendli-client/
+    install: pip install friendli-client
+    repo: https://github.com/friendliai/homebrew-client
+    description: Friendli client / CLI (packages the `friendli` command; also installable via the friendliai/client Homebrew tap).
+    official: true
+notes: >-
+  FriendliAI is OpenAI-compatible, so the official OpenAI Python and Node.js SDKs also work
+  against https://api.friendli.ai by changing base_url and api_key. The former `friendli-client`
+  serving-engine package on GitHub is deprecated in favor of `friendli` (SDK) and the CLI tap.

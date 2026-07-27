@@ -1,0 +1,40 @@
+generated: '2026-07-19'
+method: searched
+source: https://friendli.ai/docs/changelog
+scheme: dated-updates
+note: >-
+  FriendliAI publishes a dated, product-tagged changelog. Recent window captured below;
+  the live changelog is the source of truth for full history.
+entries:
+  - date: '2026-07-06'
+    products: [Model APIs]
+    type: deprecation
+    highlight: Tool Assisted API deprecated; use tool calling instead.
+  - date: '2026-07-03'
+    products: [Model APIs]
+    type: deprecation
+    highlight: 'Model deprecated: zai-org/GLM-5.'
+  - date: '2026-06-26'
+    products: [Model APIs]
+    type: deprecation
+    highlight: Several Meta Llama Model APIs models deprecated.
+  - date: '2026-06-16'
+    products: [Model APIs]
+    type: addition
+    highlight: Z.ai model added.
+  - date: '2026-05-22'
+    products: [Model APIs]
+    type: change
+    highlight: DeepSeek and Qwen model pricing changed.
+  - date: '2026-04-16'
+    products: [Model APIs]
+    type: addition
+    highlight: Cohere Labs and Google model families added.
+  - date: '2026-03-18'
+    products: [Dedicated Endpoints]
+    type: addition
+    highlight: Host KV Cache added.
+  - date: '2026-03-07'
+    products: [Dedicated Endpoints]
+    type: addition
+    highlight: Draft-model speculative decoding added.

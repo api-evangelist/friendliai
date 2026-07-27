@@ -1,0 +1,22 @@
+generated: '2026-07-19'
+method: searched
+source: https://friendli.ai/docs/changelog.md + https://friendli.ai/docs/guides/dedicated-endpoints/versioning.md + https://status.friendli.ai
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://friendli.ai/docs/openapi/introduction
+  note: >-
+    API paths are versioned under /v1 (and product-scoped /serverless/v1, /dedicated/v1);
+    Dedicated Endpoints additionally support per-endpoint version history and rollback.
+deprecation:
+  policy_url: https://friendli.ai/docs/changelog
+  note: >-
+    Model and feature deprecations are announced in the dated changelog (e.g. Tool Assisted API
+    deprecated 2026-07-06; multiple Model APIs models deprecated). No RFC 8594 Sunset/Deprecation
+    HTTP headers observed in the OpenAPI.
+endpoint_versioning:
+  docs: https://friendli.ai/docs/guides/dedicated-endpoints/versioning.md
+  capabilities: [version-history, rollback, zero-downtime-update]
+sla:
+  enterprise: https://friendli.ai/docs/guides/suite/enterprise-plan.md
+status_page: https://status.friendli.ai

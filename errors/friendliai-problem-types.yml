@@ -1,0 +1,28 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/friendliai-openapi-original.yml
+format: openapi-errors
+note: >-
+  Friendli Suite API does not use RFC 9457 application/problem+json. Errors return custom JSON
+  envelopes (e.g. HTTPValidationError, MessagesErrorResponse, ResponsesError). Status codes below
+  are the 4xx/5xx responses declared across the OpenAPI operations.
+problems:
+  - status: 400
+    title: Bad Request
+    description: Malformed request or invalid parameters.
+  - status: 401
+    title: Unauthorized
+    description: Missing or invalid Friendli Token (Authorization Bearer).
+  - status: 404
+    title: Not Found
+    description: Referenced resource (model, endpoint, dataset, file) does not exist.
+  - status: 422
+    title: Unprocessable Entity
+    description: Request body failed validation.
+    schema: HTTPValidationError
+  - status: 429
+    title: Too Many Requests
+    description: Rate limit exceeded for the account's usage tier.
+  - status: 500
+    title: Internal Server Error
+    description: Unexpected server-side error during inference or resource operation.

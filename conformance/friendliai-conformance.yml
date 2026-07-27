@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/friendliai-openapi-original.yml + https://friendli.ai/docs/guides/openai-compatibility.md
+standards:
+  - id: openai-chat-completions-compat
+    conforms: true
+    evidence: >-
+      /v1/chat/completions, /v1/completions, /v1/embeddings, /v1/audio/transcriptions mirror the
+      OpenAI API surface; docs state official OpenAI Python/Node SDKs work by changing base_url.
+  - id: oauth2
+    conforms: false
+    evidence: single security scheme is http bearer (Friendli Token); no oauth2 flows declared.
+  - id: openidconnect
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: error responses use custom JSON envelopes (HTTPValidationError, MessagesErrorResponse), not application/problem+json.
+  - id: sse-streaming
+    conforms: true
+    evidence: "#stream operations return server-sent events for chat/completions/responses/messages/audio."
+  - id: json-schema-structured-outputs
+    conforms: true
+    evidence: response_format with JSON schema supported (Structured Outputs guide).

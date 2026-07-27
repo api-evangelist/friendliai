@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: derived
+source: arazzo/*.yml
+workflows:
+  - file: friendliai-chat-completion.yml
+    workflowId: chat-completion
+    title: FriendliAI chat completion
+    summary: Discover a serverless model then generate a chat completion.
+  - file: friendliai-deploy-and-infer.yml
+    workflowId: deploy-and-infer
+    title: FriendliAI deploy a Dedicated Endpoint and infer
+    summary: Create a Dedicated Endpoint, wait for ready, then run a chat completion.

@@ -1,0 +1,11 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+url: https://trust.friendli.ai
+note: >-
+  A Friendli Trust Center resolves at https://trust.friendli.ai (HTTP 200). The page is
+  client-side rendered, so named certifications could not be extracted programmatically and are
+  NOT asserted here. Data privacy commitments (inference requests/responses never used for training
+  or shared with third parties) are documented at https://friendli.ai/docs/guides/data-handling.
+certifications: []
+data_handling: https://friendli.ai/docs/guides/data-handling

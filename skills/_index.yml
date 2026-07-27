@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/friendliai-openapi-original.yml
+skills:
+  - file: friendliai-chat-completion.md
+    name: Generate a chat completion with Friendli Model APIs
+    api: openapi/friendliai-openapi-original.yml
+    operations: [serverlessModelList, serverlessChatComplete, serverlessChatStream]
+  - file: friendliai-tool-calling.md
+    name: Call tools with a Friendli model
+    api: openapi/friendliai-openapi-original.yml
+    operations: [serverlessChatComplete]
+  - file: friendliai-deploy-dedicated-endpoint.md
+    name: Deploy a Dedicated Endpoint and run inference
+    api: openapi/friendliai-openapi-original.yml
+    operations: [dedicatedCreateEndpoint, dedicatedGetEndpointStatus, dedicatedChatComplete]

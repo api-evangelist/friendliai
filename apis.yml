@@ -1,27 +1,465 @@
 aid: friendliai
 name: FriendliAI
-description: 'FriendliAI is a company surfaced as a portfolio company of sierra-ventures and added to
-  the API Evangelist network as a stub for enrichment. Sector: infrastructure. This profile is a lead
-  awaiting the enrichment pipeline.'
+description: >-
+  FriendliAI is an AI inference cloud that runs generative AI models fast, affordably, and reliably
+  at scale. Its Friendli Suite spans three products: Model APIs (serverless, pay-per-token access to
+  popular open-weight LLMs and multimodal models), Dedicated Endpoints (any open-source or custom
+  model on dedicated GPUs with autoscaling, versioning, multi-LoRA and speculative decoding), and
+  Friendli Container (self-hosted inference with gRPC, quantization and policy search). The API is
+  OpenAI-compatible, so existing OpenAI applications migrate by changing the base URL and API key,
+  with support for chat completions, tool calling, structured outputs, reasoning, audio transcription,
+  embeddings and image generation. FriendliAI is a portfolio company of Sierra Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/friendliai/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - sierra-ventures
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: enriched-2026-07-19
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://friendli.ai/opengraph-image.png
 tags:
 - Company
 - Infrastructure
-apis: []
+- Artificial Intelligence
+- Machine Learning
+- LLM
+- Inference
+- Generative AI
+- GPU
+- OpenAI Compatible
+apis:
+- aid: friendliai:friendliai-container-audio-api
+  name: FriendliAI Container.Audio API
+  description: The Container.Audio API from FriendliAI — 2 operation(s) for container.audio.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-audio-api-openapi.yml
+- aid: friendliai:friendliai-container-chat-api
+  name: FriendliAI Container.Chat API
+  description: The Container.Chat API from FriendliAI — 2 operation(s) for container.chat.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-chat-api-openapi.yml
+- aid: friendliai:friendliai-container-classification-api
+  name: FriendliAI Container.Classification API
+  description: >-
+    The Container.Classification API from FriendliAI — 1 operation(s) for container.classification.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Classification
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-classification-api-openapi.yml
+- aid: friendliai:friendliai-container-completions-api
+  name: FriendliAI Container.Completions API
+  description: >-
+    The Container.Completions API from FriendliAI — 2 operation(s) for container.completions.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-completions-api-openapi.yml
+- aid: friendliai:friendliai-container-image-api
+  name: FriendliAI Container.Image API
+  description: The Container.Image API from FriendliAI — 2 operation(s) for container.image.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Image
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-image-api-openapi.yml
+- aid: friendliai:friendliai-container-messages-api
+  name: FriendliAI Container.Messages API
+  description: The Container.Messages API from FriendliAI — 2 operation(s) for container.messages.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-messages-api-openapi.yml
+- aid: friendliai:friendliai-container-responses-api
+  name: FriendliAI Container.Responses API
+  description: The Container.Responses API from FriendliAI — 2 operation(s) for container.responses.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-responses-api-openapi.yml
+- aid: friendliai:friendliai-container-token-api
+  name: FriendliAI Container.Token API
+  description: The Container.Token API from FriendliAI — 2 operation(s) for container.token.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Container.Token
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-container-token-api-openapi.yml
+- aid: friendliai:friendliai-cost-api
+  name: FriendliAI Cost API
+  description: The Cost API from FriendliAI — 1 operation(s) for cost.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Cost
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-cost-api-openapi.yml
+- aid: friendliai:friendliai-dataset-api
+  name: FriendliAI Dataset API
+  description: The Dataset API from FriendliAI — 8 operation(s) for dataset.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dataset
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dataset-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-audio-api
+  name: FriendliAI Dedicated.Audio API
+  description: The Dedicated.Audio API from FriendliAI — 2 operation(s) for dedicated.audio.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-audio-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-chat-api
+  name: FriendliAI Dedicated.Chat API
+  description: The Dedicated.Chat API from FriendliAI — 2 operation(s) for dedicated.chat.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-chat-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-chatrender-api
+  name: FriendliAI Dedicated.ChatRender API
+  description: The Dedicated.ChatRender API from FriendliAI — 1 operation(s) for dedicated.chatrender.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.ChatRender
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-chatrender-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-classification-api
+  name: FriendliAI Dedicated.Classification API
+  description: >-
+    The Dedicated.Classification API from FriendliAI — 1 operation(s) for dedicated.classification.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Classification
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-classification-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-completions-api
+  name: FriendliAI Dedicated.Completions API
+  description: >-
+    The Dedicated.Completions API from FriendliAI — 2 operation(s) for dedicated.completions.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-completions-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-embeddings-api
+  name: FriendliAI Dedicated.Embeddings API
+  description: The Dedicated.Embeddings API from FriendliAI — 1 operation(s) for dedicated.embeddings.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-embeddings-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-endpoint-api
+  name: FriendliAI Dedicated.Endpoint API
+  description: The Dedicated.Endpoint API from FriendliAI — 9 operation(s) for dedicated.endpoint.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-endpoint-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-image-api
+  name: FriendliAI Dedicated.Image API
+  description: The Dedicated.Image API from FriendliAI — 2 operation(s) for dedicated.image.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Image
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-image-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-messages-api
+  name: FriendliAI Dedicated.Messages API
+  description: The Dedicated.Messages API from FriendliAI — 2 operation(s) for dedicated.messages.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-messages-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-responses-api
+  name: FriendliAI Dedicated.Responses API
+  description: The Dedicated.Responses API from FriendliAI — 2 operation(s) for dedicated.responses.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-responses-api-openapi.yml
+- aid: friendliai:friendliai-dedicated-token-api
+  name: FriendliAI Dedicated.Token API
+  description: The Dedicated.Token API from FriendliAI — 2 operation(s) for dedicated.token.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Dedicated.Token
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-dedicated-token-api-openapi.yml
+- aid: friendliai:friendliai-file-api
+  name: FriendliAI File API
+  description: The File API from FriendliAI — 3 operation(s) for file.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - File
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-file-api-openapi.yml
+- aid: friendliai:friendliai-serverless-audio-api
+  name: FriendliAI Serverless.Audio API
+  description: The Serverless.Audio API from FriendliAI — 2 operation(s) for serverless.audio.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Audio
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-audio-api-openapi.yml
+- aid: friendliai:friendliai-serverless-chat-api
+  name: FriendliAI Serverless.Chat API
+  description: The Serverless.Chat API from FriendliAI — 2 operation(s) for serverless.chat.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Chat
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-chat-api-openapi.yml
+- aid: friendliai:friendliai-serverless-chatrender-api
+  name: FriendliAI Serverless.ChatRender API
+  description: >-
+    The Serverless.ChatRender API from FriendliAI — 1 operation(s) for serverless.chatrender.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.ChatRender
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-chatrender-api-openapi.yml
+- aid: friendliai:friendliai-serverless-completions-api
+  name: FriendliAI Serverless.Completions API
+  description: >-
+    The Serverless.Completions API from FriendliAI — 2 operation(s) for serverless.completions.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-completions-api-openapi.yml
+- aid: friendliai:friendliai-serverless-knowledge-api
+  name: FriendliAI Serverless.Knowledge API
+  description: The Serverless.Knowledge API from FriendliAI — 1 operation(s) for serverless.knowledge.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Knowledge
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-knowledge-api-openapi.yml
+- aid: friendliai:friendliai-serverless-messages-api
+  name: FriendliAI Serverless.Messages API
+  description: The Serverless.Messages API from FriendliAI — 2 operation(s) for serverless.messages.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-messages-api-openapi.yml
+- aid: friendliai:friendliai-serverless-model-api
+  name: FriendliAI Serverless.Model API
+  description: The Serverless.Model API from FriendliAI — 2 operation(s) for serverless.model.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Model
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-model-api-openapi.yml
+- aid: friendliai:friendliai-serverless-responses-api
+  name: FriendliAI Serverless.Responses API
+  description: The Serverless.Responses API from FriendliAI — 2 operation(s) for serverless.responses.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Responses
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-responses-api-openapi.yml
+- aid: friendliai:friendliai-serverless-token-api
+  name: FriendliAI Serverless.Token API
+  description: The Serverless.Token API from FriendliAI — 2 operation(s) for serverless.token.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.Token
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-token-api-openapi.yml
+- aid: friendliai:friendliai-serverless-toolassistedchat-api
+  name: FriendliAI Serverless.ToolAssistedChat API
+  description: >-
+    The Serverless.ToolAssistedChat API from FriendliAI — 2 operation(s) for serverless.toolassistedchat.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Serverless.ToolAssistedChat
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-serverless-toolassistedchat-api-openapi.yml
+- aid: friendliai:friendliai-usage-api
+  name: FriendliAI Usage API
+  description: The Usage API from FriendliAI — 1 operation(s) for usage.
+  humanURL: https://friendli.ai/docs/openapi/introduction
+  baseURL: https://api.friendli.ai
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/friendliai-usage-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/friendliai-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/friendliai-agentic-access.yml
+- type: Authentication
+  url: authentication/friendliai-authentication.yml
+- type: Packages
+  url: packages/friendliai-packages.yml
+- type: SDKs
+  url: packages/friendliai-packages.yml
+- type: CLI
+  url: cli/friendliai-cli.yml
+- type: MCPServer
+  url: mcp/friendliai-mcp.yml
+- type: LLMsTxt
+  url: llms/friendliai-llms.txt
+- type: Conformance
+  url: conformance/friendliai-conformance.yml
+- type: ErrorCatalog
+  url: errors/friendliai-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/friendliai-lifecycle.yml
+- type: Conventions
+  url: conventions/friendliai-conventions.yml
+- type: DataModel
+  url: data-model/friendliai-data-model.yml
+- type: RateLimits
+  url: rate-limits/friendliai-rate-limits.yml
+- type: ChangeLog
+  url: changelog/friendliai-changelog.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Arazzo
+  name: FriendliAI chat completion
+  url: arazzo/friendliai-chat-completion.yml
+- type: Arazzo
+  name: FriendliAI deploy a Dedicated Endpoint and infer
+  url: arazzo/friendliai-deploy-and-infer.yml
+- type: TrustCenter
+  url: https://trust.friendli.ai
+- type: StatusPage
+  url: https://status.friendli.ai
+- type: Deprecation
+  url: https://friendli.ai/docs/changelog
+- type: DeveloperPortal
+  url: https://suite.friendli.ai
+- type: Documentation
+  url: https://friendli.ai/docs
+- type: APIReference
+  url: https://friendli.ai/docs/openapi/introduction
+- type: GettingStarted
+  url: https://friendli.ai/docs/guides/introduction/get-started
+- type: Playground
+  url: https://friendli.ai/models
+- type: Blog
+  url: https://friendli.ai/blog
+- type: GitHubOrganization
+  url: https://github.com/friendliai
+- type: Pricing
+  url: https://friendli.ai/pricing
+- type: SignUp
+  url: https://suite.friendli.ai
+- type: Login
+  url: https://friendli.ai/suite/login
+- type: TermsOfService
+  url: https://friendli.ai/terms-of-service
+- type: PrivacyPolicy
+  url: https://friendli.ai/privacy
+- type: Support
+  url: mailto:support@friendli.ai
 - type: Website
   url: https://friendli.ai/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

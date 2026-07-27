@@ -1,0 +1,24 @@
+generated: '2026-07-19'
+method: searched
+source: https://friendli.ai/docs/guides/model-apis/rate-limits.md
+model: usage-tiers
+scheme: >-
+  Friendli Model APIs enforce rate limits by usage tier. Tiers (1-5) are based on lifetime
+  spending and advance automatically; Tier 5 requires contacting support for custom limits.
+dimensions:
+  - RPM (requests per minute) — varies between paid and free models
+  - output token length (max tokens generated per response)
+tiers:
+  - tier: 1
+  - tier: 2
+  - tier: 3
+  - tier: 4
+  - tier: 5
+    note: Custom limits via support.
+enterprise:
+  note: Enterprise plan offers higher API rate limits and reserved capacity.
+  docs: https://friendli.ai/docs/guides/suite/enterprise-plan.md
+note: >-
+  Per-tier numeric RPM/token thresholds are served dynamically in the docs and are not published as
+  static values; captured qualitatively here without fabricating numbers. On 429 the account has
+  exceeded its tier limit.

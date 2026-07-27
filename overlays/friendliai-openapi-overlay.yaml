@@ -1,0 +1,22 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for FriendliAI Friendli Suite API
+  version: 1.0.0
+extends: openapi/friendliai-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-19'
+      x-api-style: openai-compatible
+      x-friendliai-products:
+        - Model APIs (serverless)
+        - Dedicated Endpoints
+        - Friendli Container
+      x-authentication: authentication/friendliai-authentication.yml
+      x-errors: errors/friendliai-problem-types.yml
+      x-conventions: conventions/friendliai-conventions.yml
+      x-data-model: data-model/friendliai-data-model.yml
+  - target: $.servers
+    update:
+      - url: https://api.friendli.ai
+        description: Friendli Suite API production host.

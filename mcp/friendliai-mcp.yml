@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/friendliai-openapi-original.yml
+note: >-
+  No official hosted FriendliAI MCP server was found on the docs, npm (@modelcontextprotocol),
+  or MCP registries as of 2026-07-19. This is a DERIVED candidate tool list mapping the marquee
+  Friendli Suite operations to MCP tools; not an authoritative provider manifest.
+server:
+  name: friendliai
+  transport: http
+tools:
+  - name: chat_completion
+    description: Generate a chat completion from a list of messages (OpenAI-compatible).
+    source_operation: openapi/friendliai-openapi-original.yml#serverlessChatComplete
+  - name: list_models
+    description: List available serverless Model APIs models.
+    source_operation: openapi/friendliai-openapi-original.yml#serverlessModelList
+  - name: transcribe_audio
+    description: Transcribe audio to text.
+    source_operation: openapi/friendliai-openapi-original.yml#serverlessAudioTranscriptions
+  - name: tokenize
+    description: Tokenize input text for a model.
+    source_operation: openapi/friendliai-openapi-original.yml#serverlessTokenization
+  - name: create_dedicated_endpoint
+    description: Create a Dedicated Endpoint on dedicated GPUs.
+    source_operation: openapi/friendliai-openapi-original.yml#dedicatedCreateEndpoint
+  - name: get_endpoint_status
+    description: Get the status of a Dedicated Endpoint.
+    source_operation: openapi/friendliai-openapi-original.yml#dedicatedGetEndpointStatus
+  - name: get_usage
+    description: Retrieve team usage.
+    source_operation: openapi/friendliai-openapi-original.yml#getUsage

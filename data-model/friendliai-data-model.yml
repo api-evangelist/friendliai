@@ -1,0 +1,57 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/friendliai-openapi-original.yml
+note: >-
+  Entity graph derived from Friendli Suite API resource paths. Inference resources (chat,
+  completions, embeddings, audio, images) are stateless operations; the stateful entities are
+  Dedicated Endpoints and the Dataset/File management surface.
+entities:
+  - name: Endpoint
+    domain: dedicated
+    operations: [dedicatedCreateEndpoint, dedicatedListEndpoints, dedicatedGetEndpoint, dedicatedUpdateEndpoint, dedicatedDeleteEndpoint]
+    relationships:
+      - has_many: EndpointVersion
+        via: endpoint_id
+  - name: EndpointVersion
+    domain: dedicated
+    operations: [dedicatedGetEndpointVersionHistory]
+    relationships:
+      - belongs_to: Endpoint
+        via: endpoint_id
+  - name: Model
+    domain: serverless
+    operations: [serverlessModelList, serverlessOpenrouterModelList]
+  - name: Dataset
+    domain: beta
+    operations: [create_dataset, list_datasets, get_dataset, delete_dataset]
+    relationships:
+      - has_many: DatasetVersion
+        via: dataset_id
+  - name: DatasetVersion
+    domain: beta
+    operations: [create_version, list_versions, get_version, delete_version]
+    relationships:
+      - belongs_to: Dataset
+        via: dataset_id
+      - has_many: Split
+        via: version_id
+  - name: Split
+    domain: beta
+    operations: [create_split, list_splits, get_split, delete_split]
+    relationships:
+      - belongs_to: DatasetVersion
+        via: version_id
+      - has_many: Sample
+        via: split_id
+  - name: Sample
+    domain: beta
+    operations: [add_samples, list_samples, upload_raw_samples, delete_samples]
+    relationships:
+      - belongs_to: Split
+        via: split_id
+  - name: File
+    domain: beta
+    operations: [init_upload, complete_upload, get_info, get_download_url]
+  - name: Team
+    domain: usage
+    operations: [getCost, getUsage]

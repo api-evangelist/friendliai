@@ -1,0 +1,33 @@
+generated: '2026-07-19'
+method: searched
+source: openapi/friendliai-openapi-original.yml + https://friendli.ai/docs/guides/openai-compatibility.md
+authentication:
+  style: http-bearer
+  header: 'Authorization: Bearer <FRIENDLI_TOKEN>'
+  docs: https://friendli.ai/docs/guides/suite/personal-api-keys.md
+  ref: authentication/friendliai-authentication.yml
+openai_compatibility: true
+base_url: https://api.friendli.ai
+team_scoping:
+  header: X-Friendli-Team
+  required: false
+  note: Optional header to run requests as a specific team ID.
+streaming:
+  style: server-sent-events
+  note: Dedicated #stream operations (chat/completions/responses/messages/audio) stream SSE chunks.
+idempotency:
+  supported: false
+  note: No Idempotency-Key header or parameter is declared in the OpenAPI (OpenAI-compatible surface).
+pagination:
+  style: none-observed
+  note: List operations (models, endpoints, datasets) return collections without a documented cursor scheme in the spec.
+versioning:
+  ref: lifecycle/friendliai-lifecycle.yml
+error_envelope:
+  format: custom-json
+  ref: errors/friendliai-problem-types.yml
+rate_limiting:
+  ref: rate-limits/friendliai-rate-limits.yml
+structured_outputs:
+  supported: true
+  mechanism: response_format JSON schema

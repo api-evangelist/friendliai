@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/friendliai/homebrew-client
+cli:
+  name: friendli
+  description: Client for Friendli Suite — supercharging generative AI serving.
+  install:
+    - method: homebrew
+      command: brew install friendliai/client/friendli-client
+    - method: pip
+      command: pip install friendli-client
+  binary: friendli
+  package: friendli-client
+  homepage: https://friendli.ai
+notes: >-
+  The CLI binary `friendli` is distributed via the friendliai/client Homebrew tap and the
+  `friendli-client` PyPI package. Command surface not captured verbatim here to avoid fabrication;
+  see the tap README and `friendli --help`.
