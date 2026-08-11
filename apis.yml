@@ -386,6 +386,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/friendliai-openapi-overlay.yaml
 - type: DomainSecurity
   url: security/friendliai-domain-security.yml
 - type: AgenticAccess
