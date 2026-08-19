@@ -1,0 +1,391 @@
+{
+  "item": [
+    {
+      "id": "3cd21ae7-e8b9-4902-a630-8d00c10df537",
+      "name": "Dedicated.Responses",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7f4a7fc3-5700-4436-87dc-09ff0ceaaa5c",
+          "name": "Responses",
+          "request": {
+            "name": "Responses",
+            "description": {
+              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "responses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23b94c32-e0ad-47f2-be4e-266492fc848c",
+              "name": "Successfully generated a response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"resp_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"object\": \"response\",\n  \"created_at\": 1735722153,\n  \"status\": \"completed\",\n  \"output\": [\n    {\n      \"type\": \"message\",\n      \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n      \"status\": \"completed\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"Hello there, how may I assist you today?\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": 9,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 0\n    },\n    \"output_tokens\": 11,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 0\n    },\n    \"total_tokens\": 20\n  },\n  \"model\": \"(endpoint-id)\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c2f83b20-456c-4dec-b865-c0e00605797b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3d1b72c-0024-4c40-97b7-1be2ac3740b9",
+          "name": "Stream responses",
+          "request": {
+            "name": "Stream responses",
+            "description": {
+              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "responses"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": false,\n        \"key_1\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": true,\n        \"key_1\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e745a477-50f2-4d2d-9a24-93f9a46a0721",
+              "name": "Successfully generated a streamed response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "responses"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"in_progress\",\"output\":[]},\"sequence_number\":0}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":1}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\"},\"sequence_number\":2}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\",\"sequence_number\":3}\n\n...\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"text\":\"Hello there, how may I assist you today?\",\"sequence_number\":8}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"},\"sequence_number\":9}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]},\"sequence_number\":10}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]}],\"usage\":{\"input_tokens\":9,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":11,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":20},\"model\":\"(endpoint-id)\"},\"sequence_number\":11}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8777190-9b3e-4ada-b218-3a494d678ae8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "responses"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "10dc47ac-7e08-449b-9cd8-9fdbbcd8013b",
+    "name": "Friendli Suite API Reference Container.Audio Dedicated.Responses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

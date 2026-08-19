@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Audio API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serverless.Audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Audio transcriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/audio/transcriptions",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Transcribe an audio file into text."
+        },
+        {
+          "info": {
+            "name": "Stream audio transcriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/audio/transcriptions#stream",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Transcribe an audio file into text."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

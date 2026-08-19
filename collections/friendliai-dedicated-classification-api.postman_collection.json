@@ -1,0 +1,207 @@
+{
+  "item": [
+    {
+      "id": "375c4a5e-3df5-4fb2-a13a-7099286726e8",
+      "name": "Dedicated.Classification",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c382050b-d706-43b2-aada-6cfa176b5d8d",
+          "name": "Text classification",
+          "request": {
+            "name": "Text classification",
+            "description": {
+              "content": "Classify text input into categories with per-class probabilities.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "classify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "35af8c4e-741f-400f-bee5-cd6b32858f22",
+              "name": "Successfully classified the text input.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"I love programming.\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"index\": 0,\n      \"label\": \"Positive\",\n      \"num_classes\": 2,\n      \"probs\": [\n        0.9,\n        0.1\n      ]\n    }\n  ],\n  \"object\": \"list\",\n  \"usage\": {\n    \"prompt_tokens\": 5,\n    \"total_tokens\": 5\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "00757d2c-dae6-4fab-882f-2ebc84834504",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "classify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"I love programming.\",\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0cbd3cbc-8996-4fcf-a7ef-a7b1bfbd35c3",
+    "name": "Friendli Suite API Reference Container.Audio Dedicated.Classification API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "item": [
+    {
+      "id": "543d7e33-1da3-4d20-89ee-6b3c7bcd25af",
+      "name": "Container.Image",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0af94372-dd2a-44db-bb39-4bb5c62a7d8b",
+          "name": "Image generations",
+          "request": {
+            "name": "Image generations",
+            "description": {
+              "content": "Generate an image from a text prompt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "images",
+                "generations"
+              ],
+              "host": [
+                "{{v1-images-generations-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": 0,\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\",\n  \"control_images\": [\n    {\n      \"image\": \"<string>\"\n    },\n    {\n      \"image\": \"<string>\"\n    }\n  ],\n  \"controlnet_weights\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85a96e00-20e8-4739-9cce-64b53f7bb59a",
+              "name": "Successfully generated image.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{v1-images-generations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guidance_scale\": 3.5,\n  \"num_inference_steps\": 10,\n  \"prompt\": \"An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"image\": \"<base64 encoded image>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "112f5926-3ce4-4bab-9a6a-9f17c9292780",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "generations"
+                  ],
+                  "host": [
+                    "{{v1-images-generations-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"guidance_scale\": 3.5,\n  \"num_inference_steps\": 10,\n  \"prompt\": \"An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d0194e5c-3edb-4d30-820b-645d71374e47",
+          "name": "Image edits",
+          "request": {
+            "name": "Image edits",
+            "description": {
+              "content": "Edit an image based on a text prompt.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "images",
+                "edits"
+              ],
+              "host": [
+                "{{v1-images-edits-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"image\": {\n    \"image\": \"<string>\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": 0,\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6222fb74-0d82-4815-a0ee-ae8a108c60f9",
+              "name": "Successfully edited image.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "edits"
+                  ],
+                  "host": [
+                    "{{v1-images-edits-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": {\n    \"image\": \"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": 0,\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"image\": \"<base64 encoded image>\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b001543a-6c4e-41a5-a469-5074c19df0e0",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "images",
+                    "edits"
+                  ],
+                  "host": [
+                    "{{v1-images-edits-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"image\": {\n    \"image\": \"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": 0,\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-images-generations-Url"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-images-edits-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "cbc416ad-5b62-4cb5-b041-6546d0e745b3",
+    "name": "Friendli Suite API Reference Container.Audio Container.Image API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

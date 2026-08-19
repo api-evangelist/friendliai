@@ -1,0 +1,397 @@
+{
+  "item": [
+    {
+      "id": "c4ef3e6c-fa58-4e3e-bdf2-eb82f1419820",
+      "name": "Dedicated.Chat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ced13277-f473-439e-9a90-06d1c0dc5d59",
+          "name": "Chat completions",
+          "request": {
+            "name": "Chat completions",
+            "description": {
+              "content": "Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": false,\n    \"key_1\": 4791\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": \"string\",\n    \"key_1\": 1694\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"function\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 3861.06736966246,\n          \"key_1\": \"string\",\n          \"key_2\": 1355\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ],\n  \"min_tokens\": \"<integer>\",\n  \"response_format\": {\n    \"type\": \"<string>\",\n    \"json_schema\": {\n      \"schema\": {\n        \"key_0\": true,\n        \"key_1\": 6711\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e42be75e-fd33-4889-becc-5233590a4fbf",
+              "name": "Successfully generated a chat response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\n  \"model\": \"(endpoint-id)\",\n  \"object\": \"chat.completion\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Hello there, how may I assist you today?\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 9,\n    \"completion_tokens\": 11,\n    \"total_tokens\": 20\n  },\n  \"created\": 1735722153\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a20daf26-b999-49c8-907e-573b5f66798c",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "451fda83-71b3-4328-be06-9b336be9c313",
+          "name": "Stream chat completions",
+          "request": {
+            "name": "Stream chat completions",
+            "description": {
+              "content": "Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": 1097,\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 83.10581892966073,\n    \"key_1\": 1781.5665911435174,\n    \"key_2\": \"string\"\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"function\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": false,\n          \"key_1\": 9753.543231487367\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 3170.25003213784,\n          \"key_1\": 3653.690271808506\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ],\n  \"min_tokens\": \"<integer>\",\n  \"response_format\": {\n    \"type\": \"<string>\",\n    \"json_schema\": {\n      \"schema\": {\n        \"key_0\": 2879.9178669095695,\n        \"key_1\": \"string\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "64b2f2fb-bdd0-4ca6-b092-a4c13df1adf2",
+              "name": "Successfully generated a chat response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "data: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"This\"},\"finish_reason\":null,\"logprobs\":null}],\"usage\":null,\"created\":1726294381}\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" is\"},\"finish_reason\":null,\"logprobs\":null}],\"usage\":null,\"created\":1726294381}\n\n...\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\",\"logprobs\":null}],\"usage\":null,\"created\":1726294383}\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[],\"usage\":{\"prompt_tokens\":8,\"completion_tokens\":4,\"total_tokens\":12},\"created\":1726294402}\n\ndata: [DONE]\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ad81f56-6d97-4c6b-b6a3-d42fd4ce1385",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "17993fb0-1520-4227-bc1c-16b7b389913f",
+    "name": "Friendli Suite API Reference Container.Audio Dedicated.Chat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

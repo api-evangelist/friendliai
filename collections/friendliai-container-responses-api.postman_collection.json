@@ -1,0 +1,307 @@
+{
+  "item": [
+    {
+      "id": "1f927c60-f458-49ca-8109-5b0f6d27b1e1",
+      "name": "Container.Responses",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d25a7d78-fb73-4c3a-9fbe-7874e783cdc6",
+          "name": "Responses",
+          "request": {
+            "name": "Responses",
+            "description": {
+              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "responses"
+              ],
+              "host": [
+                "{{v1-responses-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": 895\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 4612.843781382981\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": \"<boolean>\",\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "98197779-f9a8-4a66-99d0-aa7120948eb3",
+              "name": "Successfully generated a response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{v1-responses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"resp_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"object\": \"response\",\n  \"created_at\": 1735722153,\n  \"status\": \"completed\",\n  \"output\": [\n    {\n      \"type\": \"message\",\n      \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n      \"status\": \"completed\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"Hello there, how may I assist you today?\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": 9,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 0\n    },\n    \"output_tokens\": 11,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 0\n    },\n    \"total_tokens\": 20\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1fab02e1-3c07-4a2f-b086-e30390b948a8",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "responses"
+                  ],
+                  "host": [
+                    "{{v1-responses-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "61be007c-518f-4778-8d1d-cfff3502c2df",
+          "name": "Stream responses",
+          "request": {
+            "name": "Stream responses",
+            "description": {
+              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "responses"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{v1-responses#stream-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 4587,\n        \"key_1\": \"string\"\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": true,\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "eb9b3f6e-303f-42cc-8d23-8064739173f1",
+              "name": "Successfully generated a streamed response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "responses"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{v1-responses#stream-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"in_progress\",\"output\":[]},\"sequence_number\":0}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":1}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\"},\"sequence_number\":2}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\",\"sequence_number\":3}\n\n...\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"text\":\"Hello there, how may I assist you today?\",\"sequence_number\":8}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"},\"sequence_number\":9}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]},\"sequence_number\":10}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]}],\"usage\":{\"input_tokens\":9,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":11,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":20}},\"sequence_number\":11}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a055b2f-975e-4707-ab7e-c3790e305266",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "responses"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{v1-responses#stream-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-responses-Url"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-responses#stream-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "b0482c79-91ed-49ff-92c8-929aa0a34ef2",
+    "name": "Friendli Suite API Reference Container.Audio Container.Responses API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

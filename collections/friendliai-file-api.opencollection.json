@@ -1,0 +1,130 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio File API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate file upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/file",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initiate file upload."
+        },
+        {
+          "info": {
+            "name": "Get file info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/file/:file_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "File ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get file info."
+        },
+        {
+          "info": {
+            "name": "Complete file upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.friendli.ai/beta/file/:file_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "File ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Complete file upload."
+        },
+        {
+          "info": {
+            "name": "Get file download URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/file/:file_id/download_url",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "file_id",
+                "value": "",
+                "type": "path",
+                "description": "File ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get file download URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

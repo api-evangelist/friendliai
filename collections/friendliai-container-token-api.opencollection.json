@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Container.Token API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Container.Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tokenization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/v1/tokenize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert text input into token IDs."
+        },
+        {
+          "info": {
+            "name": "Detokenization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/v1/detokenize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a list of token IDs back into text."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

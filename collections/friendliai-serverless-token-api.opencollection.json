@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Token API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serverless.Token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tokenization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/tokenize",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convert text input into token IDs."
+        },
+        {
+          "info": {
+            "name": "Detokenization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/detokenize",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Convert a list of token IDs back into text."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,515 @@
+{
+  "item": [
+    {
+      "id": "02e0dc55-b33a-4168-b208-77fb32108d34",
+      "name": "Serverless.Audio",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "519abd9f-7731-47f4-a120-7fed4f414eaf",
+          "name": "Audio transcriptions",
+          "request": {
+            "name": "Audio transcriptions",
+            "description": {
+              "content": "Transcribe an audio file into text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "audio",
+                "transcriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "model",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods)."
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats."
+                },
+                {
+                  "key": "chunking_strategy",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Controls how the audio is cut into chunks. When set to `\"auto\"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block."
+                },
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency."
+                },
+                {
+                  "key": "stream",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated."
+                },
+                {
+                  "key": "temperature",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b685621a-491f-4d2f-b713-d6ba4c05fc86",
+              "name": "Successfully transcribed the audio file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "openai/whisper-large-v3",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"Hello, how are you?\",\n  \"usage\": {\n    \"type\": \"tokens\",\n    \"input_tokens\": 20,\n    \"output_tokens\": 10,\n    \"total_tokens\": 30,\n    \"input_audio_length_ms\": 18000,\n    \"processed_audio_length_ms\": 24000,\n    \"input_token_details\": {\n      \"audio_tokens\": 10,\n      \"text_tokens\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66258dba-c089-422f-ae66-952d619a075c",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "openai/whisper-large-v3",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18815284-0280-4d97-aa8c-4c9abbdeb1aa",
+          "name": "Stream audio transcriptions",
+          "request": {
+            "name": "Stream audio transcriptions",
+            "description": {
+              "content": "Transcribe an audio file into text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "audio",
+                "transcriptions"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "model",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods)."
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats."
+                },
+                {
+                  "key": "chunking_strategy",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Controls how the audio is cut into chunks. When set to `\"auto\"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block."
+                },
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency."
+                },
+                {
+                  "key": "stream",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated."
+                },
+                {
+                  "key": "temperature",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f1839b30-2976-4b88-bdff-c4964d055b03",
+              "name": "Successfully transcribed the audio file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "openai/whisper-large-v3",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "data: {\"type\":\"transcript.text.delta\",\"delta\":\"The\"}\n\ndata: {\"type\":\"transcript.text.delta\",\"delta\":\" quick\"}\n\n...\n\ndata: {\"type\":\"transcript.text.done\",\"text\":\"The quick brown fox jumps over the lazy dog.\",\"usage\":{\"type\":\"tokens\",\"input_tokens\":20,\"output_tokens\":10,\"total_tokens\":30,\"input_audio_length_ms\":18000,\"processed_audio_length_ms\":24000,\"input_token_details\":{\"audio_tokens\":10,\"text_tokens\":10}}}\n\ndata: [DONE]\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f65302a3-4428-400f-8067-c19b27ff2b21",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "openai/whisper-large-v3",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a56a5133-4021-454c-be04-c8065c9a0f46",
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Audio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

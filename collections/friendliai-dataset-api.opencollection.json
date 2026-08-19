@@ -1,0 +1,607 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Dataset API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dataset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nameSearch",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List datasets accessible to the user."
+        },
+        {
+          "info": {
+            "name": "Create a new dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/dataset",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new dataset."
+        },
+        {
+          "info": {
+            "name": "Get dataset info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset to retrieve."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Delete dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a specific dataset."
+        },
+        {
+          "info": {
+            "name": "List versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/version",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List versions for a dataset."
+        },
+        {
+          "info": {
+            "name": "Create a version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/version",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "comment",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a version for the current state of the split."
+        },
+        {
+          "info": {
+            "name": "Get version info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/version/:version_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the version to get."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a dataset version."
+        },
+        {
+          "info": {
+            "name": "Delete a version",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/version/:version_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the version to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a version from the dataset."
+        },
+        {
+          "info": {
+            "name": "List splits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List splits in the dataset."
+        },
+        {
+          "info": {
+            "name": "Create a split",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new split in the dataset."
+        },
+        {
+          "info": {
+            "name": "Get split info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about a specific split."
+        },
+        {
+          "info": {
+            "name": "Delete split",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a specific split."
+        },
+        {
+          "info": {
+            "name": "List samples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id/sample",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "versionId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List samples from the split."
+        },
+        {
+          "info": {
+            "name": "Add samples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id/sample",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add samples to the split."
+        },
+        {
+          "info": {
+            "name": "Update samples",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id/sample",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update samples as raw file."
+        },
+        {
+          "info": {
+            "name": "Delete samples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/beta/dataset/:dataset_id/split/:split_id/sample/delete",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the dataset."
+              },
+              {
+                "name": "split_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the split."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete samples from the split."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

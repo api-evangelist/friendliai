@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Model API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serverless.Model",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve serverless models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/serverless/v1/models"
+          },
+          "docs": "Retrieve list of serverless models."
+        },
+        {
+          "info": {
+            "name": "Retrieve serverless models for OpenRouter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/serverless/v1/openrouter/models"
+          },
+          "docs": "Retrieve list of serverless models for OpenRouter integration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,308 @@
+{
+  "item": [
+    {
+      "id": "1ade849a-ec60-4047-b2a1-310a8bd15b9b",
+      "name": "Serverless.Model",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "bce0c629-79b0-4958-bcdd-9d5ef915b979",
+          "name": "Retrieve serverless models",
+          "request": {
+            "name": "Retrieve serverless models",
+            "description": {
+              "content": "Retrieve list of serverless models.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69d50c27-2402-4e93-ac61-83708d2b4dd8",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"created\": 2300,\n      \"context_length\": 5543,\n      \"max_completion_tokens\": 9546,\n      \"pricing\": {\n        \"input\": \"string\",\n        \"output\": \"string\",\n        \"prompt\": \"string\",\n        \"completion\": \"string\",\n        \"input_cache_read\": \"string\",\n        \"audio_minute\": \"string\"\n      },\n      \"functionality\": {\n        \"tool_call\": true,\n        \"builtin_tool\": true,\n        \"parallel_tool_call\": true,\n        \"structured_output\": true\n      },\n      \"description\": \"string\",\n      \"hugging_face_url\": \"http://LAWbdSkXvwEnlpZpEqWIgTXaFSSsgQGp.otIzXVAW-FjQUzrFYLHNKo6onGU97ZPpJeg1X9PYnN9\",\n      \"license\": \"https://eUUDdlXLENHKQUFubvtvKzKOnuZBYk.nlu75lMPpKOl+wR-upDlnTU08au.K6RmVbyQc,iBYP9azjx2mUu+IIiXfXtpR.SFfjN\",\n      \"hugging_face_id\": \"\",\n      \"deprecation_date\": \"string\",\n      \"discount_to_user\": 3522.30101375046\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"created\": 6155,\n      \"context_length\": 1092,\n      \"max_completion_tokens\": 4385,\n      \"pricing\": {\n        \"input\": \"string\",\n        \"output\": \"string\",\n        \"prompt\": \"string\",\n        \"completion\": \"string\",\n        \"input_cache_read\": \"string\",\n        \"audio_minute\": \"string\"\n      },\n      \"functionality\": {\n        \"tool_call\": true,\n        \"builtin_tool\": true,\n        \"parallel_tool_call\": false,\n        \"structured_output\": true\n      },\n      \"description\": \"string\",\n      \"hugging_face_url\": \"https://ZMprVMVmVToeftYOyHHeDyDpoDuSDWhqD.rmwN6R.YpcIrl\",\n      \"license\": \"http://bNXPOXTtggSyNDzoidGq.imvGQ3MOboMAAs805HhMDwgGDzJ9bZc\",\n      \"hugging_face_id\": \"\",\n      \"deprecation_date\": \"string\",\n      \"discount_to_user\": 2273.858627196282\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e86b7d77-867a-4455-9c23-76c34b578902",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "50148a5d-8f12-4e6c-a1bd-c0283255873b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5660fc5-3bcd-4368-a43f-48d99525772e",
+          "name": "Retrieve serverless models for OpenRouter",
+          "request": {
+            "name": "Retrieve serverless models for OpenRouter",
+            "description": {
+              "content": "Retrieve list of serverless models for OpenRouter integration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "openrouter",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e583b878-8b2e-49ff-bc41-1628cf3dcd32",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "openrouter",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"created\": 593,\n      \"input_modalities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"output_modalities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"context_length\": 7520,\n      \"pricing\": {\n        \"prompt\": \"string\",\n        \"completion\": \"string\",\n        \"image\": \"0\",\n        \"request\": \"0\",\n        \"input_cache_read\": \"string\",\n        \"min_context\": 216\n      },\n      \"supported_sampling_parameters\": [\n        \"string\",\n        \"string\"\n      ],\n      \"supported_features\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hugging_face_id\": \"\",\n      \"quantization\": \"string\",\n      \"max_output_length\": 4121,\n      \"description\": \"string\",\n      \"deprecation_date\": \"string\",\n      \"is_ready\": true,\n      \"is_free\": false,\n      \"discount_to_user\": 4077.950962947163,\n      \"capacity_tpm\": 9859,\n      \"openrouter\": {\n        \"slug\": \"string\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"string\"\n        },\n        {\n          \"country_code\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"created\": 9508,\n      \"input_modalities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"output_modalities\": [\n        \"string\",\n        \"string\"\n      ],\n      \"context_length\": 7717,\n      \"pricing\": {\n        \"prompt\": \"string\",\n        \"completion\": \"string\",\n        \"image\": \"0\",\n        \"request\": \"0\",\n        \"input_cache_read\": \"string\",\n        \"min_context\": 4237\n      },\n      \"supported_sampling_parameters\": [\n        \"string\",\n        \"string\"\n      ],\n      \"supported_features\": [\n        \"string\",\n        \"string\"\n      ],\n      \"hugging_face_id\": \"\",\n      \"quantization\": \"string\",\n      \"max_output_length\": 5230,\n      \"description\": \"string\",\n      \"deprecation_date\": \"string\",\n      \"is_ready\": false,\n      \"is_free\": true,\n      \"discount_to_user\": 384.50878577741656,\n      \"capacity_tpm\": 6800,\n      \"openrouter\": {\n        \"slug\": \"string\"\n      },\n      \"datacenters\": [\n        {\n          \"country_code\": \"string\"\n        },\n        {\n          \"country_code\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4f3fff2-333b-4058-a4a1-e385b67ccb90",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "openrouter",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f556f420-6b12-4ab2-98d4-bed2a0797ae0",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "openrouter",
+                    "models"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "13ebf3f1-bd60-4fc8-ad31-a697e6f9c2f8",
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Model API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

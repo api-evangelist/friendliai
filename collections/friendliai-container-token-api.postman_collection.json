@@ -1,0 +1,304 @@
+{
+  "item": [
+    {
+      "id": "afc7c65c-9389-4779-8490-acc2e2b86ea0",
+      "name": "Container.Token",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e4374530-bd12-4dc3-a7c8-66bf7a4d00c4",
+          "name": "Tokenization",
+          "request": {
+            "name": "Tokenization",
+            "description": {
+              "content": "Convert text input into token IDs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "tokenize"
+              ],
+              "host": [
+                "{{v1-tokenize-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7239c885-c0cb-482a-9c24-08fc22a3c635",
+              "name": "Successfully tokenized the text.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tokenize"
+                  ],
+                  "host": [
+                    "{{v1-tokenize-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"What is generative AI?\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    128000,\n    3923,\n    374,\n    1803,\n    1413,\n    15592,\n    30\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5688d7f3-30d9-40f0-9f42-061ee1785bad",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "tokenize"
+                  ],
+                  "host": [
+                    "{{v1-tokenize-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"What is generative AI?\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbf50809-ca7a-4914-8535-56f7e91a6c9d",
+          "name": "Detokenization",
+          "request": {
+            "name": "Detokenization",
+            "description": {
+              "content": "Convert a list of token IDs back into text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "detokenize"
+              ],
+              "host": [
+                "{{v1-detokenize-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"model\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dcde9fb3-e458-4ce9-9aad-89ccb43d044c",
+              "name": "Successfully detokenized the tokens.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "detokenize"
+                  ],
+                  "host": [
+                    "{{v1-detokenize-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tokens\": [\n    128000,\n    3923,\n    374,\n    1803,\n    1413,\n    15592,\n    30\n  ],\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"What is generative AI?\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e1dadb5a-df4c-469d-be88-c9cd20017600",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "detokenize"
+                  ],
+                  "host": [
+                    "{{v1-detokenize-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tokens\": [\n    128000,\n    3923,\n    374,\n    1803,\n    1413,\n    15592,\n    30\n  ],\n  \"model\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-tokenize-Url"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:8000",
+      "key": "v1-detokenize-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "4ccfe6b0-0319-4232-8965-4022a8320a7c",
+    "name": "Friendli Suite API Reference Container.Audio Container.Token API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

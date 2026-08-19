@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Messages API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Serverless.Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/messages",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking."
+        },
+        {
+          "info": {
+            "name": "Stream messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/serverless/v1/messages#stream",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Usage API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get usage details for the team.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/v1/team/usage",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`)."
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`."
+              },
+              {
+                "name": "bucket_width",
+                "value": "",
+                "type": "query",
+                "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response."
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them."
+              },
+              {
+                "name": "models",
+                "value": "",
+                "type": "query",
+                "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix."
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query",
+                "description": "Return only usage for these users."
+              },
+              {
+                "name": "product_types",
+                "value": "",
+                "type": "query",
+                "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them."
+              },
+              {
+                "name": "gpu_types",
+                "value": "",
+                "type": "query",
+                "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get usage details for the team."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,399 @@
+{
+  "item": [
+    {
+      "id": "e9dae8dd-e451-4c5f-bd97-9e1efb0f5544",
+      "name": "Serverless.Messages",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ff37b80-f14c-442d-8269-a7a99627c77c",
+          "name": "Messages",
+          "request": {
+            "name": "Messages",
+            "description": {
+              "content": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "messages"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 2426\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 5566\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"<string>\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"<string>\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"key_0\": false\n      }\n    }\n  },\n  \"cache_control\": {\n    \"key_0\": 1353\n  },\n  \"container\": {\n    \"key_0\": 8474.251797954163\n  },\n  \"context_manager\": {\n    \"key_0\": \"string\",\n    \"key_1\": 939.5249542857598,\n    \"key_2\": 1077.4757980399452\n  },\n  \"inference_geo\": {\n    \"key_0\": 1542.4061461767901,\n    \"key_1\": 3314,\n    \"key_2\": true,\n    \"key_3\": \"string\"\n  },\n  \"metadata\": {\n    \"key_0\": 3418.4726916775176,\n    \"key_1\": \"string\"\n  },\n  \"service_tier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "02496373-2f2f-4699-9913-20a64726bc6a",
+              "name": "Successfully generated a Messages-style response. For streaming (`text/event-stream`) event and chunk details, see [Messages chunk object](/openapi/model-apis/messages-chunk-object).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"zai-org/GLM-5.2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"type\": \"message\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"I can answer questions, generate text, and help with coding tasks.\"\n    }\n  ],\n  \"stop_reason\": \"end_turn\",\n  \"usage\": {\n    \"input_tokens\": 17,\n    \"output_tokens\": 14,\n    \"cache_read_input_tokens\": 0\n  },\n  \"model\": \"zai-org/GLM-5.2\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16c6c03d-1cf2-4ec3-8ddd-b9ba44086d61",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "messages"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"zai-org/GLM-5.2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"...\"\n  },\n  \"request_id\": \"req_...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01c14df5-c064-46fe-b846-42696343efef",
+          "name": "Stream messages",
+          "request": {
+            "name": "Stream messages",
+            "description": {
+              "content": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "v1",
+                "messages"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 4663.994622462648\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 6935.484158299454,\n        \"key_1\": true\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"<string>\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"<string>\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"key_0\": 2656\n      }\n    }\n  },\n  \"cache_control\": {\n    \"key_0\": 7658.127360144595,\n    \"key_1\": 3736\n  },\n  \"container\": {\n    \"key_0\": 3437.7694914525146\n  },\n  \"context_manager\": {\n    \"key_0\": 9872,\n    \"key_1\": 5607,\n    \"key_2\": 9355,\n    \"key_3\": 6361.693198518414\n  },\n  \"inference_geo\": {\n    \"key_0\": 3221.01992380029,\n    \"key_1\": 1114.4473785637442,\n    \"key_2\": 9625.023248979383,\n    \"key_3\": 1738\n  },\n  \"metadata\": {\n    \"key_0\": 9755,\n    \"key_1\": 9833,\n    \"key_2\": 4002\n  },\n  \"service_tier\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9af37824-20c2-4205-80e2-c310c77637a0",
+              "name": "Successfully generated a streamed Messages-style response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "messages"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"zai-org/GLM-5.2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"usage\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_read_input_tokens\":0}}}\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"Hello\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\", how can I help?\"}}\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0}\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null},\"usage\":{\"output_tokens\":11}}\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"}\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1a3fe9c6-f661-4990-b70e-8a226762ab94",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "v1",
+                    "messages"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"zai-org/GLM-5.2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"...\"\n  },\n  \"request_id\": \"req_...\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "13692759-4305-4da6-8d79-0d681f72a47b",
+    "name": "Friendli Suite API Reference Container.Audio Serverless.Messages API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

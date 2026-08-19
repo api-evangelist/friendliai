@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Container.Classification API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Container.Classification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Text classification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/classify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Classify text input into categories with per-class probabilities."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

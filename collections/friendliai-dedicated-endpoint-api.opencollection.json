@@ -1,0 +1,386 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Dedicated.Endpoint API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Dedicated.Endpoint",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create endpoint from W&B artifact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/dedicated/endpoint/wandb-artifact-create",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create an endpoint from Weights & Biases artifact. If the idempotency key is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the project id must be provided."
+        },
+        {
+          "info": {
+            "name": "List all endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the project. If omitted, query all endpoints under the team."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit of items per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all endpoint statuses"
+        },
+        {
+          "info": {
+            "name": "Create a new endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new endpoint and return its status"
+        },
+        {
+          "info": {
+            "name": "Get endpoint specification",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the specification of an endpoint"
+        },
+        {
+          "info": {
+            "name": "Update endpoint spec",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the specification of a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Delete endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Get endpoint version history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/version",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit of items per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get version history of a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Get endpoint status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/status",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the status of a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Sleep endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/sleep",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Put a specific endpoint to sleep"
+        },
+        {
+          "info": {
+            "name": "Wake endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/wake",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Wake up a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Terminate endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/terminate",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Terminate a specific endpoint"
+        },
+        {
+          "info": {
+            "name": "Restart endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.friendli.ai/dedicated/beta/endpoint/:endpoint_id/restart",
+            "headers": [
+              {
+                "name": "X-Friendli-Team",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "endpoint_id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the endpoint"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Restart a FAILED or TERMINATED endpoint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

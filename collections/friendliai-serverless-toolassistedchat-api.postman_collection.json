@@ -1,0 +1,403 @@
+{
+  "item": [
+    {
+      "id": "324bda79-b9b6-48b9-b139-40a5775417b4",
+      "name": "Serverless.ToolAssistedChat",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "315a8778-d6bb-4fd4-895a-836e433f9704",
+          "name": "Tool assisted chat completions",
+          "request": {
+            "name": "Tool assisted chat completions",
+            "description": {
+              "content": "Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs. Additionally, the model can utilize built-in tools for tool calls, enhancing its capability to provide more comprehensive and actionable responses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "tools",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": 7713,\n    \"key_1\": false\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 3637\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"function\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2731,\n          \"key_1\": false\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": false,\n          \"key_1\": 4708\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a7a5a694-45bc-460b-b98f-59e66bc1de7d",
+              "name": "Successfully generated a tool assisted chat response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "tools",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"zai-org/GLM-5.2\",\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": false,\n    \"key_1\": 4019\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 7738,\n    \"key_1\": 3209\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"string\",\n    \"function\": {\n      \"name\": \"string\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": 5132.572391919022\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\n  \"model\": \"zai-org/GLM-5.2\",\n  \"object\": \"chat.completion\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"The result is 9.\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 9,\n    \"completion_tokens\": 11,\n    \"total_tokens\": 20\n  },\n  \"created\": 1735722153\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52fb95ec-2583-4bc1-887f-d16bca3a9b0b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "tools",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"zai-org/GLM-5.2\",\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": false,\n    \"key_1\": 4019\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 7738,\n    \"key_1\": 3209\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": \"<boolean>\",\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"string\",\n    \"function\": {\n      \"name\": \"string\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": 5132.572391919022\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a347bd4-736a-4cef-8c5d-bb772c7aabd9",
+          "name": "Stream tool assisted chat completions",
+          "request": {
+            "name": "Stream tool assisted chat completions",
+            "description": {
+              "content": "Generate a model response from a list of messages comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for streaming, tool calls, and structured outputs. Additionally, the model can utilize built-in tools for tool calls, enhancing its capability to provide more comprehensive and actionable responses.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "serverless",
+                "tools",
+                "v1",
+                "chat",
+                "completions"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 3348\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": \"<boolean>\"\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"function\": {\n      \"name\": \"<string>\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2286.7113643727553\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\"\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fa8e66fd-41e8-444a-963b-cbc53768a71d",
+              "name": "Successfully generated a tool assisted chat response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "tools",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"zai-org/GLM-5.2\",\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3373.9071482201366\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 8814,\n    \"key_1\": 448\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"string\",\n    \"function\": {\n      \"name\": \"string\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": true,\n          \"key_2\": 2058,\n          \"key_3\": false\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": 5937.2689887536235\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "event: tool_status\ndata: {\"tool_call_id\":\"call_3QrfStXSU6fGdOGPcETocIAq\",\"name\":\"math:calculator\",\"status\":\"STARTED\",\"parameters\":[{\"name\":\"expression\",\"value\":\"150 * 1.60934\"}],\"result\":null,\"files\":null,\"message\":null,\"error\":null,\"usage\":null,\"timestamp\":1726277121}\n\nevent: tool_status\ndata: {\"tool_call_id\":\"call_3QrfStXSU6fGdOGPcETocIAq\",\"name\":\"math:calculator\",\"status\":\"ENDED\",\"parameters\":[{\"name\":\"expression\",\"value\":\"150 * 1.60934\"}],\"result\":\"\"{\\\"result\\\": \\\"150 * 1.60934=241.401000000000\\\"}\"\",\"files\":null,\"message\":null,\"error\":null,\"usage\":null,\"timestamp\":1726277121}\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"To\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1726277121}\n\n...\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\".\"},\"finish_reason\":null,\"logprobs\":null}],\"created\":1726277121}\n\ndata: {\"id\":\"chatcmpl-4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"chat.completion.chunk\",\"choices\":[{\"index\":0,\"delta\":{},\"finish_reason\":\"stop\",\"logprobs\":null}],\"created\":1726277121}\n\ndata: [DONE]\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "94045869-7631-40c6-be9d-4421b9216a56",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "serverless",
+                    "tools",
+                    "v1",
+                    "chat",
+                    "completions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"model\": \"zai-org/GLM-5.2\",\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3373.9071482201366\n  },\n  \"eos_token\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"frequency_penalty\": \"<number>\",\n  \"logit_bias\": {\n    \"key_0\": 8814,\n    \"key_1\": 448\n  },\n  \"logprobs\": \"<boolean>\",\n  \"max_tokens\": \"<integer>\",\n  \"min_p\": \"<number>\",\n  \"n\": \"<integer>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"presence_penalty\": \"<number>\",\n  \"repetition_penalty\": \"<number>\",\n  \"reasoning_effort\": \"<string>\",\n  \"reasoning_budget\": \"<integer>\",\n  \"seed\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"stop\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"stream\": true,\n  \"stream_options\": {\n    \"include_usage\": true\n  },\n  \"parse_reasoning\": \"<boolean>\",\n  \"include_reasoning\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"tool_choice\": {\n    \"type\": \"string\",\n    \"function\": {\n      \"name\": \"string\"\n    }\n  },\n  \"top_k\": \"<integer>\",\n  \"top_logprobs\": \"<integer>\",\n  \"top_p\": \"<number>\",\n  \"xtc_threshold\": \"<number>\",\n  \"xtc_probability\": \"<number>\",\n  \"tools\": [\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": true,\n          \"key_2\": 2058,\n          \"key_3\": false\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"function\": {\n        \"name\": \"string\",\n        \"parameters\": {\n          \"key_0\": 5937.2689887536235\n        },\n        \"description\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  ],\n  \"resume_generation\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "156083a8-cdec-49d0-b495-38ab003e5aa9",
+    "name": "Friendli Suite API Reference Container.Audio Serverless.ToolAssistedChat API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}

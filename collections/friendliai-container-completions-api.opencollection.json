@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Friendli Suite API Reference Container.Audio Container.Completions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Container.Completions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/v1/completions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters."
+        },
+        {
+          "info": {
+            "name": "Stream completions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.friendli.ai/v1/completions#stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generate a text completion from a prompt or token sequence. Supports streaming and configurable generation parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

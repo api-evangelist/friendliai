@@ -1,0 +1,515 @@
+{
+  "item": [
+    {
+      "id": "2011fdbc-dfd3-42c3-aa24-8a0b5433acb1",
+      "name": "Dedicated.Audio",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d0f5c550-1167-4557-8639-51818c9fd796",
+          "name": "Audio transcriptions",
+          "request": {
+            "name": "Audio transcriptions",
+            "description": {
+              "content": "Transcribe an audio file into text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "audio",
+                "transcriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "model",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone."
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats."
+                },
+                {
+                  "key": "chunking_strategy",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Controls how the audio is cut into chunks. When set to `\"auto\"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block."
+                },
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency."
+                },
+                {
+                  "key": "stream",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": "Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated."
+                },
+                {
+                  "key": "temperature",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb9a3538-89b0-4809-92f3-e48b4c1806d6",
+              "name": "Successfully transcribed the audio file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone.",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "(endpoint-id)",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"text\": \"Hello, how are you?\",\n  \"usage\": {\n    \"type\": \"tokens\",\n    \"input_tokens\": 20,\n    \"output_tokens\": 10,\n    \"total_tokens\": 30,\n    \"input_audio_length_ms\": 18000,\n    \"processed_audio_length_ms\": 24000,\n    \"input_token_details\": {\n      \"audio_tokens\": 10,\n      \"text_tokens\": 10\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55580b9b-3d62-4335-a241-fb1319897bfe",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone.",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "(endpoint-id)",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a4c3d1b9-3ba1-4043-9c3d-f42dcdb09414",
+          "name": "Stream audio transcriptions",
+          "request": {
+            "name": "Stream audio transcriptions",
+            "description": {
+              "content": "Transcribe an audio file into text.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "dedicated",
+                "v1",
+                "audio",
+                "transcriptions"
+              ],
+              "hash": "stream",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "ID of team to run requests as (optional parameter).",
+                "key": "X-Friendli-Team",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "model",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone."
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats."
+                },
+                {
+                  "key": "chunking_strategy",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Controls how the audio is cut into chunks. When set to `\"auto\"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block."
+                },
+                {
+                  "key": "language",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency."
+                },
+                {
+                  "key": "stream",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated."
+                },
+                {
+                  "key": "temperature",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "379b06a0-4c4d-431c-ab6d-bdf9825397ed",
+              "name": "Successfully transcribed the audio file.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone.",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "(endpoint-id)",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "data: {\"type\":\"transcript.text.delta\",\"delta\":\"The\"}\n\ndata: {\"type\":\"transcript.text.delta\",\"delta\":\" quick\"}\n\n...\n\ndata: {\"type\":\"transcript.text.done\",\"text\":\"The quick brown fox jumps over the lazy dog.\",\"usage\":{\"type\":\"tokens\",\"input_tokens\":20,\"output_tokens\":10,\"total_tokens\":30,\"input_audio_length_ms\":18000,\"processed_audio_length_ms\":24000,\"input_token_details\":{\"audio_tokens\":10,\"text_tokens\":10}}}\n\ndata: [DONE]\n",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b158b2b6-31f2-42ed-aafb-765acc331a7b",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "dedicated",
+                    "v1",
+                    "audio",
+                    "transcriptions"
+                  ],
+                  "hash": "stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "ID of team to run requests as (optional parameter).",
+                    "key": "X-Friendli-Team",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "@/path/to/file/audio.mp3",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) ID of target endpoint. If you want to send request to specific adapter, use the format \"YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE\". Otherwise, you can just use \"YOUR_ENDPOINT_ID\" alone.",
+                        "type": "text/plain"
+                      },
+                      "key": "model",
+                      "value": "(endpoint-id)",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.friendli.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "acac4ecb-1b87-4e1a-bfed-0efe2fabc973",
+    "name": "Friendli Suite API Reference Container.Audio Dedicated.Audio API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+      "type": "text/plain"
+    }
+  }
+}
