@@ -36,6 +36,16 @@ tags:
 - Company
 - Infrastructure
 - Artificial Intelligence
+- Machine-Learning
+- LLM
+- Inference
+- Generative AI
+- GPU
+- OpenAI-Compatible
+tags_raw:
+- Company
+- Infrastructure
+- Artificial Intelligence
 - Machine Learning
 - LLM
 - Inference
@@ -91,6 +101,8 @@ apis:
   humanURL: https://friendli.ai/docs/openapi/introduction
   baseURL: https://api.friendli.ai
   tags:
+  - Container Image
+  tags_raw:
   - Container.Image
   properties:
   - type: OpenAPI
