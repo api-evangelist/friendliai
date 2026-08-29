@@ -3,6 +3,17 @@ info:
   title: FriendliAI deploy a Dedicated Endpoint and infer
   version: 1.0.0
   summary: Create a Dedicated Endpoint, wait for it to be ready, then run a chat completion.
+  x-realizes-capability-ids:
+  - BC-610.60
+  x-capability-derivation:
+    method: 'deterministic join: sourceDescriptions -> per-tag OpenAPI -> tag/capability edge. No classification at this step.'
+    min_confidence: 0.7
+    sources:
+    - capability_id: BC-610.60
+      capability_name: Artificial Intelligence Management
+      spec: friendliai-dedicated-endpoint-api-openapi.yml
+      confidence: 0.8
+    model: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities, CC BY 4.0
 sourceDescriptions:
 - name: dedicatedChatApi
   url: ../openapi/friendliai-dedicated-chat-api-openapi.yml
