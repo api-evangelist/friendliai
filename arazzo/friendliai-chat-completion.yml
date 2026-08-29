@@ -4,32 +4,35 @@ info:
   version: 1.0.0
   summary: Discover a serverless model then generate a chat completion.
 sourceDescriptions:
-  - name: friendli
-    url: ../openapi/friendliai-openapi-original.yml
-    type: openapi
+- name: serverlessChatApi
+  url: ../openapi/friendliai-serverless-chat-api-openapi.yml
+  type: openapi
+- name: serverlessModelApi
+  url: ../openapi/friendliai-serverless-model-api-openapi.yml
+  type: openapi
 workflows:
-  - workflowId: chat-completion
-    summary: List available Model APIs models, then send a chat completion.
-    inputs:
-      type: object
-      properties:
-        token:
-          type: string
-        model:
-          type: string
-        prompt:
-          type: string
-    steps:
-      - stepId: listModels
-        operationId: serverlessModelList
-      - stepId: chat
-        operationId: serverlessChatComplete
-        requestBody:
-          contentType: application/json
-          payload:
-            model: $inputs.model
-            messages:
-              - role: user
-                content: $inputs.prompt
-        outputs:
-          content: $response.body
+- workflowId: chat-completion
+  summary: List available Model APIs models, then send a chat completion.
+  inputs:
+    type: object
+    properties:
+      token:
+        type: string
+      model:
+        type: string
+      prompt:
+        type: string
+  steps:
+  - stepId: listModels
+    operationId: serverlessModelList
+  - stepId: chat
+    operationId: serverlessChatComplete
+    requestBody:
+      contentType: application/json
+      payload:
+        model: $inputs.model
+        messages:
+        - role: user
+          content: $inputs.prompt
+    outputs:
+      content: $response.body
