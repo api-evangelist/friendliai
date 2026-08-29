@@ -1,0 +1,225 @@
+slug: friendliai
+provider: FriendliAI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 23
+edges:
+- tag: Dedicated.Endpoint
+  spec_file: friendliai-dedicated-endpoint-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: 'POST /dedicated/beta/endpoint  dedicatedCreateEndpoint  Create a new endpoint; PUT .../terminate  Terminate
+    endpoint; schemas: AutoscalingPolicy, InferenceDeploymentStatus'
+  reason: Lifecycle management of model inference deployments (create, version history, sleep/wake, autoscaling)
+    — classic MLOps model deployment management under AI Management.
+- tag: Serverless.Chat
+  spec_file: friendliai-serverless-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /serverless/v1/chat/completions  serverlessChatComplete  Chat completions
+  reason: Core LLM inference endpoint (chat completions with tool calls, streaming, usage tokens). Consumption
+    of served AI models = AI/ML lifecycle & MLOps capability; not customer service despite the word 'chat'.
+- tag: Serverless.Completions
+  spec_file: friendliai-serverless-completions-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /serverless/v1/completions  serverlessCompletionsComplete  Completions
+  reason: Text-completion inference against open-weight LLMs (CompletionsResult, TextUsage, ResponseFormatJsonSchema)
+    — AI model serving, i.e. Artificial Intelligence Management.
+- tag: Dedicated.Audio
+  spec_file: friendliai-dedicated-audio-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /dedicated/v1/audio/transcriptions  dedicatedAudioTranscriptions  Audio transcriptions
+  reason: Model inference endpoint performing speech-to-text via hosted AI models; realises AI/ML capability
+    delivery rather than any industry business process.
+- tag: Dedicated.Chat
+  spec_file: friendliai-dedicated-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /dedicated/v1/chat/completions  dedicatedChatComplete  Chat completions
+  reason: LLM chat inference on dedicated endpoints — AI model serving/inference, mapped to Artificial
+    Intelligence Management. Not customer service despite the word 'Chat'.
+- tag: Dedicated.Classification
+  spec_file: friendliai-dedicated-classification-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /dedicated/classify  dedicatedTextClassification  Text classification
+  reason: Text classification inference served by hosted models — AI/ML model serving capability.
+- tag: Dedicated.Completions
+  spec_file: friendliai-dedicated-completions-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /dedicated/v1/completions  dedicatedCompletionsComplete  Completions
+  reason: Text completion inference against dedicated model endpoints; AI/ML model lifecycle and serving.
+- tag: Dedicated.Embeddings
+  spec_file: friendliai-dedicated-embeddings-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: 'POST /dedicated/v1/embeddings  dedicatedEmbeddings  Embeddings; schemas: EmbeddingObject'
+  reason: Vector embedding generation from hosted models — AI/ML inference capability.
+- tag: Dedicated.Image
+  spec_file: friendliai-dedicated-image-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /dedicated/v1/images/generations  dedicatedImagesGenerate  Image generations
+  reason: Generative image inference served by hosted models — AI/ML model serving capability.
+- tag: Serverless.Audio
+  spec_file: friendliai-serverless-audio-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /serverless/v1/audio/transcriptions  serverlessAudioTranscriptions  Audio transcriptions
+  reason: Invocation of a speech-to-text generative model as a served inference endpoint; this is AI/ML
+    model serving, mapping to Artificial Intelligence Management rather than any industry-specific capability.
+- tag: Serverless.Messages
+  spec_file: friendliai-serverless-messages-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /serverless/v1/messages  serverlessMessages  Messages
+  reason: Anthropic-style messages inference API (MessagesResponseContentBlock, MessagesStreamTextDelta)
+    — generative model invocation, not messaging/communications; maps to AI/ML model serving.
+- tag: Serverless.Responses
+  spec_file: friendliai-serverless-responses-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /serverless/v1/responses  serverlessResponses  Responses
+  reason: Responses-style generative inference with reasoning items and function calls (ResponsesReasoningItem,
+    ResponsesFunctionCall) — AI model invocation, i.e. Artificial Intelligence Management.
+- tag: Serverless.ToolAssistedChat
+  spec_file: friendliai-serverless-toolassistedchat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /serverless/tools/v1/chat/completions  serverlessToolAssistedChatComplete  Tool assisted
+    chat completions
+  reason: Agentic LLM inference with built-in tools (FriendliBuiltInTool, ToolAssistedChatTool) — AI model
+    serving/orchestration, mapping to Artificial Intelligence Management.
+- tag: Container.Audio
+  spec_file: friendliai-container-audio-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/audio/transcriptions  containerAudioTranscriptions  Audio transcriptions
+  reason: Serving speech-to-text inference from generative models. The realised capability is AI/ML model
+    operation and consumption rather than any domain business process; mapped to Artificial Intelligence
+    Management.
+- tag: Container.Chat
+  spec_file: friendliai-container-chat-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/chat/completions  containerChatComplete  Chat completions
+  reason: LLM chat inference endpoints (ChatUsage, AssistantMessage schemas). This is AI model serving/consumption,
+    best represented by Artificial Intelligence Management; it is not customer service or messaging despite
+    the tag wording.
+- tag: Container.Classification
+  spec_file: friendliai-container-classification-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /classify  containerTextClassification  Text classification
+  reason: Text classification inference against a hosted model (TextClassificationResult), i.e. AI/ML
+    model consumption rather than a business-domain process.
+- tag: Container.Completions
+  spec_file: friendliai-container-completions-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/completions  containerCompletionsComplete  Completions
+  reason: Generative text completion inference endpoints; the capability realised is AI model serving
+    and consumption under Artificial Intelligence Management.
+- tag: Container.Image
+  spec_file: friendliai-container-image-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/images/generations  containerImagesGenerate  Image generations
+  reason: Image generation and editing via generative models — AI inference, mapped to Artificial Intelligence
+    Management rather than any content-marketing capability, since the API only performs model inference.
+- tag: Container.Messages
+  spec_file: friendliai-container-messages-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/messages  containerMessages  Messages
+  reason: '''Messages'' here is the Anthropic-style LLM inference interface (MessagesToolDefinition, MessagesStreamTextDelta),
+    not communications messaging; it is AI model inference.'
+- tag: Container.Responses
+  spec_file: friendliai-container-responses-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/responses  containerResponses  Responses
+  reason: The Responses-style generative inference API (ResponsesReasoningItem, ResponsesFunctionTool
+    schemas) — AI model serving, mapped to Artificial Intelligence Management.
+- tag: Dataset
+  spec_file: friendliai-dataset-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: 'POST /beta/dataset  create_dataset; POST /beta/dataset/{dataset_id}/version  create_version;
+    schemas: DedicatedDatasetModalityType, SplitInfo, AddSamplesResponse'
+  reason: Dataset, version, split and sample management for AI model training/evaluation on an AI inference
+    cloud — ML data asset lifecycle, part of AI/ML model lifecycle management.
+- tag: Dedicated.Messages
+  spec_file: friendliai-dedicated-messages-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: 'POST /dedicated/v1/messages  dedicatedMessages  Messages; schemas: MessagesToolDefinition,
+    MessagesStreamThinkingDelta'
+  reason: Anthropic-style Messages inference API on dedicated model endpoints, not messaging/communications;
+    AI model inference capability.
+- tag: Dedicated.Responses
+  spec_file: friendliai-dedicated-responses-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: 'POST /dedicated/v1/responses  dedicatedResponses  Responses; schemas: ResponsesReasoningItem,
+    ResponsesFunctionTool'
+  reason: OpenAI-style Responses inference API with reasoning and tool calling on hosted models — AI/ML
+    inference capability.
