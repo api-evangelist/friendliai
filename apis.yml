@@ -113,7 +113,7 @@ apis:
   humanURL: https://friendli.ai/docs/openapi/introduction
   baseURL: https://api.friendli.ai
   tags:
-  - Container.Image
+  - Container Image
   tags_raw:
   - Container.Image
   properties:
