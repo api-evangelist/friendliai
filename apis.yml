@@ -115,7 +115,7 @@ apis:
   humanURL: https://friendli.ai/docs/openapi/introduction
   baseURL: https://api.friendli.ai
   tags:
-  - Container Image
+  - Container Images
   tags_raw:
   - Container.Image
   properties:
@@ -167,6 +167,8 @@ apis:
   humanURL: https://friendli.ai/docs/openapi/introduction
   baseURL: https://api.friendli.ai
   tags:
+  - Datasets
+  tags_raw:
   - Dataset
   properties:
   - type: OpenAPI
