@@ -10,6 +10,11 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: developer-api
 pricing_basis: per-call
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-09-20'
+  evidence: BYOG Run Friendli inference stack on your own GPUs. Contact us
 published: true
 note: Page prices token-based Model APIs, per-second GPU dedicated endpoints, and STT per audio minute;
   BYOG and Enterprise are contact-only.
