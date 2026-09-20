@@ -1,0 +1,100 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://friendli.ai/pricing
+sources:
+- https://friendli.ai/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T120546
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+published: true
+note: Page prices token-based Model APIs, per-second GPU dedicated endpoints, and STT per audio minute;
+  BYOG and Enterprise are contact-only.
+plan_count: 15
+currency: USD
+plans:
+- name: GLM-5.3 (Model API)
+  price_text: $1.26 $1.4 Input · $0.234 $0.26 Cached Input · $3.96 $4.4 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: GLM-5.3-Flash
+  price_text: $0.15 Input · $0.03 Cached Input · $0.5 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: GLM-5.2
+  price_text: $1.4 Input · $0.26 Cached Input · $4.4 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: GLM-5.1
+  price_text: $1.4 Input · $0.26 Cached Input · $4.4 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: gemma-4-31B-it
+  price_text: $0.14 Input · $0.4 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: DeepSeek-V3.2
+  price_text: $0.5 Input · $0.25 Cached Input · $1.5 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: MiniMax-M2.5
+  price_text: $0.3 Input · $0.06 Cached Input · $1.2 Output
+  currency: USD
+  period: per-use
+  unit: per 1M tokens
+- name: whisper-large-v3 (STT)
+  price_text: $0.0015
+  price: 0.0015
+  currency: USD
+  period: per-use
+  unit: per audio minute
+- name: Dedicated Endpoint A100 80GB
+  price_text: $ 2.9
+  price: 2.9
+  currency: USD
+  period: per-use
+  unit: per hour (billed per second), through Sep 30; $ 4.0 effective Oct 1
+- name: Dedicated Endpoint H100 80GB
+  price_text: $ 3.9
+  price: 3.9
+  currency: USD
+  period: per-use
+  unit: per hour (billed per second), through Sep 30; $ 5.0 effective Oct 1
+- name: Dedicated Endpoint H200 141GB
+  price_text: $ 4.5
+  price: 4.5
+  currency: USD
+  period: per-use
+  unit: per hour (billed per second), through Sep 30; $ 7.0 effective Oct 1
+- name: Dedicated Endpoint B200 180GB
+  price_text: $ 8.9
+  price: 8.9
+  currency: USD
+  period: per-use
+  unit: per hour (billed per second), through Sep 30; $ 9.0 effective Oct 1
+- name: Dedicated Endpoint B300 288GB
+  price_text: $ 12.0
+  price: 12.0
+  currency: USD
+  period: per-use
+  unit: per hour (billed per second)
+- name: BYOG
+  price_text: Contact us
+  period: none
+- name: Enterprise
+  price_text: Contact Sales
+  period: none
+  included_quota: Custom Model APIs rate limits, priority GPU access, reserved capacity, VPC/on-prem deployment,
+    dedicated support
+rate_limit_statements:
+- Custom Model APIs rate limits
+- This personal key will be associated with your default team for tier and rate limit purposes.
