@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Serverless.Model API
+  title: Friendli Suite API Reference Serverless.Model API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -54,17 +54,56 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    OpenRouterModelMetadata:
+    PricingModel:
       properties:
-        slug:
+        input:
           type: string
-          title: Slug
-          description: OpenRouter model slug
+          title: Input
+          description: Price per input token in USD
+        output:
+          type: string
+          title: Output
+          description: Price per output token in USD
+        prompt:
+          type: string
+          title: Prompt
+          description: Price per input token in USD (alias of input)
+        completion:
+          type: string
+          title: Completion
+          description: Price per output token in USD (alias of output)
+        input_cache_read:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        audio_minute:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audio Minute
+          description: Price per audio minute in USD
       type: object
       required:
-      - slug
-      title: OpenRouterModelMetadata
-      description: OpenRouter model metadata.
+      - input
+      - output
+      - prompt
+      - completion
+      title: PricingModel
+      description: Pricing model for token-based pricing.
+    ServerlessModelListSuccess:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ModelCatalogResponseItem'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: ServerlessModelListSuccess
+      description: '`/v1/models` API response.'
     OpenRouterModelListSuccess:
       properties:
         data:
@@ -77,6 +116,44 @@ components:
       - data
       title: OpenRouterModelListSuccess
       description: '`/v1/openrouter/models` API response.'
+    OpenRouterPricingTier:
+      properties:
+        prompt:
+          type: string
+          title: Prompt
+          description: Price per input token in USD
+        completion:
+          type: string
+          title: Completion
+          description: Price per output token in USD
+        image:
+          type: string
+          title: Image
+          description: Price per image in USD (base tier only)
+          default: '0'
+        request:
+          type: string
+          title: Request
+          description: Price per request in USD (base tier only)
+          default: '0'
+        input_cache_read:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        min_context:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Min Context
+          description: Minimum input tokens for this tier to apply
+      type: object
+      required:
+      - prompt
+      - completion
+      title: OpenRouterPricingTier
+      description: OpenRouter flat or tiered pricing entry (USD per unit as string).
     OpenRouterModelCatalogResponseItem:
       properties:
         id:
@@ -195,6 +272,17 @@ components:
       - supported_features
       title: OpenRouterModelCatalogResponseItem
       description: Model listing in `/v1/openrouter/models` API (OpenRouter provider format).
+    OpenRouterModelMetadata:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: OpenRouter model slug
+      type: object
+      required:
+      - slug
+      title: OpenRouterModelMetadata
+      description: OpenRouter model metadata.
     ModelCatalogResponseItem:
       properties:
         id:
@@ -263,44 +351,6 @@ components:
       - license
       title: ModelCatalogResponseItem
       description: Model listing in `/v1/models` API.
-    OpenRouterPricingTier:
-      properties:
-        prompt:
-          type: string
-          title: Prompt
-          description: Price per input token in USD
-        completion:
-          type: string
-          title: Completion
-          description: Price per output token in USD
-        image:
-          type: string
-          title: Image
-          description: Price per image in USD (base tier only)
-          default: '0'
-        request:
-          type: string
-          title: Request
-          description: Price per request in USD (base tier only)
-          default: '0'
-        input_cache_read:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Input Cache Read
-          description: Price per cached input token read in USD
-        min_context:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Min Context
-          description: Minimum input tokens for this tier to apply
-      type: object
-      required:
-      - prompt
-      - completion
-      title: OpenRouterPricingTier
-      description: OpenRouter flat or tiered pricing entry (USD per unit as string).
     OpenRouterDatacenter:
       properties:
         country_code:
@@ -312,18 +362,6 @@ components:
       - country_code
       title: OpenRouterDatacenter
       description: OpenRouter datacenter metadata.
-    ServerlessModelListSuccess:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ModelCatalogResponseItem'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: ServerlessModelListSuccess
-      description: '`/v1/models` API response.'
     Functionality:
       properties:
         tool_call:
@@ -346,44 +384,6 @@ components:
       - parallel_tool_call
       title: Functionality
       description: Functionality of the model.
-    PricingModel:
-      properties:
-        input:
-          type: string
-          title: Input
-          description: Price per input token in USD
-        output:
-          type: string
-          title: Output
-          description: Price per output token in USD
-        prompt:
-          type: string
-          title: Prompt
-          description: Price per input token in USD (alias of input)
-        completion:
-          type: string
-          title: Completion
-          description: Price per output token in USD (alias of output)
-        input_cache_read:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Input Cache Read
-          description: Price per cached input token read in USD
-        audio_minute:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audio Minute
-          description: Price per audio minute in USD
-      type: object
-      required:
-      - input
-      - output
-      - prompt
-      - completion
-      title: PricingModel
-      description: Pricing model for token-based pricing.
   securitySchemes:
     token:
       type: http

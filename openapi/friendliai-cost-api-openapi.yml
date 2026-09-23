@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Cost API
+  title: Friendli Suite API Reference Cost API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -139,37 +139,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    CostGroupBy:
-      type: string
-      enum:
-      - line_item
-      title: CostGroupBy
-    CostBucketWidth:
-      type: string
-      enum:
-      - 1d
-      title: CostBucketWidth
-    CostBucket:
-      properties:
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-        results:
-          items:
-            $ref: '#/components/schemas/CostResult'
-          type: array
-          title: Results
-      type: object
-      required:
-      - start_time
-      - end_time
-      - results
-      title: CostBucket
     CostResult:
       properties:
         total:
@@ -207,6 +176,37 @@ components:
       required:
       - total
       title: CostResult
+    CostBucketWidth:
+      type: string
+      enum:
+      - 1d
+      title: CostBucketWidth
+    CostGroupBy:
+      type: string
+      enum:
+      - line_item
+      title: CostGroupBy
+    CostBucket:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        results:
+          items:
+            $ref: '#/components/schemas/CostResult'
+          type: array
+          title: Results
+      type: object
+      required:
+      - start_time
+      - end_time
+      - results
+      title: CostBucket
     CostResponse:
       properties:
         has_more:

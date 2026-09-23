@@ -1,0 +1,32 @@
+# Front Door AI Index — friendliai — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: friendliai
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: friendli.ai
+  final_host: friendli.ai
+  ownership: own
+  owner: friendliai
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 41
+  host_score: 41
+  density: 34.92
+  words: 1174
+  tiers:
+    agentic: 25
+    core: 14
+    model: 2
+  ambiguous: 11
+  top_terms:
+    inference: 17
+    AI: 12
+    agent: 10
+    agentic: 6
+    Hugging Face: 2
+    fine-tune: 2
+    generative ai: 2
+    smart: 1

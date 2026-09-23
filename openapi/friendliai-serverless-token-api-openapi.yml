@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Serverless.Token API
+  title: Friendli Suite API Reference Serverless.Token API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -129,6 +129,16 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
+    ServerlessDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: ServerlessDetokenizationSuccess
     ServerlessDetokenizationBody:
       properties:
         model:
@@ -178,16 +188,6 @@ components:
       required:
       - tokens
       title: ServerlessTokenizationSuccess
-    ServerlessDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: ServerlessDetokenizationSuccess
     ServerlessTokenizationBody:
       properties:
         model:

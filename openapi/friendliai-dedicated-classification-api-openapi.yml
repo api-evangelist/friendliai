@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Dedicated.Classification API
+  title: Friendli Suite API Reference Dedicated.Classification API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -78,6 +78,54 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
+    DedicatedTextClassificationSuccess:
+      $ref: '#/components/schemas/TextClassificationResult'
+      title: DedicatedTextClassificationSuccess
+    DedicatedTextClassificationBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        input:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Input
+          description: 'Input text to classify, encoded as a string or array of strings. To classify multiple inputs in a single request, pass an array of strings.
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - I love programming.
+        tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Tokens
+          description: 'The tokenized prompt (i.e., input tokens).
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - 72
+          - 1563
+          - 2335
+          - 13
+      type: object
+      required:
+      - model
+      title: DedicatedTextClassificationBody
+      example:
+        input: I love programming.
+        model: (endpoint-id)
     TextClassificationResult:
       properties:
         data:
@@ -153,54 +201,6 @@ components:
       - prompt_tokens
       - total_tokens
       title: TextClassificationUsage
-    DedicatedTextClassificationBody:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
-          examples:
-          - (endpoint-id)
-        input:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Input
-          description: 'Input text to classify, encoded as a string or array of strings. To classify multiple inputs in a single request, pass an array of strings.
-
-
-            Either `input` or `tokens` field is required.'
-          examples:
-          - I love programming.
-        tokens:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Tokens
-          description: 'The tokenized prompt (i.e., input tokens).
-
-
-            Either `input` or `tokens` field is required.'
-          examples:
-          - 72
-          - 1563
-          - 2335
-          - 13
-      type: object
-      required:
-      - model
-      title: DedicatedTextClassificationBody
-      example:
-        input: I love programming.
-        model: (endpoint-id)
-    DedicatedTextClassificationSuccess:
-      $ref: '#/components/schemas/TextClassificationResult'
-      title: DedicatedTextClassificationSuccess
   securitySchemes:
     token:
       type: http

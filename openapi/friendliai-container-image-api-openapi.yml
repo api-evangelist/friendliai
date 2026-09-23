@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Container.Image API
+  title: Friendli Suite API Reference Container.Image API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -10,14 +10,14 @@ info:
 servers:
 - url: https://api.friendli.ai
 tags:
-- name: Container.Image
+- name: Container Image
 paths:
   /v1/images/generations:
     servers:
     - url: http://localhost:8000
     post:
       tags:
-      - Container.Image
+      - Container Image
       summary: Image generations
       description: Generate an image from a text prompt.
       operationId: containerImagesGenerate
@@ -55,7 +55,7 @@ paths:
     - url: http://localhost:8000
     post:
       tags:
-      - Container.Image
+      - Container Image
       summary: Image edits
       description: Edit an image based on a text prompt.
       operationId: containerImagesEdit
@@ -90,6 +90,19 @@ paths:
         content: Edit an image based on a text prompt.
 components:
   schemas:
+    ImageInput:
+      properties:
+        image:
+          type: string
+          title: Image
+          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
+          examples:
+          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
+          - data:image/png;base64,...
+      type: object
+      required:
+      - image
+      title: ImageInput
     ImageGenerationContainerResult:
       properties:
         image:
@@ -104,19 +117,9 @@ components:
     ContainerImageEditSuccess:
       $ref: '#/components/schemas/ImageGenerationContainerResult'
       title: ContainerImageEditSuccess
-    ImageInput:
-      properties:
-        image:
-          type: string
-          title: Image
-          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
-          examples:
-          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
-          - data:image/png;base64,...
-      type: object
-      required:
-      - image
-      title: ImageInput
+    ContainerImageGenerateSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageGenerateSuccess
     ContainerImageGenerationBody:
       properties:
         model:
@@ -181,9 +184,6 @@ components:
         guidance_scale: 3.5
         num_inference_steps: 10
         prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
-    ContainerImageGenerateSuccess:
-      $ref: '#/components/schemas/ImageGenerationContainerResult'
-      title: ContainerImageGenerateSuccess
     ContainerImageEditBody:
       properties:
         image:

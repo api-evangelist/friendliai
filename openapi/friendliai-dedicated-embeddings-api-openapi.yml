@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Dedicated.Embeddings API
+  title: Friendli Suite API Reference Dedicated.Embeddings API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -113,6 +113,79 @@ components:
       - completion_tokens
       - total_tokens
       title: TextUsage
+    EmbeddingObject:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the embedding in the list of embeddings.
+        object:
+          type: string
+          const: embedding
+          title: Object
+          description: The object type, which is always set to `embedding`.
+        embedding:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: string
+            format: binary
+          title: Embedding
+          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
+      type: object
+      required:
+      - index
+      - object
+      - embedding
+      title: EmbeddingObject
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    DedicatedEmbeddingsSuccess:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the embeddings.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the embeddings. For dedicated endpoints, it returns the endpoint ID.
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        data:
+          items:
+            $ref: '#/components/schemas/EmbeddingObject'
+          type: array
+          title: Data
+          description: A list of embedding objects.
+        usage:
+          $ref: '#/components/schemas/TextUsage'
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the embeddings were created.
+      type: object
+      required:
+      - id
+      - object
+      - data
+      - usage
+      - created
+      title: DedicatedEmbeddingsSuccess
     DedicatedEmbeddingsBody:
       properties:
         model:
@@ -164,79 +237,6 @@ components:
         encoding_format: float
         input: The food was delicious and the waiter...
         model: (endpoint-id)
-    EmbeddingObject:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the embedding in the list of embeddings.
-        object:
-          type: string
-          const: embedding
-          title: Object
-          description: The object type, which is always set to `embedding`.
-        embedding:
-          anyOf:
-          - items:
-              type: number
-            type: array
-          - type: string
-            format: binary
-          title: Embedding
-          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
-      type: object
-      required:
-      - index
-      - object
-      - embedding
-      title: EmbeddingObject
-    DedicatedEmbeddingsSuccess:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: A unique ID of the embeddings.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The model to generate the embeddings. For dedicated endpoints, it returns the endpoint ID.
-        object:
-          type: string
-          const: list
-          title: Object
-          description: The object type, which is always set to `list`.
-        data:
-          items:
-            $ref: '#/components/schemas/EmbeddingObject'
-          type: array
-          title: Data
-          description: A list of embedding objects.
-        usage:
-          $ref: '#/components/schemas/TextUsage'
-        created:
-          type: integer
-          title: Created
-          description: The Unix timestamp (in seconds) for when the embeddings were created.
-      type: object
-      required:
-      - id
-      - object
-      - data
-      - usage
-      - created
-      title: DedicatedEmbeddingsSuccess
-    PromptTokensDetails:
-      properties:
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-          description: Cached tokens present in the prompt.
-      type: object
-      title: PromptTokensDetails
   securitySchemes:
     token:
       type: http

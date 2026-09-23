@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Dedicated.ChatRender API
+  title: Friendli Suite API Reference Dedicated.Chat Render API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -74,92 +74,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    VideoContent:
-      properties:
-        type:
-          type: string
-          const: video_url
-          title: Type
-          description: The type of the message content.
-        video_url:
-          $ref: '#/components/schemas/VideoData'
-          description: The video URL data.
-      type: object
-      required:
-      - type
-      - video_url
-      title: VideoContent
-    SystemMessage:
-      properties:
-        role:
-          type: string
-          const: system
-          title: Role
-          description: The role of the messages author.
-        content:
-          type: string
-          title: Content
-          description: The content of system message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-      type: object
-      required:
-      - role
-      - content
-      title: SystemMessage
-    Tool:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool. Currently, only `function` is supported.
-        function:
-          $ref: '#/components/schemas/Function'
-      type: object
-      required:
-      - type
-      - function
-      title: Tool
-    AssistantMessageToolCall:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of tool call.
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of tool call.
-        function:
-          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
-          description: The function specification
-      type: object
-      required:
-      - id
-      - type
-      - function
-      title: AssistantMessageToolCall
-    ImageContent:
-      properties:
-        type:
-          type: string
-          const: image_url
-          title: Type
-          description: The type of the message content.
-        image_url:
-          $ref: '#/components/schemas/ImageData'
-          description: The image URL data.
-      type: object
-      required:
-      - type
-      - image_url
-      title: ImageContent
     AssistantMessage:
       properties:
         role:
@@ -202,6 +116,64 @@ components:
       required:
       - role
       title: AssistantMessage
+    UserMessage:
+      properties:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: The role of the message's author.
+        content:
+          anyOf:
+          - type: string
+            description: 'The content of user message, which is plain text.
+
+
+              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
+          - items:
+              $ref: '#/components/schemas/UserMessageContentMultiModal'
+            type: array
+            description: 'The content of user message.
+
+
+              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          title: Content
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: UserMessage
+    DedicatedChatRenderSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The rendered text.
+      type: object
+      required:
+      - text
+      title: DedicatedChatRenderSuccess
+    AudioContent:
+      properties:
+        type:
+          type: string
+          const: audio_url
+          title: Type
+          description: The type of the message content.
+        audio_url:
+          $ref: '#/components/schemas/AudioData'
+          description: The audio URL data.
+      type: object
+      required:
+      - type
+      - audio_url
+      title: AudioContent
     Message:
       oneOf:
       - $ref: '#/components/schemas/SystemMessage'
@@ -219,6 +191,57 @@ components:
           system: '#/components/schemas/SystemMessage'
           tool: '#/components/schemas/ToolMessage'
           user: '#/components/schemas/UserMessage'
+    VideoContent:
+      properties:
+        type:
+          type: string
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
+      type: object
+      required:
+      - type
+      - video_url
+      title: VideoContent
+    Tool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
+      type: object
+      required:
+      - type
+      - function
+      title: Tool
+    SystemMessage:
+      properties:
+        role:
+          type: string
+          const: system
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of system message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: SystemMessage
     TextContent:
       properties:
         type:
@@ -235,146 +258,6 @@ components:
       - type
       - text
       title: TextContent
-    DedicatedChatRenderSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The rendered text.
-      type: object
-      required:
-      - text
-      title: DedicatedChatRenderSuccess
-    AudioData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the audio.
-      type: object
-      required:
-      - url
-      title: AudioData
-    UserMessageContentMultiModal:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-        title: Text
-      - $ref: '#/components/schemas/AudioContent'
-        title: Audio
-      - $ref: '#/components/schemas/ImageContent'
-        title: Image
-      - $ref: '#/components/schemas/VideoContent'
-        title: Video
-      discriminator:
-        propertyName: type
-        mapping:
-          audio_url: '#/components/schemas/AudioContent'
-          image_url: '#/components/schemas/ImageContent'
-          text: '#/components/schemas/TextContent'
-          video_url: '#/components/schemas/VideoContent'
-    AssistantMessageToolCallFunction:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of function
-        arguments:
-          type: string
-          title: Arguments
-          description: The arguments of function in JSON schema format to call the function.
-      type: object
-      required:
-      - name
-      - arguments
-      title: AssistantMessageToolCallFunction
-    ImageData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the image.
-      type: object
-      required:
-      - url
-      title: ImageData
-    VideoData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the video.
-      type: object
-      required:
-      - url
-      title: VideoData
-    ToolMessage:
-      properties:
-        role:
-          type: string
-          const: tool
-          title: Role
-          description: The role of the messages author.
-        content:
-          type: string
-          title: Content
-          description: The content of tool message that contains the result of tool calling.
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: The ID of tool call corresponding to this message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: An optional name of the tool call corresponding to this message.
-      type: object
-      required:
-      - role
-      - content
-      - tool_call_id
-      title: ToolMessage
-    Function:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A description of what the function does, used by the model to choose when and how to call the function.
-        name:
-          type: string
-          title: Name
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        parameters:
-          additionalProperties: true
-          type: object
-          title: Parameters
-          description: 'The parameters the functions accepts, described as a JSON Schema object.
-
-            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
-
-            '
-      type: object
-      required:
-      - name
-      - parameters
-      title: Function
-    AudioContent:
-      properties:
-        type:
-          type: string
-          const: audio_url
-          title: Type
-          description: The type of the message content.
-        audio_url:
-          $ref: '#/components/schemas/AudioData'
-          description: The audio URL data.
-      type: object
-      required:
-      - type
-      - audio_url
-      title: AudioContent
     DedicatedChatRenderBody:
       properties:
         model:
@@ -426,39 +309,156 @@ components:
         - content: Hello!
           role: user
         model: (endpoint-id)
-    UserMessage:
+    AssistantMessageToolCallFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
+      type: object
+      required:
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    AudioData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the audio.
+      type: object
+      required:
+      - url
+      title: AudioData
+    ImageData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: ImageData
+    ToolMessage:
       properties:
         role:
           type: string
-          const: user
+          const: tool
           title: Role
-          description: The role of the message's author.
+          description: The role of the messages author.
         content:
-          anyOf:
-          - type: string
-            description: 'The content of user message, which is plain text.
-
-
-              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
-          - items:
-              $ref: '#/components/schemas/UserMessageContentMultiModal'
-            type: array
-            description: 'The content of user message.
-
-
-              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          type: string
           title: Content
+          description: The content of tool message that contains the result of tool calling.
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of tool call corresponding to this message.
         name:
           anyOf:
           - type: string
           - type: 'null'
           title: Name
-          description: The name for the participant to distinguish between participants with the same role.
+          description: An optional name of the tool call corresponding to this message.
       type: object
       required:
       - role
       - content
-      title: UserMessage
+      - tool_call_id
+      title: ToolMessage
+    AssistantMessageToolCall:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of tool call.
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of tool call.
+        function:
+          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
+          description: The function specification
+      type: object
+      required:
+      - id
+      - type
+      - function
+      title: AssistantMessageToolCall
+    Function:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: 'The parameters the functions accepts, described as a JSON Schema object.
+
+            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
+
+            '
+      type: object
+      required:
+      - name
+      - parameters
+      title: Function
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image_url
+          title: Type
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ImageContent
+    VideoData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the video.
+      type: object
+      required:
+      - url
+      title: VideoData
   securitySchemes:
     token:
       type: http

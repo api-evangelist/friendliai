@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Usage API
+  title: Friendli Suite API Reference Usage API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -16,7 +16,7 @@ paths:
     get:
       tags:
       - Usage
-      summary: Get usage details for the team.
+      summary: Get usage details for the team
       operationId: getUsage
       security:
       - token: []
@@ -211,33 +211,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    UsageBucket:
-      properties:
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-        results:
-          items:
-            $ref: '#/components/schemas/UsageResult'
-          type: array
-          title: Results
-      type: object
-      required:
-      - start_time
-      - end_time
-      - results
-      title: UsageBucket
-    ProductType:
-      type: string
-      enum:
-      - model_apis
-      - dedicated_endpoints
-      title: ProductType
     UsageResult:
       properties:
         product_type:
@@ -313,6 +286,33 @@ components:
       - input_cached_tokens
       - output_tokens
       title: UsageResult
+    UsageBucket:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        results:
+          items:
+            $ref: '#/components/schemas/UsageResult'
+          type: array
+          title: Results
+      type: object
+      required:
+      - start_time
+      - end_time
+      - results
+      title: UsageBucket
+    ProductType:
+      type: string
+      enum:
+      - model_apis
+      - dedicated_endpoints
+      title: ProductType
     UsageResponse:
       properties:
         has_more:

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Dedicated.Token API
+  title: Friendli Suite API Reference Dedicated.Token API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -129,6 +129,28 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
+    DedicatedTokenizationBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        prompt:
+          type: string
+          title: Prompt
+          description: Input text prompt to tokenize.
+          examples:
+          - What is generative AI?
+      type: object
+      required:
+      - model
+      - prompt
+      title: DedicatedTokenizationBody
+      example:
+        model: (endpoint-id)
+        prompt: What is generative AI?
     DedicatedDetokenizationBody:
       properties:
         model:
@@ -166,28 +188,16 @@ components:
         - 1413
         - 15592
         - 30
-    DedicatedTokenizationBody:
+    DedicatedDetokenizationSuccess:
       properties:
-        model:
+        text:
           type: string
-          title: Model
-          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
-          examples:
-          - (endpoint-id)
-        prompt:
-          type: string
-          title: Prompt
-          description: Input text prompt to tokenize.
-          examples:
-          - What is generative AI?
+          title: Text
+          description: Detokenized text output.
       type: object
       required:
-      - model
-      - prompt
-      title: DedicatedTokenizationBody
-      example:
-        model: (endpoint-id)
-        prompt: What is generative AI?
+      - text
+      title: DedicatedDetokenizationSuccess
     DedicatedTokenizationSuccess:
       properties:
         tokens:
@@ -200,16 +210,6 @@ components:
       required:
       - tokens
       title: DedicatedTokenizationSuccess
-    DedicatedDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: DedicatedDetokenizationSuccess
   securitySchemes:
     token:
       type: http

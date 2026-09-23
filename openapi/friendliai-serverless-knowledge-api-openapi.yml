@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Serverless.Knowledge API
+  title: Friendli Suite API Reference Serverless.Knowledge API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -53,45 +53,6 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    ServerlessKnowledgeRetrievalSuccess:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/KnowledgeRetrievedChunk'
-          type: array
-          title: Results
-          description: A list of result.
-      type: object
-      required:
-      - results
-      title: ServerlessKnowledgeRetrievalSuccess
-      description: Knowledge retrieval response.
-    KnowledgeRetrievedChunk:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Retrieved text matching the search query.
-        score:
-          type: number
-          title: Score
-          description: Numerical relevance score of the retrieved result.
-        contentChunkId:
-          type: string
-          title: Content Chunk Id
-          description: ID of specific text segment.
-        contentId:
-          type: string
-          title: Content Id
-          description: ID of content in knowledge-base.
-      type: object
-      required:
-      - text
-      - score
-      - contentChunkId
-      - contentId
-      title: KnowledgeRetrievedChunk
-      description: Knowledge retrieved chunk.
     ServerlessKnowledgeRetrievalBody:
       properties:
         query:
@@ -121,6 +82,45 @@ components:
       - knowledgeIds
       title: ServerlessKnowledgeRetrievalBody
       description: Knowledge retrieval request.
+    KnowledgeRetrievedChunk:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Retrieved text matching the search query.
+        score:
+          type: number
+          title: Score
+          description: Numerical relevance score of the retrieved result.
+        contentChunkId:
+          type: string
+          title: Content Chunk Id
+          description: ID of specific text segment.
+        contentId:
+          type: string
+          title: Content Id
+          description: ID of content in knowledge-base.
+      type: object
+      required:
+      - text
+      - score
+      - contentChunkId
+      - contentId
+      title: KnowledgeRetrievedChunk
+      description: Knowledge retrieved chunk.
+    ServerlessKnowledgeRetrievalSuccess:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/KnowledgeRetrievedChunk'
+          type: array
+          title: Results
+          description: A list of result.
+      type: object
+      required:
+      - results
+      title: ServerlessKnowledgeRetrievalSuccess
+      description: Knowledge retrieval response.
   securitySchemes:
     token:
       type: http

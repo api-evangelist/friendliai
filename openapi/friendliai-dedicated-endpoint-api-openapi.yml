@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Friendli Suite API Reference Container.Audio Dedicated.Endpoint API
+  title: Friendli Suite API Reference Dedicated.Endpoint API
   description: This is an OpenAPI reference of Friendli Suite API.
   termsOfService: https://friendli.ai/terms-of-service
   contact:
@@ -1083,6 +1083,44 @@ components:
       - replicas
       title: EndpointSimplescaleConfig
       description: Simple scaling options.
+    DedicatedEndpointWandbArtifactCreateResponse:
+      properties:
+        endpointId:
+          type: string
+          title: Endpoint Id
+          description: The ID of the created endpoint.
+        endpointName:
+          type: string
+          title: Endpoint Name
+          description: The name of the created endpoint.
+        projectId:
+          type: string
+          title: Project Id
+          description: The ID of the project where the endpoint was created.
+        projectName:
+          type: string
+          title: Project Name
+          description: The name of the project where the endpoint was created.
+        teamId:
+          type: string
+          title: Team Id
+          description: The ID of the team where the endpoint was created.
+        teamName:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Team Name
+          description: The name of the team where the endpoint was created.
+      type: object
+      required:
+      - endpointId
+      - endpointName
+      - projectId
+      - projectName
+      - teamId
+      - teamName
+      title: DedicatedEndpointWandbArtifactCreateResponse
+      description: Endpoint create response.
     DedicatedEndpointStatus:
       properties:
         status:
@@ -1123,25 +1161,15 @@ components:
       - createdAt
       title: DedicatedEndpointStatus
       description: Dedicated endpoint status.
-    DedicatedEndpointListResponse:
+    HTTPValidationError:
       properties:
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/DedicatedEndpointStatus'
-          type: object
-          title: Data
-          description: The response data containing endpoint statuses.
-          default: {}
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Next Cursor
-          description: The next cursor for pagination.
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: DedicatedEndpointListResponse
-      description: Dedicated endpoint list response.
+      title: HTTPValidationError
     AcceleratorRequirement:
       properties:
         type:
@@ -1158,6 +1186,184 @@ components:
       - count
       title: AcceleratorRequirement
       description: Accelerator requirement.
+    AutoscalingPolicy:
+      properties:
+        minReplica:
+          type: integer
+          minimum: 0.0
+          title: Minimum Replica
+          description: Setting `minReplica` to 0 allows the endpoint to sleep when idle, reducing costs. The minimum value is 0.
+          default: 0
+        maxReplica:
+          type: integer
+          maximum: 10.0
+          title: Maximum Replica
+          description: The maximum replicas that the endpoint can scale up to. The maximum value is 10.
+          default: 1
+        cooldownPeriod:
+          type: integer
+          title: Cooldown Period
+          description: Determines how long the endpoint waits before scaling down after the last request.
+          default: 300
+      type: object
+      title: AutoscalingPolicy
+      description: Autoscaling policy.
+    DedicatedEndpointVersionHistoryResponse:
+      properties:
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointSpec'
+          type: object
+          title: Data
+          description: The response data containing endpoint versions.
+          default: {}
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Next Cursor
+          description: The next cursor for pagination.
+      type: object
+      title: DedicatedEndpointVersionHistoryResponse
+      description: Dedicated endpoint version history response.
+    DedicatedEndpointWandbArtifactCreateBody:
+      properties:
+        wandbArtifactVersionName:
+          type: string
+          title: Wandb Artifact Version Name
+          description: The specific model artifact version from Weights & Biases. The referred artifact will be used to create a new endpoint in Friendli Dedicated Endpoints or rollout an existing one.
+        accelerator:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorRequirement'
+          - type: 'null'
+          title: Accelerator
+          description: Specifies the instance type for the endpoint.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Specifies the name of your endpoint. If not provided, a name will be automatically generated for you.
+        projectId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: Specifies where endpoint will be created in your Friendli Dedicated Endpoints. If not provided, a new project will be created within your default team.
+        idempotencyKey:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency Key
+          description: Used by Friendli Dedicated Endpoints to track which webhook automation triggered an endpoint rollout. If the `idempotencyKey` is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the `projectId` must be provided. Any unique value can be used.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Autoscaling Policy
+          description: Defines autoscaling settings for the endpoint.
+      type: object
+      required:
+      - wandbArtifactVersionName
+      title: DedicatedEndpointWandbArtifactCreateBody
+      description: Endpoint create request.
+      example:
+        wandbArtifactVersionName: org/registry/name:v0
+    InferenceDeploymentStatus:
+      type: string
+      enum:
+      - UNKNOWN
+      - INITIALIZING
+      - RUNNING
+      - UPDATING
+      - SLEEPING
+      - AWAKING
+      - FAILED
+      - STOPPING
+      - TERMINATING
+      - TERMINATED
+      - READY
+      title: InferenceDeploymentStatus
+      description: Status of inference deployment.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EndpointAdvancedConfig:
+      properties:
+        max_batch_size:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Batch Size
+        tokenizer_skip_special_tokens:
+          type: boolean
+          title: Tokenizer Skip Special Tokens
+        tokenizer_add_special_tokens:
+          type: boolean
+          title: Tokenizer Add Special Tokens
+        max_token_count:
+          type: integer
+          title: Max Token Count
+          default: 2560
+        enable_content_logging:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Content Logging
+        max_input_length:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Input Length
+        queue_timeout_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Queue Timeout Ms
+        queue_backpressure_metric_kind:
+          anyOf:
+          - $ref: '#/components/schemas/QueueBackpressureMetricKind'
+          - type: 'null'
+        queue_backpressure_metric_threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Queue Backpressure Metric Threshold
+      type: object
+      required:
+      - tokenizer_skip_special_tokens
+      - tokenizer_add_special_tokens
+      title: EndpointAdvancedConfig
+      description: Endpoint advanced config.
+    QueueBackpressureMetricKind:
+      type: string
+      enum:
+      - TPOT_MS
+      - TTFT_MS
+      - REQUEST_COUNT
+      - WORKSPACE_UTILIZATION
+      - QUEUED_PREFILL_TOKENS
+      title: QueueBackpressureMetricKind
+      description: Queue backpressure metric kind.
     DedicatedEndpointUpdateBody:
       properties:
         name:
@@ -1246,130 +1452,6 @@ components:
       type: object
       title: DedicatedEndpointUpdateBody
       description: Dedicated endpoint update request.
-    DedicatedEndpointWandbArtifactCreateBody:
-      properties:
-        wandbArtifactVersionName:
-          type: string
-          title: Wandb Artifact Version Name
-          description: The specific model artifact version from Weights & Biases. The referred artifact will be used to create a new endpoint in Friendli Dedicated Endpoints or rollout an existing one.
-        accelerator:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorRequirement'
-          - type: 'null'
-          title: Accelerator
-          description: Specifies the instance type for the endpoint.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Specifies the name of your endpoint. If not provided, a name will be automatically generated for you.
-        projectId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: Specifies where endpoint will be created in your Friendli Dedicated Endpoints. If not provided, a new project will be created within your default team.
-        idempotencyKey:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Idempotency Key
-          description: Used by Friendli Dedicated Endpoints to track which webhook automation triggered an endpoint rollout. If the `idempotencyKey` is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the `projectId` must be provided. Any unique value can be used.
-        autoscalingPolicy:
-          anyOf:
-          - $ref: '#/components/schemas/AutoscalingPolicy'
-          - type: 'null'
-          title: Autoscaling Policy
-          description: Defines autoscaling settings for the endpoint.
-      type: object
-      required:
-      - wandbArtifactVersionName
-      title: DedicatedEndpointWandbArtifactCreateBody
-      description: Endpoint create request.
-      example:
-        wandbArtifactVersionName: org/registry/name:v0
-    DedicatedEndpointWandbArtifactCreateResponse:
-      properties:
-        endpointId:
-          type: string
-          title: Endpoint Id
-          description: The ID of the created endpoint.
-        endpointName:
-          type: string
-          title: Endpoint Name
-          description: The name of the created endpoint.
-        projectId:
-          type: string
-          title: Project Id
-          description: The ID of the project where the endpoint was created.
-        projectName:
-          type: string
-          title: Project Name
-          description: The name of the project where the endpoint was created.
-        teamId:
-          type: string
-          title: Team Id
-          description: The ID of the team where the endpoint was created.
-        teamName:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Team Name
-          description: The name of the team where the endpoint was created.
-      type: object
-      required:
-      - endpointId
-      - endpointName
-      - projectId
-      - projectName
-      - teamId
-      - teamName
-      title: DedicatedEndpointWandbArtifactCreateResponse
-      description: Endpoint create response.
-    AutoscalingPolicy:
-      properties:
-        minReplica:
-          type: integer
-          minimum: 0.0
-          title: Minimum Replica
-          description: Setting `minReplica` to 0 allows the endpoint to sleep when idle, reducing costs. The minimum value is 0.
-          default: 0
-        maxReplica:
-          type: integer
-          maximum: 10.0
-          title: Maximum Replica
-          description: The maximum replicas that the endpoint can scale up to. The maximum value is 10.
-          default: 1
-        cooldownPeriod:
-          type: integer
-          title: Cooldown Period
-          description: Determines how long the endpoint waits before scaling down after the last request.
-          default: 300
-      type: object
-      title: AutoscalingPolicy
-      description: Autoscaling policy.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     DedicatedEndpointSpec:
       properties:
         name:
@@ -1466,25 +1548,25 @@ components:
       - tokenizerAddSpecialTokens
       title: DedicatedEndpointSpec
       description: Dedicated endpoint specification.
-    DedicatedEndpointVersionHistoryResponse:
-      properties:
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/DedicatedEndpointSpec'
-          type: object
-          title: Data
-          description: The response data containing endpoint versions.
-          default: {}
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Next Cursor
-          description: The next cursor for pagination.
-      type: object
-      title: DedicatedEndpointVersionHistoryResponse
-      description: Dedicated endpoint version history response.
+    InferenceDeploymentErrorCode:
+      type: string
+      enum:
+      - WORKLOAD_INIT_UNKNOWN_ERROR
+      - WORKLOAD_INIT_SETTINGS_ERROR
+      - WORKLOAD_INIT_GRPC_ERROR
+      - WORKLOAD_INIT_MANIFEST_NOT_FOUND_ERROR
+      - WORKLOAD_INIT_MANIFEST_TYPE_ERROR
+      - WORKLOAD_INIT_DOWNLOAD_ERROR
+      - WORKLOAD_INIT_INVALID_TOKEN_ERROR
+      - WORKLOAD_INIT_CANNOT_ACCESS_REPO_ERROR
+      - WORKLOAD_INIT_HF_WANDB_API_ERROR
+      - WORKLOAD_INIT_INSUFFICIENT_DISK_ERROR
+      - INFERENCE_ENGINE_UNKNOWN_ERROR
+      - INFERENCE_ENGINE_INVALID_ARGUMENT_ERROR
+      - INFERENCE_ENGINE_MEMORY_ERROR
+      - INFERENCE_ENGINE_METERING_CLIENT_CONFIG_ERROR
+      title: InferenceDeploymentErrorCode
+      description: ErrorCode type.
     DedicatedEndpointCreateBody:
       properties:
         projectId:
@@ -1575,107 +1657,25 @@ components:
       - hfModelRepo
       title: DedicatedEndpointCreateBody
       description: Dedicated endpoint create request.
-    EndpointAdvancedConfig:
+    DedicatedEndpointListResponse:
       properties:
-        max_batch_size:
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointStatus'
+          type: object
+          title: Data
+          description: The response data containing endpoint statuses.
+          default: {}
+        nextCursor:
           anyOf:
-          - type: integer
+          - type: string
+            format: binary
           - type: 'null'
-          title: Max Batch Size
-        tokenizer_skip_special_tokens:
-          type: boolean
-          title: Tokenizer Skip Special Tokens
-        tokenizer_add_special_tokens:
-          type: boolean
-          title: Tokenizer Add Special Tokens
-        max_token_count:
-          type: integer
-          title: Max Token Count
-          default: 2560
-        enable_content_logging:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Content Logging
-        max_input_length:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Input Length
-        queue_timeout_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Queue Timeout Ms
-        queue_backpressure_metric_kind:
-          anyOf:
-          - $ref: '#/components/schemas/QueueBackpressureMetricKind'
-          - type: 'null'
-        queue_backpressure_metric_threshold:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Queue Backpressure Metric Threshold
+          title: Next Cursor
+          description: The next cursor for pagination.
       type: object
-      required:
-      - tokenizer_skip_special_tokens
-      - tokenizer_add_special_tokens
-      title: EndpointAdvancedConfig
-      description: Endpoint advanced config.
-    InferenceDeploymentErrorCode:
-      type: string
-      enum:
-      - WORKLOAD_INIT_UNKNOWN_ERROR
-      - WORKLOAD_INIT_SETTINGS_ERROR
-      - WORKLOAD_INIT_GRPC_ERROR
-      - WORKLOAD_INIT_MANIFEST_NOT_FOUND_ERROR
-      - WORKLOAD_INIT_MANIFEST_TYPE_ERROR
-      - WORKLOAD_INIT_DOWNLOAD_ERROR
-      - WORKLOAD_INIT_INVALID_TOKEN_ERROR
-      - WORKLOAD_INIT_CANNOT_ACCESS_REPO_ERROR
-      - WORKLOAD_INIT_HF_WANDB_API_ERROR
-      - WORKLOAD_INIT_INSUFFICIENT_DISK_ERROR
-      - INFERENCE_ENGINE_UNKNOWN_ERROR
-      - INFERENCE_ENGINE_INVALID_ARGUMENT_ERROR
-      - INFERENCE_ENGINE_MEMORY_ERROR
-      - INFERENCE_ENGINE_METERING_CLIENT_CONFIG_ERROR
-      title: InferenceDeploymentErrorCode
-      description: ErrorCode type.
-    QueueBackpressureMetricKind:
-      type: string
-      enum:
-      - TPOT_MS
-      - TTFT_MS
-      - REQUEST_COUNT
-      - WORKSPACE_UTILIZATION
-      - QUEUED_PREFILL_TOKENS
-      title: QueueBackpressureMetricKind
-      description: Queue backpressure metric kind.
-    InferenceDeploymentStatus:
-      type: string
-      enum:
-      - UNKNOWN
-      - INITIALIZING
-      - RUNNING
-      - UPDATING
-      - SLEEPING
-      - AWAKING
-      - FAILED
-      - STOPPING
-      - TERMINATING
-      - TERMINATED
-      - READY
-      title: InferenceDeploymentStatus
-      description: Status of inference deployment.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: DedicatedEndpointListResponse
+      description: Dedicated endpoint list response.
   securitySchemes:
     token:
       type: http
