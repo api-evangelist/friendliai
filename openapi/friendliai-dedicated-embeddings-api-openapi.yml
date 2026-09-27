@@ -82,6 +82,43 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
+    DedicatedEmbeddingsSuccess:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the embeddings.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the embeddings. For dedicated endpoints, it returns the endpoint ID.
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        data:
+          items:
+            $ref: '#/components/schemas/EmbeddingObject'
+          type: array
+          title: Data
+          description: A list of embedding objects.
+        usage:
+          $ref: '#/components/schemas/TextUsage'
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the embeddings were created.
+      type: object
+      required:
+      - id
+      - object
+      - data
+      - usage
+      - created
+      title: DedicatedEmbeddingsSuccess
     TextUsage:
       properties:
         prompt_tokens:
@@ -149,43 +186,6 @@ components:
           description: Cached tokens present in the prompt.
       type: object
       title: PromptTokensDetails
-    DedicatedEmbeddingsSuccess:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: A unique ID of the embeddings.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The model to generate the embeddings. For dedicated endpoints, it returns the endpoint ID.
-        object:
-          type: string
-          const: list
-          title: Object
-          description: The object type, which is always set to `list`.
-        data:
-          items:
-            $ref: '#/components/schemas/EmbeddingObject'
-          type: array
-          title: Data
-          description: A list of embedding objects.
-        usage:
-          $ref: '#/components/schemas/TextUsage'
-        created:
-          type: integer
-          title: Created
-          description: The Unix timestamp (in seconds) for when the embeddings were created.
-      type: object
-      required:
-      - id
-      - object
-      - data
-      - usage
-      - created
-      title: DedicatedEmbeddingsSuccess
     DedicatedEmbeddingsBody:
       properties:
         model:

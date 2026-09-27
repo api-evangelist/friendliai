@@ -50,7 +50,7 @@ tags:
 - Company
 - Infrastructure
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - LLM
 - Inference
 - Generative AI
@@ -66,6 +66,7 @@ tags_raw:
 - Generative AI
 - GPU
 - OpenAI Compatible
+- Machine-Learning
 apis:
 - aid: friendliai:friendliai-container-audio-api
   name: FriendliAI Container.Audio API

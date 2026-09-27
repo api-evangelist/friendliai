@@ -54,56 +54,6 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    PricingModel:
-      properties:
-        input:
-          type: string
-          title: Input
-          description: Price per input token in USD
-        output:
-          type: string
-          title: Output
-          description: Price per output token in USD
-        prompt:
-          type: string
-          title: Prompt
-          description: Price per input token in USD (alias of input)
-        completion:
-          type: string
-          title: Completion
-          description: Price per output token in USD (alias of output)
-        input_cache_read:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Input Cache Read
-          description: Price per cached input token read in USD
-        audio_minute:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Audio Minute
-          description: Price per audio minute in USD
-      type: object
-      required:
-      - input
-      - output
-      - prompt
-      - completion
-      title: PricingModel
-      description: Pricing model for token-based pricing.
-    ServerlessModelListSuccess:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ModelCatalogResponseItem'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: ServerlessModelListSuccess
-      description: '`/v1/models` API response.'
     OpenRouterModelListSuccess:
       properties:
         data:
@@ -116,44 +66,74 @@ components:
       - data
       title: OpenRouterModelListSuccess
       description: '`/v1/openrouter/models` API response.'
-    OpenRouterPricingTier:
+    ModelCatalogResponseItem:
       properties:
-        prompt:
+        id:
           type: string
-          title: Prompt
-          description: Price per input token in USD
-        completion:
+          title: Id
+        hugging_face_id:
           type: string
-          title: Completion
-          description: Price per output token in USD
-        image:
+          title: Hugging Face Id
+          description: Required when the model is hosted on Hugging Face
+          default: ''
+        name:
           type: string
-          title: Image
-          description: Price per image in USD (base tier only)
-          default: '0'
-        request:
+          title: Name
+        created:
+          type: integer
+          title: Created
+        context_length:
+          type: integer
+          title: Context Length
+        max_completion_tokens:
+          type: integer
+          title: Max Completion Tokens
+        pricing:
+          $ref: '#/components/schemas/PricingModel'
+          title: Pricing
+          description: Token prices for input and output
+        functionality:
+          $ref: '#/components/schemas/Functionality'
+          description: Model functionality
+        description:
           type: string
-          title: Request
-          description: Price per request in USD (base tier only)
-          default: '0'
-        input_cache_read:
+          title: Description
+        deprecation_date:
           anyOf:
           - type: string
           - type: 'null'
-          title: Input Cache Read
-          description: Price per cached input token read in USD
-        min_context:
+          title: Deprecation Date
+          description: ISO 8601 UTC hour (YYYY-MM-DDTHH:00:00Z)
+        hugging_face_url:
+          type: string
+          minLength: 1
+          format: uri
+          title: Hugging Face Url
+        license:
+          type: string
+          minLength: 1
+          format: uri
+          title: License
+        discount_to_user:
           anyOf:
-          - type: integer
+          - type: number
           - type: 'null'
-          title: Min Context
-          description: Minimum input tokens for this tier to apply
+          title: Discount To User
+          description: Fractional discount applied to user-facing pricing
       type: object
       required:
-      - prompt
-      - completion
-      title: OpenRouterPricingTier
-      description: OpenRouter flat or tiered pricing entry (USD per unit as string).
+      - id
+      - name
+      - created
+      - context_length
+      - max_completion_tokens
+      - pricing
+      - functionality
+      - description
+      - hugging_face_url
+      - license
+      title: ModelCatalogResponseItem
+      description: Model listing in `/v1/models` API.
     OpenRouterModelCatalogResponseItem:
       properties:
         id:
@@ -272,85 +252,44 @@ components:
       - supported_features
       title: OpenRouterModelCatalogResponseItem
       description: Model listing in `/v1/openrouter/models` API (OpenRouter provider format).
-    OpenRouterModelMetadata:
+    OpenRouterPricingTier:
       properties:
-        slug:
+        prompt:
           type: string
-          title: Slug
-          description: OpenRouter model slug
-      type: object
-      required:
-      - slug
-      title: OpenRouterModelMetadata
-      description: OpenRouter model metadata.
-    ModelCatalogResponseItem:
-      properties:
-        id:
+          title: Prompt
+          description: Price per input token in USD
+        completion:
           type: string
-          title: Id
-        hugging_face_id:
+          title: Completion
+          description: Price per output token in USD
+        image:
           type: string
-          title: Hugging Face Id
-          description: Required when the model is hosted on Hugging Face
-          default: ''
-        name:
+          title: Image
+          description: Price per image in USD (base tier only)
+          default: '0'
+        request:
           type: string
-          title: Name
-        created:
-          type: integer
-          title: Created
-        context_length:
-          type: integer
-          title: Context Length
-        max_completion_tokens:
-          type: integer
-          title: Max Completion Tokens
-        pricing:
-          $ref: '#/components/schemas/PricingModel'
-          title: Pricing
-          description: Token prices for input and output
-        functionality:
-          $ref: '#/components/schemas/Functionality'
-          description: Model functionality
-        description:
-          type: string
-          title: Description
-        deprecation_date:
+          title: Request
+          description: Price per request in USD (base tier only)
+          default: '0'
+        input_cache_read:
           anyOf:
           - type: string
           - type: 'null'
-          title: Deprecation Date
-          description: ISO 8601 UTC hour (YYYY-MM-DDTHH:00:00Z)
-        hugging_face_url:
-          type: string
-          minLength: 1
-          format: uri
-          title: Hugging Face Url
-        license:
-          type: string
-          minLength: 1
-          format: uri
-          title: License
-        discount_to_user:
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        min_context:
           anyOf:
-          - type: number
+          - type: integer
           - type: 'null'
-          title: Discount To User
-          description: Fractional discount applied to user-facing pricing
+          title: Min Context
+          description: Minimum input tokens for this tier to apply
       type: object
       required:
-      - id
-      - name
-      - created
-      - context_length
-      - max_completion_tokens
-      - pricing
-      - functionality
-      - description
-      - hugging_face_url
-      - license
-      title: ModelCatalogResponseItem
-      description: Model listing in `/v1/models` API.
+      - prompt
+      - completion
+      title: OpenRouterPricingTier
+      description: OpenRouter flat or tiered pricing entry (USD per unit as string).
     OpenRouterDatacenter:
       properties:
         country_code:
@@ -384,6 +323,67 @@ components:
       - parallel_tool_call
       title: Functionality
       description: Functionality of the model.
+    PricingModel:
+      properties:
+        input:
+          type: string
+          title: Input
+          description: Price per input token in USD
+        output:
+          type: string
+          title: Output
+          description: Price per output token in USD
+        prompt:
+          type: string
+          title: Prompt
+          description: Price per input token in USD (alias of input)
+        completion:
+          type: string
+          title: Completion
+          description: Price per output token in USD (alias of output)
+        input_cache_read:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Cache Read
+          description: Price per cached input token read in USD
+        audio_minute:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Audio Minute
+          description: Price per audio minute in USD
+      type: object
+      required:
+      - input
+      - output
+      - prompt
+      - completion
+      title: PricingModel
+      description: Pricing model for token-based pricing.
+    OpenRouterModelMetadata:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: OpenRouter model slug
+      type: object
+      required:
+      - slug
+      title: OpenRouterModelMetadata
+      description: OpenRouter model metadata.
+    ServerlessModelListSuccess:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/ModelCatalogResponseItem'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: ServerlessModelListSuccess
+      description: '`/v1/models` API response.'
   securitySchemes:
     token:
       type: http

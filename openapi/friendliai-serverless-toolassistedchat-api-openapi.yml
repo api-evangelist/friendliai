@@ -228,150 +228,6 @@ paths:
           </Info>'
 components:
   schemas:
-    AssistantMessage:
-      properties:
-        role:
-          type: string
-          const: assistant
-          title: Role
-          description: The role of the messages author.
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: The content of assistant message. Required unless `tool_calls` is specified.
-        reasoning_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reasoning Content
-          description: The intermediate reasoning content of assistant message.
-        reasoning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reasoning
-          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AssistantMessageToolCall'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      required:
-      - role
-      title: AssistantMessage
-    ChatResult:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: A unique ID of the chat completion.
-        choices:
-          items:
-            $ref: '#/components/schemas/ChatChoice'
-          type: array
-          title: Choices
-        usage:
-          $ref: '#/components/schemas/ChatUsage'
-        object:
-          type: string
-          const: chat.completion
-          title: Object
-          description: The object type, which is always set to `chat.completion`.
-        created:
-          type: integer
-          title: Created
-          description: The Unix timestamp (in seconds) for when the generation completed.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
-      type: object
-      required:
-      - id
-      - choices
-      - usage
-      - object
-      - created
-      title: ChatResult
-    UserMessage:
-      properties:
-        role:
-          type: string
-          const: user
-          title: Role
-          description: The role of the message's author.
-        content:
-          anyOf:
-          - type: string
-            description: 'The content of user message, which is plain text.
-
-
-              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
-          - items:
-              $ref: '#/components/schemas/UserMessageContentMultiModal'
-            type: array
-            description: 'The content of user message.
-
-
-              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
-          title: Content
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-      type: object
-      required:
-      - role
-      - content
-      title: UserMessage
-    ChatCompleteBodyToolChoiceFunction:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-      type: object
-      required:
-      - name
-      title: ChatCompleteBodyToolChoiceFunction
-    StreamedChatChoiceDelta:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: The contents of the assistant message.
-        role:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role
-          description: Role of the generated message author, in this case `assistant`.
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/StreamedToolCallResult'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      title: StreamedChatChoiceDelta
     ChatLogprobsContentTopLogprob:
       properties:
         token:
@@ -395,217 +251,24 @@ components:
       - token
       - logprob
       title: ChatLogprobsContentTopLogprob
-    ChatUsage:
+    FileBuiltInTool:
       properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-          description: Number of tokens in the prompt.
-          examples:
-          - 5
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-          description: Number of tokens in the generated chat completions.
-          examples:
-          - 7
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
-          examples:
-          - 12
-        prompt_tokens_details:
-          anyOf:
-          - $ref: '#/components/schemas/PromptTokensDetails'
-          - type: 'null'
-          description: Breakdown of tokens used in the prompt.
-      type: object
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-      title: ChatUsage
-    StreamedToolAssistedChatToken:
-      properties:
-        event:
+        type:
           type: string
-          const: token
-          title: Event
-          description: The type of the event.
-        data:
-          $ref: '#/components/schemas/StreamedChatData'
-      type: object
-      required:
-      - event
-      - data
-      title: StreamedToolAssistedChatToken
-    StreamedChatData:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: A unique ID of the chat completion.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/ChatUsage'
-          - type: 'null'
-        object:
-          type: string
-          const: chat.completion.chunk
-          title: Object
-          description: The object type, which is always set to `chat.completion.chunk`.
-        choices:
+          const: file:text
+          title: Type
+          description: The type of the file parser tool. Only .txt and .pdf files are supported.
+        files:
           items:
-            $ref: '#/components/schemas/StreamedChatChoice'
+            type: string
           type: array
-          title: Choices
-        created:
-          type: integer
-          title: Created
-          description: The Unix timestamp (in seconds) for when the token is sampled.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
-      type: object
-      required:
-      - id
-      - object
-      - choices
-      - created
-      title: StreamedChatData
-    ToolStatusParameter:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the tool's function parameter.
-        value:
-          type: string
-          title: Value
-          description: The value of the tool's function parameter.
-      type: object
-      required:
-      - name
-      - value
-      title: ToolStatusParameter
-    IntegratedBuiltInTool:
-      properties:
-        type:
-          type: string
-          const: linkup:search
-          title: Type
-          description: The type of the integrated third-party tool.
+          title: Files
+          description: A List of file IDs. For now, only one file is supported.
       type: object
       required:
       - type
-      title: IntegratedBuiltInTool
-    AudioContent:
-      properties:
-        type:
-          type: string
-          const: audio_url
-          title: Type
-          description: The type of the message content.
-        audio_url:
-          $ref: '#/components/schemas/AudioData'
-          description: The audio URL data.
-      type: object
-      required:
-      - type
-      - audio_url
-      title: AudioContent
-    Message:
-      oneOf:
-      - $ref: '#/components/schemas/SystemMessage'
-        title: System
-      - $ref: '#/components/schemas/UserMessage'
-        title: User
-      - $ref: '#/components/schemas/AssistantMessage'
-        title: Assistant
-      - $ref: '#/components/schemas/ToolMessage'
-        title: Tool
-      discriminator:
-        propertyName: role
-        mapping:
-          assistant: '#/components/schemas/AssistantMessage'
-          system: '#/components/schemas/SystemMessage'
-          tool: '#/components/schemas/ToolMessage'
-          user: '#/components/schemas/UserMessage'
-    StreamedToolCallResult:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool.
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-          description: The ID of the tool call.
-        index:
-          type: integer
-          title: Index
-          description: The index of the tool call being generated.
-        function:
-          $ref: '#/components/schemas/StreamedFunctionResult'
-      type: object
-      required:
-      - type
-      - index
-      - function
-      title: StreamedToolCallResult
-    ToolCallResult:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool.
-        id:
-          type: string
-          title: Id
-          description: The ID of the tool call.
-        function:
-          $ref: '#/components/schemas/FunctionResult'
-      type: object
-      required:
-      - type
-      - id
-      - function
-      title: ToolCallResult
-    VideoContent:
-      properties:
-        type:
-          type: string
-          const: video_url
-          title: Type
-          description: The type of the message content.
-        video_url:
-          $ref: '#/components/schemas/VideoData'
-          description: The video URL data.
-      type: object
-      required:
-      - type
-      - video_url
-      title: VideoContent
-    ChatLogprobs:
-      properties:
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ChatLogprobsContent'
-            type: array
-          - type: 'null'
-          title: Content
-          description: A list of message content tokens with log probability information.
-      type: object
-      title: ChatLogprobs
+      - files
+      title: FileBuiltInTool
     ChatLogprobsContent:
       properties:
         token:
@@ -636,203 +299,6 @@ components:
       - logprob
       - top_logprobs
       title: ChatLogprobsContent
-    ToolStatusData:
-      properties:
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: The ID of the tool call.
-        name:
-          type: string
-          enum:
-          - linkup:search
-          - math:calculator
-          - math:statistics
-          - math:calendar
-          - web:search
-          - web:url
-          - code:python-interpreter
-          - file:text
-          title: Name
-          description: The name of the built-in tool.
-        status:
-          type: string
-          enum:
-          - STARTED
-          - UPDATING
-          - ENDED
-          - ERRORED
-          title: Status
-          description: Indicates the current execution status of the tool.
-        parameters:
-          items:
-            $ref: '#/components/schemas/ToolStatusParameter'
-          type: array
-          title: Parameters
-        result:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Result
-          description: The output from the tool's execution.
-        files:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolStatusFile'
-            type: array
-          - type: 'null'
-          title: Files
-        message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Message
-          description: Message generated by the tool's execution.
-        error:
-          anyOf:
-          - $ref: '#/components/schemas/ToolStatusError'
-          - type: 'null'
-        timestamp:
-          type: number
-          title: Timestamp
-          description: The Unix timestamp (in seconds) for when the event occurred.
-      type: object
-      required:
-      - tool_call_id
-      - name
-      - status
-      - parameters
-      - timestamp
-      title: ToolStatusData
-    Tool:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool. Currently, only `function` is supported.
-        function:
-          $ref: '#/components/schemas/Function'
-      type: object
-      required:
-      - type
-      - function
-      title: Tool
-    ServerlessToolAssistedChatCompleteSuccess:
-      $ref: '#/components/schemas/ChatResult'
-      title: ServerlessToolAssistedChatCompleteSuccess
-    StreamedToolAssistedChatToolStatus:
-      properties:
-        event:
-          type: string
-          const: tool_status
-          title: Event
-          description: The type of the event.
-        data:
-          $ref: '#/components/schemas/ToolStatusData'
-      type: object
-      required:
-      - event
-      - data
-      title: StreamedToolAssistedChatToolStatus
-    SystemMessage:
-      properties:
-        role:
-          type: string
-          const: system
-          title: Role
-          description: The role of the messages author.
-        content:
-          type: string
-          title: Content
-          description: The content of system message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-      type: object
-      required:
-      - role
-      - content
-      title: SystemMessage
-    StreamedFunctionResult:
-      properties:
-        arguments:
-          type: string
-          title: Arguments
-          description: 'The arguments for calling the function, generated by the model in JSON format.
-
-            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the function to call.
-      type: object
-      required:
-      - arguments
-      title: StreamedFunctionResult
-    StreamOptions:
-      properties:
-        include_usage:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Include Usage
-          description: 'When set to `true`,
-
-            the number of tokens used will be included at the end of the stream result in the form of
-
-            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
-
-            '
-      type: object
-      title: StreamOptions
-    ChatChoiceMessage:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: The contents of the assistant message.
-        role:
-          type: string
-          title: Role
-          description: Role of the generated message author, in this case `assistant`.
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCallResult'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      required:
-      - role
-      title: ChatChoiceMessage
-    ServerlessToolAssistedChatCompletionStreamSuccess:
-      $ref: '#/components/schemas/StreamedToolAssistedChatEvent'
-      title: ServerlessToolAssistedChatCompletionStreamSuccess
-    TextContent:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the message content.
-        text:
-          type: string
-          title: Text
-          description: The text content of the message.
-      type: object
-      required:
-      - type
-      - text
-      title: TextContent
     ServerlessToolAssistedChatCompletionBody:
       properties:
         model:
@@ -1085,31 +551,32 @@ components:
         model: zai-org/GLM-5.2
         tools:
         - type: math:calculator
-    AssistantMessageToolCallFunction:
+    Function:
       properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the function does, used by the model to choose when and how to call the function.
         name:
           type: string
           title: Name
-          description: The name of function
-        arguments:
-          type: string
-          title: Arguments
-          description: The arguments of function in JSON schema format to call the function.
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: 'The parameters the functions accepts, described as a JSON Schema object.
+
+            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
+
+            '
       type: object
       required:
       - name
-      - arguments
-      title: AssistantMessageToolCallFunction
-    PromptTokensDetails:
-      properties:
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-          description: Cached tokens present in the prompt.
-      type: object
-      title: PromptTokensDetails
+      - parameters
+      title: Function
     AudioData:
       properties:
         url:
@@ -1120,56 +587,6 @@ components:
       required:
       - url
       title: AudioData
-    ToolAssistedChatTool:
-      oneOf:
-      - $ref: '#/components/schemas/Tool'
-        title: Function
-      - $ref: '#/components/schemas/FriendliBuiltInTool'
-        title: Friendli
-      - $ref: '#/components/schemas/IntegratedBuiltInTool'
-        title: Integrated
-      - $ref: '#/components/schemas/FileBuiltInTool'
-        title: File
-      discriminator:
-        propertyName: type
-        mapping:
-          code:python-interpreter: '#/components/schemas/FriendliBuiltInTool'
-          file:text: '#/components/schemas/FileBuiltInTool'
-          function: '#/components/schemas/Tool'
-          linkup:search: '#/components/schemas/IntegratedBuiltInTool'
-          math:calculator: '#/components/schemas/FriendliBuiltInTool'
-          math:calendar: '#/components/schemas/FriendliBuiltInTool'
-          math:statistics: '#/components/schemas/FriendliBuiltInTool'
-          web:search: '#/components/schemas/FriendliBuiltInTool'
-          web:url: '#/components/schemas/FriendliBuiltInTool'
-    FileBuiltInTool:
-      properties:
-        type:
-          type: string
-          const: file:text
-          title: Type
-          description: The type of the file parser tool. Only .txt and .pdf files are supported.
-        files:
-          items:
-            type: string
-          type: array
-          title: Files
-          description: A List of file IDs. For now, only one file is supported.
-      type: object
-      required:
-      - type
-      - files
-      title: FileBuiltInTool
-    ImageData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the image.
-      type: object
-      required:
-      - url
-      title: ImageData
     ServerlessToolAssistedChatCompletionStreamBody:
       properties:
         model:
@@ -1420,38 +837,164 @@ components:
         model: zai-org/GLM-5.2
         tools:
         - type: math:calculator
-    ChatChoice:
+    PromptTokensDetails:
       properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the choice in the list of generated choices.
-          examples:
-          - 0
-        logprobs:
+        cached_tokens:
           anyOf:
-          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: integer
           - type: 'null'
-        message:
-          $ref: '#/components/schemas/ChatChoiceMessage'
-        finish_reason:
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
+    VideoContent:
+      properties:
+        type:
           type: string
-          enum:
-          - stop
-          - length
-          - tool_calls
-          title: Finish Reason
-          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
-
-            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
-
-            `tool_calls` means the API has generated tool calls.'
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
       type: object
       required:
-      - index
-      - message
-      - finish_reason
-      title: ChatChoice
+      - type
+      - video_url
+      title: VideoContent
+    ChatUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated chat completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: ChatUsage
+    AssistantMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the messages author.
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The content of assistant message. Required unless `tool_calls` is specified.
+        reasoning_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning Content
+          description: The intermediate reasoning content of assistant message.
+        reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning
+          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AssistantMessageToolCall'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: AssistantMessage
+    ChatCompleteBodyToolChoiceFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+      type: object
+      required:
+      - name
+      title: ChatCompleteBodyToolChoiceFunction
+    ToolAssistedChatTool:
+      oneOf:
+      - $ref: '#/components/schemas/Tool'
+        title: Function
+      - $ref: '#/components/schemas/FriendliBuiltInTool'
+        title: Friendli
+      - $ref: '#/components/schemas/IntegratedBuiltInTool'
+        title: Integrated
+      - $ref: '#/components/schemas/FileBuiltInTool'
+        title: File
+      discriminator:
+        propertyName: type
+        mapping:
+          code:python-interpreter: '#/components/schemas/FriendliBuiltInTool'
+          file:text: '#/components/schemas/FileBuiltInTool'
+          function: '#/components/schemas/Tool'
+          linkup:search: '#/components/schemas/IntegratedBuiltInTool'
+          math:calculator: '#/components/schemas/FriendliBuiltInTool'
+          math:calendar: '#/components/schemas/FriendliBuiltInTool'
+          math:statistics: '#/components/schemas/FriendliBuiltInTool'
+          web:search: '#/components/schemas/FriendliBuiltInTool'
+          web:url: '#/components/schemas/FriendliBuiltInTool'
+    IntegratedBuiltInTool:
+      properties:
+        type:
+          type: string
+          const: linkup:search
+          title: Type
+          description: The type of the integrated third-party tool.
+      type: object
+      required:
+      - type
+      title: IntegratedBuiltInTool
     ToolMessage:
       properties:
         role:
@@ -1499,136 +1042,98 @@ components:
       - type
       - function
       title: AssistantMessageToolCall
-    StreamedToolAssistedChatEvent:
-      oneOf:
-      - $ref: '#/components/schemas/StreamedToolAssistedChatToken'
-        title: Token
-      - $ref: '#/components/schemas/StreamedToolAssistedChatToolStatus'
-        title: Tool Status
-      discriminator:
-        propertyName: event
-        mapping:
-          token: '#/components/schemas/StreamedToolAssistedChatToken'
-          tool_status: '#/components/schemas/StreamedToolAssistedChatToolStatus'
-    Function:
+    UserMessage:
       properties:
-        description:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: The role of the message's author.
+        content:
+          anyOf:
+          - type: string
+            description: 'The content of user message, which is plain text.
+
+
+              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
+          - items:
+              $ref: '#/components/schemas/UserMessageContentMultiModal'
+            type: array
+            description: 'The content of user message.
+
+
+              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          title: Content
+        name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-          description: A description of what the function does, used by the model to choose when and how to call the function.
-        name:
-          type: string
           title: Name
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        parameters:
-          additionalProperties: true
-          type: object
-          title: Parameters
-          description: 'The parameters the functions accepts, described as a JSON Schema object.
-
-            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
-
-            '
+          description: The name for the participant to distinguish between participants with the same role.
       type: object
       required:
-      - name
-      - parameters
-      title: Function
-    UserMessageContentMultiModal:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-        title: Text
-      - $ref: '#/components/schemas/AudioContent'
-        title: Audio
-      - $ref: '#/components/schemas/ImageContent'
-        title: Image
-      - $ref: '#/components/schemas/VideoContent'
-        title: Video
-      discriminator:
-        propertyName: type
-        mapping:
-          audio_url: '#/components/schemas/AudioContent'
-          image_url: '#/components/schemas/ImageContent'
-          text: '#/components/schemas/TextContent'
-          video_url: '#/components/schemas/VideoContent'
-    ToolStatusError:
-      properties:
-        type:
-          type: string
-          title: Type
-          description: The type of error encountered during the tool's execution.
-        msg:
-          type: string
-          title: Msg
-          description: The message of error.
-      type: object
-      required:
-      - type
-      - msg
-      title: ToolStatusError
-    ToolStatusFile:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the file generated by the tool's execution.
-        url:
-          type: string
-          title: Url
-          description: URL of the file generated by the tool's execution.
-      type: object
-      required:
-      - name
-      - url
-      title: ToolStatusFile
-    FriendliBuiltInTool:
-      properties:
-        type:
-          type: string
-          enum:
-          - math:calculator
-          - math:statistics
-          - math:calendar
-          - web:search
-          - web:url
-          - code:python-interpreter
-          title: Type
-          description: The type of the built-in tool provided by Friendli.
-      type: object
-      required:
-      - type
-      title: FriendliBuiltInTool
-    ChatCompleteBodyToolChoice:
+      - role
+      - content
+      title: UserMessage
+    ToolCallResult:
       properties:
         type:
           type: string
           const: function
           title: Type
-          description: The type of the tool. Currently, only `function` is supported.
-        function:
-          $ref: '#/components/schemas/ChatCompleteBodyToolChoiceFunction'
-      type: object
-      required:
-      - type
-      - function
-      title: ChatCompleteBodyToolChoice
-    ImageContent:
-      properties:
-        type:
+          description: The type of the tool.
+        id:
           type: string
-          const: image_url
-          title: Type
-          description: The type of the message content.
-        image_url:
-          $ref: '#/components/schemas/ImageData'
-          description: The image URL data.
+          title: Id
+          description: The ID of the tool call.
+        function:
+          $ref: '#/components/schemas/FunctionResult'
       type: object
       required:
       - type
-      - image_url
-      title: ImageContent
+      - id
+      - function
+      title: ToolCallResult
+    ServerlessToolAssistedChatCompleteSuccess:
+      $ref: '#/components/schemas/ChatResult'
+      title: ServerlessToolAssistedChatCompleteSuccess
+    StreamedToolAssistedChatToken:
+      properties:
+        event:
+          type: string
+          const: token
+          title: Event
+          description: The type of the event.
+        data:
+          $ref: '#/components/schemas/StreamedChatData'
+      type: object
+      required:
+      - event
+      - data
+      title: StreamedToolAssistedChatToken
+    StreamedChatChoiceDelta:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StreamedToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      title: StreamedChatChoiceDelta
     StreamedChatChoice:
       properties:
         index:
@@ -1663,16 +1168,6 @@ components:
       - index
       - delta
       title: StreamedChatChoice
-    VideoData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the video.
-      type: object
-      required:
-      - url
-      title: VideoData
     FunctionResult:
       properties:
         arguments:
@@ -1690,6 +1185,511 @@ components:
       - arguments
       - name
       title: FunctionResult
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image_url
+          title: Type
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ImageContent
+    FriendliBuiltInTool:
+      properties:
+        type:
+          type: string
+          enum:
+          - math:calculator
+          - math:statistics
+          - math:calendar
+          - web:search
+          - web:url
+          - code:python-interpreter
+          title: Type
+          description: The type of the built-in tool provided by Friendli.
+      type: object
+      required:
+      - type
+      title: FriendliBuiltInTool
+    SystemMessage:
+      properties:
+        role:
+          type: string
+          const: system
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of system message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: SystemMessage
+    ChatCompleteBodyToolChoice:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/ChatCompleteBodyToolChoiceFunction'
+      type: object
+      required:
+      - type
+      - function
+      title: ChatCompleteBodyToolChoice
+    ToolStatusData:
+      properties:
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of the tool call.
+        name:
+          type: string
+          enum:
+          - linkup:search
+          - math:calculator
+          - math:statistics
+          - math:calendar
+          - web:search
+          - web:url
+          - code:python-interpreter
+          - file:text
+          title: Name
+          description: The name of the built-in tool.
+        status:
+          type: string
+          enum:
+          - STARTED
+          - UPDATING
+          - ENDED
+          - ERRORED
+          title: Status
+          description: Indicates the current execution status of the tool.
+        parameters:
+          items:
+            $ref: '#/components/schemas/ToolStatusParameter'
+          type: array
+          title: Parameters
+        result:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Result
+          description: The output from the tool's execution.
+        files:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolStatusFile'
+            type: array
+          - type: 'null'
+          title: Files
+        message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Message
+          description: Message generated by the tool's execution.
+        error:
+          anyOf:
+          - $ref: '#/components/schemas/ToolStatusError'
+          - type: 'null'
+        timestamp:
+          type: number
+          title: Timestamp
+          description: The Unix timestamp (in seconds) for when the event occurred.
+      type: object
+      required:
+      - tool_call_id
+      - name
+      - status
+      - parameters
+      - timestamp
+      title: ToolStatusData
+    StreamedToolCallResult:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool.
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The ID of the tool call.
+        index:
+          type: integer
+          title: Index
+          description: The index of the tool call being generated.
+        function:
+          $ref: '#/components/schemas/StreamedFunctionResult'
+      type: object
+      required:
+      - type
+      - index
+      - function
+      title: StreamedToolCallResult
+    StreamedFunctionResult:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+          description: 'The arguments for calling the function, generated by the model in JSON format.
+
+            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - arguments
+      title: StreamedFunctionResult
+    StreamOptions:
+      properties:
+        include_usage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Usage
+          description: 'When set to `true`,
+
+            the number of tokens used will be included at the end of the stream result in the form of
+
+            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
+
+            '
+      type: object
+      title: StreamOptions
+    AssistantMessageToolCallFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
+      type: object
+      required:
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    ToolStatusParameter:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the tool's function parameter.
+        value:
+          type: string
+          title: Value
+          description: The value of the tool's function parameter.
+      type: object
+      required:
+      - name
+      - value
+      title: ToolStatusParameter
+    ChatResult:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the chat completion.
+        choices:
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/ChatUsage'
+        object:
+          type: string
+          const: chat.completion
+          title: Object
+          description: The object type, which is always set to `chat.completion`.
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the generation completed.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - choices
+      - usage
+      - object
+      - created
+      title: ChatResult
+    ToolStatusFile:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the file generated by the tool's execution.
+        url:
+          type: string
+          title: Url
+          description: URL of the file generated by the tool's execution.
+      type: object
+      required:
+      - name
+      - url
+      title: ToolStatusFile
+    Tool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
+      type: object
+      required:
+      - type
+      - function
+      title: Tool
+    Message:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+        title: System
+      - $ref: '#/components/schemas/UserMessage'
+        title: User
+      - $ref: '#/components/schemas/AssistantMessage'
+        title: Assistant
+      - $ref: '#/components/schemas/ToolMessage'
+        title: Tool
+      discriminator:
+        propertyName: role
+        mapping:
+          assistant: '#/components/schemas/AssistantMessage'
+          system: '#/components/schemas/SystemMessage'
+          tool: '#/components/schemas/ToolMessage'
+          user: '#/components/schemas/UserMessage'
+    ServerlessToolAssistedChatCompletionStreamSuccess:
+      $ref: '#/components/schemas/StreamedToolAssistedChatEvent'
+      title: ServerlessToolAssistedChatCompletionStreamSuccess
+    AudioContent:
+      properties:
+        type:
+          type: string
+          const: audio_url
+          title: Type
+          description: The type of the message content.
+        audio_url:
+          $ref: '#/components/schemas/AudioData'
+          description: The audio URL data.
+      type: object
+      required:
+      - type
+      - audio_url
+      title: AudioContent
+    StreamedToolAssistedChatEvent:
+      oneOf:
+      - $ref: '#/components/schemas/StreamedToolAssistedChatToken'
+        title: Token
+      - $ref: '#/components/schemas/StreamedToolAssistedChatToolStatus'
+        title: Tool Status
+      discriminator:
+        propertyName: event
+        mapping:
+          token: '#/components/schemas/StreamedToolAssistedChatToken'
+          tool_status: '#/components/schemas/StreamedToolAssistedChatToolStatus'
+    ChatLogprobs:
+      properties:
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChatLogprobsContent'
+            type: array
+          - type: 'null'
+          title: Content
+          description: A list of message content tokens with log probability information.
+      type: object
+      title: ChatLogprobs
+    ChatChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: 'null'
+        message:
+          $ref: '#/components/schemas/ChatChoiceMessage'
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          - tool_calls
+          title: Finish Reason
+          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
+
+            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+            `tool_calls` means the API has generated tool calls.'
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: ChatChoice
+    ToolStatusError:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: The type of error encountered during the tool's execution.
+        msg:
+          type: string
+          title: Msg
+          description: The message of error.
+      type: object
+      required:
+      - type
+      - msg
+      title: ToolStatusError
+    VideoData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the video.
+      type: object
+      required:
+      - url
+      title: VideoData
+    StreamedChatData:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the chat completion.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/ChatUsage'
+          - type: 'null'
+        object:
+          type: string
+          const: chat.completion.chunk
+          title: Object
+          description: The object type, which is always set to `chat.completion.chunk`.
+        choices:
+          items:
+            $ref: '#/components/schemas/StreamedChatChoice'
+          type: array
+          title: Choices
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the token is sampled.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - object
+      - choices
+      - created
+      title: StreamedChatData
+    ChatChoiceMessage:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          type: string
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: ChatChoiceMessage
+    StreamedToolAssistedChatToolStatus:
+      properties:
+        event:
+          type: string
+          const: tool_status
+          title: Event
+          description: The type of the event.
+        data:
+          $ref: '#/components/schemas/ToolStatusData'
+      type: object
+      required:
+      - event
+      - data
+      title: StreamedToolAssistedChatToolStatus
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message content.
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+      type: object
+      required:
+      - type
+      - text
+      title: TextContent
+    ImageData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: ImageData
   securitySchemes:
     token:
       type: http

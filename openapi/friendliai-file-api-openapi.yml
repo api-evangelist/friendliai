@@ -334,33 +334,30 @@ paths:
           </Info>'
 components:
   schemas:
-    FileInitUploadRequest:
+    FileInitUploadResponse:
       properties:
-        name:
+        fileId:
           type: string
-          title: Name
-          description: Name of the file.
-        size:
-          type: integer
-          title: Size
-          description: Size of the file in bytes.
-        digest:
-          type: string
-          pattern: ^[a-zA-Z0-9_+.-]+:[a-fA-F0-9]+$
-          title: Digest
-          description: Digest of the file.
-        projectId:
-          type: string
-          title: Projectid
-          description: ID of the project the file belongs to.
+          title: Fileid
+          description: ID of the file.
+        uploadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uploadurl
+          description: Upload URL of the file. `None` if the file is already uploaded.
+        aws:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Aws
+          description: AWS fields to be uploaded with file.
       type: object
       required:
-      - name
-      - size
-      - digest
-      - projectId
-      title: FileInitUploadRequest
-      description: Initiate file upload request.
+      - fileId
+      title: FileInitUploadResponse
+      description: Initiate file upload response.
     HTTPValidationError:
       properties:
         detail:
@@ -370,36 +367,27 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AccountFileStatus:
-      type: string
-      enum:
-      - UPLOADING
-      - UPLOADED
-      - FAILED
-      - DELETED
-      title: AccountFileStatus
-      description: AccountFile status.
-    ValidationError:
+    FileGetDownloadUrlResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        fileId:
           type: string
-          title: Message
-        type:
+          title: Fileid
+          description: ID of the file.
+        s3Uri:
           type: string
-          title: Error Type
+          title: S3Uri
+          description: S3 URI of the file.
+        downloadUrl:
+          type: string
+          title: Downloadurl
+          description: Download URL of the file.
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - fileId
+      - s3Uri
+      - downloadUrl
+      title: FileGetDownloadUrlResponse
+      description: Get download URL response.
     FileInfo:
       properties:
         id:
@@ -454,51 +442,63 @@ components:
       - status
       title: FileInfo
       description: File information.
-    FileGetDownloadUrlResponse:
+    ValidationError:
       properties:
-        fileId:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Fileid
-          description: ID of the file.
-        s3Uri:
+          title: Message
+        type:
           type: string
-          title: S3Uri
-          description: S3 URI of the file.
-        downloadUrl:
-          type: string
-          title: Downloadurl
-          description: Download URL of the file.
+          title: Error Type
       type: object
       required:
-      - fileId
-      - s3Uri
-      - downloadUrl
-      title: FileGetDownloadUrlResponse
-      description: Get download URL response.
-    FileInitUploadResponse:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileInitUploadRequest:
       properties:
-        fileId:
+        name:
           type: string
-          title: Fileid
-          description: ID of the file.
-        uploadUrl:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Uploadurl
-          description: Upload URL of the file. `None` if the file is already uploaded.
-        aws:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Aws
-          description: AWS fields to be uploaded with file.
+          title: Name
+          description: Name of the file.
+        size:
+          type: integer
+          title: Size
+          description: Size of the file in bytes.
+        digest:
+          type: string
+          pattern: ^[a-zA-Z0-9_+.-]+:[a-fA-F0-9]+$
+          title: Digest
+          description: Digest of the file.
+        projectId:
+          type: string
+          title: Projectid
+          description: ID of the project the file belongs to.
       type: object
       required:
-      - fileId
-      title: FileInitUploadResponse
-      description: Initiate file upload response.
+      - name
+      - size
+      - digest
+      - projectId
+      title: FileInitUploadRequest
+      description: Initiate file upload request.
+    AccountFileStatus:
+      type: string
+      enum:
+      - UPLOADING
+      - UPLOADED
+      - FAILED
+      - DELETED
+      title: AccountFileStatus
+      description: AccountFile status.
   securitySchemes:
     token:
       type: http

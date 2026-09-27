@@ -97,6 +97,38 @@ paths:
         content: Convert a list of token IDs back into text.
 components:
   schemas:
+    ContainerDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: ContainerDetokenizationSuccess
+    ContainerTokenizationBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        prompt:
+          type: string
+          title: Prompt
+          description: Input text prompt to tokenize.
+          examples:
+          - What is generative AI?
+      type: object
+      required:
+      - prompt
+      title: ContainerTokenizationBody
+      example:
+        prompt: What is generative AI?
     ContainerDetokenizationBody:
       properties:
         model:
@@ -146,38 +178,6 @@ components:
       required:
       - tokens
       title: ContainerTokenizationSuccess
-    ContainerDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: ContainerDetokenizationSuccess
-    ContainerTokenizationBody:
-      properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: Routes the request to a specific adapter.
-          examples:
-          - (adapter-route)
-        prompt:
-          type: string
-          title: Prompt
-          description: Input text prompt to tokenize.
-          examples:
-          - What is generative AI?
-      type: object
-      required:
-      - prompt
-      title: ContainerTokenizationBody
-      example:
-        prompt: What is generative AI?
   securitySchemes:
     token:
       type: http

@@ -62,50 +62,9 @@ paths:
         content: Classify text input into categories with per-class probabilities.
 components:
   schemas:
-    ContainerTextClassificationBody:
-      properties:
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: Routes the request to a specific adapter.
-          examples:
-          - (adapter-route)
-        input:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Input
-          description: 'Input text to classify, encoded as a string or array of strings. To classify multiple inputs in a single request, pass an array of strings.
-
-
-            Either `input` or `tokens` field is required.'
-          examples:
-          - I love programming.
-        tokens:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Tokens
-          description: 'The tokenized prompt (i.e., input tokens).
-
-
-            Either `input` or `tokens` field is required.'
-          examples:
-          - 72
-          - 1563
-          - 2335
-          - 13
-      type: object
-      title: ContainerTextClassificationBody
-      example:
-        input: I love programming.
+    ContainerTextClassificationSuccess:
+      $ref: '#/components/schemas/TextClassificationResult'
+      title: ContainerTextClassificationSuccess
     TextClassificationResult:
       properties:
         data:
@@ -126,9 +85,6 @@ components:
       - object
       - usage
       title: TextClassificationResult
-    ContainerTextClassificationSuccess:
-      $ref: '#/components/schemas/TextClassificationResult'
-      title: ContainerTextClassificationSuccess
     BaseClassificationData:
       properties:
         index:
@@ -184,6 +140,50 @@ components:
       - prompt_tokens
       - total_tokens
       title: TextClassificationUsage
+    ContainerTextClassificationBody:
+      properties:
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        input:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Input
+          description: 'Input text to classify, encoded as a string or array of strings. To classify multiple inputs in a single request, pass an array of strings.
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - I love programming.
+        tokens:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Tokens
+          description: 'The tokenized prompt (i.e., input tokens).
+
+
+            Either `input` or `tokens` field is required.'
+          examples:
+          - 72
+          - 1563
+          - 2335
+          - 13
+      type: object
+      title: ContainerTextClassificationBody
+      example:
+        input: I love programming.
   securitySchemes:
     token:
       type: http
