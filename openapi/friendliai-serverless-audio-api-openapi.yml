@@ -170,6 +170,106 @@ paths:
           <Tip>You can explore examples on the [Friendli Model APIs](https://friendli.ai/get-started/model-apis) playground and adjust settings with just a few clicks.</Tip>'
 components:
   schemas:
+    StreamedAudioTranscriptionData:
+      properties:
+        type:
+          type: string
+          enum:
+          - transcript.text.delta
+          - transcript.text.done
+          title: Type
+          description: The event type, which is `transcript.text.delta` or `transcript.text.done`.
+        delta:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Delta
+          description: The incremental transcript text.
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text
+          description: The transcribed text.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/AudioTranscriptionUsage'
+          - type: 'null'
+      type: object
+      required:
+      - type
+      title: StreamedAudioTranscriptionData
+    AudioTranscriptionResult:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The transcribed text.
+        usage:
+          $ref: '#/components/schemas/AudioTranscriptionUsage'
+      type: object
+      required:
+      - text
+      - usage
+      title: AudioTranscriptionResult
+    StreamedAudioTranscriptionResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
+      type: object
+      required:
+      - data
+      title: StreamedAudioTranscriptionResult
+    ServerlessAudioTranscriptionStreamSuccess:
+      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
+      title: ServerlessAudioTranscriptionStreamSuccess
+    AudioTranscriptionInputTokenDetails:
+      properties:
+        audio_tokens:
+          type: integer
+          title: Audio Tokens
+          description: Number of audio tokens billed for this request.
+        text_tokens:
+          type: integer
+          title: Text Tokens
+          description: Number of text tokens billed for this request.
+      type: object
+      required:
+      - audio_tokens
+      - text_tokens
+      title: AudioTranscriptionInputTokenDetails
+    ServerVadChunkingStrategy:
+      properties:
+        type:
+          type: string
+          const: server_vad
+          title: Type
+          description: Must be set to `server_vad` to enable manual chunking using server side VAD.
+        prefix_padding_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prefix Padding Ms
+          description: Amount of audio to include before the VAD detected speech (in milliseconds).
+          default: 300
+        silence_duration_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Silence Duration Ms
+          description: Duration of silence to detect speech stop (in milliseconds). With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
+          default: 200
+        threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold
+          description: Sensitivity threshold (0.0 to 1.0) for voice activity detection. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
+          default: 0.5
+      type: object
+      required:
+      - type
+      title: ServerVadChunkingStrategy
     AudioTranscriptionUsage:
       properties:
         type:
@@ -211,35 +311,6 @@ components:
       - input_audio_length_ms
       - processed_audio_length_ms
       title: AudioTranscriptionUsage
-    StreamedAudioTranscriptionData:
-      properties:
-        type:
-          type: string
-          enum:
-          - transcript.text.delta
-          - transcript.text.done
-          title: Type
-          description: The event type, which is `transcript.text.delta` or `transcript.text.done`.
-        delta:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Delta
-          description: The incremental transcript text.
-        text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Text
-          description: The transcribed text.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/AudioTranscriptionUsage'
-          - type: 'null'
-      type: object
-      required:
-      - type
-      title: StreamedAudioTranscriptionData
     ServerlessAudioTranscriptionBody:
       properties:
         model:
@@ -288,24 +359,6 @@ components:
       example:
         file: '@/path/to/file/audio.mp3'
         model: openai/whisper-large-v3
-    ServerlessAudioTranscriptionStreamSuccess:
-      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
-      title: ServerlessAudioTranscriptionStreamSuccess
-    AudioTranscriptionInputTokenDetails:
-      properties:
-        audio_tokens:
-          type: integer
-          title: Audio Tokens
-          description: Number of audio tokens billed for this request.
-        text_tokens:
-          type: integer
-          title: Text Tokens
-          description: Number of text tokens billed for this request.
-      type: object
-      required:
-      - audio_tokens
-      - text_tokens
-      title: AudioTranscriptionInputTokenDetails
     ServerlessAudioTranscriptionStreamBody:
       properties:
         model:
@@ -355,59 +408,6 @@ components:
     ServerlessAudioTranscriptionSuccess:
       $ref: '#/components/schemas/AudioTranscriptionResult'
       title: ServerlessAudioTranscriptionSuccess
-    AudioTranscriptionResult:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The transcribed text.
-        usage:
-          $ref: '#/components/schemas/AudioTranscriptionUsage'
-      type: object
-      required:
-      - text
-      - usage
-      title: AudioTranscriptionResult
-    StreamedAudioTranscriptionResult:
-      properties:
-        data:
-          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
-      type: object
-      required:
-      - data
-      title: StreamedAudioTranscriptionResult
-    ServerVadChunkingStrategy:
-      properties:
-        type:
-          type: string
-          const: server_vad
-          title: Type
-          description: Must be set to `server_vad` to enable manual chunking using server side VAD.
-        prefix_padding_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Prefix Padding Ms
-          description: Amount of audio to include before the VAD detected speech (in milliseconds).
-          default: 300
-        silence_duration_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Silence Duration Ms
-          description: Duration of silence to detect speech stop (in milliseconds). With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
-          default: 200
-        threshold:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold
-          description: Sensitivity threshold (0.0 to 1.0) for voice activity detection. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
-          default: 0.5
-      type: object
-      required:
-      - type
-      title: ServerVadChunkingStrategy
   securitySchemes:
     token:
       type: http

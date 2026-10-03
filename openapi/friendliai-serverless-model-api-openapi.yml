@@ -54,18 +54,29 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    OpenRouterModelListSuccess:
+    ServerlessModelListSuccess:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/OpenRouterModelCatalogResponseItem'
+            $ref: '#/components/schemas/ModelCatalogResponseItem'
           type: array
           title: Data
       type: object
       required:
       - data
-      title: OpenRouterModelListSuccess
-      description: '`/v1/openrouter/models` API response.'
+      title: ServerlessModelListSuccess
+      description: '`/v1/models` API response.'
+    OpenRouterModelMetadata:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: OpenRouter model slug
+      type: object
+      required:
+      - slug
+      title: OpenRouterModelMetadata
+      description: OpenRouter model metadata.
     ModelCatalogResponseItem:
       properties:
         id:
@@ -301,28 +312,6 @@ components:
       - country_code
       title: OpenRouterDatacenter
       description: OpenRouter datacenter metadata.
-    Functionality:
-      properties:
-        tool_call:
-          type: boolean
-          title: Tool Call
-        builtin_tool:
-          type: boolean
-          title: Built-in Tool
-        parallel_tool_call:
-          type: boolean
-          title: Tool Call Parallel
-        structured_output:
-          type: boolean
-          title: Structured Output
-          default: true
-      type: object
-      required:
-      - tool_call
-      - builtin_tool
-      - parallel_tool_call
-      title: Functionality
-      description: Functionality of the model.
     PricingModel:
       properties:
         input:
@@ -361,29 +350,40 @@ components:
       - completion
       title: PricingModel
       description: Pricing model for token-based pricing.
-    OpenRouterModelMetadata:
+    Functionality:
       properties:
-        slug:
-          type: string
-          title: Slug
-          description: OpenRouter model slug
+        tool_call:
+          type: boolean
+          title: Tool Call
+        builtin_tool:
+          type: boolean
+          title: Built-in Tool
+        parallel_tool_call:
+          type: boolean
+          title: Tool Call Parallel
+        structured_output:
+          type: boolean
+          title: Structured Output
+          default: true
       type: object
       required:
-      - slug
-      title: OpenRouterModelMetadata
-      description: OpenRouter model metadata.
-    ServerlessModelListSuccess:
+      - tool_call
+      - builtin_tool
+      - parallel_tool_call
+      title: Functionality
+      description: Functionality of the model.
+    OpenRouterModelListSuccess:
       properties:
         data:
           items:
-            $ref: '#/components/schemas/ModelCatalogResponseItem'
+            $ref: '#/components/schemas/OpenRouterModelCatalogResponseItem'
           type: array
           title: Data
       type: object
       required:
       - data
-      title: ServerlessModelListSuccess
-      description: '`/v1/models` API response.'
+      title: OpenRouterModelListSuccess
+      description: '`/v1/openrouter/models` API response.'
   securitySchemes:
     token:
       type: http

@@ -129,43 +129,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    DedicatedDetokenizationBody:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
-          examples:
-          - (endpoint-id)
-        tokens:
-          items:
-            type: integer
-          type: array
-          title: Tokens
-          description: A token sequence to detokenize.
-          examples:
-          - - 128000
-            - 3923
-            - 374
-            - 1803
-            - 1413
-            - 15592
-            - 30
-      type: object
-      required:
-      - model
-      - tokens
-      title: DedicatedDetokenizationBody
-      example:
-        model: (endpoint-id)
-        tokens:
-        - 128000
-        - 3923
-        - 374
-        - 1803
-        - 1413
-        - 15592
-        - 30
     DedicatedTokenizationBody:
       properties:
         model:
@@ -210,6 +173,43 @@ components:
       required:
       - text
       title: DedicatedDetokenizationSuccess
+    DedicatedDetokenizationBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: A token sequence to detokenize.
+          examples:
+          - - 128000
+            - 3923
+            - 374
+            - 1803
+            - 1413
+            - 15592
+            - 30
+      type: object
+      required:
+      - model
+      - tokens
+      title: DedicatedDetokenizationBody
+      example:
+        model: (endpoint-id)
+        tokens:
+        - 128000
+        - 3923
+        - 374
+        - 1803
+        - 1413
+        - 15592
+        - 30
   securitySchemes:
     token:
       type: http

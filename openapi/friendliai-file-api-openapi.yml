@@ -334,60 +334,6 @@ paths:
           </Info>'
 components:
   schemas:
-    FileInitUploadResponse:
-      properties:
-        fileId:
-          type: string
-          title: Fileid
-          description: ID of the file.
-        uploadUrl:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Uploadurl
-          description: Upload URL of the file. `None` if the file is already uploaded.
-        aws:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Aws
-          description: AWS fields to be uploaded with file.
-      type: object
-      required:
-      - fileId
-      title: FileInitUploadResponse
-      description: Initiate file upload response.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FileGetDownloadUrlResponse:
-      properties:
-        fileId:
-          type: string
-          title: Fileid
-          description: ID of the file.
-        s3Uri:
-          type: string
-          title: S3Uri
-          description: S3 URI of the file.
-        downloadUrl:
-          type: string
-          title: Downloadurl
-          description: Download URL of the file.
-      type: object
-      required:
-      - fileId
-      - s3Uri
-      - downloadUrl
-      title: FileGetDownloadUrlResponse
-      description: Get download URL response.
     FileInfo:
       properties:
         id:
@@ -442,27 +388,30 @@ components:
       - status
       title: FileInfo
       description: File information.
-    ValidationError:
+    FileInitUploadResponse:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        fileId:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Fileid
+          description: ID of the file.
+        uploadUrl:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Uploadurl
+          description: Upload URL of the file. `None` if the file is already uploaded.
+        aws:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Aws
+          description: AWS fields to be uploaded with file.
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - fileId
+      title: FileInitUploadResponse
+      description: Initiate file upload response.
     FileInitUploadRequest:
       properties:
         name:
@@ -499,6 +448,57 @@ components:
       - DELETED
       title: AccountFileStatus
       description: AccountFile status.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileGetDownloadUrlResponse:
+      properties:
+        fileId:
+          type: string
+          title: Fileid
+          description: ID of the file.
+        s3Uri:
+          type: string
+          title: S3Uri
+          description: S3 URI of the file.
+        downloadUrl:
+          type: string
+          title: Downloadurl
+          description: Download URL of the file.
+      type: object
+      required:
+      - fileId
+      - s3Uri
+      - downloadUrl
+      title: FileGetDownloadUrlResponse
+      description: Get download URL response.
   securitySchemes:
     token:
       type: http

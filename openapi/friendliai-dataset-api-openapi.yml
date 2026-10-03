@@ -1442,59 +1442,6 @@ paths:
           </Info>'
 components:
   schemas:
-    SplitInfo:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: ID of the split.
-        name:
-          type: string
-          title: Name
-          description: Name of the split.
-        createdAt:
-          type: integer
-          title: Createdat
-          description: Unix timestamp (in seconds) of when the split was created.
-        updatedAt:
-          type: integer
-          title: Updatedat
-          description: Unix timestamp (in seconds) of when the split was last modified.
-      type: object
-      required:
-      - id
-      - name
-      - createdAt
-      - updatedAt
-      title: SplitInfo
-      description: Split info.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    AddSamplesResponse:
-      properties:
-        samples:
-          items:
-            prefixItems:
-            - type: string
-            - type: string
-            type: array
-            maxItems: 2
-            minItems: 2
-          type: array
-          title: Samples
-          description: List of sample IDs that were added to the dataset.
-      type: object
-      required:
-      - samples
-      title: AddSamplesResponse
-      description: Add samples response.
     DedicatedDatasetModality:
       properties:
         input_modals:
@@ -1512,64 +1459,17 @@ components:
       type: object
       title: DedicatedDatasetModality
       description: Dataset modality.
-    ListSamplesResponse:
+    Body_upload_raw_samples:
       properties:
-        data:
-          items:
-            prefixItems:
-            - type: string
-            - type: string
-            type: array
-            maxItems: 2
-            minItems: 2
-          type: array
-          title: Data
-          description: List of items.
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Nextcursor
-          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+        file:
+          type: string
+          format: binary
+          title: File
+          description: File to update samples.
       type: object
       required:
-      - data
-      title: ListSamplesResponse
-      description: List samples response.
-    ListDatasetsResponse:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/DatasetInfo'
-          type: array
-          title: Data
-          description: List of items.
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Nextcursor
-          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
-      type: object
-      required:
-      - data
-      title: ListDatasetsResponse
-      description: List datasets response.
-    ListVersionsResponse:
-      properties:
-        versions:
-          items:
-            $ref: '#/components/schemas/VersionInfo'
-          type: array
-          title: Versions
-          description: List of versions.
-      type: object
-      required:
-      - versions
-      title: ListVersionsResponse
-      description: List versions response.
+      - file
+      title: Body_upload_raw_samples
     DatasetInfo:
       properties:
         id:
@@ -1620,6 +1520,49 @@ components:
       - modality
       title: CreateDatasetRequest
       description: Create dataset request.
+    ListSamplesResponse:
+      properties:
+        data:
+          items:
+            prefixItems:
+            - type: string
+            - type: string
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Data
+          description: List of items.
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Nextcursor
+          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+      type: object
+      required:
+      - data
+      title: ListSamplesResponse
+      description: List samples response.
+    AddSamplesResponse:
+      properties:
+        samples:
+          items:
+            prefixItems:
+            - type: string
+            - type: string
+            type: array
+            maxItems: 2
+            minItems: 2
+          type: array
+          title: Samples
+          description: List of sample IDs that were added to the dataset.
+      type: object
+      required:
+      - samples
+      title: AddSamplesResponse
+      description: Add samples response.
     DedicatedDatasetModalityType:
       type: string
       enum:
@@ -1629,6 +1572,32 @@ components:
       - TEXT
       title: DedicatedDatasetModalityType
       description: Modality type.
+    SplitInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the split.
+        name:
+          type: string
+          title: Name
+          description: Name of the split.
+        createdAt:
+          type: integer
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the split was created.
+        updatedAt:
+          type: integer
+          title: Updatedat
+          description: Unix timestamp (in seconds) of when the split was last modified.
+      type: object
+      required:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      title: SplitInfo
+      description: Split info.
     ListSplitsResponse:
       properties:
         data:
@@ -1649,6 +1618,69 @@ components:
       - data
       title: ListSplitsResponse
       description: List splits response.
+    ListVersionsResponse:
+      properties:
+        versions:
+          items:
+            $ref: '#/components/schemas/VersionInfo'
+          type: array
+          title: Versions
+          description: List of versions.
+      type: object
+      required:
+      - versions
+      title: ListVersionsResponse
+      description: List versions response.
+    VersionInfo:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: ID of the version.
+        comment:
+          type: string
+          title: Comment
+          description: Comment for the version.
+        createdAt:
+          type: integer
+          title: Createdat
+          description: Unix timestamp (in seconds) of when the version was created.
+      type: object
+      required:
+      - id
+      - comment
+      - createdAt
+      title: VersionInfo
+      description: Version info.
+    ListDatasetsResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/DatasetInfo'
+          type: array
+          title: Data
+          description: List of items.
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Nextcursor
+          description: Next cursor to use for pagination. `None` indicates no more items to fetch.
+      type: object
+      required:
+      - data
+      title: ListDatasetsResponse
+      description: List datasets response.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -1683,38 +1715,6 @@ components:
       - sampleIds
       title: DeleteSamplesResponse
       description: Delete samples response.
-    VersionInfo:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: ID of the version.
-        comment:
-          type: string
-          title: Comment
-          description: Comment for the version.
-        createdAt:
-          type: integer
-          title: Createdat
-          description: Unix timestamp (in seconds) of when the version was created.
-      type: object
-      required:
-      - id
-      - comment
-      - createdAt
-      title: VersionInfo
-      description: Version info.
-    Body_upload_raw_samples:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-          description: File to update samples.
-      type: object
-      required:
-      - file
-      title: Body_upload_raw_samples
   securitySchemes:
     token:
       type: http

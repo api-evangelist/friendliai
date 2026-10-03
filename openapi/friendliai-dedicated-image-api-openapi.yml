@@ -128,45 +128,21 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    ImageInput:
+    ImageGenerationDedicatedResult:
       properties:
-        image:
-          type: string
-          title: Image
-          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
-          examples:
-          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
-          - data:image/png;base64,...
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UrlImageItem'
+            type: array
+          - items:
+              $ref: '#/components/schemas/B64ImageItem'
+            type: array
+          title: Data
       type: object
       required:
-      - image
-      title: ImageInput
-    UrlImageItem:
-      properties:
-        seed:
-          type: integer
-          title: Seed
-          description: The seed used during image generation.
-        response_format:
-          type: string
-          enum:
-          - url
-          - raw
-          - png
-          - jpeg
-          - jpg
-          title: Response Format
-          description: The format of the generated image. One of `url(default)`, `raw`, `png`, `jpeg`, and `jpg`.
-        url:
-          type: string
-          title: Url
-          description: The URL of the generated image.
-      type: object
-      required:
-      - seed
-      - response_format
-      - url
-      title: UrlImageItem
+      - data
+      title: ImageGenerationDedicatedResult
     DedicatedImageGenerationBody:
       properties:
         model:
@@ -234,12 +210,25 @@ components:
         model: (endpoint-id)
         num_inference_steps: 10
         prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
-    DedicatedImageEditSuccess:
-      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
-      title: DedicatedImageEditSuccess
+    ImageInput:
+      properties:
+        image:
+          type: string
+          title: Image
+          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
+          examples:
+          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
+          - data:image/png;base64,...
+      type: object
+      required:
+      - image
+      title: ImageInput
     DedicatedImageGenerateSuccess:
       $ref: '#/components/schemas/ImageGenerationDedicatedResult'
       title: DedicatedImageGenerateSuccess
+    DedicatedImageEditSuccess:
+      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
+      title: DedicatedImageEditSuccess
     DedicatedImageEditBody:
       properties:
         image:
@@ -329,21 +318,32 @@ components:
       - response_format
       - b64_json
       title: B64ImageItem
-    ImageGenerationDedicatedResult:
+    UrlImageItem:
       properties:
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UrlImageItem'
-            type: array
-          - items:
-              $ref: '#/components/schemas/B64ImageItem'
-            type: array
-          title: Data
+        seed:
+          type: integer
+          title: Seed
+          description: The seed used during image generation.
+        response_format:
+          type: string
+          enum:
+          - url
+          - raw
+          - png
+          - jpeg
+          - jpg
+          title: Response Format
+          description: The format of the generated image. One of `url(default)`, `raw`, `png`, `jpeg`, and `jpg`.
+        url:
+          type: string
+          title: Url
+          description: The URL of the generated image.
       type: object
       required:
-      - data
-      title: ImageGenerationDedicatedResult
+      - seed
+      - response_format
+      - url
+      title: UrlImageItem
   securitySchemes:
     token:
       type: http

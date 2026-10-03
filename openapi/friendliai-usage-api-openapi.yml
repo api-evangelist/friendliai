@@ -306,6 +306,26 @@ components:
       - input_cached_tokens
       - output_tokens
       title: UsageResult
+    UsageBucketWidth:
+      type: string
+      enum:
+      - 1d
+      - 1h
+      - 5m
+      title: UsageBucketWidth
+    UsageGroupBy:
+      type: string
+      enum:
+      - model
+      - product_type
+      - user_id
+      title: UsageGroupBy
+    ProductType:
+      type: string
+      enum:
+      - model_apis
+      - dedicated_endpoints
+      title: ProductType
     UsageBucket:
       properties:
         start_time:
@@ -327,26 +347,6 @@ components:
       - end_time
       - results
       title: UsageBucket
-    UsageBucketWidth:
-      type: string
-      enum:
-      - 1d
-      - 1h
-      - 5m
-      title: UsageBucketWidth
-    ProductType:
-      type: string
-      enum:
-      - model_apis
-      - dedicated_endpoints
-      title: ProductType
-    UsageGroupBy:
-      type: string
-      enum:
-      - model
-      - product_type
-      - user_id
-      title: UsageGroupBy
   securitySchemes:
     token:
       type: http

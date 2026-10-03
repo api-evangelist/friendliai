@@ -53,35 +53,6 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    ServerlessKnowledgeRetrievalBody:
-      properties:
-        query:
-          type: string
-          title: Query
-          description: A text string used to find relevant information within the knowledge-base.
-          examples:
-          - Chicken dinner
-        k:
-          type: integer
-          title: K
-          description: Maximum number of top-ranked knowledge-base entries to return in results.
-          examples:
-          - 1
-        knowledgeIds:
-          items:
-            type: string
-          type: array
-          title: Knowledge Ids
-          description: A List of knowledge-base IDs. For now, only one knowledge-base is supported.
-          examples:
-          - - knowledge-base-id-1
-      type: object
-      required:
-      - query
-      - k
-      - knowledgeIds
-      title: ServerlessKnowledgeRetrievalBody
-      description: Knowledge retrieval request.
     KnowledgeRetrievedChunk:
       properties:
         text:
@@ -121,6 +92,35 @@ components:
       - results
       title: ServerlessKnowledgeRetrievalSuccess
       description: Knowledge retrieval response.
+    ServerlessKnowledgeRetrievalBody:
+      properties:
+        query:
+          type: string
+          title: Query
+          description: A text string used to find relevant information within the knowledge-base.
+          examples:
+          - Chicken dinner
+        k:
+          type: integer
+          title: K
+          description: Maximum number of top-ranked knowledge-base entries to return in results.
+          examples:
+          - 1
+        knowledgeIds:
+          items:
+            type: string
+          type: array
+          title: Knowledge Ids
+          description: A List of knowledge-base IDs. For now, only one knowledge-base is supported.
+          examples:
+          - - knowledge-base-id-1
+      type: object
+      required:
+      - query
+      - k
+      - knowledgeIds
+      title: ServerlessKnowledgeRetrievalBody
+      description: Knowledge retrieval request.
   securitySchemes:
     token:
       type: http

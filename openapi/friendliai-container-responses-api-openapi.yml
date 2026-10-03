@@ -199,338 +199,6 @@ paths:
           </Info>'
 components:
   schemas:
-    ResponsesUsage:
-      properties:
-        input_tokens:
-          type: integer
-          title: Input Tokens
-          description: The number of input tokens.
-        input_tokens_details:
-          $ref: '#/components/schemas/ResponsesInputTokensDetails'
-          description: A detailed breakdown of the input tokens.
-        output_tokens:
-          type: integer
-          title: Output Tokens
-          description: The number of output tokens.
-        output_tokens_details:
-          anyOf:
-          - $ref: '#/components/schemas/ResponsesOutputTokensDetails'
-          - type: 'null'
-          description: A detailed breakdown of the output tokens.
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: The total number of tokens used.
-      type: object
-      required:
-      - input_tokens
-      - input_tokens_details
-      - output_tokens
-      - total_tokens
-      title: ResponsesUsage
-    ResponsesContentPart:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesOutputText'
-        title: Output Text
-      - $ref: '#/components/schemas/ResponsesReasoningText'
-        title: Reasoning Text
-      discriminator:
-        propertyName: type
-        mapping:
-          output_text: '#/components/schemas/ResponsesOutputText'
-          reasoning_text: '#/components/schemas/ResponsesReasoningText'
-    ResponsesStreamContentPartDone:
-      properties:
-        type:
-          type: string
-          const: response.content_part.done
-          title: Type
-          description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the output item the content part belongs to.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        content_index:
-          type: integer
-          title: Content Index
-          description: The index of the content part within the output item.
-        part:
-          $ref: '#/components/schemas/ResponsesContentPart'
-          description: The completed content part.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
-      type: object
-      required:
-      - type
-      - item_id
-      - output_index
-      - content_index
-      - part
-      - sequence_number
-      title: ResponsesStreamContentPartDone
-    ResponsesStreamEvent:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesStreamResponseEvent'
-        title: Response
-      - $ref: '#/components/schemas/ResponsesStreamOutputItemAdded'
-        title: Output Item Added
-      - $ref: '#/components/schemas/ResponsesStreamOutputItemDone'
-        title: Output Item Done
-      - $ref: '#/components/schemas/ResponsesStreamContentPartAdded'
-        title: Content Part Added
-      - $ref: '#/components/schemas/ResponsesStreamContentPartDone'
-        title: Content Part Done
-      - $ref: '#/components/schemas/ResponsesStreamOutputTextDelta'
-        title: Output Text Delta
-      - $ref: '#/components/schemas/ResponsesStreamOutputTextDone'
-        title: Output Text Done
-      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDelta'
-        title: Reasoning Text Delta
-      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDone'
-        title: Reasoning Text Done
-      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
-        title: Function Call Arguments Delta
-      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
-        title: Function Call Arguments Done
-      discriminator:
-        propertyName: type
-        mapping:
-          response.completed: '#/components/schemas/ResponsesStreamResponseEvent'
-          response.content_part.added: '#/components/schemas/ResponsesStreamContentPartAdded'
-          response.content_part.done: '#/components/schemas/ResponsesStreamContentPartDone'
-          response.created: '#/components/schemas/ResponsesStreamResponseEvent'
-          response.failed: '#/components/schemas/ResponsesStreamResponseEvent'
-          response.function_call_arguments.delta: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
-          response.function_call_arguments.done: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
-          response.in_progress: '#/components/schemas/ResponsesStreamResponseEvent'
-          response.incomplete: '#/components/schemas/ResponsesStreamResponseEvent'
-          response.output_item.added: '#/components/schemas/ResponsesStreamOutputItemAdded'
-          response.output_item.done: '#/components/schemas/ResponsesStreamOutputItemDone'
-          response.output_text.delta: '#/components/schemas/ResponsesStreamOutputTextDelta'
-          response.output_text.done: '#/components/schemas/ResponsesStreamOutputTextDone'
-          response.reasoning_text.delta: '#/components/schemas/ResponsesStreamReasoningTextDelta'
-          response.reasoning_text.done: '#/components/schemas/ResponsesStreamReasoningTextDone'
-    ResponsesReasoningItem:
-      properties:
-        type:
-          type: string
-          const: reasoning
-          title: Type
-          description: The type of the object. Always `reasoning`.
-        id:
-          type: string
-          title: Id
-          description: The unique identifier of the reasoning content.
-        summary:
-          items:
-            $ref: '#/components/schemas/ResponsesReasoningSummaryText'
-          type: array
-          title: Summary
-          description: Reasoning summary content.
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResponsesReasoningText'
-            type: array
-          - type: 'null'
-          title: Content
-          description: Reasoning text content.
-        status:
-          anyOf:
-          - type: string
-            enum:
-            - in_progress
-            - completed
-            - incomplete
-          - type: 'null'
-          title: Status
-          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
-      type: object
-      required:
-      - type
-      - id
-      - summary
-      title: ResponsesReasoningItem
-    ResponsesStreamContentPartAdded:
-      properties:
-        type:
-          type: string
-          const: response.content_part.added
-          title: Type
-          description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the output item the content part was added to.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        content_index:
-          type: integer
-          title: Content Index
-          description: The index of the content part within the output item.
-        part:
-          $ref: '#/components/schemas/ResponsesContentPart'
-          description: The content part that was added.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
-      type: object
-      required:
-      - type
-      - item_id
-      - output_index
-      - content_index
-      - part
-      - sequence_number
-      title: ResponsesStreamContentPartAdded
-    ResponsesTool:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesFunctionTool'
-        title: Function
-      - $ref: '#/components/schemas/ResponsesCustomTool'
-        title: Custom
-      discriminator:
-        propertyName: type
-        mapping:
-          custom: '#/components/schemas/ResponsesCustomTool'
-          function: '#/components/schemas/ResponsesFunctionTool'
-    ResponsesOutputItem:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesOutputMessage'
-        title: Message
-      - $ref: '#/components/schemas/ResponsesReasoningItem'
-        title: Reasoning
-      - $ref: '#/components/schemas/ResponsesFunctionCall'
-        title: Function Tool Call
-      discriminator:
-        propertyName: type
-        mapping:
-          function_call: '#/components/schemas/ResponsesFunctionCall'
-          message: '#/components/schemas/ResponsesOutputMessage'
-          reasoning: '#/components/schemas/ResponsesReasoningItem'
-    ResponsesReasoningText:
-      properties:
-        type:
-          type: string
-          const: reasoning_text
-          title: Type
-          description: The type of the reasoning text. Always `reasoning_text`.
-        text:
-          type: string
-          title: Text
-          description: The reasoning text from the model.
-      type: object
-      required:
-      - type
-      - text
-      title: ResponsesReasoningText
-    ResponsesStreamFunctionCallArgumentsDone:
-      properties:
-        type:
-          type: string
-          const: response.function_call_arguments.done
-          title: Type
-          description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the output item.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        arguments:
-          type: string
-          title: Arguments
-          description: The function-call arguments.
-        name:
-          type: string
-          title: Name
-          description: The name of the function that was called.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
-      type: object
-      required:
-      - type
-      - item_id
-      - output_index
-      - arguments
-      - name
-      - sequence_number
-      title: ResponsesStreamFunctionCallArgumentsDone
-    ResponsesReasoningConfig:
-      properties:
-        effort:
-          anyOf:
-          - type: string
-            enum:
-            - none
-            - minimal
-            - low
-            - medium
-            - high
-            - xhigh
-            - max
-            - ultracode
-          - type: 'null'
-          title: Effort
-          description: Constrains effort on reasoning for reasoning models. Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, and `ultracode`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
-      type: object
-      title: ResponsesReasoningConfig
-    ResponsesInputItem:
-      anyOf:
-      - $ref: '#/components/schemas/ResponsesInputMessage'
-      - $ref: '#/components/schemas/ResponsesFunctionCall'
-      - $ref: '#/components/schemas/ResponsesFunctionCallOutput'
-      - $ref: '#/components/schemas/ResponsesCustomToolCall'
-      - $ref: '#/components/schemas/ResponsesCustomToolCallOutput'
-      - $ref: '#/components/schemas/ResponsesReasoningItem'
-      title: ResponsesInputItem
-    ResponsesError:
-      properties:
-        code:
-          type: string
-          enum:
-          - server_error
-          - rate_limit_exceeded
-          - invalid_prompt
-          - vector_store_timeout
-          - invalid_image
-          - invalid_image_format
-          - invalid_base64_image
-          - invalid_image_url
-          - image_too_large
-          - image_too_small
-          - image_parse_error
-          - image_content_policy_violation
-          - invalid_image_mode
-          - image_file_too_large
-          - unsupported_image_media_type
-          - empty_image_file
-          - failed_to_download_image
-          - image_file_not_found
-          title: Code
-          description: The error code for the response.
-        message:
-          type: string
-          title: Message
-          description: A human-readable description of the error.
-      type: object
-      required:
-      - code
-      - message
-      title: ResponsesError
     ContainerResponsesStreamBody:
       properties:
         input:
@@ -623,63 +291,21 @@ components:
       title: ContainerResponsesStreamBody
       example:
         input: Hello!
-    ResponsesFunctionTool:
+    ResponsesStreamResponseEvent:
       properties:
         type:
           type: string
-          const: function
-          title: Type
-          description: The type of the function tool. Always `function`.
-        name:
-          type: string
-          title: Name
-          description: The name of the function to call.
-        parameters:
-          additionalProperties: true
-          type: object
-          title: Parameters
-          description: A JSON schema object describing the parameters of the function.
-        strict:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Strict
-          description: Whether to enforce strict parameter validation. Default `true`.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A description of the function. Used by the model to determine whether or not to call the function.
-      type: object
-      required:
-      - type
-      - name
-      - parameters
-      title: ResponsesFunctionTool
-    ResponsesStreamOutputTextDelta:
-      properties:
-        type:
-          type: string
-          const: response.output_text.delta
+          enum:
+          - response.created
+          - response.in_progress
+          - response.completed
+          - response.incomplete
+          - response.failed
           title: Type
           description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the output item.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        content_index:
-          type: integer
-          title: Content Index
-          description: The index of the content part within the output item.
-        delta:
-          type: string
-          title: Delta
-          description: The text delta that was added.
+        response:
+          $ref: '#/components/schemas/ResponsesSuccess'
+          description: The response snapshot associated with this lifecycle event.
         sequence_number:
           type: integer
           title: Sequence Number
@@ -687,12 +313,77 @@ components:
       type: object
       required:
       - type
-      - item_id
-      - output_index
-      - content_index
-      - delta
+      - response
       - sequence_number
-      title: ResponsesStreamOutputTextDelta
+      title: ResponsesStreamResponseEvent
+    ResponsesInputText:
+      properties:
+        type:
+          type: string
+          const: input_text
+          title: Type
+          description: The type of the input item. Always `input_text`.
+        text:
+          type: string
+          title: Text
+          description: The text input to the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesInputText
+    ResponsesTool:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesFunctionTool'
+        title: Function
+      - $ref: '#/components/schemas/ResponsesCustomTool'
+        title: Custom
+      discriminator:
+        propertyName: type
+        mapping:
+          custom: '#/components/schemas/ResponsesCustomTool'
+          function: '#/components/schemas/ResponsesFunctionTool'
+    ResponsesReasoningItem:
+      properties:
+        type:
+          type: string
+          const: reasoning
+          title: Type
+          description: The type of the object. Always `reasoning`.
+        id:
+          type: string
+          title: Id
+          description: The unique identifier of the reasoning content.
+        summary:
+          items:
+            $ref: '#/components/schemas/ResponsesReasoningSummaryText'
+          type: array
+          title: Summary
+          description: Reasoning summary content.
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResponsesReasoningText'
+            type: array
+          - type: 'null'
+          title: Content
+          description: Reasoning text content.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - in_progress
+            - completed
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
+      type: object
+      required:
+      - type
+      - id
+      - summary
+      title: ResponsesReasoningItem
     ResponsesInputMessage:
       properties:
         role:
@@ -724,64 +415,393 @@ components:
       - role
       - content
       title: ResponsesInputMessage
-    ResponsesFunctionCall:
+    ResponsesStreamOutputItemAdded:
       properties:
         type:
           type: string
-          const: function_call
+          const: response.output_item.added
           title: Type
-          description: The type of the function tool call. Always `function_call`.
-        call_id:
-          type: string
-          title: Call Id
-          description: The unique ID of the function tool call generated by the model.
-        name:
-          type: string
-          title: Name
-          description: The name of the function to run.
-        arguments:
-          type: string
-          title: Arguments
-          description: A JSON string of the arguments to pass to the function.
+          description: The type of the event.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item that was added.
+        item:
+          $ref: '#/components/schemas/ResponsesOutputItem'
+          description: The output item that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - output_index
+      - item
+      - sequence_number
+      title: ResponsesStreamOutputItemAdded
+    ContainerResponsesSuccess:
+      properties:
         id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Id
-          description: The unique ID of the function tool call.
+          description: Unique identifier for this response.
+        object:
+          type: string
+          const: response
+          title: Object
+          description: The object type of this resource - always set to `response`.
+        created_at:
+          type: integer
+          title: Created At
+          description: Unix timestamp (in seconds) of when this response was created.
+        error:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesError'
+          - type: 'null'
+          description: An error object returned when the model fails to generate a Response.
         status:
           anyOf:
           - type: string
             enum:
-            - in_progress
             - completed
+            - failed
+            - in_progress
+            - cancelled
+            - queued
             - incomplete
           - type: 'null'
           title: Status
-          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
+          description: The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
+        output:
+          items:
+            $ref: '#/components/schemas/ResponsesOutputItem'
+          type: array
+          title: Output
+          description: An array of content items generated by the model.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesUsage'
+          - type: 'null'
+          description: Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
+        incomplete_details:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesIncompleteDetails'
+          - type: 'null'
+          description: Details about why the response is incomplete.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Model ID used to generate the response.
+      additionalProperties: true
       type: object
       required:
-      - type
-      - call_id
-      - name
-      - arguments
-      title: ResponsesFunctionCall
-    ResponsesReasoningSummaryText:
+      - id
+      - object
+      - created_at
+      - output
+      title: ContainerResponsesSuccess
+    ResponsesStreamOutputTextDone:
       properties:
         type:
           type: string
-          const: summary_text
+          const: response.output_text.done
           title: Type
-          description: The type of the object. Always `summary_text`.
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
         text:
           type: string
           title: Text
-          description: A summary of the reasoning output from the model so far.
+          description: The text content that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
       type: object
       required:
       - type
+      - item_id
+      - output_index
+      - content_index
       - text
-      title: ResponsesReasoningSummaryText
+      - sequence_number
+      title: ResponsesStreamOutputTextDone
+    ResponsesError:
+      properties:
+        code:
+          type: string
+          enum:
+          - server_error
+          - rate_limit_exceeded
+          - invalid_prompt
+          - vector_store_timeout
+          - invalid_image
+          - invalid_image_format
+          - invalid_base64_image
+          - invalid_image_url
+          - image_too_large
+          - image_too_small
+          - image_parse_error
+          - image_content_policy_violation
+          - invalid_image_mode
+          - image_file_too_large
+          - unsupported_image_media_type
+          - empty_image_file
+          - failed_to_download_image
+          - image_file_not_found
+          title: Code
+          description: The error code for the response.
+        message:
+          type: string
+          title: Message
+          description: A human-readable description of the error.
+      type: object
+      required:
+      - code
+      - message
+      title: ResponsesError
+    ResponsesStreamFunctionCallArgumentsDone:
+      properties:
+        type:
+          type: string
+          const: response.function_call_arguments.done
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        arguments:
+          type: string
+          title: Arguments
+          description: The function-call arguments.
+        name:
+          type: string
+          title: Name
+          description: The name of the function that was called.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - arguments
+      - name
+      - sequence_number
+      title: ResponsesStreamFunctionCallArgumentsDone
+    ResponsesTextConfig:
+      properties:
+        format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesTextFormat'
+          - type: 'null'
+          description: 'An object specifying the format that the model must output. Configuring `{ "type": "json_schema" }` enables Structured Outputs. The default format is `{ "type": "text" }`.'
+      type: object
+      title: ResponsesTextConfig
+    ResponsesOutputItem:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesOutputMessage'
+        title: Message
+      - $ref: '#/components/schemas/ResponsesReasoningItem'
+        title: Reasoning
+      - $ref: '#/components/schemas/ResponsesFunctionCall'
+        title: Function Tool Call
+      discriminator:
+        propertyName: type
+        mapping:
+          function_call: '#/components/schemas/ResponsesFunctionCall'
+          message: '#/components/schemas/ResponsesOutputMessage'
+          reasoning: '#/components/schemas/ResponsesReasoningItem'
+    ResponsesOutputMessage:
+      properties:
+        type:
+          type: string
+          const: message
+          title: Type
+          description: The type of the output message. Always `message`.
+        id:
+          type: string
+          title: Id
+          description: The unique ID of the output message.
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the output message. Always `assistant`.
+        status:
+          type: string
+          enum:
+          - in_progress
+          - completed
+          - incomplete
+          title: Status
+          description: The status of the message. One of `in_progress`, `completed`, or `incomplete`.
+        content:
+          items:
+            $ref: '#/components/schemas/ResponsesOutputText'
+          type: array
+          title: Content
+          description: The content of the output message.
+      type: object
+      required:
+      - type
+      - id
+      - role
+      - status
+      - content
+      title: ResponsesOutputMessage
+    ResponsesTextFormatJsonSchema:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: The type of response format being defined. Always `json_schema`.
+        name:
+          type: string
+          title: Name
+          description: The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+          description: The schema for the response format, described as a JSON Schema object.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the response format is for, used by the model to determine how to respond in the format.
+        strict:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict
+          description: Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`.
+      type: object
+      required:
+      - type
+      - name
+      - schema
+      title: ResponsesTextFormatJsonSchema
+    ResponsesStreamContentPartAdded:
+      properties:
+        type:
+          type: string
+          const: response.content_part.added
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item the content part was added to.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        part:
+          $ref: '#/components/schemas/ResponsesContentPart'
+          description: The content part that was added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - content_index
+      - part
+      - sequence_number
+      title: ResponsesStreamContentPartAdded
+    ResponsesStreamEvent:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesStreamResponseEvent'
+        title: Response
+      - $ref: '#/components/schemas/ResponsesStreamOutputItemAdded'
+        title: Output Item Added
+      - $ref: '#/components/schemas/ResponsesStreamOutputItemDone'
+        title: Output Item Done
+      - $ref: '#/components/schemas/ResponsesStreamContentPartAdded'
+        title: Content Part Added
+      - $ref: '#/components/schemas/ResponsesStreamContentPartDone'
+        title: Content Part Done
+      - $ref: '#/components/schemas/ResponsesStreamOutputTextDelta'
+        title: Output Text Delta
+      - $ref: '#/components/schemas/ResponsesStreamOutputTextDone'
+        title: Output Text Done
+      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDelta'
+        title: Reasoning Text Delta
+      - $ref: '#/components/schemas/ResponsesStreamReasoningTextDone'
+        title: Reasoning Text Done
+      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
+        title: Function Call Arguments Delta
+      - $ref: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
+        title: Function Call Arguments Done
+      discriminator:
+        propertyName: type
+        mapping:
+          response.completed: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.content_part.added: '#/components/schemas/ResponsesStreamContentPartAdded'
+          response.content_part.done: '#/components/schemas/ResponsesStreamContentPartDone'
+          response.created: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.failed: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.function_call_arguments.delta: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDelta'
+          response.function_call_arguments.done: '#/components/schemas/ResponsesStreamFunctionCallArgumentsDone'
+          response.in_progress: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.incomplete: '#/components/schemas/ResponsesStreamResponseEvent'
+          response.output_item.added: '#/components/schemas/ResponsesStreamOutputItemAdded'
+          response.output_item.done: '#/components/schemas/ResponsesStreamOutputItemDone'
+          response.output_text.delta: '#/components/schemas/ResponsesStreamOutputTextDelta'
+          response.output_text.done: '#/components/schemas/ResponsesStreamOutputTextDone'
+          response.reasoning_text.delta: '#/components/schemas/ResponsesStreamReasoningTextDelta'
+          response.reasoning_text.done: '#/components/schemas/ResponsesStreamReasoningTextDone'
+    ResponsesContentPart:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesOutputText'
+        title: Output Text
+      - $ref: '#/components/schemas/ResponsesReasoningText'
+        title: Reasoning Text
+      discriminator:
+        propertyName: type
+        mapping:
+          output_text: '#/components/schemas/ResponsesOutputText'
+          reasoning_text: '#/components/schemas/ResponsesReasoningText'
+    ResponsesInputTokensDetails:
+      properties:
+        cached_tokens:
+          type: integer
+          title: Cached Tokens
+          description: The number of tokens that were retrieved from the cache.
+      type: object
+      required:
+      - cached_tokens
+      title: ResponsesInputTokensDetails
     ResponsesSuccess:
       properties:
         id:
@@ -845,54 +865,6 @@ components:
       - created_at
       - output
       title: ResponsesSuccess
-    ResponsesOutputText:
-      properties:
-        type:
-          type: string
-          const: output_text
-          title: Type
-          description: The type of the output text. Always `output_text`.
-        text:
-          type: string
-          title: Text
-          description: The text output from the model.
-      type: object
-      required:
-      - type
-      - text
-      title: ResponsesOutputText
-    ResponsesToolChoiceFunction:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: For function calling, the type is always `function`.
-        name:
-          type: string
-          title: Name
-          description: The name of the function to call.
-      type: object
-      required:
-      - type
-      - name
-      title: ResponsesToolChoiceFunction
-    ResponsesInputImage:
-      properties:
-        type:
-          type: string
-          const: input_image
-          title: Type
-          description: The type of the input item. Always `input_image`.
-        image_url:
-          type: string
-          title: Image Url
-          description: The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
-      type: object
-      required:
-      - type
-      - image_url
-      title: ResponsesInputImage
     ResponsesStreamReasoningTextDelta:
       properties:
         type:
@@ -929,33 +901,132 @@ components:
       - delta
       - sequence_number
       title: ResponsesStreamReasoningTextDelta
-    ResponsesCustomTool:
+    ResponsesCustomToolCallOutput:
       properties:
         type:
           type: string
-          const: custom
+          const: custom_tool_call_output
           title: Type
-          description: The type of the custom tool. Always `custom`.
+          description: The type of the custom tool call output. Always `custom_tool_call_output`.
+        call_id:
+          type: string
+          title: Call Id
+          description: The call ID, used to map this custom tool call output to a custom tool call.
+        output:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ResponsesCustomToolCallOutputContent'
+            type: array
+          title: Output
+          description: Text or image output of the custom tool call generated by your code. Can be a string of the output, or an array of content parts (text or image).
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The unique ID of the custom tool call output.
+      type: object
+      required:
+      - type
+      - call_id
+      - output
+      title: ResponsesCustomToolCallOutput
+    ResponsesUsage:
+      properties:
+        input_tokens:
+          type: integer
+          title: Input Tokens
+          description: The number of input tokens.
+        input_tokens_details:
+          $ref: '#/components/schemas/ResponsesInputTokensDetails'
+          description: A detailed breakdown of the input tokens.
+        output_tokens:
+          type: integer
+          title: Output Tokens
+          description: The number of output tokens.
+        output_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/ResponsesOutputTokensDetails'
+          - type: 'null'
+          description: A detailed breakdown of the output tokens.
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: The total number of tokens used.
+      type: object
+      required:
+      - input_tokens
+      - input_tokens_details
+      - output_tokens
+      - total_tokens
+      title: ResponsesUsage
+    ResponsesIncompleteDetails:
+      properties:
+        reason:
+          anyOf:
+          - type: string
+            const: max_output_tokens
+          - type: 'null'
+          title: Reason
+          description: The reason why the response is incomplete.
+      type: object
+      title: ResponsesIncompleteDetails
+    ResponsesFunctionTool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the function tool. Always `function`.
         name:
           type: string
           title: Name
-          description: The name of the custom tool, used to identify it in tool calls.
+          description: The name of the function to call.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: A JSON schema object describing the parameters of the function.
+        strict:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict
+          description: Whether to enforce strict parameter validation. Default `true`.
         description:
           anyOf:
           - type: string
           - type: 'null'
           title: Description
-          description: Optional description of the custom tool, used to provide more context.
+          description: A description of the function. Used by the model to determine whether or not to call the function.
       type: object
       required:
       - type
       - name
-      title: ResponsesCustomTool
-    ResponsesStreamOutputTextDone:
+      - parameters
+      title: ResponsesFunctionTool
+    ResponsesReasoningText:
       properties:
         type:
           type: string
-          const: response.output_text.done
+          const: reasoning_text
+          title: Type
+          description: The type of the reasoning text. Always `reasoning_text`.
+        text:
+          type: string
+          title: Text
+          description: The reasoning text from the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesReasoningText
+    ResponsesStreamOutputTextDelta:
+      properties:
+        type:
+          type: string
+          const: response.output_text.delta
           title: Type
           description: The type of the event.
         item_id:
@@ -970,10 +1041,10 @@ components:
           type: integer
           title: Content Index
           description: The index of the content part within the output item.
-        text:
+        delta:
           type: string
-          title: Text
-          description: The text content that was added.
+          title: Delta
+          description: The text delta that was added.
         sequence_number:
           type: integer
           title: Sequence Number
@@ -984,9 +1055,9 @@ components:
       - item_id
       - output_index
       - content_index
-      - text
+      - delta
       - sequence_number
-      title: ResponsesStreamOutputTextDone
+      title: ResponsesStreamOutputTextDelta
     ResponsesFunctionCallOutputContent:
       oneOf:
       - $ref: '#/components/schemas/ResponsesInputText'
@@ -998,6 +1069,72 @@ components:
         mapping:
           input_image: '#/components/schemas/ResponsesInputImage'
           input_text: '#/components/schemas/ResponsesInputText'
+    ResponsesInputImage:
+      properties:
+        type:
+          type: string
+          const: input_image
+          title: Type
+          description: The type of the input item. Always `input_image`.
+        image_url:
+          type: string
+          title: Image Url
+          description: The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ResponsesInputImage
+    ResponsesStreamFunctionCallArgumentsDelta:
+      properties:
+        type:
+          type: string
+          const: response.function_call_arguments.delta
+          title: Type
+          description: The type of the event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        delta:
+          type: string
+          title: Delta
+          description: The function-call arguments delta that is added.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
+      type: object
+      required:
+      - type
+      - item_id
+      - output_index
+      - delta
+      - sequence_number
+      title: ResponsesStreamFunctionCallArgumentsDelta
+    ContainerResponsesStreamSuccess:
+      properties:
+        data:
+          $ref: '#/components/schemas/ResponsesStreamEvent'
+          description: A server-sent event containing a streamed Responses API update.
+      type: object
+      required:
+      - data
+      title: ContainerResponsesStreamSuccess
+    ResponsesOutputTokensDetails:
+      properties:
+        reasoning_tokens:
+          type: integer
+          title: Reasoning Tokens
+          description: The number of reasoning tokens.
+      type: object
+      required:
+      - reasoning_tokens
+      title: ResponsesOutputTokensDetails
     ResponsesFunctionCallOutput:
       properties:
         type:
@@ -1039,137 +1176,83 @@ components:
       - call_id
       - output
       title: ResponsesFunctionCallOutput
-    ResponsesInputTokensDetails:
-      properties:
-        cached_tokens:
-          type: integer
-          title: Cached Tokens
-          description: The number of tokens that were retrieved from the cache.
-      type: object
-      required:
-      - cached_tokens
-      title: ResponsesInputTokensDetails
-    ResponsesOutputMessage:
+    ResponsesFunctionCall:
       properties:
         type:
           type: string
-          const: message
+          const: function_call
           title: Type
-          description: The type of the output message. Always `message`.
-        id:
-          type: string
-          title: Id
-          description: The unique ID of the output message.
-        role:
-          type: string
-          const: assistant
-          title: Role
-          description: The role of the output message. Always `assistant`.
-        status:
-          type: string
-          enum:
-          - in_progress
-          - completed
-          - incomplete
-          title: Status
-          description: The status of the message. One of `in_progress`, `completed`, or `incomplete`.
-        content:
-          items:
-            $ref: '#/components/schemas/ResponsesOutputText'
-          type: array
-          title: Content
-          description: The content of the output message.
-      type: object
-      required:
-      - type
-      - id
-      - role
-      - status
-      - content
-      title: ResponsesOutputMessage
-    ResponsesCustomToolCallOutput:
-      properties:
-        type:
-          type: string
-          const: custom_tool_call_output
-          title: Type
-          description: The type of the custom tool call output. Always `custom_tool_call_output`.
+          description: The type of the function tool call. Always `function_call`.
         call_id:
           type: string
           title: Call Id
-          description: The call ID, used to map this custom tool call output to a custom tool call.
-        output:
-          anyOf:
-          - type: string
-          - items:
-              $ref: '#/components/schemas/ResponsesCustomToolCallOutputContent'
-            type: array
-          title: Output
-          description: Text or image output of the custom tool call generated by your code. Can be a string of the output, or an array of content parts (text or image).
+          description: The unique ID of the function tool call generated by the model.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to run.
+        arguments:
+          type: string
+          title: Arguments
+          description: A JSON string of the arguments to pass to the function.
         id:
           anyOf:
           - type: string
           - type: 'null'
           title: Id
-          description: The unique ID of the custom tool call output.
+          description: The unique ID of the function tool call.
+        status:
+          anyOf:
+          - type: string
+            enum:
+            - in_progress
+            - completed
+            - incomplete
+          - type: 'null'
+          title: Status
+          description: The status of the item. One of `in_progress`, `completed`, or `incomplete`.
       type: object
       required:
       - type
       - call_id
-      - output
-      title: ResponsesCustomToolCallOutput
-    ContainerResponsesStreamSuccess:
-      properties:
-        data:
-          $ref: '#/components/schemas/ResponsesStreamEvent'
-          description: A server-sent event containing a streamed Responses API update.
-      type: object
-      required:
-      - data
-      title: ContainerResponsesStreamSuccess
-    ResponsesCustomToolCallOutputContent:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesInputText'
-        title: Input Text
-      - $ref: '#/components/schemas/ResponsesInputImage'
-        title: Input Image
-      discriminator:
-        propertyName: type
-        mapping:
-          input_image: '#/components/schemas/ResponsesInputImage'
-          input_text: '#/components/schemas/ResponsesInputText'
-    ResponsesRefusal:
+      - name
+      - arguments
+      title: ResponsesFunctionCall
+    ResponsesStreamContentPartDone:
       properties:
         type:
           type: string
-          const: refusal
+          const: response.content_part.done
           title: Type
-          description: The type of the refusal. Always `refusal`.
-        refusal:
+          description: The type of the event.
+        item_id:
           type: string
-          title: Refusal
-          description: The refusal explanation from the model.
+          title: Item Id
+          description: The ID of the output item the content part belongs to.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the content part within the output item.
+        part:
+          $ref: '#/components/schemas/ResponsesContentPart'
+          description: The completed content part.
+        sequence_number:
+          type: integer
+          title: Sequence Number
+          description: The sequence number for this event.
       type: object
       required:
       - type
-      - refusal
-      title: ResponsesRefusal
-    ResponsesInputText:
-      properties:
-        type:
-          type: string
-          const: input_text
-          title: Type
-          description: The type of the input item. Always `input_text`.
-        text:
-          type: string
-          title: Text
-          description: The text input to the model.
-      type: object
-      required:
-      - type
-      - text
-      title: ResponsesInputText
+      - item_id
+      - output_index
+      - content_index
+      - part
+      - sequence_number
+      title: ResponsesStreamContentPartDone
     ResponsesStreamOutputItemDone:
       properties:
         type:
@@ -1195,6 +1278,113 @@ components:
       - item
       - sequence_number
       title: ResponsesStreamOutputItemDone
+    ResponsesTextFormat:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesTextFormatText'
+        title: Text
+      - $ref: '#/components/schemas/ResponsesTextFormatJsonSchema'
+        title: JSON Schema
+      - $ref: '#/components/schemas/ResponsesTextFormatJsonObject'
+        title: JSON Object
+      discriminator:
+        propertyName: type
+        mapping:
+          json_object: '#/components/schemas/ResponsesTextFormatJsonObject'
+          json_schema: '#/components/schemas/ResponsesTextFormatJsonSchema'
+          text: '#/components/schemas/ResponsesTextFormatText'
+    ResponsesCustomToolCallOutputContent:
+      oneOf:
+      - $ref: '#/components/schemas/ResponsesInputText'
+        title: Input Text
+      - $ref: '#/components/schemas/ResponsesInputImage'
+        title: Input Image
+      discriminator:
+        propertyName: type
+        mapping:
+          input_image: '#/components/schemas/ResponsesInputImage'
+          input_text: '#/components/schemas/ResponsesInputText'
+    ResponsesReasoningConfig:
+      properties:
+        effort:
+          anyOf:
+          - type: string
+            enum:
+            - none
+            - minimal
+            - low
+            - medium
+            - high
+            - xhigh
+            - max
+            - ultracode
+          - type: 'null'
+          title: Effort
+          description: Constrains effort on reasoning for reasoning models. Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`, and `ultracode`. Reducing reasoning effort can result in faster responses and fewer tokens used on reasoning in a response.
+      type: object
+      title: ResponsesReasoningConfig
+    ResponsesInputItem:
+      anyOf:
+      - $ref: '#/components/schemas/ResponsesInputMessage'
+      - $ref: '#/components/schemas/ResponsesFunctionCall'
+      - $ref: '#/components/schemas/ResponsesFunctionCallOutput'
+      - $ref: '#/components/schemas/ResponsesCustomToolCall'
+      - $ref: '#/components/schemas/ResponsesCustomToolCallOutput'
+      - $ref: '#/components/schemas/ResponsesReasoningItem'
+      title: ResponsesInputItem
+    ResponsesOutputText:
+      properties:
+        type:
+          type: string
+          const: output_text
+          title: Type
+          description: The type of the output text. Always `output_text`.
+        text:
+          type: string
+          title: Text
+          description: The text output from the model.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesOutputText
+    ResponsesRefusal:
+      properties:
+        type:
+          type: string
+          const: refusal
+          title: Type
+          description: The type of the refusal. Always `refusal`.
+        refusal:
+          type: string
+          title: Refusal
+          description: The refusal explanation from the model.
+      type: object
+      required:
+      - type
+      - refusal
+      title: ResponsesRefusal
+    ResponsesTextFormatText:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of response format being defined. Always `text`.
+      type: object
+      required:
+      - type
+      title: ResponsesTextFormatText
+    ResponsesTextFormatJsonObject:
+      properties:
+        type:
+          type: string
+          const: json_object
+          title: Type
+          description: The type of response format being defined. Always `json_object`.
+      type: object
+      required:
+      - type
+      title: ResponsesTextFormatJsonObject
     ResponsesCustomToolCall:
       properties:
         type:
@@ -1227,143 +1417,44 @@ components:
       - name
       - input
       title: ResponsesCustomToolCall
-    ResponsesTextFormatText:
+    ResponsesCustomTool:
       properties:
         type:
           type: string
-          const: text
+          const: custom
           title: Type
-          description: The type of response format being defined. Always `text`.
-      type: object
-      required:
-      - type
-      title: ResponsesTextFormatText
-    ResponsesTextFormat:
-      oneOf:
-      - $ref: '#/components/schemas/ResponsesTextFormatText'
-        title: Text
-      - $ref: '#/components/schemas/ResponsesTextFormatJsonSchema'
-        title: JSON Schema
-      - $ref: '#/components/schemas/ResponsesTextFormatJsonObject'
-        title: JSON Object
-      discriminator:
-        propertyName: type
-        mapping:
-          json_object: '#/components/schemas/ResponsesTextFormatJsonObject'
-          json_schema: '#/components/schemas/ResponsesTextFormatJsonSchema'
-          text: '#/components/schemas/ResponsesTextFormatText'
-    ResponsesTextConfig:
-      properties:
-        format:
+          description: The type of the custom tool. Always `custom`.
+        name:
+          type: string
+          title: Name
+          description: The name of the custom tool, used to identify it in tool calls.
+        description:
           anyOf:
-          - $ref: '#/components/schemas/ResponsesTextFormat'
+          - type: string
           - type: 'null'
-          description: 'An object specifying the format that the model must output. Configuring `{ "type": "json_schema" }` enables Structured Outputs. The default format is `{ "type": "text" }`.'
-      type: object
-      title: ResponsesTextConfig
-    ResponsesStreamReasoningTextDone:
-      properties:
-        type:
-          type: string
-          const: response.reasoning_text.done
-          title: Type
-          description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the reasoning output item.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        content_index:
-          type: integer
-          title: Content Index
-          description: The index of the reasoning content part.
-        text:
-          type: string
-          title: Text
-          description: The full text of the completed reasoning content.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
+          title: Description
+          description: Optional description of the custom tool, used to provide more context.
       type: object
       required:
       - type
-      - item_id
-      - output_index
-      - content_index
-      - text
-      - sequence_number
-      title: ResponsesStreamReasoningTextDone
-    ResponsesTextFormatJsonObject:
+      - name
+      title: ResponsesCustomTool
+    ResponsesToolChoiceCustom:
       properties:
         type:
           type: string
-          const: json_object
+          const: custom
           title: Type
-          description: The type of response format being defined. Always `json_object`.
+          description: For custom tool calling, the type is always `custom`.
+        name:
+          type: string
+          title: Name
+          description: The name of the custom tool to call.
       type: object
       required:
       - type
-      title: ResponsesTextFormatJsonObject
-    ResponsesStreamOutputItemAdded:
-      properties:
-        type:
-          type: string
-          const: response.output_item.added
-          title: Type
-          description: The type of the event.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item that was added.
-        item:
-          $ref: '#/components/schemas/ResponsesOutputItem'
-          description: The output item that was added.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
-      type: object
-      required:
-      - type
-      - output_index
-      - item
-      - sequence_number
-      title: ResponsesStreamOutputItemAdded
-    ResponsesStreamFunctionCallArgumentsDelta:
-      properties:
-        type:
-          type: string
-          const: response.function_call_arguments.delta
-          title: Type
-          description: The type of the event.
-        item_id:
-          type: string
-          title: Item Id
-          description: The ID of the output item.
-        output_index:
-          type: integer
-          title: Output Index
-          description: The index of the output item.
-        delta:
-          type: string
-          title: Delta
-          description: The function-call arguments delta that is added.
-        sequence_number:
-          type: integer
-          title: Sequence Number
-          description: The sequence number for this event.
-      type: object
-      required:
-      - type
-      - item_id
-      - output_index
-      - delta
-      - sequence_number
-      title: ResponsesStreamFunctionCallArgumentsDelta
+      - name
+      title: ResponsesToolChoiceCustom
     ResponsesContentBlock:
       oneOf:
       - $ref: '#/components/schemas/ResponsesInputText'
@@ -1381,51 +1472,38 @@ components:
           input_text: '#/components/schemas/ResponsesInputText'
           output_text: '#/components/schemas/ResponsesOutputText'
           refusal: '#/components/schemas/ResponsesRefusal'
-    ResponsesTextFormatJsonSchema:
+    ResponsesReasoningSummaryText:
       properties:
         type:
           type: string
-          const: json_schema
+          const: summary_text
           title: Type
-          description: The type of response format being defined. Always `json_schema`.
+          description: The type of the object. Always `summary_text`.
+        text:
+          type: string
+          title: Text
+          description: A summary of the reasoning output from the model so far.
+      type: object
+      required:
+      - type
+      - text
+      title: ResponsesReasoningSummaryText
+    ResponsesToolChoiceFunction:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: For function calling, the type is always `function`.
         name:
           type: string
           title: Name
-          description: The name of the response format. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        schema:
-          additionalProperties: true
-          type: object
-          title: Schema
-          description: The schema for the response format, described as a JSON Schema object.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A description of what the response format is for, used by the model to determine how to respond in the format.
-        strict:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Strict
-          description: Whether to enable strict schema adherence when generating the output. If set to true, the model will always follow the exact schema defined in the `schema` field. Only a subset of JSON Schema is supported when `strict` is `true`.
+          description: The name of the function to call.
       type: object
       required:
       - type
       - name
-      - schema
-      title: ResponsesTextFormatJsonSchema
-    ResponsesIncompleteDetails:
-      properties:
-        reason:
-          anyOf:
-          - type: string
-            const: max_output_tokens
-          - type: 'null'
-          title: Reason
-          description: The reason why the response is incomplete.
-      type: object
-      title: ResponsesIncompleteDetails
+      title: ResponsesToolChoiceFunction
     ContainerResponsesBody:
       properties:
         input:
@@ -1520,84 +1598,29 @@ components:
       title: ContainerResponsesBody
       example:
         input: Hello!
-    ContainerResponsesSuccess:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: Unique identifier for this response.
-        object:
-          type: string
-          const: response
-          title: Object
-          description: The object type of this resource - always set to `response`.
-        created_at:
-          type: integer
-          title: Created At
-          description: Unix timestamp (in seconds) of when this response was created.
-        error:
-          anyOf:
-          - $ref: '#/components/schemas/ResponsesError'
-          - type: 'null'
-          description: An error object returned when the model fails to generate a Response.
-        status:
-          anyOf:
-          - type: string
-            enum:
-            - completed
-            - failed
-            - in_progress
-            - cancelled
-            - queued
-            - incomplete
-          - type: 'null'
-          title: Status
-          description: The status of the response generation. One of `completed`, `failed`, `in_progress`, `cancelled`, `queued`, or `incomplete`.
-        output:
-          items:
-            $ref: '#/components/schemas/ResponsesOutputItem'
-          type: array
-          title: Output
-          description: An array of content items generated by the model.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/ResponsesUsage'
-          - type: 'null'
-          description: Represents token usage details including input tokens, output tokens, a breakdown of output tokens, and the total tokens used.
-        incomplete_details:
-          anyOf:
-          - $ref: '#/components/schemas/ResponsesIncompleteDetails'
-          - type: 'null'
-          description: Details about why the response is incomplete.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: Model ID used to generate the response.
-      additionalProperties: true
-      type: object
-      required:
-      - id
-      - object
-      - created_at
-      - output
-      title: ContainerResponsesSuccess
-    ResponsesStreamResponseEvent:
+    ResponsesStreamReasoningTextDone:
       properties:
         type:
           type: string
-          enum:
-          - response.created
-          - response.in_progress
-          - response.completed
-          - response.incomplete
-          - response.failed
+          const: response.reasoning_text.done
           title: Type
           description: The type of the event.
-        response:
-          $ref: '#/components/schemas/ResponsesSuccess'
-          description: The response snapshot associated with this lifecycle event.
+        item_id:
+          type: string
+          title: Item Id
+          description: The ID of the reasoning output item.
+        output_index:
+          type: integer
+          title: Output Index
+          description: The index of the output item.
+        content_index:
+          type: integer
+          title: Content Index
+          description: The index of the reasoning content part.
+        text:
+          type: string
+          title: Text
+          description: The full text of the completed reasoning content.
         sequence_number:
           type: integer
           title: Sequence Number
@@ -1605,35 +1628,12 @@ components:
       type: object
       required:
       - type
-      - response
+      - item_id
+      - output_index
+      - content_index
+      - text
       - sequence_number
-      title: ResponsesStreamResponseEvent
-    ResponsesToolChoiceCustom:
-      properties:
-        type:
-          type: string
-          const: custom
-          title: Type
-          description: For custom tool calling, the type is always `custom`.
-        name:
-          type: string
-          title: Name
-          description: The name of the custom tool to call.
-      type: object
-      required:
-      - type
-      - name
-      title: ResponsesToolChoiceCustom
-    ResponsesOutputTokensDetails:
-      properties:
-        reasoning_tokens:
-          type: integer
-          title: Reasoning Tokens
-          description: The number of reasoning tokens.
-      type: object
-      required:
-      - reasoning_tokens
-      title: ResponsesOutputTokensDetails
+      title: ResponsesStreamReasoningTextDone
   securitySchemes:
     token:
       type: http

@@ -150,53 +150,6 @@ paths:
           You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/audio-transcriptions-chunk-object).'
 components:
   schemas:
-    DedicatedAudioTranscriptionSuccess:
-      $ref: '#/components/schemas/AudioTranscriptionResult'
-      title: DedicatedAudioTranscriptionSuccess
-    AudioTranscriptionUsage:
-      properties:
-        type:
-          type: string
-          const: tokens
-          title: Type
-          description: The type of the usage object. Always `tokens` for this variant.
-        input_tokens:
-          type: integer
-          title: Input Tokens
-          description: Number of input tokens billed for this request.
-        output_tokens:
-          type: integer
-          title: Output Tokens
-          description: Number of output tokens generated.
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used (input + output).
-        input_audio_length_ms:
-          type: integer
-          title: Input Audio Length Ms
-          description: The length of the input audio in milliseconds.
-        processed_audio_length_ms:
-          type: integer
-          title: Processed Audio Length Ms
-          description: The length of the processed audio in milliseconds.
-        input_token_details:
-          anyOf:
-          - $ref: '#/components/schemas/AudioTranscriptionInputTokenDetails'
-          - type: 'null'
-          description: Details about the input tokens billed for this request.
-      type: object
-      required:
-      - type
-      - input_tokens
-      - output_tokens
-      - total_tokens
-      - input_audio_length_ms
-      - processed_audio_length_ms
-      title: AudioTranscriptionUsage
-    DedicatedAudioTranscriptionStreamSuccess:
-      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
-      title: DedicatedAudioTranscriptionStreamSuccess
     StreamedAudioTranscriptionData:
       properties:
         type:
@@ -226,6 +179,48 @@ components:
       required:
       - type
       title: StreamedAudioTranscriptionData
+    DedicatedAudioTranscriptionStreamSuccess:
+      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
+      title: DedicatedAudioTranscriptionStreamSuccess
+    AudioTranscriptionResult:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The transcribed text.
+        usage:
+          $ref: '#/components/schemas/AudioTranscriptionUsage'
+      type: object
+      required:
+      - text
+      - usage
+      title: AudioTranscriptionResult
+    StreamedAudioTranscriptionResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
+      type: object
+      required:
+      - data
+      title: StreamedAudioTranscriptionResult
+    DedicatedAudioTranscriptionSuccess:
+      $ref: '#/components/schemas/AudioTranscriptionResult'
+      title: DedicatedAudioTranscriptionSuccess
+    AudioTranscriptionInputTokenDetails:
+      properties:
+        audio_tokens:
+          type: integer
+          title: Audio Tokens
+          description: Number of audio tokens billed for this request.
+        text_tokens:
+          type: integer
+          title: Text Tokens
+          description: Number of text tokens billed for this request.
+      type: object
+      required:
+      - audio_tokens
+      - text_tokens
+      title: AudioTranscriptionInputTokenDetails
     DedicatedAudioTranscriptionStreamBody:
       properties:
         model:
@@ -272,21 +267,79 @@ components:
       example:
         file: '@/path/to/file/audio.mp3'
         model: (endpoint-id)
-    AudioTranscriptionInputTokenDetails:
+    ServerVadChunkingStrategy:
       properties:
-        audio_tokens:
-          type: integer
-          title: Audio Tokens
-          description: Number of audio tokens billed for this request.
-        text_tokens:
-          type: integer
-          title: Text Tokens
-          description: Number of text tokens billed for this request.
+        type:
+          type: string
+          const: server_vad
+          title: Type
+          description: Must be set to `server_vad` to enable manual chunking using server side VAD.
+        prefix_padding_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prefix Padding Ms
+          description: Amount of audio to include before the VAD detected speech (in milliseconds).
+          default: 300
+        silence_duration_ms:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Silence Duration Ms
+          description: Duration of silence to detect speech stop (in milliseconds). With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
+          default: 200
+        threshold:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold
+          description: Sensitivity threshold (0.0 to 1.0) for voice activity detection. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
+          default: 0.5
       type: object
       required:
-      - audio_tokens
-      - text_tokens
-      title: AudioTranscriptionInputTokenDetails
+      - type
+      title: ServerVadChunkingStrategy
+    AudioTranscriptionUsage:
+      properties:
+        type:
+          type: string
+          const: tokens
+          title: Type
+          description: The type of the usage object. Always `tokens` for this variant.
+        input_tokens:
+          type: integer
+          title: Input Tokens
+          description: Number of input tokens billed for this request.
+        output_tokens:
+          type: integer
+          title: Output Tokens
+          description: Number of output tokens generated.
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used (input + output).
+        input_audio_length_ms:
+          type: integer
+          title: Input Audio Length Ms
+          description: The length of the input audio in milliseconds.
+        processed_audio_length_ms:
+          type: integer
+          title: Processed Audio Length Ms
+          description: The length of the processed audio in milliseconds.
+        input_token_details:
+          anyOf:
+          - $ref: '#/components/schemas/AudioTranscriptionInputTokenDetails'
+          - type: 'null'
+          description: Details about the input tokens billed for this request.
+      type: object
+      required:
+      - type
+      - input_tokens
+      - output_tokens
+      - total_tokens
+      - input_audio_length_ms
+      - processed_audio_length_ms
+      title: AudioTranscriptionUsage
     DedicatedAudioTranscriptionBody:
       properties:
         model:
@@ -335,59 +388,6 @@ components:
       example:
         file: '@/path/to/file/audio.mp3'
         model: (endpoint-id)
-    StreamedAudioTranscriptionResult:
-      properties:
-        data:
-          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
-      type: object
-      required:
-      - data
-      title: StreamedAudioTranscriptionResult
-    AudioTranscriptionResult:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The transcribed text.
-        usage:
-          $ref: '#/components/schemas/AudioTranscriptionUsage'
-      type: object
-      required:
-      - text
-      - usage
-      title: AudioTranscriptionResult
-    ServerVadChunkingStrategy:
-      properties:
-        type:
-          type: string
-          const: server_vad
-          title: Type
-          description: Must be set to `server_vad` to enable manual chunking using server side VAD.
-        prefix_padding_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Prefix Padding Ms
-          description: Amount of audio to include before the VAD detected speech (in milliseconds).
-          default: 300
-        silence_duration_ms:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Silence Duration Ms
-          description: Duration of silence to detect speech stop (in milliseconds). With shorter values the model will respond more quickly, but may jump in on short pauses from the user.
-          default: 200
-        threshold:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold
-          description: Sensitivity threshold (0.0 to 1.0) for voice activity detection. A higher threshold will require louder audio to activate the model, and thus might perform better in noisy environments.
-          default: 0.5
-      type: object
-      required:
-      - type
-      title: ServerVadChunkingStrategy
   securitySchemes:
     token:
       type: http

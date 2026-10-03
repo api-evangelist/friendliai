@@ -161,353 +161,6 @@ paths:
           You can view the schema of the streamed sequence of chunk objects in streaming mode [here](/openapi/dedicated/inference/chat-completions-chunk-object).'
 components:
   schemas:
-    ChatLogprobsContentTopLogprob:
-      properties:
-        token:
-          type: string
-          title: Token
-          description: The token.
-        logprob:
-          type: number
-          title: Logprob
-          description: The log probability of this token.
-        bytes:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Bytes
-          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
-      type: object
-      required:
-      - token
-      - logprob
-      title: ChatLogprobsContentTopLogprob
-    ChatLogprobsContent:
-      properties:
-        token:
-          type: string
-          title: Token
-          description: The token.
-        logprob:
-          type: number
-          title: Logprob
-          description: The log probability of this token.
-        bytes:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: Bytes
-          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
-        top_logprobs:
-          items:
-            $ref: '#/components/schemas/ChatLogprobsContentTopLogprob'
-          type: array
-          title: Top Logprobs
-          description: List of the most likely tokens and their log probability, at this token position.
-      type: object
-      required:
-      - token
-      - logprob
-      - top_logprobs
-      title: ChatLogprobsContent
-    Function:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A description of what the function does, used by the model to choose when and how to call the function.
-        name:
-          type: string
-          title: Name
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-        parameters:
-          additionalProperties: true
-          type: object
-          title: Parameters
-          description: 'The parameters the functions accepts, described as a JSON Schema object.
-
-            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
-
-            '
-      type: object
-      required:
-      - name
-      - parameters
-      title: Function
-    AudioData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the audio.
-      type: object
-      required:
-      - url
-      title: AudioData
-    PromptTokensDetails:
-      properties:
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-          description: Cached tokens present in the prompt.
-      type: object
-      title: PromptTokensDetails
-    UserMessageContentMultiModal:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-        title: Text
-      - $ref: '#/components/schemas/AudioContent'
-        title: Audio
-      - $ref: '#/components/schemas/ImageContent'
-        title: Image
-      - $ref: '#/components/schemas/VideoContent'
-        title: Video
-      discriminator:
-        propertyName: type
-        mapping:
-          audio_url: '#/components/schemas/AudioContent'
-          image_url: '#/components/schemas/ImageContent'
-          text: '#/components/schemas/TextContent'
-          video_url: '#/components/schemas/VideoContent'
-    VideoContent:
-      properties:
-        type:
-          type: string
-          const: video_url
-          title: Type
-          description: The type of the message content.
-        video_url:
-          $ref: '#/components/schemas/VideoData'
-          description: The video URL data.
-      type: object
-      required:
-      - type
-      - video_url
-      title: VideoContent
-    ChatUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-          description: Number of tokens in the prompt.
-          examples:
-          - 5
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-          description: Number of tokens in the generated chat completions.
-          examples:
-          - 7
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
-          examples:
-          - 12
-        prompt_tokens_details:
-          anyOf:
-          - $ref: '#/components/schemas/PromptTokensDetails'
-          - type: 'null'
-          description: Breakdown of tokens used in the prompt.
-      type: object
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-      title: ChatUsage
-    AssistantMessage:
-      properties:
-        role:
-          type: string
-          const: assistant
-          title: Role
-          description: The role of the messages author.
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: The content of assistant message. Required unless `tool_calls` is specified.
-        reasoning_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reasoning Content
-          description: The intermediate reasoning content of assistant message.
-        reasoning:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Reasoning
-          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AssistantMessageToolCall'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      required:
-      - role
-      title: AssistantMessage
-    ChatCompleteBodyToolChoiceFunction:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
-      type: object
-      required:
-      - name
-      title: ChatCompleteBodyToolChoiceFunction
-    ResponseFormat:
-      oneOf:
-      - $ref: '#/components/schemas/ResponseFormatJsonSchema'
-        title: Json Schema
-      - $ref: '#/components/schemas/ResponseFormatJsonObject'
-        title: Json Object
-      - $ref: '#/components/schemas/ResponseFormatRegex'
-        title: Regex
-      - $ref: '#/components/schemas/ResponseFormatText'
-        title: Text
-      description: 'The enforced format of the model''s output.
-
-
-        Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
-
-
-        For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
-
-
-        ***Important***
-
-        You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
-
-        Otherwise, the model may result in an unending stream of whitespace or other characters.
-
-
-        **When `response_format` is specified, `min_tokens` field is unsupported.**'
-      discriminator:
-        propertyName: type
-        mapping:
-          json_object: '#/components/schemas/ResponseFormatJsonObject'
-          json_schema: '#/components/schemas/ResponseFormatJsonSchema'
-          regex: '#/components/schemas/ResponseFormatRegex'
-          text: '#/components/schemas/ResponseFormatText'
-    ToolMessage:
-      properties:
-        role:
-          type: string
-          const: tool
-          title: Role
-          description: The role of the messages author.
-        content:
-          type: string
-          title: Content
-          description: The content of tool message that contains the result of tool calling.
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: The ID of tool call corresponding to this message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: An optional name of the tool call corresponding to this message.
-      type: object
-      required:
-      - role
-      - content
-      - tool_call_id
-      title: ToolMessage
-    AssistantMessageToolCall:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of tool call.
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of tool call.
-        function:
-          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
-          description: The function specification
-      type: object
-      required:
-      - id
-      - type
-      - function
-      title: AssistantMessageToolCall
-    UserMessage:
-      properties:
-        role:
-          type: string
-          const: user
-          title: Role
-          description: The role of the message's author.
-        content:
-          anyOf:
-          - type: string
-            description: 'The content of user message, which is plain text.
-
-
-              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
-          - items:
-              $ref: '#/components/schemas/UserMessageContentMultiModal'
-            type: array
-            description: 'The content of user message.
-
-
-              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
-          title: Content
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name for the participant to distinguish between participants with the same role.
-      type: object
-      required:
-      - role
-      - content
-      title: UserMessage
-    ToolCallResult:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool.
-        id:
-          type: string
-          title: Id
-          description: The ID of the tool call.
-        function:
-          $ref: '#/components/schemas/FunctionResult'
-      type: object
-      required:
-      - type
-      - id
-      - function
-      title: ToolCallResult
     DedicatedChatCompletionStreamBody:
       properties:
         model:
@@ -773,133 +426,26 @@ components:
         - content: Hello!
           role: user
         model: (endpoint-id)
-    ResponseFormatJsonSchemaSchema:
+    AssistantMessageToolCall:
       properties:
-        schema:
-          additionalProperties: true
-          type: object
-          title: Schema
-          description: The schema for the response format, described as a JSON Schema object.
-      type: object
-      required:
-      - schema
-      title: ResponseFormatJsonSchemaSchema
-    StreamedChatChoiceDelta:
-      properties:
-        content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content
-          description: The contents of the assistant message.
-        role:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role
-          description: Role of the generated message author, in this case `assistant`.
-        tool_calls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/StreamedToolCallResult'
-            type: array
-          - type: 'null'
-          title: Tool Calls
-      type: object
-      title: StreamedChatChoiceDelta
-    TextContent:
-      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of tool call.
         type:
           type: string
-          const: text
+          const: function
           title: Type
-          description: The type of the message content.
-        text:
-          type: string
-          title: Text
-          description: The text content of the message.
+          description: The type of tool call.
+        function:
+          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
+          description: The function specification
       type: object
       required:
+      - id
       - type
-      - text
-      title: TextContent
-    StreamedChatChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the choice in the list of generated choices.
-          examples:
-          - 0
-        logprobs:
-          anyOf:
-          - $ref: '#/components/schemas/ChatLogprobs'
-          - type: 'null'
-        delta:
-          $ref: '#/components/schemas/StreamedChatChoiceDelta'
-        finish_reason:
-          anyOf:
-          - type: string
-            enum:
-            - stop
-            - length
-            - tool_calls
-            - 'null'
-          - type: 'null'
-          title: Finish Reason
-          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
-
-            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
-
-            `tool_calls` means the API has generated tool calls.'
-      type: object
-      required:
-      - index
-      - delta
-      title: StreamedChatChoice
-    StreamedChatResult:
-      properties:
-        data:
-          $ref: '#/components/schemas/StreamedChatData'
-      type: object
-      required:
-      - data
-      title: StreamedChatResult
-    FunctionResult:
-      properties:
-        arguments:
-          type: string
-          title: Arguments
-          description: 'The arguments for calling the function, generated by the model in JSON format.
-
-            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
-        name:
-          type: string
-          title: Name
-          description: The name of the function to call.
-      type: object
-      required:
-      - arguments
-      - name
-      title: FunctionResult
-    ImageContent:
-      properties:
-        type:
-          type: string
-          const: image_url
-          title: Type
-          description: The type of the message content.
-        image_url:
-          $ref: '#/components/schemas/ImageData'
-          description: The image URL data.
-      type: object
-      required:
-      - type
-      - image_url
-      title: ImageContent
-    DedicatedChatCompleteSuccess:
-      $ref: '#/components/schemas/ChatResult'
-      title: DedicatedChatCompleteSuccess
+      - function
+      title: AssistantMessageToolCall
     ChatCompleteBodyToolChoice:
       properties:
         type:
@@ -914,185 +460,70 @@ components:
       - type
       - function
       title: ChatCompleteBodyToolChoice
-    SystemMessage:
+    ChatLogprobsContentTopLogprob:
+      properties:
+        token:
+          type: string
+          title: Token
+          description: The token.
+        logprob:
+          type: number
+          title: Logprob
+          description: The log probability of this token.
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
+      type: object
+      required:
+      - token
+      - logprob
+      title: ChatLogprobsContentTopLogprob
+    ToolMessage:
       properties:
         role:
           type: string
-          const: system
+          const: tool
           title: Role
           description: The role of the messages author.
         content:
           type: string
           title: Content
-          description: The content of system message.
+          description: The content of tool message that contains the result of tool calling.
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of tool call corresponding to this message.
         name:
           anyOf:
           - type: string
           - type: 'null'
           title: Name
-          description: The name for the participant to distinguish between participants with the same role.
+          description: An optional name of the tool call corresponding to this message.
       type: object
       required:
       - role
       - content
-      title: SystemMessage
-    ResponseFormatJsonSchema:
-      properties:
-        type:
-          type: string
-          const: json_schema
-          title: Type
-          description: 'The type of the response format: `json_schema`'
-        json_schema:
-          $ref: '#/components/schemas/ResponseFormatJsonSchemaSchema'
-      type: object
-      required:
-      - type
-      - json_schema
-      title: ResponseFormatJsonSchema
+      - tool_call_id
+      title: ToolMessage
     DedicatedChatCompletionStreamSuccess:
       $ref: '#/components/schemas/StreamedChatResult'
       title: DedicatedChatCompletionStreamSuccess
-    StreamedToolCallResult:
+    ResponseFormatText:
       properties:
         type:
           type: string
-          const: function
+          const: text
           title: Type
-          description: The type of the tool.
-        id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Id
-          description: The ID of the tool call.
-        index:
-          type: integer
-          title: Index
-          description: The index of the tool call being generated.
-        function:
-          $ref: '#/components/schemas/StreamedFunctionResult'
+          description: 'The type of the response format: `text`'
       type: object
       required:
       - type
-      - index
-      - function
-      title: StreamedToolCallResult
-    StreamedFunctionResult:
-      properties:
-        arguments:
-          type: string
-          title: Arguments
-          description: 'The arguments for calling the function, generated by the model in JSON format.
-
-            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the function to call.
-      type: object
-      required:
-      - arguments
-      title: StreamedFunctionResult
-    StreamOptions:
-      properties:
-        include_usage:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Include Usage
-          description: 'When set to `true`,
-
-            the number of tokens used will be included at the end of the stream result in the form of
-
-            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
-
-            '
-      type: object
-      title: StreamOptions
-    AssistantMessageToolCallFunction:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: The name of function
-        arguments:
-          type: string
-          title: Arguments
-          description: The arguments of function in JSON schema format to call the function.
-      type: object
-      required:
-      - name
-      - arguments
-      title: AssistantMessageToolCallFunction
-    ResponseFormatRegex:
-      properties:
-        type:
-          type: string
-          const: regex
-          title: Type
-          description: 'The type of the response format: `regex`'
-        schema:
-          type: string
-          title: Schema
-          description: The schema of the output. Lookaheads or lookbehinds (e.g., `\a`, `\z`, `^`, `$`, `(?=)`, `(?!)`, `(?<=...)`, `(?<!...)`) are not supported. Group specials (e.g., `\w`, `\W`, `\d`, `\D`, `\s`, `\S`) do not support non-ASCII characters. Unicode escape patterns (e.g., `\N`, `\p`, `\P`) are not supported. Additionally, conditional matching (`(?(`) and back-references can cause inefficiency.
-      type: object
-      required:
-      - type
-      - schema
-      title: ResponseFormatRegex
-    ChatResult:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: A unique ID of the chat completion.
-        choices:
-          items:
-            $ref: '#/components/schemas/ChatChoice'
-          type: array
-          title: Choices
-        usage:
-          $ref: '#/components/schemas/ChatUsage'
-        object:
-          type: string
-          const: chat.completion
-          title: Object
-          description: The object type, which is always set to `chat.completion`.
-        created:
-          type: integer
-          title: Created
-          description: The Unix timestamp (in seconds) for when the generation completed.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
-      type: object
-      required:
-      - id
-      - choices
-      - usage
-      - object
-      - created
-      title: ChatResult
-    Tool:
-      properties:
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of the tool. Currently, only `function` is supported.
-        function:
-          $ref: '#/components/schemas/Function'
-      type: object
-      required:
-      - type
-      - function
-      title: Tool
+      title: ResponseFormatText
     Message:
       oneOf:
       - $ref: '#/components/schemas/SystemMessage'
@@ -1110,71 +541,108 @@ components:
           system: '#/components/schemas/SystemMessage'
           tool: '#/components/schemas/ToolMessage'
           user: '#/components/schemas/UserMessage'
-    ChatLogprobs:
+    StreamedChatResult:
       properties:
-        content:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ChatLogprobsContent'
-            type: array
-          - type: 'null'
-          title: Content
-          description: A list of message content tokens with log probability information.
-      type: object
-      title: ChatLogprobs
-    ChatChoice:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the choice in the list of generated choices.
-          examples:
-          - 0
-        logprobs:
-          anyOf:
-          - $ref: '#/components/schemas/ChatLogprobs'
-          - type: 'null'
-        message:
-          $ref: '#/components/schemas/ChatChoiceMessage'
-        finish_reason:
-          type: string
-          enum:
-          - stop
-          - length
-          - tool_calls
-          title: Finish Reason
-          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
-
-            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
-
-            `tool_calls` means the API has generated tool calls.'
+        data:
+          $ref: '#/components/schemas/StreamedChatData'
       type: object
       required:
-      - index
-      - message
-      - finish_reason
-      title: ChatChoice
-    ResponseFormatText:
+      - data
+      title: StreamedChatResult
+    Tool:
       properties:
         type:
           type: string
-          const: text
+          const: function
           title: Type
-          description: 'The type of the response format: `text`'
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
       type: object
       required:
       - type
-      title: ResponseFormatText
-    VideoData:
+      - function
+      title: Tool
+    AssistantMessageToolCallFunction:
       properties:
-        url:
+        name:
           type: string
-          title: Url
-          description: The URL of the video.
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
       type: object
       required:
-      - url
-      title: VideoData
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    ChatUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated chat completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: ChatUsage
+    ResponseFormat:
+      oneOf:
+      - $ref: '#/components/schemas/ResponseFormatJsonSchema'
+        title: Json Schema
+      - $ref: '#/components/schemas/ResponseFormatJsonObject'
+        title: Json Object
+      - $ref: '#/components/schemas/ResponseFormatRegex'
+        title: Regex
+      - $ref: '#/components/schemas/ResponseFormatText'
+        title: Text
+      description: 'The enforced format of the model''s output.
+
+
+        Note that the content of the output message may be truncated if it exceeds the `max_tokens`. You can check this by verifying that the `finish_reason` of the output message is `length`.
+
+
+        For more detailed information, please refer [here](https://friendli.ai/docs/guides/structured-outputs).
+
+
+        ***Important***
+
+        You must explicitly instruct the model to produce the desired output format using a system prompt or user message (e.g., `You are an API generating a valid JSON as output.`).
+
+        Otherwise, the model may result in an unending stream of whitespace or other characters.
+
+
+        **When `response_format` is specified, `min_tokens` field is unsupported.**'
+      discriminator:
+        propertyName: type
+        mapping:
+          json_object: '#/components/schemas/ResponseFormatJsonObject'
+          json_schema: '#/components/schemas/ResponseFormatJsonSchema'
+          regex: '#/components/schemas/ResponseFormatRegex'
+          text: '#/components/schemas/ResponseFormatText'
     StreamedChatData:
       properties:
         id:
@@ -1212,29 +680,157 @@ components:
       - choices
       - created
       title: StreamedChatData
-    ChatChoiceMessage:
+    StreamedChatChoice:
       properties:
-        content:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: 'null'
+        delta:
+          $ref: '#/components/schemas/StreamedChatChoiceDelta'
+        finish_reason:
+          anyOf:
+          - type: string
+            enum:
+            - stop
+            - length
+            - tool_calls
+            - 'null'
+          - type: 'null'
+          title: Finish Reason
+          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
+
+            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+            `tool_calls` means the API has generated tool calls.'
+      type: object
+      required:
+      - index
+      - delta
+      title: StreamedChatChoice
+    FunctionResult:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+          description: 'The arguments for calling the function, generated by the model in JSON format.
+
+            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
+        name:
+          type: string
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - arguments
+      - name
+      title: FunctionResult
+    StreamedFunctionResult:
+      properties:
+        arguments:
+          type: string
+          title: Arguments
+          description: 'The arguments for calling the function, generated by the model in JSON format.
+
+            Ensure to validate these arguments in your code before invoking the function since the model may not always produce valid JSON.'
+        name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Content
-          description: The contents of the assistant message.
+          title: Name
+          description: The name of the function to call.
+      type: object
+      required:
+      - arguments
+      title: StreamedFunctionResult
+    SystemMessage:
+      properties:
         role:
           type: string
+          const: system
           title: Role
-          description: Role of the generated message author, in this case `assistant`.
-        tool_calls:
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of system message.
+        name:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/ToolCallResult'
-            type: array
+          - type: string
           - type: 'null'
-          title: Tool Calls
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
       type: object
       required:
       - role
-      title: ChatChoiceMessage
+      - content
+      title: SystemMessage
+    ChatChoice:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the choice in the list of generated choices.
+          examples:
+          - 0
+        logprobs:
+          anyOf:
+          - $ref: '#/components/schemas/ChatLogprobs'
+          - type: 'null'
+        message:
+          $ref: '#/components/schemas/ChatChoiceMessage'
+        finish_reason:
+          type: string
+          enum:
+          - stop
+          - length
+          - tool_calls
+          title: Finish Reason
+          description: 'Termination condition of the generation. `stop` means the API returned the full chat completions generated by the model without running into any limits.
+
+            `length` means the generation exceeded `max_tokens` or the conversation exceeded the max context length.
+
+            `tool_calls` means the API has generated tool calls.'
+      type: object
+      required:
+      - index
+      - message
+      - finish_reason
+      title: ChatChoice
+    DedicatedChatCompleteSuccess:
+      $ref: '#/components/schemas/ChatResult'
+      title: DedicatedChatCompleteSuccess
+    ImageData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the image.
+      type: object
+      required:
+      - url
+      title: ImageData
+    VideoContent:
+      properties:
+        type:
+          type: string
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
+      type: object
+      required:
+      - type
+      - video_url
+      title: VideoContent
     DedicatedChatCompletionBody:
       properties:
         model:
@@ -1502,6 +1098,156 @@ components:
         - content: Hello!
           role: user
         model: (endpoint-id)
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message content.
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+      type: object
+      required:
+      - type
+      - text
+      title: TextContent
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
+    ImageContent:
+      properties:
+        type:
+          type: string
+          const: image_url
+          title: Type
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
+      type: object
+      required:
+      - type
+      - image_url
+      title: ImageContent
+    ResponseFormatJsonSchemaSchema:
+      properties:
+        schema:
+          additionalProperties: true
+          type: object
+          title: Schema
+          description: The schema for the response format, described as a JSON Schema object.
+      type: object
+      required:
+      - schema
+      title: ResponseFormatJsonSchemaSchema
+    ChatChoiceMessage:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          type: string
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: ChatChoiceMessage
+    ResponseFormatRegex:
+      properties:
+        type:
+          type: string
+          const: regex
+          title: Type
+          description: 'The type of the response format: `regex`'
+        schema:
+          type: string
+          title: Schema
+          description: The schema of the output. Lookaheads or lookbehinds (e.g., `\a`, `\z`, `^`, `$`, `(?=)`, `(?!)`, `(?<=...)`, `(?<!...)`) are not supported. Group specials (e.g., `\w`, `\W`, `\d`, `\D`, `\s`, `\S`) do not support non-ASCII characters. Unicode escape patterns (e.g., `\N`, `\p`, `\P`) are not supported. Additionally, conditional matching (`(?(`) and back-references can cause inefficiency.
+      type: object
+      required:
+      - type
+      - schema
+      title: ResponseFormatRegex
+    AssistantMessage:
+      properties:
+        role:
+          type: string
+          const: assistant
+          title: Role
+          description: The role of the messages author.
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The content of assistant message. Required unless `tool_calls` is specified.
+        reasoning_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning Content
+          description: The intermediate reasoning content of assistant message.
+        reasoning:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reasoning
+          description: The intermediate reasoning content of assistant message. This field is a compatible option for the 'reasoning_content' field.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AssistantMessageToolCall'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      required:
+      - role
+      title: AssistantMessage
     ResponseFormatJsonObject:
       properties:
         type:
@@ -1513,6 +1259,135 @@ components:
       required:
       - type
       title: ResponseFormatJsonObject
+    ResponseFormatJsonSchema:
+      properties:
+        type:
+          type: string
+          const: json_schema
+          title: Type
+          description: 'The type of the response format: `json_schema`'
+        json_schema:
+          $ref: '#/components/schemas/ResponseFormatJsonSchemaSchema'
+      type: object
+      required:
+      - type
+      - json_schema
+      title: ResponseFormatJsonSchema
+    StreamOptions:
+      properties:
+        include_usage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Usage
+          description: 'When set to `true`,
+
+            the number of tokens used will be included at the end of the stream result in the form of
+
+            `"usage": {"completion_tokens": number, "prompt_tokens": number, "total_tokens": number}`.
+
+            '
+      type: object
+      title: StreamOptions
+    ChatResult:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: A unique ID of the chat completion.
+        choices:
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+          type: array
+          title: Choices
+        usage:
+          $ref: '#/components/schemas/ChatUsage'
+        object:
+          type: string
+          const: chat.completion
+          title: Object
+          description: The object type, which is always set to `chat.completion`.
+        created:
+          type: integer
+          title: Created
+          description: The Unix timestamp (in seconds) for when the generation completed.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: The model to generate the completion. For dedicated endpoints, it returns the endpoint ID.
+      type: object
+      required:
+      - id
+      - choices
+      - usage
+      - object
+      - created
+      title: ChatResult
+    ChatLogprobsContent:
+      properties:
+        token:
+          type: string
+          title: Token
+          description: The token.
+        logprob:
+          type: number
+          title: Logprob
+          description: The log probability of this token.
+        bytes:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Bytes
+          description: A list of integers representing the UTF-8 bytes representation of the token. Useful in instances where characters are represented by multiple tokens and their byte representations must be combined to generate the correct text representation. Can be `null` if there is no bytes representation for the token.
+        top_logprobs:
+          items:
+            $ref: '#/components/schemas/ChatLogprobsContentTopLogprob'
+          type: array
+          title: Top Logprobs
+          description: List of the most likely tokens and their log probability, at this token position.
+      type: object
+      required:
+      - token
+      - logprob
+      - top_logprobs
+      title: ChatLogprobsContent
+    UserMessage:
+      properties:
+        role:
+          type: string
+          const: user
+          title: Role
+          description: The role of the message's author.
+        content:
+          anyOf:
+          - type: string
+            description: 'The content of user message, which is plain text.
+
+
+              For **multi-modal format**, use `object[]` type. Support for non-text input is currently in **Beta**.'
+          - items:
+              $ref: '#/components/schemas/UserMessageContentMultiModal'
+            type: array
+            description: 'The content of user message.
+
+
+              **Multi-modal format** can handle not just text, but also audio, image, and video content, allowing for more complex message structures. Support for non-text input is currently in **Beta**.'
+          title: Content
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name for the participant to distinguish between participants with the same role.
+      type: object
+      required:
+      - role
+      - content
+      title: UserMessage
     AudioContent:
       properties:
         type:
@@ -1528,16 +1403,141 @@ components:
       - type
       - audio_url
       title: AudioContent
-    ImageData:
+    VideoData:
       properties:
         url:
           type: string
           title: Url
-          description: The URL of the image.
+          description: The URL of the video.
       type: object
       required:
       - url
-      title: ImageData
+      title: VideoData
+    ChatLogprobs:
+      properties:
+        content:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ChatLogprobsContent'
+            type: array
+          - type: 'null'
+          title: Content
+          description: A list of message content tokens with log probability information.
+      type: object
+      title: ChatLogprobs
+    StreamedToolCallResult:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool.
+        id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Id
+          description: The ID of the tool call.
+        index:
+          type: integer
+          title: Index
+          description: The index of the tool call being generated.
+        function:
+          $ref: '#/components/schemas/StreamedFunctionResult'
+      type: object
+      required:
+      - type
+      - index
+      - function
+      title: StreamedToolCallResult
+    AudioData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the audio.
+      type: object
+      required:
+      - url
+      title: AudioData
+    Function:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A description of what the function does, used by the model to choose when and how to call the function.
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+        parameters:
+          additionalProperties: true
+          type: object
+          title: Parameters
+          description: 'The parameters the functions accepts, described as a JSON Schema object.
+
+            To represent a function with no parameters, use the value `{"type": "object", "properties": {}}`.
+
+            '
+      type: object
+      required:
+      - name
+      - parameters
+      title: Function
+    StreamedChatChoiceDelta:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+          description: The contents of the assistant message.
+        role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role
+          description: Role of the generated message author, in this case `assistant`.
+        tool_calls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/StreamedToolCallResult'
+            type: array
+          - type: 'null'
+          title: Tool Calls
+      type: object
+      title: StreamedChatChoiceDelta
+    ToolCallResult:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool.
+        id:
+          type: string
+          title: Id
+          description: The ID of the tool call.
+        function:
+          $ref: '#/components/schemas/FunctionResult'
+      type: object
+      required:
+      - type
+      - id
+      - function
+      title: ToolCallResult
+    ChatCompleteBodyToolChoiceFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+      type: object
+      required:
+      - name
+      title: ChatCompleteBodyToolChoiceFunction
   securitySchemes:
     token:
       type: http

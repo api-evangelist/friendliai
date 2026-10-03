@@ -151,18 +151,6 @@ components:
       example:
         model: zai-org/GLM-5.2
         prompt: What is generative AI?
-    ServerlessTokenizationSuccess:
-      properties:
-        tokens:
-          items:
-            type: integer
-          type: array
-          title: Tokens
-          description: A list of token IDs.
-      type: object
-      required:
-      - tokens
-      title: ServerlessTokenizationSuccess
     ServerlessDetokenizationSuccess:
       properties:
         text:
@@ -210,6 +198,18 @@ components:
         - 1413
         - 15592
         - 30
+    ServerlessTokenizationSuccess:
+      properties:
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: A list of token IDs.
+      type: object
+      required:
+      - tokens
+      title: ServerlessTokenizationSuccess
   securitySchemes:
     token:
       type: http
