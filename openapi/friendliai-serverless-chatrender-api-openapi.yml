@@ -77,99 +77,41 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    AssistantMessageToolCall:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of tool call.
-        type:
-          type: string
-          const: function
-          title: Type
-          description: The type of tool call.
-        function:
-          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
-          description: The function specification
-      type: object
-      required:
-      - id
-      - type
-      - function
-      title: AssistantMessageToolCall
-    ToolMessage:
-      properties:
-        role:
-          type: string
-          const: tool
-          title: Role
-          description: The role of the messages author.
-        content:
-          type: string
-          title: Content
-          description: The content of tool message that contains the result of tool calling.
-        tool_call_id:
-          type: string
-          title: Tool Call Id
-          description: The ID of tool call corresponding to this message.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: An optional name of the tool call corresponding to this message.
-      type: object
-      required:
-      - role
-      - content
-      - tool_call_id
-      title: ToolMessage
-    Message:
-      oneOf:
-      - $ref: '#/components/schemas/SystemMessage'
-        title: System
-      - $ref: '#/components/schemas/UserMessage'
-        title: User
-      - $ref: '#/components/schemas/AssistantMessage'
-        title: Assistant
-      - $ref: '#/components/schemas/ToolMessage'
-        title: Tool
-      discriminator:
-        propertyName: role
-        mapping:
-          assistant: '#/components/schemas/AssistantMessage'
-          system: '#/components/schemas/SystemMessage'
-          tool: '#/components/schemas/ToolMessage'
-          user: '#/components/schemas/UserMessage'
-    Tool:
+    ImageContent:
       properties:
         type:
           type: string
-          const: function
+          const: image_url
           title: Type
-          description: The type of the tool. Currently, only `function` is supported.
-        function:
-          $ref: '#/components/schemas/Function'
+          description: The type of the message content.
+        image_url:
+          $ref: '#/components/schemas/ImageData'
+          description: The image URL data.
       type: object
       required:
       - type
-      - function
-      title: Tool
-    AssistantMessageToolCallFunction:
+      - image_url
+      title: ImageContent
+    ImageData:
       properties:
-        name:
+        url:
           type: string
-          title: Name
-          description: The name of function
-        arguments:
-          type: string
-          title: Arguments
-          description: The arguments of function in JSON schema format to call the function.
+          title: Url
+          description: The URL of the image.
       type: object
       required:
-      - name
-      - arguments
-      title: AssistantMessageToolCallFunction
+      - url
+      title: ImageData
+    ServerlessChatRenderSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The rendered text.
+      type: object
+      required:
+      - text
+      title: ServerlessChatRenderSuccess
     SystemMessage:
       properties:
         role:
@@ -192,79 +134,6 @@ components:
       - role
       - content
       title: SystemMessage
-    VideoContent:
-      properties:
-        type:
-          type: string
-          const: video_url
-          title: Type
-          description: The type of the message content.
-        video_url:
-          $ref: '#/components/schemas/VideoData'
-          description: The video URL data.
-      type: object
-      required:
-      - type
-      - video_url
-      title: VideoContent
-    ImageData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the image.
-      type: object
-      required:
-      - url
-      title: ImageData
-    TextContent:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: The type of the message content.
-        text:
-          type: string
-          title: Text
-          description: The text content of the message.
-      type: object
-      required:
-      - type
-      - text
-      title: TextContent
-    ImageContent:
-      properties:
-        type:
-          type: string
-          const: image_url
-          title: Type
-          description: The type of the message content.
-        image_url:
-          $ref: '#/components/schemas/ImageData'
-          description: The image URL data.
-      type: object
-      required:
-      - type
-      - image_url
-      title: ImageContent
-    UserMessageContentMultiModal:
-      oneOf:
-      - $ref: '#/components/schemas/TextContent'
-        title: Text
-      - $ref: '#/components/schemas/AudioContent'
-        title: Audio
-      - $ref: '#/components/schemas/ImageContent'
-        title: Image
-      - $ref: '#/components/schemas/VideoContent'
-        title: Video
-      discriminator:
-        propertyName: type
-        mapping:
-          audio_url: '#/components/schemas/AudioContent'
-          image_url: '#/components/schemas/ImageContent'
-          text: '#/components/schemas/TextContent'
-          video_url: '#/components/schemas/VideoContent'
     AssistantMessage:
       properties:
         role:
@@ -307,6 +176,16 @@ components:
       required:
       - role
       title: AssistantMessage
+    VideoData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the video.
+      type: object
+      required:
+      - url
+      title: VideoData
     ServerlessChatRenderBody:
       properties:
         model:
@@ -358,6 +237,126 @@ components:
         - content: Hello!
           role: user
         model: zai-org/GLM-5.2
+    Tool:
+      properties:
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of the tool. Currently, only `function` is supported.
+        function:
+          $ref: '#/components/schemas/Function'
+      type: object
+      required:
+      - type
+      - function
+      title: Tool
+    AudioData:
+      properties:
+        url:
+          type: string
+          title: Url
+          description: The URL of the audio.
+      type: object
+      required:
+      - url
+      title: AudioData
+    AssistantMessageToolCall:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of tool call.
+        type:
+          type: string
+          const: function
+          title: Type
+          description: The type of tool call.
+        function:
+          $ref: '#/components/schemas/AssistantMessageToolCallFunction'
+          description: The function specification
+      type: object
+      required:
+      - id
+      - type
+      - function
+      title: AssistantMessageToolCall
+    AudioContent:
+      properties:
+        type:
+          type: string
+          const: audio_url
+          title: Type
+          description: The type of the message content.
+        audio_url:
+          $ref: '#/components/schemas/AudioData'
+          description: The audio URL data.
+      type: object
+      required:
+      - type
+      - audio_url
+      title: AudioContent
+    ToolMessage:
+      properties:
+        role:
+          type: string
+          const: tool
+          title: Role
+          description: The role of the messages author.
+        content:
+          type: string
+          title: Content
+          description: The content of tool message that contains the result of tool calling.
+        tool_call_id:
+          type: string
+          title: Tool Call Id
+          description: The ID of tool call corresponding to this message.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: An optional name of the tool call corresponding to this message.
+      type: object
+      required:
+      - role
+      - content
+      - tool_call_id
+      title: ToolMessage
+    Message:
+      oneOf:
+      - $ref: '#/components/schemas/SystemMessage'
+        title: System
+      - $ref: '#/components/schemas/UserMessage'
+        title: User
+      - $ref: '#/components/schemas/AssistantMessage'
+        title: Assistant
+      - $ref: '#/components/schemas/ToolMessage'
+        title: Tool
+      discriminator:
+        propertyName: role
+        mapping:
+          assistant: '#/components/schemas/AssistantMessage'
+          system: '#/components/schemas/SystemMessage'
+          tool: '#/components/schemas/ToolMessage'
+          user: '#/components/schemas/UserMessage'
+    UserMessageContentMultiModal:
+      oneOf:
+      - $ref: '#/components/schemas/TextContent'
+        title: Text
+      - $ref: '#/components/schemas/AudioContent'
+        title: Audio
+      - $ref: '#/components/schemas/ImageContent'
+        title: Image
+      - $ref: '#/components/schemas/VideoContent'
+        title: Video
+      discriminator:
+        propertyName: type
+        mapping:
+          audio_url: '#/components/schemas/AudioContent'
+          image_url: '#/components/schemas/ImageContent'
+          text: '#/components/schemas/TextContent'
+          video_url: '#/components/schemas/VideoContent'
     UserMessage:
       properties:
         role:
@@ -391,51 +390,6 @@ components:
       - role
       - content
       title: UserMessage
-    AudioContent:
-      properties:
-        type:
-          type: string
-          const: audio_url
-          title: Type
-          description: The type of the message content.
-        audio_url:
-          $ref: '#/components/schemas/AudioData'
-          description: The audio URL data.
-      type: object
-      required:
-      - type
-      - audio_url
-      title: AudioContent
-    VideoData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the video.
-      type: object
-      required:
-      - url
-      title: VideoData
-    ServerlessChatRenderSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The rendered text.
-      type: object
-      required:
-      - text
-      title: ServerlessChatRenderSuccess
-    AudioData:
-      properties:
-        url:
-          type: string
-          title: Url
-          description: The URL of the audio.
-      type: object
-      required:
-      - url
-      title: AudioData
     Function:
       properties:
         description:
@@ -462,6 +416,52 @@ components:
       - name
       - parameters
       title: Function
+    TextContent:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: The type of the message content.
+        text:
+          type: string
+          title: Text
+          description: The text content of the message.
+      type: object
+      required:
+      - type
+      - text
+      title: TextContent
+    AssistantMessageToolCallFunction:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: The name of function
+        arguments:
+          type: string
+          title: Arguments
+          description: The arguments of function in JSON schema format to call the function.
+      type: object
+      required:
+      - name
+      - arguments
+      title: AssistantMessageToolCallFunction
+    VideoContent:
+      properties:
+        type:
+          type: string
+          const: video_url
+          title: Type
+          description: The type of the message content.
+        video_url:
+          $ref: '#/components/schemas/VideoData'
+          description: The video URL data.
+      type: object
+      required:
+      - type
+      - video_url
+      title: VideoContent
   securitySchemes:
     token:
       type: http

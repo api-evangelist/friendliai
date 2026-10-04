@@ -97,6 +97,16 @@ paths:
         content: Convert a list of token IDs back into text.
 components:
   schemas:
+    ContainerDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: ContainerDetokenizationSuccess
     ContainerTokenizationBody:
       properties:
         model:
@@ -119,28 +129,6 @@ components:
       title: ContainerTokenizationBody
       example:
         prompt: What is generative AI?
-    ContainerTokenizationSuccess:
-      properties:
-        tokens:
-          items:
-            type: integer
-          type: array
-          title: Tokens
-          description: A list of token IDs.
-      type: object
-      required:
-      - tokens
-      title: ContainerTokenizationSuccess
-    ContainerDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: ContainerDetokenizationSuccess
     ContainerDetokenizationBody:
       properties:
         model:
@@ -178,6 +166,18 @@ components:
         - 1413
         - 15592
         - 30
+    ContainerTokenizationSuccess:
+      properties:
+        tokens:
+          items:
+            type: integer
+          type: array
+          title: Tokens
+          description: A list of token IDs.
+      type: object
+      required:
+      - tokens
+      title: ContainerTokenizationSuccess
   securitySchemes:
     token:
       type: http

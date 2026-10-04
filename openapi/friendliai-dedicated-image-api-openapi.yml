@@ -128,21 +128,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    ImageGenerationDedicatedResult:
-      properties:
-        data:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UrlImageItem'
-            type: array
-          - items:
-              $ref: '#/components/schemas/B64ImageItem'
-            type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: ImageGenerationDedicatedResult
     DedicatedImageGenerationBody:
       properties:
         model:
@@ -210,6 +195,9 @@ components:
         model: (endpoint-id)
         num_inference_steps: 10
         prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
+    DedicatedImageGenerateSuccess:
+      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
+      title: DedicatedImageGenerateSuccess
     ImageInput:
       properties:
         image:
@@ -223,12 +211,48 @@ components:
       required:
       - image
       title: ImageInput
-    DedicatedImageGenerateSuccess:
-      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
-      title: DedicatedImageGenerateSuccess
-    DedicatedImageEditSuccess:
-      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
-      title: DedicatedImageEditSuccess
+    B64ImageItem:
+      properties:
+        seed:
+          type: integer
+          title: Seed
+          description: The seed used during image generation.
+        response_format:
+          type: string
+          enum:
+          - url
+          - raw
+          - png
+          - jpeg
+          - jpg
+          title: Response Format
+          description: The format of the generated image. One of `url(default)`, `raw`, `png`, `jpeg`, and `jpg`.
+        b64_json:
+          type: string
+          format: binary
+          title: B64 Json
+          description: The base64-encoded JSON of the generated image.
+      type: object
+      required:
+      - seed
+      - response_format
+      - b64_json
+      title: B64ImageItem
+    ImageGenerationDedicatedResult:
+      properties:
+        data:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UrlImageItem'
+            type: array
+          - items:
+              $ref: '#/components/schemas/B64ImageItem'
+            type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: ImageGenerationDedicatedResult
     DedicatedImageEditBody:
       properties:
         image:
@@ -291,33 +315,9 @@ components:
         model: (endpoint-id)
         num_inference_steps: 20
         prompt: Add a red sports car in the foreground.
-    B64ImageItem:
-      properties:
-        seed:
-          type: integer
-          title: Seed
-          description: The seed used during image generation.
-        response_format:
-          type: string
-          enum:
-          - url
-          - raw
-          - png
-          - jpeg
-          - jpg
-          title: Response Format
-          description: The format of the generated image. One of `url(default)`, `raw`, `png`, `jpeg`, and `jpg`.
-        b64_json:
-          type: string
-          format: binary
-          title: B64 Json
-          description: The base64-encoded JSON of the generated image.
-      type: object
-      required:
-      - seed
-      - response_format
-      - b64_json
-      title: B64ImageItem
+    DedicatedImageEditSuccess:
+      $ref: '#/components/schemas/ImageGenerationDedicatedResult'
+      title: DedicatedImageEditSuccess
     UrlImageItem:
       properties:
         seed:

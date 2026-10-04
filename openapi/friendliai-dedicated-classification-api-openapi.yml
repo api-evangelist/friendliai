@@ -78,48 +78,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    TextClassificationUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-          description: Number of tokens in the input text.
-          examples:
-          - 10
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used in the request.
-          examples:
-          - 10
-      type: object
-      required:
-      - prompt_tokens
-      - total_tokens
-      title: TextClassificationUsage
-    DedicatedTextClassificationSuccess:
-      $ref: '#/components/schemas/TextClassificationResult'
-      title: DedicatedTextClassificationSuccess
-    TextClassificationResult:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/BaseClassificationData'
-          type: array
-          title: Data
-        object:
-          type: string
-          const: list
-          title: Object
-          description: The object type, which is always set to `list`.
-        usage:
-          $ref: '#/components/schemas/TextClassificationUsage'
-      type: object
-      required:
-      - data
-      - object
-      - usage
-      title: TextClassificationResult
     BaseClassificationData:
       properties:
         index:
@@ -156,6 +114,9 @@ components:
       - num_classes
       - probs
       title: BaseClassificationData
+    DedicatedTextClassificationSuccess:
+      $ref: '#/components/schemas/TextClassificationResult'
+      title: DedicatedTextClassificationSuccess
     DedicatedTextClassificationBody:
       properties:
         model:
@@ -201,6 +162,45 @@ components:
       example:
         input: I love programming.
         model: (endpoint-id)
+    TextClassificationUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the input text.
+          examples:
+          - 10
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request.
+          examples:
+          - 10
+      type: object
+      required:
+      - prompt_tokens
+      - total_tokens
+      title: TextClassificationUsage
+    TextClassificationResult:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BaseClassificationData'
+          type: array
+          title: Data
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        usage:
+          $ref: '#/components/schemas/TextClassificationUsage'
+      type: object
+      required:
+      - data
+      - object
+      - usage
+      title: TextClassificationResult
   securitySchemes:
     token:
       type: http

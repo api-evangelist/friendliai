@@ -133,73 +133,6 @@ components:
         encoding_format: float
         input: The food was delicious and the waiter...
         model: (endpoint-id)
-    EmbeddingObject:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the embedding in the list of embeddings.
-        object:
-          type: string
-          const: embedding
-          title: Object
-          description: The object type, which is always set to `embedding`.
-        embedding:
-          anyOf:
-          - items:
-              type: number
-            type: array
-          - type: string
-            format: binary
-          title: Embedding
-          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
-      type: object
-      required:
-      - index
-      - object
-      - embedding
-      title: EmbeddingObject
-    PromptTokensDetails:
-      properties:
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-          description: Cached tokens present in the prompt.
-      type: object
-      title: PromptTokensDetails
-    TextUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-          description: Number of tokens in the prompt.
-          examples:
-          - 5
-        completion_tokens:
-          type: integer
-          title: Completion Tokens
-          description: Number of tokens in the generated completions.
-          examples:
-          - 7
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
-          examples:
-          - 12
-        prompt_tokens_details:
-          anyOf:
-          - $ref: '#/components/schemas/PromptTokensDetails'
-          - type: 'null'
-          description: Breakdown of tokens used in the prompt.
-      type: object
-      required:
-      - prompt_tokens
-      - completion_tokens
-      - total_tokens
-      title: TextUsage
     DedicatedEmbeddingsSuccess:
       properties:
         id:
@@ -237,6 +170,73 @@ components:
       - usage
       - created
       title: DedicatedEmbeddingsSuccess
+    TextUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the prompt.
+          examples:
+          - 5
+        completion_tokens:
+          type: integer
+          title: Completion Tokens
+          description: Number of tokens in the generated completions.
+          examples:
+          - 7
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request (`prompt_tokens` + `completion_tokens`).
+          examples:
+          - 12
+        prompt_tokens_details:
+          anyOf:
+          - $ref: '#/components/schemas/PromptTokensDetails'
+          - type: 'null'
+          description: Breakdown of tokens used in the prompt.
+      type: object
+      required:
+      - prompt_tokens
+      - completion_tokens
+      - total_tokens
+      title: TextUsage
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
+    EmbeddingObject:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the embedding in the list of embeddings.
+        object:
+          type: string
+          const: embedding
+          title: Object
+          description: The object type, which is always set to `embedding`.
+        embedding:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: string
+            format: binary
+          title: Embedding
+          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
+      type: object
+      required:
+      - index
+      - object
+      - embedding
+      title: EmbeddingObject
   securitySchemes:
     token:
       type: http

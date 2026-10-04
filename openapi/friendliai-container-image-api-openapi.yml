@@ -90,17 +90,6 @@ paths:
         content: Edit an image based on a text prompt.
 components:
   schemas:
-    ImageGenerationContainerResult:
-      properties:
-        image:
-          type: string
-          format: binary
-          title: Image
-          description: The base64-encoded image.
-      type: object
-      required:
-      - image
-      title: ImageGenerationContainerResult
     ImageInput:
       properties:
         image:
@@ -114,6 +103,20 @@ components:
       required:
       - image
       title: ImageInput
+    ContainerImageGenerateSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageGenerateSuccess
+    ImageGenerationContainerResult:
+      properties:
+        image:
+          type: string
+          format: binary
+          title: Image
+          description: The base64-encoded image.
+      type: object
+      required:
+      - image
+      title: ImageGenerationContainerResult
     ContainerImageGenerationBody:
       properties:
         model:
@@ -178,9 +181,6 @@ components:
         guidance_scale: 3.5
         num_inference_steps: 10
         prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
-    ContainerImageGenerateSuccess:
-      $ref: '#/components/schemas/ImageGenerationContainerResult'
-      title: ContainerImageGenerateSuccess
     ContainerImageEditSuccess:
       $ref: '#/components/schemas/ImageGenerationContainerResult'
       title: ContainerImageEditSuccess

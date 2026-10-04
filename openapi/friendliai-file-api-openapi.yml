@@ -334,6 +334,63 @@ paths:
           </Info>'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FileInitUploadRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Name of the file.
+        size:
+          type: integer
+          title: Size
+          description: Size of the file in bytes.
+        digest:
+          type: string
+          pattern: ^[a-zA-Z0-9_+.-]+:[a-fA-F0-9]+$
+          title: Digest
+          description: Digest of the file.
+        projectId:
+          type: string
+          title: Projectid
+          description: ID of the project the file belongs to.
+      type: object
+      required:
+      - name
+      - size
+      - digest
+      - projectId
+      title: FileInitUploadRequest
+      description: Initiate file upload request.
+    AccountFileStatus:
+      type: string
+      enum:
+      - UPLOADING
+      - UPLOADED
+      - FAILED
+      - DELETED
+      title: AccountFileStatus
+      description: AccountFile status.
     FileInfo:
       properties:
         id:
@@ -388,6 +445,15 @@ components:
       - status
       title: FileInfo
       description: File information.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     FileInitUploadResponse:
       properties:
         fileId:
@@ -412,72 +478,6 @@ components:
       - fileId
       title: FileInitUploadResponse
       description: Initiate file upload response.
-    FileInitUploadRequest:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Name of the file.
-        size:
-          type: integer
-          title: Size
-          description: Size of the file in bytes.
-        digest:
-          type: string
-          pattern: ^[a-zA-Z0-9_+.-]+:[a-fA-F0-9]+$
-          title: Digest
-          description: Digest of the file.
-        projectId:
-          type: string
-          title: Projectid
-          description: ID of the project the file belongs to.
-      type: object
-      required:
-      - name
-      - size
-      - digest
-      - projectId
-      title: FileInitUploadRequest
-      description: Initiate file upload request.
-    AccountFileStatus:
-      type: string
-      enum:
-      - UPLOADING
-      - UPLOADED
-      - FAILED
-      - DELETED
-      title: AccountFileStatus
-      description: AccountFile status.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     FileGetDownloadUrlResponse:
       properties:
         fileId:

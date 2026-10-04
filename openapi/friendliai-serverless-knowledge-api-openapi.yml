@@ -53,32 +53,6 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    KnowledgeRetrievedChunk:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Retrieved text matching the search query.
-        score:
-          type: number
-          title: Score
-          description: Numerical relevance score of the retrieved result.
-        contentChunkId:
-          type: string
-          title: Content Chunk Id
-          description: ID of specific text segment.
-        contentId:
-          type: string
-          title: Content Id
-          description: ID of content in knowledge-base.
-      type: object
-      required:
-      - text
-      - score
-      - contentChunkId
-      - contentId
-      title: KnowledgeRetrievedChunk
-      description: Knowledge retrieved chunk.
     ServerlessKnowledgeRetrievalSuccess:
       properties:
         results:
@@ -121,6 +95,32 @@ components:
       - knowledgeIds
       title: ServerlessKnowledgeRetrievalBody
       description: Knowledge retrieval request.
+    KnowledgeRetrievedChunk:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Retrieved text matching the search query.
+        score:
+          type: number
+          title: Score
+          description: Numerical relevance score of the retrieved result.
+        contentChunkId:
+          type: string
+          title: Content Chunk Id
+          description: ID of specific text segment.
+        contentId:
+          type: string
+          title: Content Id
+          description: ID of content in knowledge-base.
+      type: object
+      required:
+      - text
+      - score
+      - contentChunkId
+      - contentId
+      title: KnowledgeRetrievedChunk
+      description: Knowledge retrieved chunk.
   securitySchemes:
     token:
       type: http

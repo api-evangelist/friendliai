@@ -129,38 +129,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    ServerlessTokenizationBody:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
-          examples:
-          - zai-org/GLM-5.2
-        prompt:
-          type: string
-          title: Prompt
-          description: Input text prompt to tokenize.
-          examples:
-          - What is generative AI?
-      type: object
-      required:
-      - model
-      - prompt
-      title: ServerlessTokenizationBody
-      example:
-        model: zai-org/GLM-5.2
-        prompt: What is generative AI?
-    ServerlessDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: ServerlessDetokenizationSuccess
     ServerlessDetokenizationBody:
       properties:
         model:
@@ -210,6 +178,38 @@ components:
       required:
       - tokens
       title: ServerlessTokenizationSuccess
+    ServerlessDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: ServerlessDetokenizationSuccess
+    ServerlessTokenizationBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
+          examples:
+          - zai-org/GLM-5.2
+        prompt:
+          type: string
+          title: Prompt
+          description: Input text prompt to tokenize.
+          examples:
+          - What is generative AI?
+      type: object
+      required:
+      - model
+      - prompt
+      title: ServerlessTokenizationBody
+      example:
+        model: zai-org/GLM-5.2
+        prompt: What is generative AI?
   securitySchemes:
     token:
       type: http

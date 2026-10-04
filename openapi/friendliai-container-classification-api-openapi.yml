@@ -62,48 +62,9 @@ paths:
         content: Classify text input into categories with per-class probabilities.
 components:
   schemas:
-    TextClassificationUsage:
-      properties:
-        prompt_tokens:
-          type: integer
-          title: Prompt Tokens
-          description: Number of tokens in the input text.
-          examples:
-          - 10
-        total_tokens:
-          type: integer
-          title: Total Tokens
-          description: Total number of tokens used in the request.
-          examples:
-          - 10
-      type: object
-      required:
-      - prompt_tokens
-      - total_tokens
-      title: TextClassificationUsage
     ContainerTextClassificationSuccess:
       $ref: '#/components/schemas/TextClassificationResult'
       title: ContainerTextClassificationSuccess
-    TextClassificationResult:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/BaseClassificationData'
-          type: array
-          title: Data
-        object:
-          type: string
-          const: list
-          title: Object
-          description: The object type, which is always set to `list`.
-        usage:
-          $ref: '#/components/schemas/TextClassificationUsage'
-      type: object
-      required:
-      - data
-      - object
-      - usage
-      title: TextClassificationResult
     BaseClassificationData:
       properties:
         index:
@@ -184,6 +145,45 @@ components:
       title: ContainerTextClassificationBody
       example:
         input: I love programming.
+    TextClassificationUsage:
+      properties:
+        prompt_tokens:
+          type: integer
+          title: Prompt Tokens
+          description: Number of tokens in the input text.
+          examples:
+          - 10
+        total_tokens:
+          type: integer
+          title: Total Tokens
+          description: Total number of tokens used in the request.
+          examples:
+          - 10
+      type: object
+      required:
+      - prompt_tokens
+      - total_tokens
+      title: TextClassificationUsage
+    TextClassificationResult:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/BaseClassificationData'
+          type: array
+          title: Data
+        object:
+          type: string
+          const: list
+          title: Object
+          description: The object type, which is always set to `list`.
+        usage:
+          $ref: '#/components/schemas/TextClassificationUsage'
+      type: object
+      required:
+      - data
+      - object
+      - usage
+      title: TextClassificationResult
   securitySchemes:
     token:
       type: http

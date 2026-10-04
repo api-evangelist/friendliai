@@ -129,28 +129,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    DedicatedTokenizationBody:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
-          examples:
-          - (endpoint-id)
-        prompt:
-          type: string
-          title: Prompt
-          description: Input text prompt to tokenize.
-          examples:
-          - What is generative AI?
-      type: object
-      required:
-      - model
-      - prompt
-      title: DedicatedTokenizationBody
-      example:
-        model: (endpoint-id)
-        prompt: What is generative AI?
     DedicatedTokenizationSuccess:
       properties:
         tokens:
@@ -163,16 +141,6 @@ components:
       required:
       - tokens
       title: DedicatedTokenizationSuccess
-    DedicatedDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: DedicatedDetokenizationSuccess
     DedicatedDetokenizationBody:
       properties:
         model:
@@ -210,6 +178,38 @@ components:
         - 1413
         - 15592
         - 30
+    DedicatedDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: DedicatedDetokenizationSuccess
+    DedicatedTokenizationBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: ID of target endpoint. If you want to send request to specific adapter, use the format "YOUR_ENDPOINT_ID:YOUR_ADAPTER_ROUTE". Otherwise, you can just use "YOUR_ENDPOINT_ID" alone.
+          examples:
+          - (endpoint-id)
+        prompt:
+          type: string
+          title: Prompt
+          description: Input text prompt to tokenize.
+          examples:
+          - What is generative AI?
+      type: object
+      required:
+      - model
+      - prompt
+      title: DedicatedTokenizationBody
+      example:
+        model: (endpoint-id)
+        prompt: What is generative AI?
   securitySchemes:
     token:
       type: http
