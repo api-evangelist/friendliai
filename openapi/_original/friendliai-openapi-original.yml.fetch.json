@@ -1,0 +1,12 @@
+{
+ "url": "https://raw.githubusercontent.com/friendliai/friendli-openapi/refs/heads/main/openapi.yaml",
+ "requested_url": "https://github.com/friendliai/friendli-openapi/raw/refs/heads/main/openapi.yaml",
+ "status": 200,
+ "content_type": "text/plain; charset=utf-8",
+ "bytes": 907103,
+ "sha256": "c32f8c5b1a33a355f613c9050504f60e2dc2e9898b253bba55ae58dcee67bb3d",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
