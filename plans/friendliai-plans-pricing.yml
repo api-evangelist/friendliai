@@ -103,3 +103,131 @@ plans:
 rate_limit_statements:
 - Custom Model APIs rate limits
 - This personal key will be associated with your default team for tier and rate limit purposes.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - compute
+  - token
+  plans:
+  - name: GLM-5.3 (Model API)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: GLM-5.3-Flash
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: GLM-5.2
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: GLM-5.1
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: gemma-4-31B-it
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: DeepSeek-V3.2
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: MiniMax-M2.5
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - token
+    periods:
+    - other
+  - name: whisper-large-v3 (STT)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Dedicated Endpoint A100 80GB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Dedicated Endpoint H100 80GB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Dedicated Endpoint H200 141GB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Dedicated Endpoint B200 180GB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: Dedicated Endpoint B300 288GB
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - compute
+    periods:
+    - other
+  - name: BYOG
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
