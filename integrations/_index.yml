@@ -42,6 +42,6 @@
     note: 'friendliai declares OpenAI compatibility: ''description: Generate a model response from a list of messages
       comprising a conversation. Compatible with the OpenAI Chat Completions API, with support for stre'''
     detected_by: sweep-model-routing.py
-    detected: '2026-10-13'
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
