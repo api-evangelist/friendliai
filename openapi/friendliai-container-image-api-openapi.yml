@@ -90,33 +90,6 @@ paths:
         content: Edit an image based on a text prompt.
 components:
   schemas:
-    ImageInput:
-      properties:
-        image:
-          type: string
-          title: Image
-          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
-          examples:
-          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
-          - data:image/png;base64,...
-      type: object
-      required:
-      - image
-      title: ImageInput
-    ContainerImageGenerateSuccess:
-      $ref: '#/components/schemas/ImageGenerationContainerResult'
-      title: ContainerImageGenerateSuccess
-    ImageGenerationContainerResult:
-      properties:
-        image:
-          type: string
-          format: binary
-          title: Image
-          description: The base64-encoded image.
-      type: object
-      required:
-      - image
-      title: ImageGenerationContainerResult
     ContainerImageGenerationBody:
       properties:
         model:
@@ -181,9 +154,6 @@ components:
         guidance_scale: 3.5
         num_inference_steps: 10
         prompt: An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.
-    ContainerImageEditSuccess:
-      $ref: '#/components/schemas/ImageGenerationContainerResult'
-      title: ContainerImageEditSuccess
     ContainerImageEditBody:
       properties:
         image:
@@ -242,6 +212,36 @@ components:
         image: '@/path/to/file/image.png'
         num_inference_steps: 20
         prompt: Add a red sports car in the foreground.
+    ImageGenerationContainerResult:
+      properties:
+        image:
+          type: string
+          format: binary
+          title: Image
+          description: The base64-encoded image.
+      type: object
+      required:
+      - image
+      title: ImageGenerationContainerResult
+    ImageInput:
+      properties:
+        image:
+          type: string
+          title: Image
+          description: An input image, provided either as a URL or a base64-encoded string. Maximum supported image size is 50 MiB.
+          examples:
+          - https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png
+          - data:image/png;base64,...
+      type: object
+      required:
+      - image
+      title: ImageInput
+    ContainerImageEditSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageEditSuccess
+    ContainerImageGenerateSuccess:
+      $ref: '#/components/schemas/ImageGenerationContainerResult'
+      title: ContainerImageGenerateSuccess
   securitySchemes:
     token:
       type: http

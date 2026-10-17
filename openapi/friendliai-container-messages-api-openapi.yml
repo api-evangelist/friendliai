@@ -214,262 +214,21 @@ paths:
           </Info>'
 components:
   schemas:
-    MessagesToolResultBlock:
+    MessagesStreamErrorDetail:
       properties:
         type:
           type: string
-          const: tool_result
           title: Type
-          description: Content block type. Must be `tool_result`.
-        tool_use_id:
+          description: Error category, such as `invalid_request_error`.
+        message:
           type: string
-          title: Tool Use Id
-          description: Identifier of the related `tool_use` block this result answers.
-        content:
-          anyOf:
-          - type: string
-          - items:
-              additionalProperties: true
-              type: object
-            type: array
-          - type: 'null'
-          title: Content
-          description: Tool result payload. Can be plain text, a list of objects, or null when no body is returned.
+          title: Message
+          description: Human-readable error message.
       type: object
       required:
       - type
-      - tool_use_id
-      title: MessagesToolResultBlock
-    MessagesStreamErrorEvent:
-      properties:
-        type:
-          type: string
-          const: error
-          title: Type
-          description: The type of the event.
-        error:
-          $ref: '#/components/schemas/MessagesStreamErrorDetail'
-          description: Error payload object.
-        request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Id
-          description: Request identifier for debugging and support.
-      type: object
-      required:
-      - type
-      - error
-      title: MessagesStreamErrorEvent
-    MessagesImageBlock:
-      properties:
-        type:
-          type: string
-          const: image
-          title: Type
-          description: Content block type. Must be `image`.
-        source:
-          $ref: '#/components/schemas/MessagesImageSource'
-          description: Image source descriptor (`url` or `base64`).
-      type: object
-      required:
-      - type
-      - source
-      title: MessagesImageBlock
-    MessagesImageSource:
-      oneOf:
-      - $ref: '#/components/schemas/MessagesBase64ImageSource'
-        title: Base64
-      - $ref: '#/components/schemas/MessagesUrlImageSource'
-        title: URL
-      discriminator:
-        propertyName: type
-        mapping:
-          base64: '#/components/schemas/MessagesBase64ImageSource'
-          url: '#/components/schemas/MessagesUrlImageSource'
-    MessagesThinkingBlock:
-      properties:
-        type:
-          type: string
-          const: thinking
-          title: Type
-          description: Content block type. Must be `thinking`.
-        thinking:
-          type: string
-          title: Thinking
-          description: Reasoning content for this block.
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-          description: Optional signature associated with the reasoning content.
-      type: object
-      required:
-      - type
-      - thinking
-      title: MessagesThinkingBlock
-    ContainerMessagesStreamBody:
-      properties:
-        messages:
-          items:
-            $ref: '#/components/schemas/MessagesInputMessage'
-          type: array
-          minItems: 1
-          title: Messages
-          description: A list of conversation messages ordered from oldest to newest. Must contain at least one item.
-          examples:
-          - - content: Explain top_p in one sentence.
-              role: user
-        max_tokens:
-          anyOf:
-          - type: integer
-            minimum: 1.0
-          - type: 'null'
-          title: Max Tokens
-          description: Maximum number of tokens to generate for the assistant response. Must be greater than 0 when provided.
-        model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Model
-          description: Routes the request to a specific adapter.
-          examples:
-          - (adapter-route)
-        system:
-          anyOf:
-          - anyOf:
-            - type: string
-            - items:
-                $ref: '#/components/schemas/MessagesSystemTextBlock'
-              type: array
-            description: Payload format for the top-level `system` instruction.
-          - type: 'null'
-          title: System
-          description: Optional top-level system instruction applied before conversation turns. Supports a plain string or an array of text blocks.
-        stream:
-          type: boolean
-          title: Stream
-          description: Whether to stream the response. When set to `true`, events are sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
-          default: true
-        temperature:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Temperature
-          description: Sampling temperature. Lower values make outputs more deterministic; higher values increase diversity.
-        top_p:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Top P
-          description: Nucleus sampling parameter. The model samples from the smallest token set whose cumulative probability reaches `top_p`.
-        top_k:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Top K
-          description: Limits sampling to the `k` most likely tokens at each decoding step.
-        stop_sequences:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Stop Sequences
-          description: Stop strings that terminate generation when matched in output. The matched value is returned in `stop_sequence` when applicable.
-        tools:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/MessagesToolDefinition'
-            type: array
-          - type: 'null'
-          title: Tools
-          description: Tool definitions available to the model. Use this to allow tool calls with structured arguments.
-        tool_choice:
-          anyOf:
-          - $ref: '#/components/schemas/MessagesToolChoice'
-          - type: 'null'
-          description: Controls tool-calling behavior (`auto`, `any`, `tool`, `none`) and optional parallel-call behavior.
-        thinking:
-          anyOf:
-          - $ref: '#/components/schemas/MessagesThinkingConfig'
-          - type: 'null'
-          description: Controls reasoning behavior with mode (`enabled`, `disabled`, `adaptive`). `enabled` requires `budget_tokens`; `disabled` and `adaptive` must not include it.
-        output_config:
-          anyOf:
-          - $ref: '#/components/schemas/MessagesOutputConfig'
-          - type: 'null'
-          description: Output generation options including effort level and structured output format settings.
-        cache_control:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Cache Control
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-        container:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Container
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-        context_manager:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Context Manager
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-        inference_geo:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inference Geo
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-        service_tier:
-          anyOf:
-          - type: string
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Service Tier
-          description: Compatibility field accepted for request portability. Parsed but not used for generation.
-      additionalProperties: true
-      type: object
-      required:
-      - messages
-      title: ContainerMessagesStreamBody
-      example:
-        messages:
-        - content: Hello, summarize what you can do in one sentence.
-          role: user
-        model: zai-org/GLM-5.2
-    MessagesResponseTextBlock:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: Content block type.
-        text:
-          type: string
-          title: Text
-          description: Assistant-generated text for this block.
-      type: object
-      required:
-      - type
-      - text
-      title: MessagesResponseTextBlock
+      - message
+      title: MessagesStreamErrorDetail
     MessagesOutputFormat:
       properties:
         type:
@@ -488,78 +247,96 @@ components:
           description: JSON Schema object applied when `type` is `json_schema`.
       type: object
       title: MessagesOutputFormat
-    MessagesStreamContentBlockStartPayload:
-      oneOf:
-      - $ref: '#/components/schemas/MessagesStreamStartTextBlock'
-        title: Text
-      - $ref: '#/components/schemas/MessagesStreamStartThinkingBlock'
-        title: Thinking
-      - $ref: '#/components/schemas/MessagesStreamStartToolUseBlock'
-        title: Tool Use
-      discriminator:
-        propertyName: type
-        mapping:
-          text: '#/components/schemas/MessagesStreamStartTextBlock'
-          thinking: '#/components/schemas/MessagesStreamStartThinkingBlock'
-          tool_use: '#/components/schemas/MessagesStreamStartToolUseBlock'
-    MessagesStreamContentBlockDelta:
+    MessagesStreamContentBlockStop:
       properties:
         type:
           type: string
-          const: content_block_delta
+          const: content_block_stop
           title: Type
           description: The type of the event.
         index:
           type: integer
           title: Index
-          description: Index of the content block being updated.
-        delta:
-          $ref: '#/components/schemas/MessagesStreamContentBlockDeltaPayload'
-          description: Incremental delta payload.
+          description: Index of the block that has finished streaming.
       type: object
       required:
       - type
       - index
-      - delta
-      title: MessagesStreamContentBlockDelta
-    MessagesStreamStartToolUseBlock:
+      title: MessagesStreamContentBlockStop
+    MessagesStreamStartThinkingBlock:
+      properties:
+        type:
+          type: string
+          const: thinking
+          title: Type
+          description: Content block type.
+        thinking:
+          type: string
+          title: Thinking
+          description: Reasoning content when `type=thinking`.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Optional signature when `type=thinking`.
+      type: object
+      required:
+      - type
+      - thinking
+      title: MessagesStreamStartThinkingBlock
+    MessagesToolUseBlock:
       properties:
         type:
           type: string
           const: tool_use
           title: Type
-          description: Content block type.
+          description: Content block type. Must be `tool_use`.
         id:
-          type: string
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Id
-          description: Tool call ID when `type=tool_use`.
+          description: Optional tool call identifier. Use this value to link follow-up `tool_result` blocks.
         name:
           type: string
           title: Name
-          description: Tool name when `type=tool_use`.
+          description: Name of the tool to invoke.
         input:
           additionalProperties: true
           type: object
           title: Input
-          description: Parsed tool input object when `type=tool_use`.
+          description: Tool input argument object.
       type: object
       required:
       - type
-      - id
       - name
       - input
-      title: MessagesStreamStartToolUseBlock
-    MessagesStreamMessageStop:
+      title: MessagesToolUseBlock
+    MessagesUsage:
       properties:
-        type:
-          type: string
-          const: message_stop
-          title: Type
-          description: The type of the event.
+        input_tokens:
+          type: integer
+          minimum: 0.0
+          title: Input Tokens
+          description: Number of billed input tokens for this request.
+        output_tokens:
+          type: integer
+          minimum: 0.0
+          title: Output Tokens
+          description: Number of billed output tokens generated by the model.
+        cache_read_input_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Cache Read Input Tokens
+          description: Number of input tokens served from cache, when cache reads are applicable.
       type: object
       required:
-      - type
-      title: MessagesStreamMessageStop
+      - input_tokens
+      - output_tokens
+      title: MessagesUsage
     ContainerMessagesBody:
       properties:
         messages:
@@ -707,6 +484,26 @@ components:
         - content: Hello, summarize what you can do in one sentence.
           role: user
         model: zai-org/GLM-5.2
+    MessagesStreamContentBlockStart:
+      properties:
+        type:
+          type: string
+          const: content_block_start
+          title: Type
+          description: The type of the event.
+        index:
+          type: integer
+          title: Index
+          description: Index of the content block in the response `content` array.
+        content_block:
+          $ref: '#/components/schemas/MessagesStreamContentBlockStartPayload'
+          description: Initial content block payload.
+      type: object
+      required:
+      - type
+      - index
+      - content_block
+      title: MessagesStreamContentBlockStart
     MessagesResponseContentBlock:
       oneOf:
       - $ref: '#/components/schemas/MessagesResponseThinkingBlock'
@@ -721,22 +518,59 @@ components:
           text: '#/components/schemas/MessagesResponseTextBlock'
           thinking: '#/components/schemas/MessagesResponseThinkingBlock'
           tool_use: '#/components/schemas/MessagesResponseToolUseBlock'
-    MessagesTextBlock:
+    MessagesThinkingConfig:
+      properties:
+        type:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          - adaptive
+          title: Type
+          description: Reasoning mode. `enabled` forces reasoning, `disabled` suppresses it, and `adaptive` lets the system decide.
+        budget_tokens:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Budget Tokens
+          description: Reasoning token budget. Required when `type=enabled`; must not be provided when `type=disabled` or `type=adaptive`. If `max_tokens` is set, this must be smaller than `max_tokens`.
+      type: object
+      required:
+      - type
+      title: MessagesThinkingConfig
+    MessagesStreamThinkingDelta:
+      properties:
+        type:
+          type: string
+          const: thinking_delta
+          title: Type
+          description: Delta type.
+        thinking:
+          type: string
+          title: Thinking
+          description: Reasoning fragment when `type=thinking_delta`.
+      type: object
+      required:
+      - type
+      - thinking
+      title: MessagesStreamThinkingDelta
+    MessagesStreamStartTextBlock:
       properties:
         type:
           type: string
           const: text
           title: Type
-          description: Content block type. Must be `text`.
+          description: Content block type.
         text:
           type: string
           title: Text
-          description: Text content for this block.
+          description: Text content when `type=text`.
       type: object
       required:
       - type
       - text
-      title: MessagesTextBlock
+      title: MessagesStreamStartTextBlock
     MessagesContentBlock:
       oneOf:
       - $ref: '#/components/schemas/MessagesTextBlock'
@@ -770,185 +604,23 @@ components:
           tool_use: '#/components/schemas/MessagesToolUseBlock'
           web_fetch_tool_result: '#/components/schemas/MessagesCompatibilityBlock'
           web_search_tool_result: '#/components/schemas/MessagesCompatibilityBlock'
-    MessagesStreamEvent:
+    MessagesStreamContentBlockDeltaPayload:
       oneOf:
-      - $ref: '#/components/schemas/MessagesStreamMessageStart'
-        title: Message Start
-      - $ref: '#/components/schemas/MessagesStreamContentBlockStart'
-        title: Content Block Start
-      - $ref: '#/components/schemas/MessagesStreamContentBlockDelta'
-        title: Content Block Delta
-      - $ref: '#/components/schemas/MessagesStreamContentBlockStop'
-        title: Content Block Stop
-      - $ref: '#/components/schemas/MessagesStreamMessageDelta'
-        title: Message Delta
-      - $ref: '#/components/schemas/MessagesStreamMessageStop'
-        title: Message Stop
-      - $ref: '#/components/schemas/MessagesStreamErrorEvent'
-        title: Error
+      - $ref: '#/components/schemas/MessagesStreamTextDelta'
+        title: Text Delta
+      - $ref: '#/components/schemas/MessagesStreamThinkingDelta'
+        title: Thinking Delta
+      - $ref: '#/components/schemas/MessagesStreamSignatureDelta'
+        title: Signature Delta
+      - $ref: '#/components/schemas/MessagesStreamInputJsonDelta'
+        title: Input JSON Delta
       discriminator:
         propertyName: type
         mapping:
-          content_block_delta: '#/components/schemas/MessagesStreamContentBlockDelta'
-          content_block_start: '#/components/schemas/MessagesStreamContentBlockStart'
-          content_block_stop: '#/components/schemas/MessagesStreamContentBlockStop'
-          error: '#/components/schemas/MessagesStreamErrorEvent'
-          message_delta: '#/components/schemas/MessagesStreamMessageDelta'
-          message_start: '#/components/schemas/MessagesStreamMessageStart'
-          message_stop: '#/components/schemas/MessagesStreamMessageStop'
-    MessagesStreamSignatureDelta:
-      properties:
-        type:
-          type: string
-          const: signature_delta
-          title: Type
-          description: Delta type.
-        signature:
-          type: string
-          title: Signature
-          description: Signature fragment when `type=signature_delta`.
-      type: object
-      required:
-      - type
-      - signature
-      title: MessagesStreamSignatureDelta
-    MessagesStreamTextDelta:
-      properties:
-        type:
-          type: string
-          const: text_delta
-          title: Type
-          description: Delta type.
-        text:
-          type: string
-          title: Text
-          description: Text fragment when `type=text_delta`.
-      type: object
-      required:
-      - type
-      - text
-      title: MessagesStreamTextDelta
-    MessagesStreamInputJsonDelta:
-      properties:
-        type:
-          type: string
-          const: input_json_delta
-          title: Type
-          description: Delta type.
-        partial_json:
-          type: string
-          title: Partial Json
-          description: Partial JSON fragment for tool arguments when `type=input_json_delta`.
-      type: object
-      required:
-      - type
-      - partial_json
-      title: MessagesStreamInputJsonDelta
-    MessagesStreamMessageDelta:
-      properties:
-        type:
-          type: string
-          const: message_delta
-          title: Type
-          description: The type of the event.
-        delta:
-          $ref: '#/components/schemas/MessagesStreamMessageDeltaPayload'
-          description: Final message-level delta.
-        usage:
-          anyOf:
-          - $ref: '#/components/schemas/MessagesStreamMessageDeltaUsage'
-          - type: 'null'
-          description: Usage delta object that may be emitted near stream completion.
-      type: object
-      required:
-      - type
-      - delta
-      title: MessagesStreamMessageDelta
-    MessagesErrorObject:
-      properties:
-        type:
-          type: string
-          title: Type
-          description: Error category. For HTTP 422 in Messages API, this is `invalid_request_error`.
-        message:
-          type: string
-          title: Message
-          description: Human-readable error message.
-      type: object
-      required:
-      - type
-      - message
-      title: MessagesErrorObject
-    MessagesUsage:
-      properties:
-        input_tokens:
-          type: integer
-          minimum: 0.0
-          title: Input Tokens
-          description: Number of billed input tokens for this request.
-        output_tokens:
-          type: integer
-          minimum: 0.0
-          title: Output Tokens
-          description: Number of billed output tokens generated by the model.
-        cache_read_input_tokens:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Cache Read Input Tokens
-          description: Number of input tokens served from cache, when cache reads are applicable.
-      type: object
-      required:
-      - input_tokens
-      - output_tokens
-      title: MessagesUsage
-    ContainerMessagesStreamSuccess:
-      properties:
-        data:
-          $ref: '#/components/schemas/MessagesStreamEvent'
-          description: A server-sent event containing a streamed Messages API update.
-      type: object
-      required:
-      - data
-      title: ContainerMessagesStreamSuccess
-    MessagesStreamErrorDetail:
-      properties:
-        type:
-          type: string
-          title: Type
-          description: Error category, such as `invalid_request_error`.
-        message:
-          type: string
-          title: Message
-          description: Human-readable error message.
-      type: object
-      required:
-      - type
-      - message
-      title: MessagesStreamErrorDetail
-    MessagesInputMessage:
-      properties:
-        role:
-          type: string
-          enum:
-          - user
-          - assistant
-          title: Role
-          description: Author role for this message turn. Use `user` for user input and `assistant` for prior assistant turns.
-        content:
-          anyOf:
-          - type: string
-          - items:
-              $ref: '#/components/schemas/MessagesContentBlock'
-            type: array
-          title: Content
-          description: Message payload. Supports plain string shorthand or a typed block array.
-      type: object
-      required:
-      - role
-      - content
-      title: MessagesInputMessage
+          input_json_delta: '#/components/schemas/MessagesStreamInputJsonDelta'
+          signature_delta: '#/components/schemas/MessagesStreamSignatureDelta'
+          text_delta: '#/components/schemas/MessagesStreamTextDelta'
+          thinking_delta: '#/components/schemas/MessagesStreamThinkingDelta'
     ContainerMessagesSuccess:
       properties:
         id:
@@ -1006,105 +678,6 @@ components:
       - content
       - usage
       title: ContainerMessagesSuccess
-    MessagesErrorResponse:
-      properties:
-        type:
-          type: string
-          const: error
-          title: Type
-          description: Top-level response type for Messages API errors.
-        error:
-          $ref: '#/components/schemas/MessagesErrorObject'
-          description: Structured error object.
-        request_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Request Id
-          description: Request identifier for debugging and support. It may be omitted in some failure paths.
-      type: object
-      required:
-      - type
-      - error
-      title: MessagesErrorResponse
-    MessagesToolDefinition:
-      properties:
-        name:
-          type: string
-          title: Name
-          description: Tool identifier used in model tool-call outputs. Keep this name stable and unique within the request.
-        type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Type
-          description: Tool category. If missing, empty, or `custom`, it is converted to a function tool. Any non-empty value other than `custom` is treated as a server-side tool and skipped.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: Natural-language description of what the tool does and when to call it.
-        input_schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Input Schema
-          description: JSON Schema describing tool arguments. The model uses this schema to construct the tool input object.
-        strict:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Strict
-          description: If true, applies stricter schema adherence when generating tool arguments.
-      type: object
-      required:
-      - name
-      title: MessagesToolDefinition
-    MessagesCompatibilityBlock:
-      properties:
-        type:
-          type: string
-          enum:
-          - document
-          - search_result
-          - redacted_thinking
-          - server_tool_use
-          - web_search_tool_result
-          - web_fetch_tool_result
-          - code_execution_tool_result
-          - bash_code_execution_tool_result
-          - text_editor_code_execution_tool_result
-          - tool_search_tool_result
-          - container_upload
-          title: Type
-          description: Compatibility block type. These blocks are accepted for parsing compatibility and ignored for generation.
-      type: object
-      required:
-      - type
-      title: MessagesCompatibilityBlock
-    MessagesResponseThinkingBlock:
-      properties:
-        type:
-          type: string
-          const: thinking
-          title: Type
-          description: Content block type.
-        thinking:
-          type: string
-          title: Thinking
-          description: Reasoning content returned by the model.
-        signature:
-          type: string
-          title: Signature
-          description: Signature associated with the reasoning content.
-      type: object
-      required:
-      - type
-      - thinking
-      - signature
-      title: MessagesResponseThinkingBlock
     MessagesStreamMessageEnvelope:
       properties:
         id:
@@ -1160,22 +733,204 @@ components:
       - role
       - usage
       title: MessagesStreamMessageEnvelope
-    MessagesStreamContentBlockStop:
+    MessagesStreamMessageStop:
       properties:
         type:
           type: string
-          const: content_block_stop
+          const: message_stop
           title: Type
           description: The type of the event.
-        index:
-          type: integer
-          title: Index
-          description: Index of the block that has finished streaming.
       type: object
       required:
       - type
-      - index
-      title: MessagesStreamContentBlockStop
+      title: MessagesStreamMessageStop
+    MessagesStreamErrorEvent:
+      properties:
+        type:
+          type: string
+          const: error
+          title: Type
+          description: The type of the event.
+        error:
+          $ref: '#/components/schemas/MessagesStreamErrorDetail'
+          description: Error payload object.
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+          description: Request identifier for debugging and support.
+      type: object
+      required:
+      - type
+      - error
+      title: MessagesStreamErrorEvent
+    MessagesStreamMessageDeltaPayload:
+      properties:
+        stop_reason:
+          anyOf:
+          - type: string
+            enum:
+            - end_turn
+            - max_tokens
+            - tool_use
+            - stop_sequence
+          - type: 'null'
+          title: Stop Reason
+          description: Why generation stopped.
+        stop_sequence:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Stop Sequence
+          description: Matched stop sequence when `stop_reason=stop_sequence`.
+      type: object
+      title: MessagesStreamMessageDeltaPayload
+    ContainerMessagesStreamBody:
+      properties:
+        messages:
+          items:
+            $ref: '#/components/schemas/MessagesInputMessage'
+          type: array
+          minItems: 1
+          title: Messages
+          description: A list of conversation messages ordered from oldest to newest. Must contain at least one item.
+          examples:
+          - - content: Explain top_p in one sentence.
+              role: user
+        max_tokens:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Max Tokens
+          description: Maximum number of tokens to generate for the assistant response. Must be greater than 0 when provided.
+        model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model
+          description: Routes the request to a specific adapter.
+          examples:
+          - (adapter-route)
+        system:
+          anyOf:
+          - anyOf:
+            - type: string
+            - items:
+                $ref: '#/components/schemas/MessagesSystemTextBlock'
+              type: array
+            description: Payload format for the top-level `system` instruction.
+          - type: 'null'
+          title: System
+          description: Optional top-level system instruction applied before conversation turns. Supports a plain string or an array of text blocks.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the response. When set to `true`, events are sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: Sampling temperature. Lower values make outputs more deterministic; higher values increase diversity.
+        top_p:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Top P
+          description: Nucleus sampling parameter. The model samples from the smallest token set whose cumulative probability reaches `top_p`.
+        top_k:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Top K
+          description: Limits sampling to the `k` most likely tokens at each decoding step.
+        stop_sequences:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Stop Sequences
+          description: Stop strings that terminate generation when matched in output. The matched value is returned in `stop_sequence` when applicable.
+        tools:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/MessagesToolDefinition'
+            type: array
+          - type: 'null'
+          title: Tools
+          description: Tool definitions available to the model. Use this to allow tool calls with structured arguments.
+        tool_choice:
+          anyOf:
+          - $ref: '#/components/schemas/MessagesToolChoice'
+          - type: 'null'
+          description: Controls tool-calling behavior (`auto`, `any`, `tool`, `none`) and optional parallel-call behavior.
+        thinking:
+          anyOf:
+          - $ref: '#/components/schemas/MessagesThinkingConfig'
+          - type: 'null'
+          description: Controls reasoning behavior with mode (`enabled`, `disabled`, `adaptive`). `enabled` requires `budget_tokens`; `disabled` and `adaptive` must not include it.
+        output_config:
+          anyOf:
+          - $ref: '#/components/schemas/MessagesOutputConfig'
+          - type: 'null'
+          description: Output generation options including effort level and structured output format settings.
+        cache_control:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Cache Control
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+        container:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Container
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+        context_manager:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Context Manager
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+        inference_geo:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inference Geo
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+        service_tier:
+          anyOf:
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Service Tier
+          description: Compatibility field accepted for request portability. Parsed but not used for generation.
+      additionalProperties: true
+      type: object
+      required:
+      - messages
+      title: ContainerMessagesStreamBody
+      example:
+        messages:
+        - content: Hello, summarize what you can do in one sentence.
+          role: user
+        model: zai-org/GLM-5.2
     MessagesOutputConfig:
       properties:
         effort:
@@ -1199,185 +954,6 @@ components:
           description: Structured output settings. Currently supports only `json_schema`.
       type: object
       title: MessagesOutputConfig
-    MessagesStreamContentBlockStart:
-      properties:
-        type:
-          type: string
-          const: content_block_start
-          title: Type
-          description: The type of the event.
-        index:
-          type: integer
-          title: Index
-          description: Index of the content block in the response `content` array.
-        content_block:
-          $ref: '#/components/schemas/MessagesStreamContentBlockStartPayload'
-          description: Initial content block payload.
-      type: object
-      required:
-      - type
-      - index
-      - content_block
-      title: MessagesStreamContentBlockStart
-    MessagesStreamStartTextBlock:
-      properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: Content block type.
-        text:
-          type: string
-          title: Text
-          description: Text content when `type=text`.
-      type: object
-      required:
-      - type
-      - text
-      title: MessagesStreamStartTextBlock
-    MessagesStreamThinkingDelta:
-      properties:
-        type:
-          type: string
-          const: thinking_delta
-          title: Type
-          description: Delta type.
-        thinking:
-          type: string
-          title: Thinking
-          description: Reasoning fragment when `type=thinking_delta`.
-      type: object
-      required:
-      - type
-      - thinking
-      title: MessagesStreamThinkingDelta
-    MessagesStreamMessageStart:
-      properties:
-        type:
-          type: string
-          const: message_start
-          title: Type
-          description: The type of the event.
-        message:
-          $ref: '#/components/schemas/MessagesStreamMessageEnvelope'
-          description: Initial response envelope for this streamed message.
-      type: object
-      required:
-      - type
-      - message
-      title: MessagesStreamMessageStart
-    MessagesStreamStartThinkingBlock:
-      properties:
-        type:
-          type: string
-          const: thinking
-          title: Type
-          description: Content block type.
-        thinking:
-          type: string
-          title: Thinking
-          description: Reasoning content when `type=thinking`.
-        signature:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Signature
-          description: Optional signature when `type=thinking`.
-      type: object
-      required:
-      - type
-      - thinking
-      title: MessagesStreamStartThinkingBlock
-    MessagesStreamMessageDeltaUsage:
-      properties:
-        input_tokens:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Input Tokens
-          description: Input token count delta when included.
-        output_tokens:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Output Tokens
-          description: Output token count delta when included.
-        cache_read_input_tokens:
-          anyOf:
-          - type: integer
-            minimum: 0.0
-          - type: 'null'
-          title: Cache Read Input Tokens
-          description: Cached input token count delta when included.
-      type: object
-      title: MessagesStreamMessageDeltaUsage
-    MessagesStreamContentBlockDeltaPayload:
-      oneOf:
-      - $ref: '#/components/schemas/MessagesStreamTextDelta'
-        title: Text Delta
-      - $ref: '#/components/schemas/MessagesStreamThinkingDelta'
-        title: Thinking Delta
-      - $ref: '#/components/schemas/MessagesStreamSignatureDelta'
-        title: Signature Delta
-      - $ref: '#/components/schemas/MessagesStreamInputJsonDelta'
-        title: Input JSON Delta
-      discriminator:
-        propertyName: type
-        mapping:
-          input_json_delta: '#/components/schemas/MessagesStreamInputJsonDelta'
-          signature_delta: '#/components/schemas/MessagesStreamSignatureDelta'
-          text_delta: '#/components/schemas/MessagesStreamTextDelta'
-          thinking_delta: '#/components/schemas/MessagesStreamThinkingDelta'
-    MessagesStreamMessageDeltaPayload:
-      properties:
-        stop_reason:
-          anyOf:
-          - type: string
-            enum:
-            - end_turn
-            - max_tokens
-            - tool_use
-            - stop_sequence
-          - type: 'null'
-          title: Stop Reason
-          description: Why generation stopped.
-        stop_sequence:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Stop Sequence
-          description: Matched stop sequence when `stop_reason=stop_sequence`.
-      type: object
-      title: MessagesStreamMessageDeltaPayload
-    MessagesResponseToolUseBlock:
-      properties:
-        type:
-          type: string
-          const: tool_use
-          title: Type
-          description: Content block type.
-        id:
-          type: string
-          title: Id
-          description: Identifier of the tool call emitted by the model.
-        name:
-          type: string
-          title: Name
-          description: Name of the invoked tool.
-        input:
-          additionalProperties: true
-          type: object
-          title: Input
-          description: Parsed tool argument object generated by the model.
-      type: object
-      required:
-      - type
-      - id
-      - name
-      - input
-      title: MessagesResponseToolUseBlock
     MessagesToolChoice:
       properties:
         type:
@@ -1405,43 +981,97 @@ components:
       required:
       - type
       title: MessagesToolChoice
-    MessagesSystemTextBlock:
+    MessagesStreamMessageDeltaUsage:
       properties:
-        type:
-          type: string
-          const: text
-          title: Type
-          description: System block type. Must be `text`.
-        text:
-          type: string
-          title: Text
-          description: System instruction text content.
-      type: object
-      required:
-      - type
-      - text
-      title: MessagesSystemTextBlock
-    MessagesThinkingConfig:
-      properties:
-        type:
-          type: string
-          enum:
-          - enabled
-          - disabled
-          - adaptive
-          title: Type
-          description: Reasoning mode. `enabled` forces reasoning, `disabled` suppresses it, and `adaptive` lets the system decide.
-        budget_tokens:
+        input_tokens:
           anyOf:
           - type: integer
-            minimum: 1.0
+            minimum: 0.0
           - type: 'null'
-          title: Budget Tokens
-          description: Reasoning token budget. Required when `type=enabled`; must not be provided when `type=disabled` or `type=adaptive`. If `max_tokens` is set, this must be smaller than `max_tokens`.
+          title: Input Tokens
+          description: Input token count delta when included.
+        output_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Output Tokens
+          description: Output token count delta when included.
+        cache_read_input_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Cache Read Input Tokens
+          description: Cached input token count delta when included.
+      type: object
+      title: MessagesStreamMessageDeltaUsage
+    ContainerMessagesStreamSuccess:
+      properties:
+        data:
+          $ref: '#/components/schemas/MessagesStreamEvent'
+          description: A server-sent event containing a streamed Messages API update.
+      type: object
+      required:
+      - data
+      title: ContainerMessagesStreamSuccess
+    MessagesStreamStartToolUseBlock:
+      properties:
+        type:
+          type: string
+          const: tool_use
+          title: Type
+          description: Content block type.
+        id:
+          type: string
+          title: Id
+          description: Tool call ID when `type=tool_use`.
+        name:
+          type: string
+          title: Name
+          description: Tool name when `type=tool_use`.
+        input:
+          additionalProperties: true
+          type: object
+          title: Input
+          description: Parsed tool input object when `type=tool_use`.
       type: object
       required:
       - type
-      title: MessagesThinkingConfig
+      - id
+      - name
+      - input
+      title: MessagesStreamStartToolUseBlock
+    MessagesErrorObject:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: Error category. For HTTP 422 in Messages API, this is `invalid_request_error`.
+        message:
+          type: string
+          title: Message
+          description: Human-readable error message.
+      type: object
+      required:
+      - type
+      - message
+      title: MessagesErrorObject
+    MessagesImageBlock:
+      properties:
+        type:
+          type: string
+          const: image
+          title: Type
+          description: Content block type. Must be `image`.
+        source:
+          $ref: '#/components/schemas/MessagesImageSource'
+          description: Image source descriptor (`url` or `base64`).
+      type: object
+      required:
+      - type
+      - source
+      title: MessagesImageBlock
     MessagesUrlImageSource:
       properties:
         type:
@@ -1459,6 +1089,136 @@ components:
       - type
       - url
       title: MessagesUrlImageSource
+    MessagesStreamEvent:
+      oneOf:
+      - $ref: '#/components/schemas/MessagesStreamMessageStart'
+        title: Message Start
+      - $ref: '#/components/schemas/MessagesStreamContentBlockStart'
+        title: Content Block Start
+      - $ref: '#/components/schemas/MessagesStreamContentBlockDelta'
+        title: Content Block Delta
+      - $ref: '#/components/schemas/MessagesStreamContentBlockStop'
+        title: Content Block Stop
+      - $ref: '#/components/schemas/MessagesStreamMessageDelta'
+        title: Message Delta
+      - $ref: '#/components/schemas/MessagesStreamMessageStop'
+        title: Message Stop
+      - $ref: '#/components/schemas/MessagesStreamErrorEvent'
+        title: Error
+      discriminator:
+        propertyName: type
+        mapping:
+          content_block_delta: '#/components/schemas/MessagesStreamContentBlockDelta'
+          content_block_start: '#/components/schemas/MessagesStreamContentBlockStart'
+          content_block_stop: '#/components/schemas/MessagesStreamContentBlockStop'
+          error: '#/components/schemas/MessagesStreamErrorEvent'
+          message_delta: '#/components/schemas/MessagesStreamMessageDelta'
+          message_start: '#/components/schemas/MessagesStreamMessageStart'
+          message_stop: '#/components/schemas/MessagesStreamMessageStop'
+    MessagesStreamInputJsonDelta:
+      properties:
+        type:
+          type: string
+          const: input_json_delta
+          title: Type
+          description: Delta type.
+        partial_json:
+          type: string
+          title: Partial Json
+          description: Partial JSON fragment for tool arguments when `type=input_json_delta`.
+      type: object
+      required:
+      - type
+      - partial_json
+      title: MessagesStreamInputJsonDelta
+    MessagesStreamMessageStart:
+      properties:
+        type:
+          type: string
+          const: message_start
+          title: Type
+          description: The type of the event.
+        message:
+          $ref: '#/components/schemas/MessagesStreamMessageEnvelope'
+          description: Initial response envelope for this streamed message.
+      type: object
+      required:
+      - type
+      - message
+      title: MessagesStreamMessageStart
+    MessagesStreamTextDelta:
+      properties:
+        type:
+          type: string
+          const: text_delta
+          title: Type
+          description: Delta type.
+        text:
+          type: string
+          title: Text
+          description: Text fragment when `type=text_delta`.
+      type: object
+      required:
+      - type
+      - text
+      title: MessagesStreamTextDelta
+    MessagesToolDefinition:
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Tool identifier used in model tool-call outputs. Keep this name stable and unique within the request.
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+          description: Tool category. If missing, empty, or `custom`, it is converted to a function tool. Any non-empty value other than `custom` is treated as a server-side tool and skipped.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Natural-language description of what the tool does and when to call it.
+        input_schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Input Schema
+          description: JSON Schema describing tool arguments. The model uses this schema to construct the tool input object.
+        strict:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict
+          description: If true, applies stricter schema adherence when generating tool arguments.
+      type: object
+      required:
+      - name
+      title: MessagesToolDefinition
+    MessagesInputMessage:
+      properties:
+        role:
+          type: string
+          enum:
+          - user
+          - assistant
+          title: Role
+          description: Author role for this message turn. Use `user` for user input and `assistant` for prior assistant turns.
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/MessagesContentBlock'
+            type: array
+          title: Content
+          description: Message payload. Supports plain string shorthand or a typed block array.
+      type: object
+      required:
+      - role
+      - content
+      title: MessagesInputMessage
     MessagesBase64ImageSource:
       properties:
         type:
@@ -1482,34 +1242,274 @@ components:
       - data
       - media_type
       title: MessagesBase64ImageSource
-    MessagesToolUseBlock:
+    MessagesResponseTextBlock:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: Content block type.
+        text:
+          type: string
+          title: Text
+          description: Assistant-generated text for this block.
+      type: object
+      required:
+      - type
+      - text
+      title: MessagesResponseTextBlock
+    MessagesSystemTextBlock:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: System block type. Must be `text`.
+        text:
+          type: string
+          title: Text
+          description: System instruction text content.
+      type: object
+      required:
+      - type
+      - text
+      title: MessagesSystemTextBlock
+    MessagesErrorResponse:
+      properties:
+        type:
+          type: string
+          const: error
+          title: Type
+          description: Top-level response type for Messages API errors.
+        error:
+          $ref: '#/components/schemas/MessagesErrorObject'
+          description: Structured error object.
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+          description: Request identifier for debugging and support. It may be omitted in some failure paths.
+      type: object
+      required:
+      - type
+      - error
+      title: MessagesErrorResponse
+    MessagesResponseToolUseBlock:
       properties:
         type:
           type: string
           const: tool_use
           title: Type
-          description: Content block type. Must be `tool_use`.
+          description: Content block type.
         id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Id
-          description: Optional tool call identifier. Use this value to link follow-up `tool_result` blocks.
+          description: Identifier of the tool call emitted by the model.
         name:
           type: string
           title: Name
-          description: Name of the tool to invoke.
+          description: Name of the invoked tool.
         input:
           additionalProperties: true
           type: object
           title: Input
-          description: Tool input argument object.
+          description: Parsed tool argument object generated by the model.
       type: object
       required:
       - type
+      - id
       - name
       - input
-      title: MessagesToolUseBlock
+      title: MessagesResponseToolUseBlock
+    MessagesStreamMessageDelta:
+      properties:
+        type:
+          type: string
+          const: message_delta
+          title: Type
+          description: The type of the event.
+        delta:
+          $ref: '#/components/schemas/MessagesStreamMessageDeltaPayload'
+          description: Final message-level delta.
+        usage:
+          anyOf:
+          - $ref: '#/components/schemas/MessagesStreamMessageDeltaUsage'
+          - type: 'null'
+          description: Usage delta object that may be emitted near stream completion.
+      type: object
+      required:
+      - type
+      - delta
+      title: MessagesStreamMessageDelta
+    MessagesStreamContentBlockStartPayload:
+      oneOf:
+      - $ref: '#/components/schemas/MessagesStreamStartTextBlock'
+        title: Text
+      - $ref: '#/components/schemas/MessagesStreamStartThinkingBlock'
+        title: Thinking
+      - $ref: '#/components/schemas/MessagesStreamStartToolUseBlock'
+        title: Tool Use
+      discriminator:
+        propertyName: type
+        mapping:
+          text: '#/components/schemas/MessagesStreamStartTextBlock'
+          thinking: '#/components/schemas/MessagesStreamStartThinkingBlock'
+          tool_use: '#/components/schemas/MessagesStreamStartToolUseBlock'
+    MessagesThinkingBlock:
+      properties:
+        type:
+          type: string
+          const: thinking
+          title: Type
+          description: Content block type. Must be `thinking`.
+        thinking:
+          type: string
+          title: Thinking
+          description: Reasoning content for this block.
+        signature:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Signature
+          description: Optional signature associated with the reasoning content.
+      type: object
+      required:
+      - type
+      - thinking
+      title: MessagesThinkingBlock
+    MessagesCompatibilityBlock:
+      properties:
+        type:
+          type: string
+          enum:
+          - document
+          - search_result
+          - redacted_thinking
+          - server_tool_use
+          - web_search_tool_result
+          - web_fetch_tool_result
+          - code_execution_tool_result
+          - bash_code_execution_tool_result
+          - text_editor_code_execution_tool_result
+          - tool_search_tool_result
+          - container_upload
+          title: Type
+          description: Compatibility block type. These blocks are accepted for parsing compatibility and ignored for generation.
+      type: object
+      required:
+      - type
+      title: MessagesCompatibilityBlock
+    MessagesTextBlock:
+      properties:
+        type:
+          type: string
+          const: text
+          title: Type
+          description: Content block type. Must be `text`.
+        text:
+          type: string
+          title: Text
+          description: Text content for this block.
+      type: object
+      required:
+      - type
+      - text
+      title: MessagesTextBlock
+    MessagesStreamSignatureDelta:
+      properties:
+        type:
+          type: string
+          const: signature_delta
+          title: Type
+          description: Delta type.
+        signature:
+          type: string
+          title: Signature
+          description: Signature fragment when `type=signature_delta`.
+      type: object
+      required:
+      - type
+      - signature
+      title: MessagesStreamSignatureDelta
+    MessagesToolResultBlock:
+      properties:
+        type:
+          type: string
+          const: tool_result
+          title: Type
+          description: Content block type. Must be `tool_result`.
+        tool_use_id:
+          type: string
+          title: Tool Use Id
+          description: Identifier of the related `tool_use` block this result answers.
+        content:
+          anyOf:
+          - type: string
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Content
+          description: Tool result payload. Can be plain text, a list of objects, or null when no body is returned.
+      type: object
+      required:
+      - type
+      - tool_use_id
+      title: MessagesToolResultBlock
+    MessagesStreamContentBlockDelta:
+      properties:
+        type:
+          type: string
+          const: content_block_delta
+          title: Type
+          description: The type of the event.
+        index:
+          type: integer
+          title: Index
+          description: Index of the content block being updated.
+        delta:
+          $ref: '#/components/schemas/MessagesStreamContentBlockDeltaPayload'
+          description: Incremental delta payload.
+      type: object
+      required:
+      - type
+      - index
+      - delta
+      title: MessagesStreamContentBlockDelta
+    MessagesResponseThinkingBlock:
+      properties:
+        type:
+          type: string
+          const: thinking
+          title: Type
+          description: Content block type.
+        thinking:
+          type: string
+          title: Thinking
+          description: Reasoning content returned by the model.
+        signature:
+          type: string
+          title: Signature
+          description: Signature associated with the reasoning content.
+      type: object
+      required:
+      - type
+      - thinking
+      - signature
+      title: MessagesResponseThinkingBlock
+    MessagesImageSource:
+      oneOf:
+      - $ref: '#/components/schemas/MessagesBase64ImageSource'
+        title: Base64
+      - $ref: '#/components/schemas/MessagesUrlImageSource'
+        title: URL
+      discriminator:
+        propertyName: type
+        mapping:
+          base64: '#/components/schemas/MessagesBase64ImageSource'
+          url: '#/components/schemas/MessagesUrlImageSource'
   securitySchemes:
     token:
       type: http

@@ -133,6 +133,42 @@ components:
         encoding_format: float
         input: The food was delicious and the waiter...
         model: (endpoint-id)
+    EmbeddingObject:
+      properties:
+        index:
+          type: integer
+          title: Index
+          description: The index of the embedding in the list of embeddings.
+        object:
+          type: string
+          const: embedding
+          title: Object
+          description: The object type, which is always set to `embedding`.
+        embedding:
+          anyOf:
+          - items:
+              type: number
+            type: array
+          - type: string
+            format: binary
+          title: Embedding
+          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
+      type: object
+      required:
+      - index
+      - object
+      - embedding
+      title: EmbeddingObject
+    PromptTokensDetails:
+      properties:
+        cached_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cached Tokens
+          description: Cached tokens present in the prompt.
+      type: object
+      title: PromptTokensDetails
     DedicatedEmbeddingsSuccess:
       properties:
         id:
@@ -201,42 +237,6 @@ components:
       - completion_tokens
       - total_tokens
       title: TextUsage
-    PromptTokensDetails:
-      properties:
-        cached_tokens:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cached Tokens
-          description: Cached tokens present in the prompt.
-      type: object
-      title: PromptTokensDetails
-    EmbeddingObject:
-      properties:
-        index:
-          type: integer
-          title: Index
-          description: The index of the embedding in the list of embeddings.
-        object:
-          type: string
-          const: embedding
-          title: Object
-          description: The object type, which is always set to `embedding`.
-        embedding:
-          anyOf:
-          - items:
-              type: number
-            type: array
-          - type: string
-            format: binary
-          title: Embedding
-          description: The embedding vector, which is a list of floats or a base64-encoded string. The length of vector depends on the model.
-      type: object
-      required:
-      - index
-      - object
-      - embedding
-      title: EmbeddingObject
   securitySchemes:
     token:
       type: http

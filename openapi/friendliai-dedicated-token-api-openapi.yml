@@ -178,16 +178,6 @@ components:
         - 1413
         - 15592
         - 30
-    DedicatedDetokenizationSuccess:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: Detokenized text output.
-      type: object
-      required:
-      - text
-      title: DedicatedDetokenizationSuccess
     DedicatedTokenizationBody:
       properties:
         model:
@@ -210,6 +200,16 @@ components:
       example:
         model: (endpoint-id)
         prompt: What is generative AI?
+    DedicatedDetokenizationSuccess:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: Detokenized text output.
+      type: object
+      required:
+      - text
+      title: DedicatedDetokenizationSuccess
   securitySchemes:
     token:
       type: http

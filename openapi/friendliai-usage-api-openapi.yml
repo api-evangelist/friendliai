@@ -211,33 +211,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    UsageGroupBy:
-      type: string
-      enum:
-      - model
-      - product_type
-      - user_id
-      title: UsageGroupBy
-    UsageResponse:
-      properties:
-        has_more:
-          type: boolean
-          title: Has More
-        next_page:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Page
-        data:
-          items:
-            $ref: '#/components/schemas/UsageBucket'
-          type: array
-          title: Data
-      type: object
-      required:
-      - has_more
-      - data
-      title: UsageResponse
     UsageResult:
       properties:
         product_type:
@@ -313,6 +286,13 @@ components:
       - input_cached_tokens
       - output_tokens
       title: UsageResult
+    UsageBucketWidth:
+      type: string
+      enum:
+      - 1d
+      - 1h
+      - 5m
+      title: UsageBucketWidth
     UsageBucket:
       properties:
         start_time:
@@ -340,13 +320,33 @@ components:
       - model_apis
       - dedicated_endpoints
       title: ProductType
-    UsageBucketWidth:
+    UsageResponse:
+      properties:
+        has_more:
+          type: boolean
+          title: Has More
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+        data:
+          items:
+            $ref: '#/components/schemas/UsageBucket'
+          type: array
+          title: Data
+      type: object
+      required:
+      - has_more
+      - data
+      title: UsageResponse
+    UsageGroupBy:
       type: string
       enum:
-      - 1d
-      - 1h
-      - 5m
-      title: UsageBucketWidth
+      - model
+      - product_type
+      - user_id
+      title: UsageGroupBy
   securitySchemes:
     token:
       type: http

@@ -139,26 +139,6 @@ paths:
           Refer to the [authentication section](/openapi/introduction#authentication) on our introduction page to learn how to acquire this variable and [visit here](https://friendli.ai/suite/~/setting/keys) to generate your API Key.'
 components:
   schemas:
-    CostResponse:
-      properties:
-        has_more:
-          type: boolean
-          title: Has More
-        next_page:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Next Page
-        data:
-          items:
-            $ref: '#/components/schemas/CostBucket'
-          type: array
-          title: Data
-      type: object
-      required:
-      - has_more
-      - data
-      title: CostResponse
     CostBucketWidth:
       type: string
       enum:
@@ -185,6 +165,11 @@ components:
       - end_time
       - results
       title: CostBucket
+    CostGroupBy:
+      type: string
+      enum:
+      - line_item
+      title: CostGroupBy
     CostResult:
       properties:
         total:
@@ -222,11 +207,26 @@ components:
       required:
       - total
       title: CostResult
-    CostGroupBy:
-      type: string
-      enum:
-      - line_item
-      title: CostGroupBy
+    CostResponse:
+      properties:
+        has_more:
+          type: boolean
+          title: Has More
+        next_page:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Page
+        data:
+          items:
+            $ref: '#/components/schemas/CostBucket'
+          type: array
+          title: Data
+      type: object
+      required:
+      - has_more
+      - data
+      title: CostResponse
   securitySchemes:
     token:
       type: http

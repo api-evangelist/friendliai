@@ -1072,49 +1072,6 @@ paths:
           </Info>'
 components:
   schemas:
-    DedicatedEndpointWandbArtifactCreateBody:
-      properties:
-        wandbArtifactVersionName:
-          type: string
-          title: Wandb Artifact Version Name
-          description: The specific model artifact version from Weights & Biases. The referred artifact will be used to create a new endpoint in Friendli Dedicated Endpoints or rollout an existing one.
-        accelerator:
-          anyOf:
-          - $ref: '#/components/schemas/AcceleratorRequirement'
-          - type: 'null'
-          title: Accelerator
-          description: Specifies the instance type for the endpoint.
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: Specifies the name of your endpoint. If not provided, a name will be automatically generated for you.
-        projectId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Id
-          description: Specifies where endpoint will be created in your Friendli Dedicated Endpoints. If not provided, a new project will be created within your default team.
-        idempotencyKey:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Idempotency Key
-          description: Used by Friendli Dedicated Endpoints to track which webhook automation triggered an endpoint rollout. If the `idempotencyKey` is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the `projectId` must be provided. Any unique value can be used.
-        autoscalingPolicy:
-          anyOf:
-          - $ref: '#/components/schemas/AutoscalingPolicy'
-          - type: 'null'
-          title: Autoscaling Policy
-          description: Defines autoscaling settings for the endpoint.
-      type: object
-      required:
-      - wandbArtifactVersionName
-      title: DedicatedEndpointWandbArtifactCreateBody
-      description: Endpoint create request.
-      example:
-        wandbArtifactVersionName: org/registry/name:v0
     EndpointAdvancedConfig:
       properties:
         max_batch_size:
@@ -1162,163 +1119,6 @@ components:
       - tokenizer_add_special_tokens
       title: EndpointAdvancedConfig
       description: Endpoint advanced config.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    DedicatedEndpointUpdateBody:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the endpoint.
-        advanced:
-          anyOf:
-          - $ref: '#/components/schemas/EndpointAdvancedConfig'
-          - type: 'null'
-          title: Advanced
-          description: The advanced configuration of the endpoint.
-        simplescale:
-          anyOf:
-          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
-          - type: 'null'
-          title: Simple Scale
-          description: The simple scaling configuration of the endpoint.
-        autoscalingPolicy:
-          anyOf:
-          - $ref: '#/components/schemas/AutoscalingPolicy'
-          - type: 'null'
-          title: Auto Scale Policy
-          description: The auto scaling configuration of the endpoint.
-        hfModelRepo:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: HF Model Repo
-          description: HF ID of the model.
-        hfModelRepoRevision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: HF Model Repo Revision
-          description: HF commit hash of the model.
-        newVersionComment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: New Version Comment
-          description: Comment for the new version.
-        instanceOptionId:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Instance Option ID
-          description: 'The ID of the instance option.
-
-
-            Available options:
-
-            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
-
-            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
-
-            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
-
-            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
-
-            - 1x NVIDIA H100: `TwD5AqnBSVN0`
-
-            - 2x NVIDIA H100: `zfTutSiLn0Hq`
-
-            - 4x NVIDIA H100: `lfkRz5G48REc`
-
-            - 8x NVIDIA H100: `GUA4qYFmsYz8`
-
-            - 1x NVIDIA H200: `LnK1wTaKc7WO`
-
-            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
-
-            - 4x NVIDIA H200: `OhTzYtZuomzI`
-
-            - 8x NVIDIA H200: `ahBzWtOuomsI`
-
-            - 1x NVIDIA B200: `8GiQTLKfJNOr`
-
-            - 2x NVIDIA B200: `brTZGIuYgVrs`
-
-            - 4x NVIDIA B200: `AFoZMFXZnAdD`
-
-            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
-      type: object
-      title: DedicatedEndpointUpdateBody
-      description: Dedicated endpoint update request.
-    DedicatedEndpointListResponse:
-      properties:
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/DedicatedEndpointStatus'
-          type: object
-          title: Data
-          description: The response data containing endpoint statuses.
-          default: {}
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Next Cursor
-          description: The next cursor for pagination.
-      type: object
-      title: DedicatedEndpointListResponse
-      description: Dedicated endpoint list response.
-    QueueBackpressureMetricKind:
-      type: string
-      enum:
-      - TPOT_MS
-      - TTFT_MS
-      - REQUEST_COUNT
-      - WORKSPACE_UTILIZATION
-      - QUEUED_PREFILL_TOKENS
-      title: QueueBackpressureMetricKind
-      description: Queue backpressure metric kind.
-    DedicatedEndpointVersionHistoryResponse:
-      properties:
-        data:
-          additionalProperties:
-            $ref: '#/components/schemas/DedicatedEndpointSpec'
-          type: object
-          title: Data
-          description: The response data containing endpoint versions.
-          default: {}
-        nextCursor:
-          anyOf:
-          - type: string
-            format: binary
-          - type: 'null'
-          title: Next Cursor
-          description: The next cursor for pagination.
-      type: object
-      title: DedicatedEndpointVersionHistoryResponse
-      description: Dedicated endpoint version history response.
     InferenceDeploymentStatus:
       type: string
       enum:
@@ -1335,96 +1135,6 @@ components:
       - READY
       title: InferenceDeploymentStatus
       description: Status of inference deployment.
-    DedicatedEndpointCreateBody:
-      properties:
-        projectId:
-          type: string
-          title: Project ID
-          description: The ID of the project that owns the endpoint.
-        name:
-          type: string
-          title: Name
-          description: The name of the endpoint.
-        instanceOptionId:
-          type: string
-          title: Instance Option ID
-          description: 'The ID of the instance option.
-
-
-            Available options:
-
-            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
-
-            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
-
-            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
-
-            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
-
-            - 1x NVIDIA H100: `TwD5AqnBSVN0`
-
-            - 2x NVIDIA H100: `zfTutSiLn0Hq`
-
-            - 4x NVIDIA H100: `lfkRz5G48REc`
-
-            - 8x NVIDIA H100: `GUA4qYFmsYz8`
-
-            - 1x NVIDIA H200: `LnK1wTaKc7WO`
-
-            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
-
-            - 4x NVIDIA H200: `OhTzYtZuomzI`
-
-            - 8x NVIDIA H200: `ahBzWtOuomsI`
-
-            - 1x NVIDIA B200: `8GiQTLKfJNOr`
-
-            - 2x NVIDIA B200: `brTZGIuYgVrs`
-
-            - 4x NVIDIA B200: `AFoZMFXZnAdD`
-
-            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
-        advanced:
-          $ref: '#/components/schemas/EndpointAdvancedConfig'
-          title: Advanced
-          description: The advanced configuration of the endpoint.
-        simplescale:
-          anyOf:
-          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
-          - type: 'null'
-          title: Simple Scale
-          description: The simple scaling configuration of the endpoint.
-        autoscalingPolicy:
-          anyOf:
-          - $ref: '#/components/schemas/AutoscalingPolicy'
-          - type: 'null'
-          title: Auto Scale Policy
-          description: The auto scaling configuration of the endpoint.
-        hfModelRepo:
-          type: string
-          title: HF Model Repo
-          description: HF ID of the model.
-        hfModelRepoRevision:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: HF Model Repo Revision
-          description: HF commit hash of the model.
-        initialVersionComment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Initial Version Comment
-          description: The comment for the initial version.
-      type: object
-      required:
-      - projectId
-      - name
-      - instanceOptionId
-      - advanced
-      - hfModelRepo
-      title: DedicatedEndpointCreateBody
-      description: Dedicated endpoint create request.
     DedicatedEndpointStatus:
       properties:
         status:
@@ -1465,6 +1175,25 @@ components:
       - createdAt
       title: DedicatedEndpointStatus
       description: Dedicated endpoint status.
+    DedicatedEndpointVersionHistoryResponse:
+      properties:
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointSpec'
+          type: object
+          title: Data
+          description: The response data containing endpoint versions.
+          default: {}
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Next Cursor
+          description: The next cursor for pagination.
+      type: object
+      title: DedicatedEndpointVersionHistoryResponse
+      description: Dedicated endpoint version history response.
     DedicatedEndpointSpec:
       properties:
         name:
@@ -1561,15 +1290,205 @@ components:
       - tokenizerAddSpecialTokens
       title: DedicatedEndpointSpec
       description: Dedicated endpoint specification.
-    HTTPValidationError:
+    DedicatedEndpointListResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        data:
+          additionalProperties:
+            $ref: '#/components/schemas/DedicatedEndpointStatus'
+          type: object
+          title: Data
+          description: The response data containing endpoint statuses.
+          default: {}
+        nextCursor:
+          anyOf:
+          - type: string
+            format: binary
+          - type: 'null'
+          title: Next Cursor
+          description: The next cursor for pagination.
       type: object
-      title: HTTPValidationError
+      title: DedicatedEndpointListResponse
+      description: Dedicated endpoint list response.
+    DedicatedEndpointWandbArtifactCreateBody:
+      properties:
+        wandbArtifactVersionName:
+          type: string
+          title: Wandb Artifact Version Name
+          description: The specific model artifact version from Weights & Biases. The referred artifact will be used to create a new endpoint in Friendli Dedicated Endpoints or rollout an existing one.
+        accelerator:
+          anyOf:
+          - $ref: '#/components/schemas/AcceleratorRequirement'
+          - type: 'null'
+          title: Accelerator
+          description: Specifies the instance type for the endpoint.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: Specifies the name of your endpoint. If not provided, a name will be automatically generated for you.
+        projectId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Id
+          description: Specifies where endpoint will be created in your Friendli Dedicated Endpoints. If not provided, a new project will be created within your default team.
+        idempotencyKey:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Idempotency Key
+          description: Used by Friendli Dedicated Endpoints to track which webhook automation triggered an endpoint rollout. If the `idempotencyKey` is provided, the API will check if the endpoint already exists, and rollout the existing endpoint if it does. In such cases, the `projectId` must be provided. Any unique value can be used.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Autoscaling Policy
+          description: Defines autoscaling settings for the endpoint.
+      type: object
+      required:
+      - wandbArtifactVersionName
+      title: DedicatedEndpointWandbArtifactCreateBody
+      description: Endpoint create request.
+      example:
+        wandbArtifactVersionName: org/registry/name:v0
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AcceleratorRequirement:
+      properties:
+        type:
+          type: string
+          title: Type
+          description: Specifies the instance type.
+        count:
+          type: integer
+          title: Count
+          description: Specifies the number of instances.
+      type: object
+      required:
+      - type
+      - count
+      title: AcceleratorRequirement
+      description: Accelerator requirement.
+    DedicatedEndpointCreateBody:
+      properties:
+        projectId:
+          type: string
+          title: Project ID
+          description: The ID of the project that owns the endpoint.
+        name:
+          type: string
+          title: Name
+          description: The name of the endpoint.
+        instanceOptionId:
+          type: string
+          title: Instance Option ID
+          description: 'The ID of the instance option.
+
+
+            Available options:
+
+            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
+
+            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
+
+            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
+
+            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
+
+            - 1x NVIDIA H100: `TwD5AqnBSVN0`
+
+            - 2x NVIDIA H100: `zfTutSiLn0Hq`
+
+            - 4x NVIDIA H100: `lfkRz5G48REc`
+
+            - 8x NVIDIA H100: `GUA4qYFmsYz8`
+
+            - 1x NVIDIA H200: `LnK1wTaKc7WO`
+
+            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
+
+            - 4x NVIDIA H200: `OhTzYtZuomzI`
+
+            - 8x NVIDIA H200: `ahBzWtOuomsI`
+
+            - 1x NVIDIA B200: `8GiQTLKfJNOr`
+
+            - 2x NVIDIA B200: `brTZGIuYgVrs`
+
+            - 4x NVIDIA B200: `AFoZMFXZnAdD`
+
+            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
+        advanced:
+          $ref: '#/components/schemas/EndpointAdvancedConfig'
+          title: Advanced
+          description: The advanced configuration of the endpoint.
+        simplescale:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
+          - type: 'null'
+          title: Simple Scale
+          description: The simple scaling configuration of the endpoint.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Auto Scale Policy
+          description: The auto scaling configuration of the endpoint.
+        hfModelRepo:
+          type: string
+          title: HF Model Repo
+          description: HF ID of the model.
+        hfModelRepoRevision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo Revision
+          description: HF commit hash of the model.
+        initialVersionComment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Initial Version Comment
+          description: The comment for the initial version.
+      type: object
+      required:
+      - projectId
+      - name
+      - instanceOptionId
+      - advanced
+      - hfModelRepo
+      title: DedicatedEndpointCreateBody
+      description: Dedicated endpoint create request.
+    QueueBackpressureMetricKind:
+      type: string
+      enum:
+      - TPOT_MS
+      - TTFT_MS
+      - REQUEST_COUNT
+      - WORKSPACE_UTILIZATION
+      - QUEUED_PREFILL_TOKENS
+      title: QueueBackpressureMetricKind
+      description: Queue backpressure metric kind.
     AutoscalingPolicy:
       properties:
         minReplica:
@@ -1592,6 +1511,45 @@ components:
       type: object
       title: AutoscalingPolicy
       description: Autoscaling policy.
+    EndpointSimplescaleConfig:
+      properties:
+        replicas:
+          type: integer
+          minimum: 1.0
+          title: Replicas
+      type: object
+      required:
+      - replicas
+      title: EndpointSimplescaleConfig
+      description: Simple scaling options.
+    InferenceDeploymentErrorCode:
+      type: string
+      enum:
+      - WORKLOAD_INIT_UNKNOWN_ERROR
+      - WORKLOAD_INIT_SETTINGS_ERROR
+      - WORKLOAD_INIT_GRPC_ERROR
+      - WORKLOAD_INIT_MANIFEST_NOT_FOUND_ERROR
+      - WORKLOAD_INIT_MANIFEST_TYPE_ERROR
+      - WORKLOAD_INIT_DOWNLOAD_ERROR
+      - WORKLOAD_INIT_INVALID_TOKEN_ERROR
+      - WORKLOAD_INIT_CANNOT_ACCESS_REPO_ERROR
+      - WORKLOAD_INIT_HF_WANDB_API_ERROR
+      - WORKLOAD_INIT_INSUFFICIENT_DISK_ERROR
+      - INFERENCE_ENGINE_UNKNOWN_ERROR
+      - INFERENCE_ENGINE_INVALID_ARGUMENT_ERROR
+      - INFERENCE_ENGINE_MEMORY_ERROR
+      - INFERENCE_ENGINE_METERING_CLIENT_CONFIG_ERROR
+      title: InferenceDeploymentErrorCode
+      description: ErrorCode type.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     DedicatedEndpointWandbArtifactCreateResponse:
       properties:
         endpointId:
@@ -1630,52 +1588,94 @@ components:
       - teamName
       title: DedicatedEndpointWandbArtifactCreateResponse
       description: Endpoint create response.
-    AcceleratorRequirement:
+    DedicatedEndpointUpdateBody:
       properties:
-        type:
-          type: string
-          title: Type
-          description: Specifies the instance type.
-        count:
-          type: integer
-          title: Count
-          description: Specifies the number of instances.
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the endpoint.
+        advanced:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointAdvancedConfig'
+          - type: 'null'
+          title: Advanced
+          description: The advanced configuration of the endpoint.
+        simplescale:
+          anyOf:
+          - $ref: '#/components/schemas/EndpointSimplescaleConfig'
+          - type: 'null'
+          title: Simple Scale
+          description: The simple scaling configuration of the endpoint.
+        autoscalingPolicy:
+          anyOf:
+          - $ref: '#/components/schemas/AutoscalingPolicy'
+          - type: 'null'
+          title: Auto Scale Policy
+          description: The auto scaling configuration of the endpoint.
+        hfModelRepo:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo
+          description: HF ID of the model.
+        hfModelRepoRevision:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: HF Model Repo Revision
+          description: HF commit hash of the model.
+        newVersionComment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: New Version Comment
+          description: Comment for the new version.
+        instanceOptionId:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instance Option ID
+          description: 'The ID of the instance option.
+
+
+            Available options:
+
+            - 1x NVIDIA A100 80GB: `ShbPuOs4tfGb`
+
+            - 2x NVIDIA A100 80GB: `mrAHuYt7T40o`
+
+            - 4x NVIDIA A100 80GB: `JkNob0NMdoF3`
+
+            - 8x NVIDIA A100 80GB: `sYH4kHmAcA5P`
+
+            - 1x NVIDIA H100: `TwD5AqnBSVN0`
+
+            - 2x NVIDIA H100: `zfTutSiLn0Hq`
+
+            - 4x NVIDIA H100: `lfkRz5G48REc`
+
+            - 8x NVIDIA H100: `GUA4qYFmsYz8`
+
+            - 1x NVIDIA H200: `LnK1wTaKc7WO`
+
+            - 2x NVIDIA H200: `Tu6GjBnfHPe4`
+
+            - 4x NVIDIA H200: `OhTzYtZuomzI`
+
+            - 8x NVIDIA H200: `ahBzWtOuomsI`
+
+            - 1x NVIDIA B200: `8GiQTLKfJNOr`
+
+            - 2x NVIDIA B200: `brTZGIuYgVrs`
+
+            - 4x NVIDIA B200: `AFoZMFXZnAdD`
+
+            - 8x NVIDIA B200: `drbc6G9FxJWZ`'
       type: object
-      required:
-      - type
-      - count
-      title: AcceleratorRequirement
-      description: Accelerator requirement.
-    EndpointSimplescaleConfig:
-      properties:
-        replicas:
-          type: integer
-          minimum: 1.0
-          title: Replicas
-      type: object
-      required:
-      - replicas
-      title: EndpointSimplescaleConfig
-      description: Simple scaling options.
-    InferenceDeploymentErrorCode:
-      type: string
-      enum:
-      - WORKLOAD_INIT_UNKNOWN_ERROR
-      - WORKLOAD_INIT_SETTINGS_ERROR
-      - WORKLOAD_INIT_GRPC_ERROR
-      - WORKLOAD_INIT_MANIFEST_NOT_FOUND_ERROR
-      - WORKLOAD_INIT_MANIFEST_TYPE_ERROR
-      - WORKLOAD_INIT_DOWNLOAD_ERROR
-      - WORKLOAD_INIT_INVALID_TOKEN_ERROR
-      - WORKLOAD_INIT_CANNOT_ACCESS_REPO_ERROR
-      - WORKLOAD_INIT_HF_WANDB_API_ERROR
-      - WORKLOAD_INIT_INSUFFICIENT_DISK_ERROR
-      - INFERENCE_ENGINE_UNKNOWN_ERROR
-      - INFERENCE_ENGINE_INVALID_ARGUMENT_ERROR
-      - INFERENCE_ENGINE_MEMORY_ERROR
-      - INFERENCE_ENGINE_METERING_CLIENT_CONFIG_ERROR
-      title: InferenceDeploymentErrorCode
-      description: ErrorCode type.
+      title: DedicatedEndpointUpdateBody
+      description: Dedicated endpoint update request.
   securitySchemes:
     token:
       type: http

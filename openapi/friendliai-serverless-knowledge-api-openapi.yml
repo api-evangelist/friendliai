@@ -53,19 +53,6 @@ paths:
       x-speakeasy-ignore: true
 components:
   schemas:
-    ServerlessKnowledgeRetrievalSuccess:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/KnowledgeRetrievedChunk'
-          type: array
-          title: Results
-          description: A list of result.
-      type: object
-      required:
-      - results
-      title: ServerlessKnowledgeRetrievalSuccess
-      description: Knowledge retrieval response.
     ServerlessKnowledgeRetrievalBody:
       properties:
         query:
@@ -121,6 +108,19 @@ components:
       - contentId
       title: KnowledgeRetrievedChunk
       description: Knowledge retrieved chunk.
+    ServerlessKnowledgeRetrievalSuccess:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/KnowledgeRetrievedChunk'
+          type: array
+          title: Results
+          description: A list of result.
+      type: object
+      required:
+      - results
+      title: ServerlessKnowledgeRetrievalSuccess
+      description: Knowledge retrieval response.
   securitySchemes:
     token:
       type: http

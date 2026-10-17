@@ -170,45 +170,6 @@ paths:
           <Tip>You can explore examples on the [Friendli Model APIs](https://friendli.ai/get-started/model-apis) playground and adjust settings with just a few clicks.</Tip>'
 components:
   schemas:
-    AudioTranscriptionResult:
-      properties:
-        text:
-          type: string
-          title: Text
-          description: The transcribed text.
-        usage:
-          $ref: '#/components/schemas/AudioTranscriptionUsage'
-      type: object
-      required:
-      - text
-      - usage
-      title: AudioTranscriptionResult
-    StreamedAudioTranscriptionResult:
-      properties:
-        data:
-          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
-      type: object
-      required:
-      - data
-      title: StreamedAudioTranscriptionResult
-    ServerlessAudioTranscriptionStreamSuccess:
-      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
-      title: ServerlessAudioTranscriptionStreamSuccess
-    AudioTranscriptionInputTokenDetails:
-      properties:
-        audio_tokens:
-          type: integer
-          title: Audio Tokens
-          description: Number of audio tokens billed for this request.
-        text_tokens:
-          type: integer
-          title: Text Tokens
-          description: Number of text tokens billed for this request.
-      type: object
-      required:
-      - audio_tokens
-      - text_tokens
-      title: AudioTranscriptionInputTokenDetails
     ServerVadChunkingStrategy:
       properties:
         type:
@@ -241,6 +202,34 @@ components:
       required:
       - type
       title: ServerVadChunkingStrategy
+    AudioTranscriptionResult:
+      properties:
+        text:
+          type: string
+          title: Text
+          description: The transcribed text.
+        usage:
+          $ref: '#/components/schemas/AudioTranscriptionUsage'
+      type: object
+      required:
+      - text
+      - usage
+      title: AudioTranscriptionResult
+    AudioTranscriptionInputTokenDetails:
+      properties:
+        audio_tokens:
+          type: integer
+          title: Audio Tokens
+          description: Number of audio tokens billed for this request.
+        text_tokens:
+          type: integer
+          title: Text Tokens
+          description: Number of text tokens billed for this request.
+      type: object
+      required:
+      - audio_tokens
+      - text_tokens
+      title: AudioTranscriptionInputTokenDetails
     StreamedAudioTranscriptionData:
       properties:
         type:
@@ -273,52 +262,6 @@ components:
     ServerlessAudioTranscriptionSuccess:
       $ref: '#/components/schemas/AudioTranscriptionResult'
       title: ServerlessAudioTranscriptionSuccess
-    ServerlessAudioTranscriptionStreamBody:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
-          examples:
-          - openai/whisper-large-v3
-        file:
-          type: string
-          format: binary
-          title: File
-          description: 'The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.'
-        chunking_strategy:
-          anyOf:
-          - type: string
-            const: auto
-          - $ref: '#/components/schemas/ServerVadChunkingStrategy'
-          - type: 'null'
-          title: Chunking Strategy
-          description: Controls how the audio is cut into chunks. When set to `"auto"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block.
-        language:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Language
-          description: The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.
-        stream:
-          type: boolean
-          title: Stream
-          description: Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
-          default: true
-        temperature:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Temperature
-          description: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
-      type: object
-      required:
-      - model
-      - file
-      title: ServerlessAudioTranscriptionStreamBody
-      example:
-        file: '@/path/to/file/audio.mp3'
-        model: openai/whisper-large-v3
     ServerlessAudioTranscriptionBody:
       properties:
         model:
@@ -367,6 +310,9 @@ components:
       example:
         file: '@/path/to/file/audio.mp3'
         model: openai/whisper-large-v3
+    ServerlessAudioTranscriptionStreamSuccess:
+      $ref: '#/components/schemas/StreamedAudioTranscriptionResult'
+      title: ServerlessAudioTranscriptionStreamSuccess
     AudioTranscriptionUsage:
       properties:
         type:
@@ -408,6 +354,60 @@ components:
       - input_audio_length_ms
       - processed_audio_length_ms
       title: AudioTranscriptionUsage
+    StreamedAudioTranscriptionResult:
+      properties:
+        data:
+          $ref: '#/components/schemas/StreamedAudioTranscriptionData'
+      type: object
+      required:
+      - data
+      title: StreamedAudioTranscriptionResult
+    ServerlessAudioTranscriptionStreamBody:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: Code of the model to use. See [available model list](https://friendli.ai/docs/guides/model-apis/pricing#billing-methods).
+          examples:
+          - openai/whisper-large-v3
+        file:
+          type: string
+          format: binary
+          title: File
+          description: 'The audio file object (not file name) to transcribe, in one of these formats: mp3, wav, flac, ogg, and many other standard audio formats.'
+        chunking_strategy:
+          anyOf:
+          - type: string
+            const: auto
+          - $ref: '#/components/schemas/ServerVadChunkingStrategy'
+          - type: 'null'
+          title: Chunking Strategy
+          description: Controls how the audio is cut into chunks. When set to `"auto"`, the server first normalizes loudness and then uses voice activity detection (VAD) to choose boundaries. `server_vad` object can be provided to tweak VAD detection parameters manually. If unset, the audio is transcribed as a single block.
+        language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Language
+          description: The language of the input audio. Supplying the input language in [ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format will improve accuracy and latency.
+        stream:
+          type: boolean
+          title: Stream
+          description: Whether to stream the transcription result. When set to `true`, the transcription is sent as [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format) once generated.
+          default: true
+        temperature:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Temperature
+          description: The sampling temperature, between 0 and 1. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+      type: object
+      required:
+      - model
+      - file
+      title: ServerlessAudioTranscriptionStreamBody
+      example:
+        file: '@/path/to/file/audio.mp3'
+        model: openai/whisper-large-v3
   securitySchemes:
     token:
       type: http
