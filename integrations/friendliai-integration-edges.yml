@@ -127,6 +127,36 @@ edges:
     detected: '2026-10-19'
   detected_by: sweep-model-routing.py
   first_seen: '2026-10-13'
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/FriendliAI
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - FriendliAI/documentation-images
+  - FriendliAI/gsm8k
+  - FriendliAI/sample-vision
+  - FriendliAI/samples
+  - FriendliAI/Meta-Llama-3.1-8B-Instruct-int8
+  - FriendliAI/Meta-Llama-3.1-8B-Instruct-fp8
+  - FriendliAI/Molmo-7B-O-0924
+  - FriendliAI/MiniCPM-o-2_6
+  - FriendliAI/chameleon-7b
+  - FriendliAI/Phi-tiny-MoE-instruct
+  - FriendliAI/olmOCR-7B-0225-preview
+  - FriendliAI/Qwen2-VL-7B-Instruct
+  listing_count: 2
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub datasets
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 generated: '2026-10-13'
 method: searched
 checked:
@@ -139,6 +169,7 @@ checked:
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- hugging-face/integrations/hugging-face-integration-edges.yml
 source:
 - https://registry.npmjs.org
 - https://pypi.org/pypi
