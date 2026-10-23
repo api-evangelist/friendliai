@@ -415,6 +415,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/friendliai/overview
 - type: Plans
   url: plans/friendliai-plans-pricing.yml
 - type: CapabilityMap
