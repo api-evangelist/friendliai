@@ -1560,3 +1560,9 @@ x-speakeasy-retries:
   - 503
   - 504
   retryConnectionErrors: true
+x-provenance:
+  method: harvested
+  publisher: FriendliAI
+  source: https://raw.githubusercontent.com/friendliai/friendli-openapi/refs/heads/main/openapi.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
