@@ -1,607 +1,548 @@
 {
+  "info": {
+    "_postman_id": "df9eafb9-d8e4-46ba-b18b-91eb584944c9",
+    "name": "Friendli Suite API Reference Usage API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:47:21.000Z",
+    "updatedAt": "2026-10-21T20:47:21.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-df9eafb9-d8e4-46ba-b18b-91eb584944c9"
+  },
   "item": [
     {
-      "id": "fd4b9b30-f5e8-4763-9434-66ed79360c2a",
-      "name": "Usage",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "3458c1e1-90c8-4969-aabf-be28a981bdcc",
-          "name": "Get usage details for the team.",
-          "request": {
-            "name": "Get usage details for the team.",
-            "description": {},
-            "url": {
-              "path": [
-                "v1",
-                "team",
-                "usage"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "start_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`)."
-                },
-                {
-                  "disabled": false,
-                  "key": "end_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`."
-                },
-                {
-                  "disabled": false,
-                  "key": "bucket_width",
-                  "value": "<string>",
-                  "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288"
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<string>",
-                  "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response."
-                },
-                {
-                  "disabled": false,
-                  "key": "group_by",
-                  "value": "<string>",
-                  "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them."
-                },
-                {
-                  "disabled": false,
-                  "key": "group_by",
-                  "value": "<string>",
-                  "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them."
-                },
-                {
-                  "disabled": false,
-                  "key": "models",
-                  "value": "<string>",
-                  "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix."
-                },
-                {
-                  "disabled": false,
-                  "key": "models",
-                  "value": "<string>",
-                  "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix."
-                },
-                {
-                  "disabled": false,
-                  "key": "user_ids",
-                  "value": "<string>",
-                  "description": "Return only usage for these users."
-                },
-                {
-                  "disabled": false,
-                  "key": "user_ids",
-                  "value": "<string>",
-                  "description": "Return only usage for these users."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_types",
-                  "value": "<string>",
-                  "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them."
-                },
-                {
-                  "disabled": false,
-                  "key": "product_types",
-                  "value": "<string>",
-                  "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them."
-                },
-                {
-                  "disabled": false,
-                  "key": "gpu_types",
-                  "value": "<string>",
-                  "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`."
-                },
-                {
-                  "disabled": false,
-                  "key": "gpu_types",
-                  "value": "<string>",
-                  "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "team",
+          "item": [
             {
-              "id": "7f07af69-e688-4f15-8397-6289aef6a16f",
-              "name": "Team usage response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "usage",
+              "item": [
+                {
+                  "name": "Get usage details for the team",
+                  "id": "fc6dccd1-68ca-4dc2-9744-061a0378d29f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/team/usage?start_time=<dateTime>&end_time=<dateTime>&bucket_width=5m&limit=<integer>&page=<string>&group_by=product_type&group_by=model&models=<string>&models=<string>&user_ids=<string>&user_ids=<string>&product_types=model_apis&product_types=dedicated_endpoints&gpu_types=<string>&gpu_types=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "team",
+                        "usage"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.",
+                          "key": "bucket_width",
+                          "value": "5m"
+                        },
+                        {
+                          "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                          "key": "page",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                          "key": "group_by",
+                          "value": "product_type"
+                        },
+                        {
+                          "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                          "key": "group_by",
+                          "value": "model"
+                        },
+                        {
+                          "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                          "key": "models",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                          "key": "models",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return only usage for these users.",
+                          "key": "user_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return only usage for these users.",
+                          "key": "user_ids",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                          "key": "product_types",
+                          "value": "model_apis"
+                        },
+                        {
+                          "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                          "key": "product_types",
+                          "value": "dedicated_endpoints"
+                        },
+                        {
+                          "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                          "key": "gpu_types",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                          "key": "gpu_types",
+                          "value": "<string>"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
                     {
-                      "key": "start_time",
-                      "value": "<dateTime>"
+                      "id": "365c04b6-acfe-414a-baf2-b2e09baf8e8b",
+                      "name": "Team usage response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/usage?start_time=<dateTime>&end_time=<dateTime>&bucket_width=5m&limit=<integer>&page=<string>&group_by=model&models=<string>&user_ids=<string>&product_types=dedicated_endpoints&gpu_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "usage"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "5m"
+                            },
+                            {
+                              "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                              "key": "group_by",
+                              "value": "model"
+                            },
+                            {
+                              "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                              "key": "models",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for these users.",
+                              "key": "user_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                              "key": "product_types",
+                              "value": "dedicated_endpoints"
+                            },
+                            {
+                              "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                              "key": "gpu_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"data\": [\n    {\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\",\n      \"results\": [\n        {\n          \"num_model_requests\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"input_cached_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"product_type\": \"model_apis\",\n          \"model\": \"<string>\",\n          \"user_id\": \"<string>\",\n          \"gpu_usage\": {\n            \"elit_5_\": \"<integer>\",\n            \"eiusmod_24\": \"<integer>\"\n          },\n          \"processed_audio_length_ms\": \"<integer>\"\n        },\n        {\n          \"num_model_requests\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"input_cached_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"product_type\": \"model_apis\",\n          \"model\": \"<string>\",\n          \"user_id\": \"<string>\",\n          \"gpu_usage\": {\n            \"dolore\": \"<integer>\",\n            \"magna__c\": \"<integer>\",\n            \"qui_d2_\": \"<integer>\"\n          },\n          \"processed_audio_length_ms\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\",\n      \"results\": [\n        {\n          \"num_model_requests\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"input_cached_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"product_type\": \"dedicated_endpoints\",\n          \"model\": \"<string>\",\n          \"user_id\": \"<string>\",\n          \"gpu_usage\": {\n            \"sedd\": \"<integer>\"\n          },\n          \"processed_audio_length_ms\": \"<integer>\"\n        },\n        {\n          \"num_model_requests\": \"<integer>\",\n          \"input_tokens\": \"<integer>\",\n          \"input_cached_tokens\": \"<integer>\",\n          \"output_tokens\": \"<integer>\",\n          \"product_type\": \"dedicated_endpoints\",\n          \"model\": \"<string>\",\n          \"user_id\": \"<string>\",\n          \"gpu_usage\": {\n            \"fugiat35\": \"<integer>\",\n            \"ipsum_b6c\": \"<integer>\",\n            \"commodo7b\": \"<integer>\"\n          },\n          \"processed_audio_length_ms\": \"<integer>\"\n        }\n      ]\n    }\n  ],\n  \"next_page\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:47:21.000Z",
+                      "updatedAt": "2026-10-21T20:47:21.000Z",
+                      "uid": "35240-365c04b6-acfe-414a-baf2-b2e09baf8e8b"
                     },
                     {
-                      "key": "end_time",
-                      "value": "<dateTime>"
+                      "id": "d0dba2a4-8843-4fec-945f-dd70f0febd5c",
+                      "name": "Invalid request parameters",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/usage?start_time=<dateTime>&end_time=<dateTime>&bucket_width=5m&limit=<integer>&page=<string>&group_by=model&models=<string>&user_ids=<string>&product_types=dedicated_endpoints&gpu_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "usage"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "5m"
+                            },
+                            {
+                              "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                              "key": "group_by",
+                              "value": "model"
+                            },
+                            {
+                              "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                              "key": "models",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for these users.",
+                              "key": "user_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                              "key": "product_types",
+                              "value": "dedicated_endpoints"
+                            },
+                            {
+                              "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                              "key": "gpu_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:21.000Z",
+                      "updatedAt": "2026-10-21T20:47:21.000Z",
+                      "uid": "35240-d0dba2a4-8843-4fec-945f-dd70f0febd5c"
                     },
                     {
-                      "key": "bucket_width",
-                      "value": "1h"
+                      "id": "4663af7f-7902-43bd-9f3d-f24144bc712e",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/usage?start_time=<dateTime>&end_time=<dateTime>&bucket_width=5m&limit=<integer>&page=<string>&group_by=model&models=<string>&user_ids=<string>&product_types=dedicated_endpoints&gpu_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "usage"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "5m"
+                            },
+                            {
+                              "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                              "key": "group_by",
+                              "value": "model"
+                            },
+                            {
+                              "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                              "key": "models",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for these users.",
+                              "key": "user_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                              "key": "product_types",
+                              "value": "dedicated_endpoints"
+                            },
+                            {
+                              "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                              "key": "gpu_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:21.000Z",
+                      "updatedAt": "2026-10-21T20:47:21.000Z",
+                      "uid": "35240-4663af7f-7902-43bd-9f3d-f24144bc712e"
                     },
                     {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "user_id"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "model"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "dedicated_endpoints"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "model_apis"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
+                      "id": "cf7e76ae-065f-4fb2-ae97-d92e215658a8",
+                      "name": "Rate limit exceeded",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/usage?start_time=<dateTime>&end_time=<dateTime>&bucket_width=5m&limit=<integer>&page=<string>&group_by=model&models=<string>&user_ids=<string>&product_types=dedicated_endpoints&gpu_types=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "usage"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z). It must be no earlier than one year ago. When `bucket_width=1h`, it must align to an hour boundary (e.g., `10:00:00Z`); when `bucket_width=1d`, it must align to a day boundary (e.g., `00:00:00Z`).",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. Must fall on a 5-minute boundary (e.g., 2026-01-01T10:05:00Z), and its minute value must match `start_time`'s. It must obey the same hour/day alignment as `start_time` when `bucket_width=1h` or `1d`.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently `1d`, `1h`, and `5m` are supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "5m"
+                            },
+                            {
+                              "description": "Specifies the number of buckets to return.\n- `bucket_width=1d`: default limit = 7, max limit = 31\n- `bucket_width=1h`: default limit = 24, max limit = 168\n- `bucket_width=5m`: default limit = 12, max limit = 288",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the usage by the specified fields. Support fields include `model`, `product_type`, `user_id` and any combination of them.",
+                              "key": "group_by",
+                              "value": "model"
+                            },
+                            {
+                              "description": "Return only usage for the listed Model APIs and Dedicated Endpoints. Values are model IDs, endpoint IDs, or a mix.",
+                              "key": "models",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for these users.",
+                              "key": "user_ids",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Return only usage for the specified product types. Supported fields include `model_apis`, `dedicated_endpoints` and any combination of them.",
+                              "key": "product_types",
+                              "value": "dedicated_endpoints"
+                            },
+                            {
+                              "description": "Return only usage for the specified GPU types. When this filter is applied, product_types is implicitly set to `dedicated_endpoints`.",
+                              "key": "gpu_types",
+                              "value": "<string>"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:21.000Z",
+                      "updatedAt": "2026-10-21T20:47:21.000Z",
+                      "uid": "35240-cf7e76ae-065f-4fb2-ae97-d92e215658a8"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:47:21.000Z",
+                  "updatedAt": "2026-10-21T20:47:21.000Z",
+                  "uid": "35240-fc6dccd1-68ca-4dc2-9744-061a0378d29f"
                 }
               ],
-              "body": "{\n  \"has_more\": false,\n  \"data\": [\n    {\n      \"start_time\": \"2023-11-07T00:00:00Z\",\n      \"end_time\": \"2023-11-08T00:00:00Z\",\n      \"results\": [\n        {\n          \"num_model_requests\": 1200,\n          \"input_tokens\": 180000,\n          \"input_cached_tokens\": 45000,\n          \"output_tokens\": 62000,\n          \"product_type\": \"model_apis\",\n          \"model\": \"zai-org/GLM-5.2\",\n          \"user_id\": \"user_id_123\"\n        }\n      ]\n    },\n    {\n      \"start_time\": \"2023-11-08T00:00:00Z\",\n      \"end_time\": \"2023-11-09T00:00:00Z\",\n      \"results\": [\n        {\n          \"num_model_requests\": 800,\n          \"input_tokens\": 120000,\n          \"input_cached_tokens\": 30000,\n          \"output_tokens\": 41000,\n          \"product_type\": \"dedicated_endpoints\",\n          \"model\": \"dedicated-endpoint-01\",\n          \"user_id\": \"user_id_456\",\n          \"gpu_usage\": {\n            \"a100\": 120000,\n            \"h100\": 80000\n          }\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "88270228-7724-4bc0-91ef-5bd4d19a25bd",
-              "name": "Invalid request parameters",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "bucket_width",
-                      "value": "1h"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "user_id"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "model"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "dedicated_endpoints"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "model_apis"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7e36fe6a-55e3-42dc-b232-fccf50d1f53e",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "bucket_width",
-                      "value": "1h"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "user_id"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "model"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "dedicated_endpoints"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "model_apis"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9378745d-0c24-41b8-bb0c-e68fded73cb4",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "usage"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "bucket_width",
-                      "value": "1h"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "user_id"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "model"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "models",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "user_ids",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "dedicated_endpoints"
-                    },
-                    {
-                      "key": "product_types",
-                      "value": "model_apis"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "gpu_types",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "1b8ac17e-a021-4012-94af-1e2e76e904a2",
+              "createdAt": "2026-10-21T20:47:21.000Z",
+              "updatedAt": "2026-10-21T20:47:21.000Z",
+              "uid": "35240-1b8ac17e-a021-4012-94af-1e2e76e904a2"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "fad66c8c-7677-4fe4-b078-4bd16991fd4c",
+          "createdAt": "2026-10-21T20:47:21.000Z",
+          "updatedAt": "2026-10-21T20:47:21.000Z",
+          "uid": "35240-fad66c8c-7677-4fe4-b078-4bd16991fd4c"
         }
       ],
-      "event": []
+      "id": "c3c4b99b-12bf-4a97-9f97-1bb247a7691e",
+      "createdAt": "2026-10-21T20:47:21.000Z",
+      "updatedAt": "2026-10-21T20:47:21.000Z",
+      "uid": "35240-c3c4b99b-12bf-4a97-9f97-1bb247a7691e"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "76824e62-8497-495d-809d-3c6796e98612",
-    "name": "Friendli Suite API Reference Container.Audio Usage API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

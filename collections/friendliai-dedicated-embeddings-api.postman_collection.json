@@ -1,210 +1,226 @@
 {
+  "info": {
+    "_postman_id": "3306a9fd-5605-46a5-a975-d11a5a451c7c",
+    "name": "Friendli Suite API Reference Dedicated.Embeddings API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:43:44.000Z",
+    "updatedAt": "2026-10-21T20:43:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3306a9fd-5605-46a5-a975-d11a5a451c7c"
+  },
   "item": [
     {
-      "id": "473c4ed4-f381-432b-9905-1178ddf3ca63",
-      "name": "Dedicated.Embeddings",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "dedicated",
       "item": [
         {
-          "id": "e2d783c1-1894-49f2-b3d6-49b518edd593",
-          "name": "Embeddings",
-          "request": {
-            "name": "Embeddings",
-            "description": {
-              "content": "Generate an embedding vector from input text or token sequence.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "embeddings"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"encoding_format\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "c7c3703f-b890-48b7-b6ff-e1089ed12e28",
-              "name": "Successfully generated embeddings.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "embeddings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"encoding_format\": \"float\",\n  \"input\": \"The food was delicious and the waiter...\",\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "embeddings",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Embeddings",
+                  "id": "7edc891f-6f03-4a42-b550-9b57044055c0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"encoding_format\": \"float\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dedicated/v1/embeddings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dedicated",
+                        "v1",
+                        "embeddings"
+                      ]
+                    },
+                    "description": "Generate an embedding vector from input text or token sequence."
+                  },
+                  "response": [
+                    {
+                      "id": "9e9c3fd7-a4ac-4db0-b939-a3380df150dd",
+                      "name": "Successfully generated embeddings.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"encoding_format\": \"float\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/embeddings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "embeddings"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"data\": [\n    {\n      \"index\": \"<integer>\",\n      \"object\": \"<string>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    {\n      \"index\": \"<integer>\",\n      \"object\": \"<string>\",\n      \"embedding\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"completion_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"prompt_tokens_details\": {\n      \"cached_tokens\": \"<integer>\"\n    }\n  },\n  \"created\": \"<integer>\",\n  \"model\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:43:44.000Z",
+                      "updatedAt": "2026-10-21T20:43:44.000Z",
+                      "uid": "35240-9e9c3fd7-a4ac-4db0-b939-a3380df150dd"
+                    },
+                    {
+                      "id": "4650af48-e78b-463c-b67e-141797c8d384",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"encoding_format\": \"float\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/embeddings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "embeddings"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:43:44.000Z",
+                      "updatedAt": "2026-10-21T20:43:44.000Z",
+                      "uid": "35240-4650af48-e78b-463c-b67e-141797c8d384"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:43:44.000Z",
+                  "updatedAt": "2026-10-21T20:43:44.000Z",
+                  "uid": "35240-7edc891f-6f03-4a42-b550-9b57044055c0"
                 }
               ],
-              "body": "{\n  \"id\": \"embd-26a1e10db1311bc2adb488d2d205288b\",\n  \"model\": \"(endpoint-id)\",\n  \"object\": \"list\",\n  \"data\": [\n    {\n      \"index\": 0,\n      \"object\": \"embedding\",\n      \"embedding\": [\n        0.0023064255,\n        -0.009327292,\n        -0.0028842222\n      ]\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 26,\n    \"completion_tokens\": 0,\n    \"total_tokens\": 26\n  },\n  \"created\": 1735722153\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6b28936b-6721-495f-ac41-5b267e33d636",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "embeddings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"encoding_format\": \"float\",\n  \"input\": \"The food was delicious and the waiter...\",\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "8086558d-48a4-40fe-8ef2-b4733284f4a1",
+              "createdAt": "2026-10-21T20:43:44.000Z",
+              "updatedAt": "2026-10-21T20:43:44.000Z",
+              "uid": "35240-8086558d-48a4-40fe-8ef2-b4733284f4a1"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "e9c95428-1ecf-4392-b3f5-db43e55874e4",
+          "createdAt": "2026-10-21T20:43:44.000Z",
+          "updatedAt": "2026-10-21T20:43:44.000Z",
+          "uid": "35240-e9c95428-1ecf-4392-b3f5-db43e55874e4"
         }
       ],
-      "event": []
+      "id": "1c8a9a20-1d7c-483f-8331-1d63f66ffa57",
+      "createdAt": "2026-10-21T20:43:44.000Z",
+      "updatedAt": "2026-10-21T20:43:44.000Z",
+      "uid": "35240-1c8a9a20-1d7c-483f-8331-1d63f66ffa57"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "3b3296a1-5d59-483e-9a4a-fd544c8309a9",
-    "name": "Friendli Suite API Reference Container.Audio Dedicated.Embeddings API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

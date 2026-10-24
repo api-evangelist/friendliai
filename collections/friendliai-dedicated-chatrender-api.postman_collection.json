@@ -1,213 +1,238 @@
 {
+  "info": {
+    "_postman_id": "2b12c9ea-5dec-40b4-9155-d2b31b8540b5",
+    "name": "Friendli Suite API Reference Dedicated.Chat Render API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:43:26.000Z",
+    "updatedAt": "2026-10-21T20:43:27.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-2b12c9ea-5dec-40b4-9155-d2b31b8540b5"
+  },
   "item": [
     {
-      "id": "bd9e5880-0bd1-40f0-9dc7-1425a6f20e1c",
-      "name": "Dedicated.ChatRender",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "dedicated",
       "item": [
         {
-          "id": "d25282c2-9e59-4812-a24c-c0a2b73e44ca",
-          "name": "Chat render",
-          "request": {
-            "name": "Chat render",
-            "description": {
-              "content": "Render a list of chat messages into the prompt text sent to the model.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "chat",
-                "render"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 7506,\n          \"key_1\": 7893\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "96a550d7-9795-4ebb-bca1-7c49ff3d3a09",
-              "name": "Successfully rendered chat messages into prompt text.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "chat",
-                    "render"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "chat",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "render",
+                  "item": [
+                    {
+                      "name": "Chat render",
+                      "id": "0f7e017e-85ac-4ce9-9512-51fd5769bc75",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"animf\": 76192625\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"culpa_0\": 1285689.8419179767\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"pariatur1\": true\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/chat/render",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "chat",
+                            "render"
+                          ]
+                        },
+                        "description": "Render a list of chat messages into the prompt text sent to the model."
+                      },
+                      "response": [
+                        {
+                          "id": "e789f9b2-2edb-48a4-b7a7-fae86d442fa9",
+                          "name": "Successfully rendered chat messages into prompt text.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"animf\": 76192625\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"culpa_0\": 1285689.8419179767\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"pariatur1\": true\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/chat/render",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "chat",
+                                "render"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"text\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:43:27.000Z",
+                          "updatedAt": "2026-10-21T20:43:27.000Z",
+                          "uid": "35240-e789f9b2-2edb-48a4-b7a7-fae86d442fa9"
+                        },
+                        {
+                          "id": "7bd6a9ed-21a9-4767-8076-d29c98bb17d6",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"chat_template_kwargs\": {\n    \"animf\": 76192625\n  },\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"culpa_0\": 1285689.8419179767\n        },\n        \"description\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"function\": {\n        \"name\": \"<string>\",\n        \"parameters\": {\n          \"pariatur1\": true\n        },\n        \"description\": \"<string>\"\n      }\n    }\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/chat/render",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "chat",
+                                "render"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:43:27.000Z",
+                          "updatedAt": "2026-10-21T20:43:27.000Z",
+                          "uid": "35240-7bd6a9ed-21a9-4767-8076-d29c98bb17d6"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:43:27.000Z",
+                      "updatedAt": "2026-10-21T20:43:27.000Z",
+                      "uid": "35240-0f7e017e-85ac-4ce9-9512-51fd5769bc75"
+                    }
+                  ],
+                  "id": "d1fdca79-9fab-4431-9e0f-f74f2bbf0f79",
+                  "createdAt": "2026-10-21T20:43:27.000Z",
+                  "updatedAt": "2026-10-21T20:43:27.000Z",
+                  "uid": "35240-d1fdca79-9fab-4431-9e0f-f74f2bbf0f79"
                 }
               ],
-              "body": "{\n  \"text\": \"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\\nYou are a helpful assistant.<|eot_id|><|start_header_id|>user<|end_header_id|>\\nHello!<|eot_id|><|start_header_id|>assistant<|end_header_id|>\\n\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "62a6dcdc-b432-48c6-8e7c-71b5c10af5c9",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "chat",
-                    "render"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"You are a helpful assistant.\",\n      \"role\": \"system\"\n    },\n    {\n      \"content\": \"Hello!\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "83e3993e-71c6-45d2-afbe-d93581ea3cad",
+              "createdAt": "2026-10-21T20:43:27.000Z",
+              "updatedAt": "2026-10-21T20:43:27.000Z",
+              "uid": "35240-83e3993e-71c6-45d2-afbe-d93581ea3cad"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2ce79a72-e872-42ac-9eed-cdc2e8377f1b",
+          "createdAt": "2026-10-21T20:43:27.000Z",
+          "updatedAt": "2026-10-21T20:43:27.000Z",
+          "uid": "35240-2ce79a72-e872-42ac-9eed-cdc2e8377f1b"
         }
       ],
-      "event": []
+      "id": "595bc2fc-d282-45d3-82ea-48c5b7dd1abd",
+      "createdAt": "2026-10-21T20:43:27.000Z",
+      "updatedAt": "2026-10-21T20:43:27.000Z",
+      "uid": "35240-595bc2fc-d282-45d3-82ea-48c5b7dd1abd"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "5a86081d-a697-43b2-a871-cda23017d51c",
-    "name": "Friendli Suite API Reference Container.Audio Dedicated.ChatRender API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

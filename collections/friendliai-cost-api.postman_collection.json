@@ -1,340 +1,352 @@
 {
+  "info": {
+    "_postman_id": "c00be2c6-532c-4d14-b594-9ba7431e61d0",
+    "name": "Friendli Suite API Reference Cost API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:43:00.000Z",
+    "updatedAt": "2026-10-21T20:43:00.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-c00be2c6-532c-4d14-b594-9ba7431e61d0"
+  },
   "item": [
     {
-      "id": "04d6559a-4780-41e0-9389-14aca611e21e",
-      "name": "Cost",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "adcadd3b-262a-421b-884a-a464468cab9a",
-          "name": "Cost",
-          "request": {
-            "name": "Cost",
-            "description": {
-              "content": "Get cost details for the team.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "team",
-                "cost"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "start_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-01T00:00:00Z). Must be no earlier than one year ago."
-                },
-                {
-                  "disabled": false,
-                  "key": "bucket_width",
-                  "value": "<string>",
-                  "description": "Width of each time bucket in response. Currently only `1d` is supported, default to `1d`."
-                },
-                {
-                  "disabled": false,
-                  "key": "end_time",
-                  "value": "<dateTime>",
-                  "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-02T00:00:00Z). Must not be later than midnight UTC of the next day."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "<integer>",
-                  "description": "A limit on the number of buckets to be returned. Limit can range between 1 and 35, and the default is 7."
-                },
-                {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<string>",
-                  "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response."
-                },
-                {
-                  "disabled": false,
-                  "key": "group_by",
-                  "value": "<string>",
-                  "description": "Group the costs by the specified fields. Currently only `line_item` is supported."
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
+          "name": "team",
+          "item": [
             {
-              "id": "74715421-705b-47fa-afb1-00fba7827b57",
-              "name": "Team cost response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "cost"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "cost",
+              "item": [
+                {
+                  "name": "Cost",
+                  "id": "fefaf8df-bccb-4108-afb5-cd19cb660048",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/team/cost?start_time=<dateTime>&bucket_width=1d&end_time=<dateTime>&limit=<integer>&page=<string>&group_by=line_item",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "team",
+                        "cost"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-01T00:00:00Z). Must be no earlier than one year ago.",
+                          "key": "start_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.",
+                          "key": "bucket_width",
+                          "value": "1d"
+                        },
+                        {
+                          "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-02T00:00:00Z). Must not be later than midnight UTC of the next day.",
+                          "key": "end_time",
+                          "value": "<dateTime>"
+                        },
+                        {
+                          "description": "A limit on the number of buckets to be returned. Limit can range between 1 and 35, and the default is 7.",
+                          "key": "limit",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                          "key": "page",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Group the costs by the specified fields. Currently only `line_item` is supported.",
+                          "key": "group_by",
+                          "value": "line_item"
+                        }
+                      ]
+                    },
+                    "description": "Get cost details for the team."
+                  },
+                  "response": [
                     {
-                      "key": "start_time",
-                      "value": "<dateTime>"
+                      "id": "282cd0e7-5ff2-4bda-8e55-729551a6b97c",
+                      "name": "Team cost response",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/cost?start_time=<dateTime>&bucket_width=1d&end_time=<dateTime>&limit=<integer>&page=<string>&group_by=line_item",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "cost"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-01T00:00:00Z). Must be no earlier than one year ago.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-02T00:00:00Z). Must not be later than midnight UTC of the next day.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "A limit on the number of buckets to be returned. Limit can range between 1 and 35, and the default is 7.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the costs by the specified fields. Currently only `line_item` is supported.",
+                              "key": "group_by",
+                              "value": "line_item"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"has_more\": \"<boolean>\",\n  \"data\": [\n    {\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\",\n      \"results\": [\n        {\n          \"total\": \"<number>\",\n          \"quantity\": \"<number>\",\n          \"unit_price\": \"<number>\",\n          \"line_item\": \"<string>\"\n        },\n        {\n          \"total\": \"<number>\",\n          \"quantity\": \"<number>\",\n          \"unit_price\": \"<number>\",\n          \"line_item\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"start_time\": \"<dateTime>\",\n      \"end_time\": \"<dateTime>\",\n      \"results\": [\n        {\n          \"total\": \"<number>\",\n          \"quantity\": \"<number>\",\n          \"unit_price\": \"<number>\",\n          \"line_item\": \"<string>\"\n        },\n        {\n          \"total\": \"<number>\",\n          \"quantity\": \"<number>\",\n          \"unit_price\": \"<number>\",\n          \"line_item\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"next_page\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:43:00.000Z",
+                      "updatedAt": "2026-10-21T20:43:00.000Z",
+                      "uid": "35240-282cd0e7-5ff2-4bda-8e55-729551a6b97c"
                     },
                     {
-                      "key": "bucket_width",
-                      "value": "1d"
+                      "id": "4d91144f-ad85-45fa-8266-e72b120c38d2",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/cost?start_time=<dateTime>&bucket_width=1d&end_time=<dateTime>&limit=<integer>&page=<string>&group_by=line_item",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "cost"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-01T00:00:00Z). Must be no earlier than one year ago.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-02T00:00:00Z). Must not be later than midnight UTC of the next day.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "A limit on the number of buckets to be returned. Limit can range between 1 and 35, and the default is 7.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the costs by the specified fields. Currently only `line_item` is supported.",
+                              "key": "group_by",
+                              "value": "line_item"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:43:00.000Z",
+                      "updatedAt": "2026-10-21T20:43:00.000Z",
+                      "uid": "35240-4d91144f-ad85-45fa-8266-e72b120c38d2"
                     },
                     {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "line_item"
+                      "id": "102b1385-f16b-4ca4-90dd-7b6a5070d8f5",
+                      "name": "Rate limit exceeded",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/team/cost?start_time=<dateTime>&bucket_width=1d&end_time=<dateTime>&limit=<integer>&page=<string>&group_by=line_item",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "team",
+                            "cost"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-01T00:00:00Z). Must be no earlier than one year ago.",
+                              "key": "start_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.",
+                              "key": "bucket_width",
+                              "value": "1d"
+                            },
+                            {
+                              "description": "(Required) RFC 3339 timestamp in UTC. The time portion must be zeroed out (e.g., 2026-01-02T00:00:00Z). Must not be later than midnight UTC of the next day.",
+                              "key": "end_time",
+                              "value": "<dateTime>"
+                            },
+                            {
+                              "description": "A limit on the number of buckets to be returned. Limit can range between 1 and 35, and the default is 7.",
+                              "key": "limit",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "A cursor for use in pagination. Corresponding to the `next_page` field from the previous response.",
+                              "key": "page",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Group the costs by the specified fields. Currently only `line_item` is supported.",
+                              "key": "group_by",
+                              "value": "line_item"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:43:00.000Z",
+                      "updatedAt": "2026-10-21T20:43:00.000Z",
+                      "uid": "35240-102b1385-f16b-4ca4-90dd-7b6a5070d8f5"
                     }
                   ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "createdAt": "2026-10-21T20:43:00.000Z",
+                  "updatedAt": "2026-10-21T20:43:00.000Z",
+                  "uid": "35240-fefaf8df-bccb-4108-afb5-cd19cb660048"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"has_more\": true,\n      \"data\": [\n        {\n          \"start_time\": \"2023-11-07T05:31:56Z\",\n          \"end_time\": \"2023-11-07T05:31:56Z\",\n          \"results\": [\n            {\n              \"total\": 2.709083,\n              \"quantity\": 0.934167,\n              \"unit_price\": 290,\n              \"line_item\": \"h100, gpu_time\"\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "18dbfd94-e10f-4bc0-9576-ab1ab98a30aa",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "cost"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "bucket_width",
-                      "value": "1d"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "line_item"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d25e54ef-e1d3-463b-bc50-350814a64b07",
-              "name": "Rate limit exceeded",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "team",
-                    "cost"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "start_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "bucket_width",
-                      "value": "1d"
-                    },
-                    {
-                      "key": "end_time",
-                      "value": "<dateTime>"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "page",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "group_by",
-                      "value": "line_item"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "a123454f-c9ec-49fa-b79d-c9cb8714256f",
+              "createdAt": "2026-10-21T20:43:00.000Z",
+              "updatedAt": "2026-10-21T20:43:00.000Z",
+              "uid": "35240-a123454f-c9ec-49fa-b79d-c9cb8714256f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "f78a1e7c-a8bf-4dd6-8359-290ce998e2e3",
+          "createdAt": "2026-10-21T20:43:00.000Z",
+          "updatedAt": "2026-10-21T20:43:00.000Z",
+          "uid": "35240-f78a1e7c-a8bf-4dd6-8359-290ce998e2e3"
         }
       ],
-      "event": []
+      "id": "43d6df2e-12eb-4469-b45d-f2bac3886e9c",
+      "createdAt": "2026-10-21T20:43:00.000Z",
+      "updatedAt": "2026-10-21T20:43:00.000Z",
+      "uid": "35240-43d6df2e-12eb-4469-b45d-f2bac3886e9c"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "da3fadcd-098b-47e4-82e5-981b5da71315",
-    "name": "Friendli Suite API Reference Container.Audio Cost API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

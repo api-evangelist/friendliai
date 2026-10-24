@@ -1,307 +1,332 @@
 {
+  "info": {
+    "_postman_id": "b4a77914-ba68-4b10-b41b-5e18a330fd91",
+    "name": "Friendli Suite API Reference Container.Responses API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:42:43.000Z",
+    "updatedAt": "2026-10-21T20:42:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b4a77914-ba68-4b10-b41b-5e18a330fd91"
+  },
   "item": [
     {
-      "id": "1f927c60-f458-49ca-8109-5b0f6d27b1e1",
-      "name": "Container.Responses",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "v1",
       "item": [
         {
-          "id": "d25a7d78-fb73-4c3a-9fbe-7874e783cdc6",
-          "name": "Responses",
-          "request": {
-            "name": "Responses",
-            "description": {
-              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "responses"
-              ],
-              "host": [
-                "{{v1-responses-Url}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": 895\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 4612.843781382981\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": \"<boolean>\",\n  \"model\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "responses",
+          "item": [
             {
-              "id": "98197779-f9a8-4a66-99d0-aa7120948eb3",
-              "name": "Successfully generated a response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "responses"
-                  ],
-                  "host": [
-                    "{{v1-responses-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Responses",
+              "id": "c947443f-90d6-4dd1-ad27-e8bbd63dd68c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"anim_37\": 47280954,\n        \"irure7e\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"do_3_e\": -9510869.682612807,\n        \"incididunt37\": -19961834,\n        \"Excepteur_d_\": -26909905,\n        \"consectetur_2\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"max\"\n  },\n  \"stream\": \"<boolean>\",\n  \"model\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"resp_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"object\": \"response\",\n  \"created_at\": 1735722153,\n  \"status\": \"completed\",\n  \"output\": [\n    {\n      \"type\": \"message\",\n      \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n      \"status\": \"completed\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"Hello there, how may I assist you today?\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": 9,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 0\n    },\n    \"output_tokens\": 11,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 0\n    },\n    \"total_tokens\": 20\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "1fab02e1-3c07-4a2f-b086-e30390b948a8",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/v1/responses",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "responses"
-                  ],
-                  "host": [
-                    "{{v1-responses-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls."
               },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "9a87af0d-172a-49c4-9c09-e3e8287fd3de",
+                  "name": "Successfully generated a response.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"anim_37\": 47280954,\n        \"irure7e\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"do_3_e\": -9510869.682612807,\n        \"incididunt37\": -19961834,\n        \"Excepteur_d_\": -26909905,\n        \"consectetur_2\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"max\"\n  },\n  \"stream\": \"<boolean>\",\n  \"model\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/responses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "responses"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"created_at\": \"<integer>\",\n  \"output\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"role\": \"<string>\",\n      \"status\": \"completed\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"role\": \"<string>\",\n      \"status\": \"incomplete\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"error\": {\n    \"code\": \"image_too_small\",\n    \"message\": \"<string>\"\n  },\n  \"status\": \"cancelled\",\n  \"usage\": {\n    \"input_tokens\": \"<integer>\",\n    \"input_tokens_details\": {\n      \"cached_tokens\": \"<integer>\"\n    },\n    \"output_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\"\n    }\n  },\n  \"incomplete_details\": {\n    \"reason\": \"<string>\"\n  },\n  \"model\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:42:44.000Z",
+                  "updatedAt": "2026-10-21T20:42:44.000Z",
+                  "uid": "35240-9a87af0d-172a-49c4-9c09-e3e8287fd3de"
+                },
+                {
+                  "id": "0f540045-cb4c-4c9e-8bdf-56d7ee8858d3",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"anim_37\": 47280954,\n        \"irure7e\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"do_3_e\": -9510869.682612807,\n        \"incididunt37\": -19961834,\n        \"Excepteur_d_\": -26909905,\n        \"consectetur_2\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"max\"\n  },\n  \"stream\": \"<boolean>\",\n  \"model\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/responses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "responses"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:42:44.000Z",
+                  "updatedAt": "2026-10-21T20:42:44.000Z",
+                  "uid": "35240-0f540045-cb4c-4c9e-8bdf-56d7ee8858d3"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:42:44.000Z",
+              "updatedAt": "2026-10-21T20:42:44.000Z",
+              "uid": "35240-c947443f-90d6-4dd1-ad27-e8bbd63dd68c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "7544d30f-d7ad-4510-a9b2-c497f4093162",
+          "createdAt": "2026-10-21T20:42:44.000Z",
+          "updatedAt": "2026-10-21T20:42:44.000Z",
+          "uid": "35240-7544d30f-d7ad-4510-a9b2-c497f4093162"
         },
         {
-          "id": "61be007c-518f-4778-8d1d-cfff3502c2df",
-          "name": "Stream responses",
-          "request": {
-            "name": "Stream responses",
-            "description": {
-              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "v1",
-                "responses"
-              ],
-              "hash": "stream",
-              "host": [
-                "{{v1-responses#stream-Url}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "text/event-stream"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 4587,\n        \"key_1\": \"string\"\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": true,\n  \"model\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "responses#stream",
+          "item": [
             {
-              "id": "eb9b3f6e-303f-42cc-8d23-8064739173f1",
-              "name": "Successfully generated a streamed response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "responses"
-                  ],
-                  "hash": "stream",
-                  "host": [
-                    "{{v1-responses#stream-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+              "name": "Stream responses",
+              "id": "f61eb748-c172-4ca3-9b36-f721317dc20c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "text/event-stream"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\"\n}",
+                  "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"cillum_6\": \"eiusmod cillum velit sed proide\",\n        \"euc29\": false,\n        \"proident79\": \"sed ad\",\n        \"ide\": -11931530.494398817\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"deserunt_0_\": \"tempor commod\",\n        \"eiusmod9e\": 18393715.959738404\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": true,\n  \"model\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/event-stream"
-                }
-              ],
-              "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"in_progress\",\"output\":[]},\"sequence_number\":0}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":1}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\"},\"sequence_number\":2}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\",\"sequence_number\":3}\n\n...\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"text\":\"Hello there, how may I assist you today?\",\"sequence_number\":8}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"},\"sequence_number\":9}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]},\"sequence_number\":10}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]}],\"usage\":{\"input_tokens\":9,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":11,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":20}},\"sequence_number\":11}\n",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9a055b2f-975e-4707-ab7e-c3790e305266",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/v1/responses#stream",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "v1",
                     "responses"
                   ],
-                  "hash": "stream",
-                  "host": [
-                    "{{v1-responses#stream-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "hash": "stream"
                 },
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls."
               },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "a806b4ba-bef5-403c-9073-6ea8ca1a0538",
+                  "name": "Successfully generated a streamed response.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/event-stream"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"cillum_6\": \"eiusmod cillum velit sed proide\",\n        \"euc29\": false,\n        \"proident79\": \"sed ad\",\n        \"ide\": -11931530.494398817\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"deserunt_0_\": \"tempor commod\",\n        \"eiusmod9e\": 18393715.959738404\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": true,\n  \"model\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/responses#stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "responses"
+                      ],
+                      "hash": "stream"
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "text/event-stream"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"type\": \"response.failed\",\n    \"response\": {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"output\": [\n        {\n          \"type\": \"<string>\",\n          \"id\": \"<string>\",\n          \"role\": \"<string>\",\n          \"status\": \"incomplete\",\n          \"content\": [\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            },\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"<string>\",\n          \"id\": \"<string>\",\n          \"role\": \"<string>\",\n          \"status\": \"completed\",\n          \"content\": [\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            },\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"error\": {\n        \"code\": \"invalid_image_format\",\n        \"message\": \"<string>\"\n      },\n      \"status\": \"completed\",\n      \"usage\": {\n        \"input_tokens\": \"<integer>\",\n        \"input_tokens_details\": {\n          \"cached_tokens\": \"<integer>\"\n        },\n        \"output_tokens\": \"<integer>\",\n        \"total_tokens\": \"<integer>\",\n        \"output_tokens_details\": {\n          \"reasoning_tokens\": \"<integer>\"\n        }\n      },\n      \"incomplete_details\": {\n        \"reason\": \"<string>\"\n      },\n      \"model\": \"<string>\"\n    },\n    \"sequence_number\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-10-21T20:42:44.000Z",
+                  "updatedAt": "2026-10-21T20:42:44.000Z",
+                  "uid": "35240-a806b4ba-bef5-403c-9073-6ea8ca1a0538"
+                },
+                {
+                  "id": "e31b0bfa-b728-4660-9595-0fceeff54f0c",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"cillum_6\": \"eiusmod cillum velit sed proide\",\n        \"euc29\": false,\n        \"proident79\": \"sed ad\",\n        \"ide\": -11931530.494398817\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"deserunt_0_\": \"tempor commod\",\n        \"eiusmod9e\": 18393715.959738404\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": true,\n  \"model\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/responses#stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "responses"
+                      ],
+                      "hash": "stream"
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:42:44.000Z",
+                  "updatedAt": "2026-10-21T20:42:44.000Z",
+                  "uid": "35240-e31b0bfa-b728-4660-9595-0fceeff54f0c"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:42:44.000Z",
+              "updatedAt": "2026-10-21T20:42:44.000Z",
+              "uid": "35240-f61eb748-c172-4ca3-9b36-f721317dc20c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "3a42b5e0-2a8b-4b4c-8c3e-daa0f74416e7",
+          "createdAt": "2026-10-21T20:42:44.000Z",
+          "updatedAt": "2026-10-21T20:42:44.000Z",
+          "uid": "35240-3a42b5e0-2a8b-4b4c-8c3e-daa0f74416e7"
         }
       ],
-      "event": []
+      "id": "74e80ccc-6c85-494d-bcfd-1e450107dd30",
+      "createdAt": "2026-10-21T20:42:44.000Z",
+      "updatedAt": "2026-10-21T20:42:44.000Z",
+      "uid": "35240-74e80ccc-6c85-494d-bcfd-1e450107dd30"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
-    },
-    {
-      "type": "string",
-      "value": "http://localhost:8000",
-      "key": "v1-responses-Url"
-    },
-    {
-      "type": "string",
-      "value": "http://localhost:8000",
-      "key": "v1-responses#stream-Url"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "b0482c79-91ed-49ff-92c8-929aa0a34ef2",
-    "name": "Friendli Suite API Reference Container.Audio Container.Responses API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

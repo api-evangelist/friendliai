@@ -1,32 +1,26 @@
 {
+  "info": {
+    "_postman_id": "9f1ec0be-c4b0-42a2-9a7a-a901a4f5785c",
+    "name": "Friendli Suite API Reference Container.Classification API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:42:08.000Z",
+    "updatedAt": "2026-10-21T20:42:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9f1ec0be-c4b0-42a2-9a7a-a901a4f5785c"
+  },
   "item": [
     {
-      "id": "d41ca42b-9916-4764-ae76-0555a61aeaa1",
-      "name": "Container.Classification",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "classify",
       "item": [
         {
-          "id": "b34a73f5-206e-4114-90bf-dfd1f7aeb2df",
           "name": "Text classification",
+          "id": "32b6fbc3-a563-4dd7-a4fb-b43826dda832",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Text classification",
-            "description": {
-              "content": "Classify text input into categories with per-class probabilities.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "classify"
-              ],
-              "host": [
-                "{{classify-Url}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,129 +31,137 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/classify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "classify"
+              ]
+            },
+            "description": "Classify text input into categories with per-class probabilities."
           },
           "response": [
             {
-              "id": "cb0c206b-2043-4b95-a6a8-52a466da1bce",
+              "id": "07247a11-9ac3-4493-80de-a9906da35593",
               "name": "Successfully classified the text input.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "classify"
-                  ],
-                  "host": [
-                    "{{classify-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"I love programming.\"\n}",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"index\": 0,\n      \"label\": \"Positive\",\n      \"num_classes\": 2,\n      \"probs\": [\n        0.9,\n        0.1\n      ]\n    }\n  ],\n  \"object\": \"list\",\n  \"usage\": {\n    \"prompt_tokens\": 5,\n    \"total_tokens\": 5\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"index\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"num_classes\": \"<integer>\",\n      \"probs\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    },\n    {\n      \"index\": \"<integer>\",\n      \"label\": \"<string>\",\n      \"num_classes\": \"<integer>\",\n      \"probs\": [\n        \"<number>\",\n        \"<number>\"\n      ]\n    }\n  ],\n  \"object\": \"<string>\",\n  \"usage\": {\n    \"prompt_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\"\n  }\n}",
+              "createdAt": "2026-10-21T20:42:08.000Z",
+              "updatedAt": "2026-10-21T20:42:08.000Z",
+              "uid": "35240-07247a11-9ac3-4493-80de-a9906da35593"
             },
             {
-              "id": "adae1ff8-3133-45b6-86e1-8b4a19522450",
+              "id": "0edd9412-e82a-4a35-9019-10aba204a116",
               "name": "Unprocessable Entity",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "classify"
-                  ],
-                  "host": [
-                    "{{classify-Url}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
                 "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"input\": \"I love programming.\"\n}",
+                  "raw": "{\n  \"model\": \"<string>\",\n  \"input\": \"<string>\",\n  \"tokens\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/classify",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "classify"
+                  ]
                 }
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
               "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:42:08.000Z",
+              "updatedAt": "2026-10-21T20:42:08.000Z",
+              "uid": "35240-0edd9412-e82a-4a35-9019-10aba204a116"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:42:08.000Z",
+          "updatedAt": "2026-10-21T20:42:08.000Z",
+          "uid": "35240-32b6fbc3-a563-4dd7-a4fb-b43826dda832"
         }
       ],
-      "event": []
+      "id": "105470b4-188e-4178-9a1a-a71a1f46a3e8",
+      "createdAt": "2026-10-21T20:42:08.000Z",
+      "updatedAt": "2026-10-21T20:42:08.000Z",
+      "uid": "35240-105470b4-188e-4178-9a1a-a71a1f46a3e8"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
-    },
-    {
-      "type": "string",
-      "value": "http://localhost:8000",
-      "key": "classify-Url"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "83210a85-e0a7-42e5-87c5-e16d9ff45833",
-    "name": "Friendli Suite API Reference Container.Audio Container.Classification API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

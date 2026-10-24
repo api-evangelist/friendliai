@@ -1,803 +1,798 @@
 {
+  "info": {
+    "_postman_id": "a7febc73-39d2-4db1-90bf-dfd9124f7d7d",
+    "name": "Friendli Suite API Reference File API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:45:54.000Z",
+    "updatedAt": "2026-10-21T20:45:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a7febc73-39d2-4db1-90bf-dfd9124f7d7d"
+  },
   "item": [
     {
-      "id": "5867a992-2ad4-429e-b601-454373e2938b",
-      "name": "File",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "beta",
       "item": [
         {
-          "id": "c32832d7-b560-4291-9183-8bd486330c1d",
-          "name": "Initiate file upload",
-          "request": {
-            "name": "Initiate file upload",
-            "description": {
-              "content": "Initiate file upload.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "beta",
-                "file"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"<string>\",\n  \"projectId\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "file",
+          "item": [
             {
-              "id": "0b01c581-fd89-4f37-92ef-6baf9a1c956d",
-              "name": "OK - File is already uploaded.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file"
+              "name": "{file_id}",
+              "item": [
+                {
+                  "name": "download_url",
+                  "item": [
+                    {
+                      "name": "Get file download URL",
+                      "id": "30b1733e-0210-4797-a4b2-f85bbf49b48f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beta/file/:file_id/download_url",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beta",
+                            "file",
+                            ":file_id",
+                            "download_url"
+                          ],
+                          "variable": [
+                            {
+                              "id": "df75c623-8890-4e00-9b50-d5a6264fccfa",
+                              "key": "file_id",
+                              "value": "<string>",
+                              "description": "(Required) File ID"
+                            }
+                          ]
+                        },
+                        "description": "Get file download URL."
+                      },
+                      "response": [
+                        {
+                          "id": "f76fee58-0bae-46de-8446-8ec55911e42d",
+                          "name": "OK",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/beta/file/:file_id/download_url",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "beta",
+                                "file",
+                                ":file_id",
+                                "download_url"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "file_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"fileId\": \"<string>\",\n  \"s3Uri\": \"<string>\",\n  \"downloadUrl\": \"<string>\"\n}",
+                          "createdAt": "2026-10-21T20:45:55.000Z",
+                          "updatedAt": "2026-10-21T20:45:55.000Z",
+                          "uid": "35240-f76fee58-0bae-46de-8446-8ec55911e42d"
+                        },
+                        {
+                          "id": "22a23eca-1eea-4500-a2f1-73880ebd02db",
+                          "name": "Validation Error",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/beta/file/:file_id/download_url",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "beta",
+                                "file",
+                                ":file_id",
+                                "download_url"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "file_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:45:55.000Z",
+                          "updatedAt": "2026-10-21T20:45:55.000Z",
+                          "uid": "35240-22a23eca-1eea-4500-a2f1-73880ebd02db"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:45:55.000Z",
+                      "updatedAt": "2026-10-21T20:45:55.000Z",
+                      "uid": "35240-30b1733e-0210-4797-a4b2-f85bbf49b48f"
+                    }
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  "id": "240707f4-8be2-42f8-9b34-856d02190217",
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-240707f4-8be2-42f8-9b34-856d02190217"
                 },
+                {
+                  "name": "Complete file upload",
+                  "id": "ecce242b-a7b0-47f8-9521-c3747ceb2fde",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beta/file/:file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beta",
+                        "file",
+                        ":file_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "86945631-b14f-4290-9276-3faa3fbca984",
+                          "key": "file_id",
+                          "value": "<string>",
+                          "description": "(Required) File ID"
+                        }
+                      ]
+                    },
+                    "description": "Complete file upload."
+                  },
+                  "response": [
+                    {
+                      "id": "32d6b5f8-8f2a-4d90-b17b-b9df0ba39b42",
+                      "name": "Successful Response",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beta/file/:file_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beta",
+                            "file",
+                            ":file_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "file_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-10-21T20:45:55.000Z",
+                      "updatedAt": "2026-10-21T20:45:55.000Z",
+                      "uid": "35240-32d6b5f8-8f2a-4d90-b17b-b9df0ba39b42"
+                    },
+                    {
+                      "id": "4ed6382d-3d6d-48b7-b891-326612877880",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beta/file/:file_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beta",
+                            "file",
+                            ":file_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "file_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:45:55.000Z",
+                      "updatedAt": "2026-10-21T20:45:55.000Z",
+                      "uid": "35240-4ed6382d-3d6d-48b7-b891-326612877880"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-ecce242b-a7b0-47f8-9521-c3747ceb2fde"
+                },
+                {
+                  "name": "Get file info",
+                  "id": "ef9bd1af-92b3-4d64-a9f0-40e18526dd6a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beta/file/:file_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beta",
+                        "file",
+                        ":file_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b1dd3b06-f5e0-4ee6-85e9-2b1764070e7a",
+                          "key": "file_id",
+                          "value": "<string>",
+                          "description": "(Required) File ID"
+                        }
+                      ]
+                    },
+                    "description": "Get file info."
+                  },
+                  "response": [
+                    {
+                      "id": "cacf9b1f-61d3-4608-8c46-48cec876f3d6",
+                      "name": "OK",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beta/file/:file_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beta",
+                            "file",
+                            ":file_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "file_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"<string>\",\n  \"projectId\": \"<string>\",\n  \"creatorId\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"expiresAt\": \"<dateTime>\",\n  \"status\": \"UPLOADED\"\n}",
+                      "createdAt": "2026-10-21T20:45:55.000Z",
+                      "updatedAt": "2026-10-21T20:45:55.000Z",
+                      "uid": "35240-cacf9b1f-61d3-4608-8c46-48cec876f3d6"
+                    },
+                    {
+                      "id": "cffb432e-383c-4ab3-b9dc-949949928032",
+                      "name": "Validation Error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beta/file/:file_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beta",
+                            "file",
+                            ":file_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "file_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-10-21T20:45:55.000Z",
+                      "updatedAt": "2026-10-21T20:45:55.000Z",
+                      "uid": "35240-cffb432e-383c-4ab3-b9dc-949949928032"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-ef9bd1af-92b3-4d64-a9f0-40e18526dd6a"
+                }
+              ],
+              "id": "ada76594-54ca-43f2-827c-5d6fe5381d34",
+              "createdAt": "2026-10-21T20:45:55.000Z",
+              "updatedAt": "2026-10-21T20:45:55.000Z",
+              "uid": "35240-ada76594-54ca-43f2-827c-5d6fe5381d34"
+            },
+            {
+              "name": "Initiate file upload",
+              "id": "4c2d0113-00a4-4134-b62c-c57bf2ece0cf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
                     "description": "ID of team to run requests as (optional parameter).",
                     "key": "X-Friendli-Team",
                     "value": "<string>"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"<string>\",\n  \"projectId\": \"<string>\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"MaaRHp+:e\",\n  \"projectId\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"fileId\": \"string\",\n  \"uploadUrl\": \"string\",\n  \"aws\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3923\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "8ffe4333-8969-4e14-9290-f7860b762b9c",
-              "name": "Accepted - Return upload URL.",
-              "originalRequest": {
+                },
                 "url": {
+                  "raw": "{{baseUrl}}/beta/file",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "beta",
                     "file"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
+                  ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"<string>\",\n  \"projectId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Initiate file upload."
               },
-              "status": "Accepted",
-              "code": 202,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "94d26daa-349d-48c3-9fd2-eedc54c34a53",
+                  "name": "OK - File is already uploaded.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"MaaRHp+:e\",\n  \"projectId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/beta/file",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beta",
+                        "file"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"fileId\": \"<string>\",\n  \"uploadUrl\": \"<string>\",\n  \"aws\": {\n    \"essed5\": false,\n    \"aliqua9c\": -13896275\n  }\n}",
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-94d26daa-349d-48c3-9fd2-eedc54c34a53"
+                },
+                {
+                  "id": "28c3c8ea-cf58-42cd-9b0b-cfb29bb40986",
+                  "name": "Accepted - Return upload URL.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"MaaRHp+:e\",\n  \"projectId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/beta/file",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beta",
+                        "file"
+                      ]
+                    }
+                  },
+                  "status": "Accepted",
+                  "code": 202,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"fileId\": \"<string>\",\n  \"uploadUrl\": \"<string>\",\n  \"aws\": {\n    \"essed5\": false,\n    \"aliqua9c\": -13896275\n  }\n}",
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-28c3c8ea-cf58-42cd-9b0b-cfb29bb40986"
+                },
+                {
+                  "id": "3c44c1cf-90bf-413c-8432-d6792790cecb",
+                  "name": "Validation Error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"MaaRHp+:e\",\n  \"projectId\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/beta/file",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beta",
+                        "file"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"loc\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"msg\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-10-21T20:45:55.000Z",
+                  "updatedAt": "2026-10-21T20:45:55.000Z",
+                  "uid": "35240-3c44c1cf-90bf-413c-8432-d6792790cecb"
                 }
               ],
-              "body": "{\n  \"fileId\": \"string\",\n  \"uploadUrl\": \"string\",\n  \"aws\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3923\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "eb4070b2-9a1b-43c1-a39a-e75ac566e463",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"digest\": \"<string>\",\n  \"projectId\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:45:55.000Z",
+              "updatedAt": "2026-10-21T20:45:55.000Z",
+              "uid": "35240-4c2d0113-00a4-4134-b62c-c57bf2ece0cf"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "afa92c61-52f5-4d20-93e0-61ffd6a97e2a",
-          "name": "Complete file upload",
-          "request": {
-            "name": "Complete file upload",
-            "description": {
-              "content": "Complete file upload.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "beta",
-                "file",
-                ":file_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "file_id",
-                  "description": "(Required) File ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PATCH",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "7de8c5f8-d132-488e-b285-be841e177b1c",
-              "name": "Successful Response",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "48f11238-8be9-44b9-99f2-2726bcb67fcd",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PATCH",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "8be62200-a73a-414c-82a2-5a0901459336",
-          "name": "Get file info",
-          "request": {
-            "name": "Get file info",
-            "description": {
-              "content": "Get file info.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "beta",
-                "file",
-                ":file_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "file_id",
-                  "description": "(Required) File ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "7384ae28-dc6b-4779-9d2e-9e35dbb29d7d",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"file-id\",\n  \"name\": \"file-name\",\n  \"size\": 1024,\n  \"digest\": \"file-digest\",\n  \"project_id\": \"project-id\",\n  \"creator_id\": \"creator-id\",\n  \"created_at\": 1705244400,\n  \"expires_at\": 1765724399,\n  \"status\": \"UPLOADED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c3bd7faa-cc88-4d35-b36d-8590b2f70075",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "781e6363-5336-4825-93ee-edf6f8548af3",
-          "name": "Get file download URL",
-          "request": {
-            "name": "Get file download URL",
-            "description": {
-              "content": "Get file download URL.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "beta",
-                "file",
-                ":file_id",
-                "download_url"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "file_id",
-                  "description": "(Required) File ID"
-                }
-              ]
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "2e5dd1c4-5015-4557-8f22-356ede6b23fe",
-              "name": "OK",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id",
-                    "download_url"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"file-id\",\n  \"s3_uri\": \"s3-uri\",\n  \"download_url\": \"download-url\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "45e41032-1f97-46b8-a2a4-eb5a1edbe038",
-              "name": "Validation Error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "beta",
-                    "file",
-                    ":file_id",
-                    "download_url"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "file_id",
-                      "description": "(Required) File ID"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "a224d893-fb76-4ebb-a86b-4482ef026adc",
+          "createdAt": "2026-10-21T20:45:55.000Z",
+          "updatedAt": "2026-10-21T20:45:55.000Z",
+          "uid": "35240-a224d893-fb76-4ebb-a86b-4482ef026adc"
         }
       ],
-      "event": []
+      "id": "d8c1b5d8-6dad-476d-9052-1aa59b6029cc",
+      "createdAt": "2026-10-21T20:45:55.000Z",
+      "updatedAt": "2026-10-21T20:45:55.000Z",
+      "uid": "35240-d8c1b5d8-6dad-476d-9052-1aa59b6029cc"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "c1bbe896-e04d-4914-9a54-f07cfbd7f7a8",
-    "name": "Friendli Suite API Reference Container.Audio File API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

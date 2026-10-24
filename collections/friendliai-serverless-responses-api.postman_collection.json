@@ -1,391 +1,417 @@
 {
+  "info": {
+    "_postman_id": "02ea7602-f8a3-452d-a83f-1f4713499209",
+    "name": "Friendli Suite API Reference Serverless.Responses API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:46:48.000Z",
+    "updatedAt": "2026-10-21T20:46:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-02ea7602-f8a3-452d-a83f-1f4713499209"
+  },
   "item": [
     {
-      "id": "873e641c-1d6c-4737-9043-f41f6890a429",
-      "name": "Serverless.Responses",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "serverless",
       "item": [
         {
-          "id": "45b63373-dae4-4cce-90f3-f8fc0e9f9266",
-          "name": "Responses",
-          "request": {
-            "name": "Responses",
-            "description": {
-              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "serverless",
-                "v1",
-                "responses"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": false,\n        \"key_1\": 1631.3471259785506\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 1217,\n        \"key_1\": 4432.589457603099\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": \"<boolean>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "782d4bac-1fa5-43ad-bc61-0588c7f0c180",
-              "name": "Successfully generated a response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "serverless",
-                    "v1",
-                    "responses"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"zai-org/GLM-5.2\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "responses",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Responses",
+                  "id": "8681f7f5-ded8-4611-bead-298dfccb60c2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"nulla__dd\": true,\n        \"dolore48e\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"tempor_29c\": 59920496\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/serverless/v1/responses",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "serverless",
+                        "v1",
+                        "responses"
+                      ]
+                    },
+                    "description": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls."
+                  },
+                  "response": [
+                    {
+                      "id": "22226c0d-bb6d-4e78-8733-fc28e10b794b",
+                      "name": "Successfully generated a response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"nulla__dd\": true,\n        \"dolore48e\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"tempor_29c\": 59920496\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/serverless/v1/responses",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "serverless",
+                            "v1",
+                            "responses"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"created_at\": \"<integer>\",\n  \"output\": [\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"role\": \"<string>\",\n      \"status\": \"incomplete\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"type\": \"<string>\",\n      \"id\": \"<string>\",\n      \"role\": \"<string>\",\n      \"status\": \"in_progress\",\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"text\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"error\": {\n    \"code\": \"server_error\",\n    \"message\": \"<string>\"\n  },\n  \"status\": \"cancelled\",\n  \"usage\": {\n    \"input_tokens\": \"<integer>\",\n    \"input_tokens_details\": {\n      \"cached_tokens\": \"<integer>\"\n    },\n    \"output_tokens\": \"<integer>\",\n    \"total_tokens\": \"<integer>\",\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": \"<integer>\"\n    }\n  },\n  \"incomplete_details\": {\n    \"reason\": \"<string>\"\n  },\n  \"model\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:46:49.000Z",
+                      "updatedAt": "2026-10-21T20:46:49.000Z",
+                      "uid": "35240-22226c0d-bb6d-4e78-8733-fc28e10b794b"
+                    },
+                    {
+                      "id": "f4b87f2d-7de8-4e4c-bf38-2d17771988d6",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"nulla__dd\": true,\n        \"dolore48e\": false\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"tempor_29c\": 59920496\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"none\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"minimal\"\n  },\n  \"stream\": \"<boolean>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/serverless/v1/responses",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "serverless",
+                            "v1",
+                            "responses"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:46:49.000Z",
+                      "updatedAt": "2026-10-21T20:46:49.000Z",
+                      "uid": "35240-f4b87f2d-7de8-4e4c-bf38-2d17771988d6"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:46:49.000Z",
+                  "updatedAt": "2026-10-21T20:46:49.000Z",
+                  "uid": "35240-8681f7f5-ded8-4611-bead-298dfccb60c2"
                 }
               ],
-              "body": "{\n  \"id\": \"resp_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"object\": \"response\",\n  \"created_at\": 1735722153,\n  \"status\": \"completed\",\n  \"output\": [\n    {\n      \"type\": \"message\",\n      \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n      \"status\": \"completed\",\n      \"role\": \"assistant\",\n      \"content\": [\n        {\n          \"type\": \"output_text\",\n          \"text\": \"Hello there, how may I assist you today?\"\n        }\n      ]\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": 9,\n    \"input_tokens_details\": {\n      \"cached_tokens\": 0\n    },\n    \"output_tokens\": 11,\n    \"output_tokens_details\": {\n      \"reasoning_tokens\": 0\n    },\n    \"total_tokens\": 20\n  },\n  \"model\": \"zai-org/GLM-5.2\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "142a7bce-c632-470a-8691-24cd20086857",
+              "createdAt": "2026-10-21T20:46:49.000Z",
+              "updatedAt": "2026-10-21T20:46:49.000Z",
+              "uid": "35240-142a7bce-c632-470a-8691-24cd20086857"
             },
             {
-              "id": "6a4a94c5-a6ed-4801-9349-c2c184a55684",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "serverless",
-                    "v1",
-                    "responses"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"zai-org/GLM-5.2\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "name": "responses#stream",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "Stream responses",
+                  "id": "5195bb9a-44bb-4f3d-8704-dcc60682f387",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/event-stream"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"Ut_e\": true,\n        \"qui5a\": -76234392\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"irure_1\": \"ipsum Duis aute nisi\",\n        \"ipsum_b18\": false,\n        \"dolore_6\": 63141199.117705196,\n        \"culpad\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"none\"\n  },\n  \"stream\": true\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/serverless/v1/responses#stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "serverless",
+                        "v1",
+                        "responses"
+                      ],
+                      "hash": "stream"
+                    },
+                    "description": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls."
+                  },
+                  "response": [
+                    {
+                      "id": "600554e6-14d0-4632-90d3-27bc33091ced",
+                      "name": "Successfully generated a streamed response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/event-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"Ut_e\": true,\n        \"qui5a\": -76234392\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"irure_1\": \"ipsum Duis aute nisi\",\n        \"ipsum_b18\": false,\n        \"dolore_6\": 63141199.117705196,\n        \"culpad\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"none\"\n  },\n  \"stream\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/serverless/v1/responses#stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "serverless",
+                            "v1",
+                            "responses"
+                          ],
+                          "hash": "stream"
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/event-stream"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"type\": \"response.completed\",\n    \"response\": {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"created_at\": \"<integer>\",\n      \"output\": [\n        {\n          \"type\": \"<string>\",\n          \"id\": \"<string>\",\n          \"role\": \"<string>\",\n          \"status\": \"completed\",\n          \"content\": [\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            },\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            }\n          ]\n        },\n        {\n          \"type\": \"<string>\",\n          \"id\": \"<string>\",\n          \"role\": \"<string>\",\n          \"status\": \"completed\",\n          \"content\": [\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            },\n            {\n              \"type\": \"<string>\",\n              \"text\": \"<string>\"\n            }\n          ]\n        }\n      ],\n      \"error\": {\n        \"code\": \"image_too_small\",\n        \"message\": \"<string>\"\n      },\n      \"status\": \"failed\",\n      \"usage\": {\n        \"input_tokens\": \"<integer>\",\n        \"input_tokens_details\": {\n          \"cached_tokens\": \"<integer>\"\n        },\n        \"output_tokens\": \"<integer>\",\n        \"total_tokens\": \"<integer>\",\n        \"output_tokens_details\": {\n          \"reasoning_tokens\": \"<integer>\"\n        }\n      },\n      \"incomplete_details\": {\n        \"reason\": \"<string>\"\n      },\n      \"model\": \"<string>\"\n    },\n    \"sequence_number\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-10-21T20:46:49.000Z",
+                      "updatedAt": "2026-10-21T20:46:49.000Z",
+                      "uid": "35240-600554e6-14d0-4632-90d3-27bc33091ced"
+                    },
+                    {
+                      "id": "4e2c2172-8552-4a28-9c1a-e61d02d6121e",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"Ut_e\": true,\n        \"qui5a\": -76234392\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"irure_1\": \"ipsum Duis aute nisi\",\n        \"ipsum_b18\": false,\n        \"dolore_6\": 63141199.117705196,\n        \"culpad\": true\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"auto\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"none\"\n  },\n  \"stream\": true\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/serverless/v1/responses#stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "serverless",
+                            "v1",
+                            "responses"
+                          ],
+                          "hash": "stream"
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:46:49.000Z",
+                      "updatedAt": "2026-10-21T20:46:49.000Z",
+                      "uid": "35240-4e2c2172-8552-4a28-9c1a-e61d02d6121e"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:46:49.000Z",
+                  "updatedAt": "2026-10-21T20:46:49.000Z",
+                  "uid": "35240-5195bb9a-44bb-4f3d-8704-dcc60682f387"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "29367bda-3ceb-4667-ac3f-d0a2f5147dc0",
+              "createdAt": "2026-10-21T20:46:49.000Z",
+              "updatedAt": "2026-10-21T20:46:49.000Z",
+              "uid": "35240-29367bda-3ceb-4667-ac3f-d0a2f5147dc0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "bb7cde36-517e-44c2-a68f-91eb381125ba",
-          "name": "Stream responses",
-          "request": {
-            "name": "Stream responses",
-            "description": {
-              "content": "Generate a model response from text or image inputs. Follows the OpenAI Responses API format, with support for streaming, function and custom tool calls, structured outputs, and reasoning controls.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "serverless",
-                "v1",
-                "responses"
-              ],
-              "hash": "stream",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "text/event-stream"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"input\": \"<string>\",\n  \"model\": \"<string>\",\n  \"instructions\": \"<string>\",\n  \"max_output_tokens\": \"<integer>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"parallel_tool_calls\": \"<boolean>\",\n  \"tools\": [\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": 214\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"name\": \"<string>\",\n      \"parameters\": {\n        \"key_0\": \"string\"\n      },\n      \"strict\": \"<boolean>\",\n      \"description\": \"<string>\"\n    }\n  ],\n  \"tool_choice\": \"<string>\",\n  \"text\": {\n    \"format\": {\n      \"type\": \"<string>\"\n    }\n  },\n  \"reasoning\": {\n    \"effort\": \"<string>\"\n  },\n  \"stream\": true\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "ff144c6c-c08c-4d66-8691-1edd3a51e02a",
-              "name": "Successfully generated a streamed response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "serverless",
-                    "v1",
-                    "responses"
-                  ],
-                  "hash": "stream",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/event-stream"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"zai-org/GLM-5.2\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/event-stream"
-                }
-              ],
-              "body": "event: response.created\ndata: {\"type\":\"response.created\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"in_progress\",\"output\":[]},\"sequence_number\":0}\n\nevent: response.output_item.added\ndata: {\"type\":\"response.output_item.added\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"in_progress\",\"role\":\"assistant\",\"content\":[]},\"sequence_number\":1}\n\nevent: response.content_part.added\ndata: {\"type\":\"response.content_part.added\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"\"},\"sequence_number\":2}\n\nevent: response.output_text.delta\ndata: {\"type\":\"response.output_text.delta\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"delta\":\"Hello\",\"sequence_number\":3}\n\n...\n\nevent: response.output_text.done\ndata: {\"type\":\"response.output_text.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"text\":\"Hello there, how may I assist you today?\",\"sequence_number\":8}\n\nevent: response.content_part.done\ndata: {\"type\":\"response.content_part.done\",\"item_id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"output_index\":0,\"content_index\":0,\"part\":{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"},\"sequence_number\":9}\n\nevent: response.output_item.done\ndata: {\"type\":\"response.output_item.done\",\"output_index\":0,\"item\":{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]},\"sequence_number\":10}\n\nevent: response.completed\ndata: {\"type\":\"response.completed\",\"response\":{\"id\":\"resp_4b71d12c86d94e719c7e3984a7bb7941\",\"object\":\"response\",\"created_at\":1735722153,\"status\":\"completed\",\"output\":[{\"type\":\"message\",\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"status\":\"completed\",\"role\":\"assistant\",\"content\":[{\"type\":\"output_text\",\"text\":\"Hello there, how may I assist you today?\"}]}],\"usage\":{\"input_tokens\":9,\"input_tokens_details\":{\"cached_tokens\":0},\"output_tokens\":11,\"output_tokens_details\":{\"reasoning_tokens\":0},\"total_tokens\":20},\"model\":\"zai-org/GLM-5.2\"},\"sequence_number\":11}\n",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a7a8edda-6cb2-4ded-8358-e7e8e2d91a61",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "serverless",
-                    "v1",
-                    "responses"
-                  ],
-                  "hash": "stream",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"input\": \"Hello!\",\n  \"model\": \"zai-org/GLM-5.2\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "b85cd58e-8b3c-4835-bec5-154c3d95d425",
+          "createdAt": "2026-10-21T20:46:49.000Z",
+          "updatedAt": "2026-10-21T20:46:49.000Z",
+          "uid": "35240-b85cd58e-8b3c-4835-bec5-154c3d95d425"
         }
       ],
-      "event": []
+      "id": "74abc5d4-a42c-455c-bad9-87b57b6d1c26",
+      "createdAt": "2026-10-21T20:46:49.000Z",
+      "updatedAt": "2026-10-21T20:46:49.000Z",
+      "uid": "35240-74abc5d4-a42c-455c-bad9-87b57b6d1c26"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "bcace92f-6143-46b4-b751-317a01342f1f",
-    "name": "Friendli Suite API Reference Container.Audio Serverless.Responses API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

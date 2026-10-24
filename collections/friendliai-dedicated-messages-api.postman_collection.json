@@ -1,399 +1,435 @@
 {
+  "info": {
+    "_postman_id": "58c026c6-674d-41f3-9a53-a74490acf466",
+    "name": "Friendli Suite API Reference Dedicated.Messages API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:44:01.000Z",
+    "updatedAt": "2026-10-21T20:44:02.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-58c026c6-674d-41f3-9a53-a74490acf466"
+  },
   "item": [
     {
-      "id": "b08bfdc6-db33-4e53-817d-ced8b7109487",
-      "name": "Dedicated.Messages",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "dedicated",
       "item": [
         {
-          "id": "397e7666-0faa-4c1a-968d-3dc95c76b9d0",
-          "name": "Messages",
-          "request": {
-            "name": "Messages",
-            "description": {
-              "content": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "messages"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": false,\n        \"key_1\": 7949,\n        \"key_2\": \"string\"\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": \"string\"\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"<string>\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"<string>\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"key_0\": 6754\n      }\n    }\n  },\n  \"cache_control\": {\n    \"key_0\": 3436.8074500879898,\n    \"key_1\": 8907.09798724482\n  },\n  \"container\": {\n    \"key_0\": 7981\n  },\n  \"context_manager\": {\n    \"key_0\": true,\n    \"key_1\": 5414,\n    \"key_2\": 4579\n  },\n  \"inference_geo\": {\n    \"key_0\": false,\n    \"key_1\": 8399,\n    \"key_2\": 7653.432933081351\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\",\n    \"key_2\": false\n  },\n  \"service_tier\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "02e46abb-183e-4aba-ae4e-55402e82b6bd",
-              "name": "Successfully generated a Messages-style response. For streaming (`text/event-stream`) event and chunk details, see [Messages chunk object](/openapi/dedicated/inference/messages-chunk-object).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "messages",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Messages",
+                  "id": "e0f0b6bc-3a13-46a3-b047-3df9875f9abd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"enim__e1\": -2848846.586534351,\n        \"mollit2\": -38238384.574071735\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"dolore_\": -87663522.52550443\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"any\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"high\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"ine6\": \"dolor elit dolor\"\n      }\n    }\n  },\n  \"cache_control\": {\n    \"dolore_b8\": -72769850.73559734,\n    \"ind\": -87804193.32058313\n  },\n  \"container\": {\n    \"doloref\": -36886014,\n    \"incididunt_82\": -10547981\n  },\n  \"context_manager\": {\n    \"etbfc\": \"eu pariatur culpa sed\"\n  },\n  \"inference_geo\": {\n    \"pariatur0\": false\n  },\n  \"metadata\": {\n    \"cupidatat_75\": 76176613.9532462\n  },\n  \"service_tier\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dedicated/v1/messages",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dedicated",
+                        "v1",
+                        "messages"
+                      ]
+                    },
+                    "description": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking."
+                  },
+                  "response": [
+                    {
+                      "id": "37168ba2-6d1b-498f-a9d3-abcaa8483a07",
+                      "name": "Successfully generated a Messages-style response. For streaming (`text/event-stream`) event and chunk details, see [Messages chunk object](/openapi/dedicated/inference/messages-chunk-object).",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"enim__e1\": -2848846.586534351,\n        \"mollit2\": -38238384.574071735\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"dolore_\": -87663522.52550443\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"any\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"high\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"ine6\": \"dolor elit dolor\"\n      }\n    }\n  },\n  \"cache_control\": {\n    \"dolore_b8\": -72769850.73559734,\n    \"ind\": -87804193.32058313\n  },\n  \"container\": {\n    \"doloref\": -36886014,\n    \"incididunt_82\": -10547981\n  },\n  \"context_manager\": {\n    \"etbfc\": \"eu pariatur culpa sed\"\n  },\n  \"inference_geo\": {\n    \"pariatur0\": false\n  },\n  \"metadata\": {\n    \"cupidatat_75\": 76176613.9532462\n  },\n  \"service_tier\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "messages"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"type\": \"<string>\",\n  \"role\": \"<string>\",\n  \"content\": [\n    {\n      \"type\": \"<string>\",\n      \"thinking\": \"<string>\",\n      \"signature\": \"<string>\"\n    },\n    {\n      \"type\": \"<string>\",\n      \"thinking\": \"<string>\",\n      \"signature\": \"<string>\"\n    }\n  ],\n  \"usage\": {\n    \"input_tokens\": \"<integer>\",\n    \"output_tokens\": \"<integer>\",\n    \"cache_read_input_tokens\": \"<integer>\"\n  },\n  \"stop_reason\": \"tool_use\",\n  \"stop_sequence\": \"<string>\",\n  \"model\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:44:02.000Z",
+                      "updatedAt": "2026-10-21T20:44:02.000Z",
+                      "uid": "35240-37168ba2-6d1b-498f-a9d3-abcaa8483a07"
+                    },
+                    {
+                      "id": "67e0f4cc-f649-49cf-bd78-c6e83bab652f",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": \"<boolean>\",\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"enim__e1\": -2848846.586534351,\n        \"mollit2\": -38238384.574071735\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"dolore_\": -87663522.52550443\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"any\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"high\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"ine6\": \"dolor elit dolor\"\n      }\n    }\n  },\n  \"cache_control\": {\n    \"dolore_b8\": -72769850.73559734,\n    \"ind\": -87804193.32058313\n  },\n  \"container\": {\n    \"doloref\": -36886014,\n    \"incididunt_82\": -10547981\n  },\n  \"context_manager\": {\n    \"etbfc\": \"eu pariatur culpa sed\"\n  },\n  \"inference_geo\": {\n    \"pariatur0\": false\n  },\n  \"metadata\": {\n    \"cupidatat_75\": 76176613.9532462\n  },\n  \"service_tier\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "messages"
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  },\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:44:02.000Z",
+                      "updatedAt": "2026-10-21T20:44:02.000Z",
+                      "uid": "35240-67e0f4cc-f649-49cf-bd78-c6e83bab652f"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:44:02.000Z",
+                  "updatedAt": "2026-10-21T20:44:02.000Z",
+                  "uid": "35240-e0f0b6bc-3a13-46a3-b047-3df9875f9abd"
                 }
               ],
-              "body": "{\n  \"id\": \"msg_4b71d12c86d94e719c7e3984a7bb7941\",\n  \"type\": \"message\",\n  \"role\": \"assistant\",\n  \"content\": [\n    {\n      \"type\": \"text\",\n      \"text\": \"I can answer questions, generate text, and help with coding tasks.\"\n    }\n  ],\n  \"stop_reason\": \"end_turn\",\n  \"usage\": {\n    \"input_tokens\": 17,\n    \"output_tokens\": 14,\n    \"cache_read_input_tokens\": 0\n  },\n  \"model\": \"(endpoint-id)\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "bc876b01-8117-40b6-9fd6-7cd9de7f7d0a",
+              "createdAt": "2026-10-21T20:44:02.000Z",
+              "updatedAt": "2026-10-21T20:44:02.000Z",
+              "uid": "35240-bc876b01-8117-40b6-9fd6-7cd9de7f7d0a"
             },
             {
-              "id": "e3a80ff1-6511-4395-9565-60f0213a2cc1",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "messages"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
+              "name": "messages#stream",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "Stream messages",
+                  "id": "de31f7e2-4e30-4844-b8b4-59685d660f19",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "ID of team to run requests as (optional parameter).",
+                        "key": "X-Friendli-Team",
+                        "value": "<string>"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/event-stream"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"consequat95\": 14170243,\n        \"id4ab\": -41693410.644424714,\n        \"ut_b1\": -73875870.14383943\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"laboris243\": false\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"none\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"max\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"magna_5e\": -85576391.7852518,\n        \"nisi8_b\": -61348052\n      }\n    }\n  },\n  \"cache_control\": {\n    \"esse_e5\": 14054102\n  },\n  \"container\": {\n    \"labore_4\": \"dolor pariatur sed eiusmod\",\n    \"cillum_43_\": \"dolore Excepteur\"\n  },\n  \"context_manager\": {\n    \"minim_10\": \"commodo velit elit\"\n  },\n  \"inference_geo\": {\n    \"aliquip_d\": -53763224,\n    \"dolore_f2\": -30778328,\n    \"site3\": -58287131.128989555\n  },\n  \"metadata\": {\n    \"laborum119\": \"aliquip aute\",\n    \"Ut_96\": false\n  },\n  \"service_tier\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/dedicated/v1/messages#stream",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "dedicated",
+                        "v1",
+                        "messages"
+                      ],
+                      "hash": "stream"
+                    },
+                    "description": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking."
+                  },
+                  "response": [
+                    {
+                      "id": "ae097889-c902-4780-9300-0f80054475e6",
+                      "name": "Successfully generated a streamed Messages-style response.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "text/event-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"consequat95\": 14170243,\n        \"id4ab\": -41693410.644424714,\n        \"ut_b1\": -73875870.14383943\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"laboris243\": false\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"none\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"max\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"magna_5e\": -85576391.7852518,\n        \"nisi8_b\": -61348052\n      }\n    }\n  },\n  \"cache_control\": {\n    \"esse_e5\": 14054102\n  },\n  \"container\": {\n    \"labore_4\": \"dolor pariatur sed eiusmod\",\n    \"cillum_43_\": \"dolore Excepteur\"\n  },\n  \"context_manager\": {\n    \"minim_10\": \"commodo velit elit\"\n  },\n  \"inference_geo\": {\n    \"aliquip_d\": -53763224,\n    \"dolore_f2\": -30778328,\n    \"site3\": -58287131.128989555\n  },\n  \"metadata\": {\n    \"laborum119\": \"aliquip aute\",\n    \"Ut_96\": false\n  },\n  \"service_tier\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/messages#stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "messages"
+                          ],
+                          "hash": "stream"
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/event-stream"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"message\": {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\",\n      \"role\": \"<string>\",\n      \"usage\": {\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"cache_read_input_tokens\": \"<integer>\"\n      },\n      \"content\": [\n        {\n          \"type\": \"<string>\",\n          \"thinking\": \"<string>\",\n          \"signature\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"thinking\": \"<string>\",\n          \"signature\": \"<string>\"\n        }\n      ],\n      \"stop_reason\": \"max_tokens\",\n      \"stop_sequence\": \"<string>\",\n      \"model\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-10-21T20:44:02.000Z",
+                      "updatedAt": "2026-10-21T20:44:02.000Z",
+                      "uid": "35240-ae097889-c902-4780-9300-0f80054475e6"
+                    },
+                    {
+                      "id": "ebe9a37a-b5c9-4ce5-bfd5-15c25ff98698",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"assistant\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"consequat95\": 14170243,\n        \"id4ab\": -41693410.644424714,\n        \"ut_b1\": -73875870.14383943\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"laboris243\": false\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"none\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"enabled\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"max\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"magna_5e\": -85576391.7852518,\n        \"nisi8_b\": -61348052\n      }\n    }\n  },\n  \"cache_control\": {\n    \"esse_e5\": 14054102\n  },\n  \"container\": {\n    \"labore_4\": \"dolor pariatur sed eiusmod\",\n    \"cillum_43_\": \"dolore Excepteur\"\n  },\n  \"context_manager\": {\n    \"minim_10\": \"commodo velit elit\"\n  },\n  \"inference_geo\": {\n    \"aliquip_d\": -53763224,\n    \"dolore_f2\": -30778328,\n    \"site3\": -58287131.128989555\n  },\n  \"metadata\": {\n    \"laborum119\": \"aliquip aute\",\n    \"Ut_96\": false\n  },\n  \"service_tier\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/messages#stream",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "messages"
+                          ],
+                          "hash": "stream"
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"type\": \"<string>\",\n  \"error\": {\n    \"type\": \"<string>\",\n    \"message\": \"<string>\"\n  },\n  \"request_id\": \"<string>\"\n}",
+                      "createdAt": "2026-10-21T20:44:02.000Z",
+                      "updatedAt": "2026-10-21T20:44:02.000Z",
+                      "uid": "35240-ebe9a37a-b5c9-4ce5-bfd5-15c25ff98698"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:44:02.000Z",
+                  "updatedAt": "2026-10-21T20:44:02.000Z",
+                  "uid": "35240-de31f7e2-4e30-4844-b8b4-59685d660f19"
                 }
               ],
-              "body": "{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"...\"\n  },\n  \"request_id\": \"req_...\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "id": "1f5fcbc8-cb28-4106-a3a5-af247f402b1c",
+              "createdAt": "2026-10-21T20:44:02.000Z",
+              "updatedAt": "2026-10-21T20:44:02.000Z",
+              "uid": "35240-1f5fcbc8-cb28-4106-a3a5-af247f402b1c"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "6f587b77-ce87-493a-a6d9-ae8b298fa5f1",
-          "name": "Stream messages",
-          "request": {
-            "name": "Stream messages",
-            "description": {
-              "content": "Generate a model response from a conversation using the Anthropic Messages API format. Supports streaming, function tool calls, and extended thinking.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "messages"
-              ],
-              "hash": "stream",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "text/event-stream"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"messages\": [\n    {\n      \"role\": \"<string>\",\n      \"content\": \"<string>\"\n    }\n  ],\n  \"model\": \"<string>\",\n  \"max_tokens\": \"<integer>\",\n  \"system\": \"<string>\",\n  \"stream\": true,\n  \"temperature\": \"<number>\",\n  \"top_p\": \"<number>\",\n  \"top_k\": \"<integer>\",\n  \"stop_sequences\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"tools\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 9853.123335144379\n      },\n      \"strict\": \"<boolean>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"<string>\",\n      \"description\": \"<string>\",\n      \"input_schema\": {\n        \"key_0\": 9056.923458708288,\n        \"key_1\": 5959\n      },\n      \"strict\": \"<boolean>\"\n    }\n  ],\n  \"tool_choice\": {\n    \"type\": \"<string>\",\n    \"name\": \"<string>\",\n    \"disable_parallel_tool_use\": \"<boolean>\"\n  },\n  \"thinking\": {\n    \"type\": \"<string>\",\n    \"budget_tokens\": \"<integer>\"\n  },\n  \"output_config\": {\n    \"effort\": \"<string>\",\n    \"format\": {\n      \"type\": \"<string>\",\n      \"schema\": {\n        \"key_0\": false,\n        \"key_1\": 4565.1465806461865\n      }\n    }\n  },\n  \"cache_control\": {\n    \"key_0\": 8330,\n    \"key_1\": \"string\"\n  },\n  \"container\": {\n    \"key_0\": 339\n  },\n  \"context_manager\": {\n    \"key_0\": 9760\n  },\n  \"inference_geo\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8536.980034033826\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"service_tier\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "9faa9250-9dc1-45ea-b1ff-165ac5dff7e6",
-              "name": "Successfully generated a streamed Messages-style response.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "messages"
-                  ],
-                  "hash": "stream",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "text/event-stream"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/event-stream"
-                }
-              ],
-              "body": "event: message_start\ndata: {\"type\":\"message_start\",\"message\":{\"id\":\"msg_4b71d12c86d94e719c7e3984a7bb7941\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[],\"stop_reason\":null,\"stop_sequence\":null,\"usage\":{\"input_tokens\":0,\"output_tokens\":0,\"cache_read_input_tokens\":0}}}\n\nevent: content_block_start\ndata: {\"type\":\"content_block_start\",\"index\":0,\"content_block\":{\"type\":\"text\",\"text\":\"\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\"Hello\"}}\n\nevent: content_block_delta\ndata: {\"type\":\"content_block_delta\",\"index\":0,\"delta\":{\"type\":\"text_delta\",\"text\":\", how can I help?\"}}\n\nevent: content_block_stop\ndata: {\"type\":\"content_block_stop\",\"index\":0}\n\nevent: message_delta\ndata: {\"type\":\"message_delta\",\"delta\":{\"stop_reason\":\"end_turn\",\"stop_sequence\":null},\"usage\":{\"output_tokens\":11}}\n\nevent: message_stop\ndata: {\"type\":\"message_stop\"}\n",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "56d712fa-c85e-4f4f-8e1c-2bd6a55f07ee",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "messages"
-                  ],
-                  "hash": "stream",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"messages\": [\n    {\n      \"content\": \"Hello, summarize what you can do in one sentence.\",\n      \"role\": \"user\"\n    }\n  ],\n  \"model\": \"(endpoint-id)\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"type\": \"error\",\n  \"error\": {\n    \"type\": \"invalid_request_error\",\n    \"message\": \"...\"\n  },\n  \"request_id\": \"req_...\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "93a13642-8b29-4994-b4a2-ce15959d4577",
+          "createdAt": "2026-10-21T20:44:02.000Z",
+          "updatedAt": "2026-10-21T20:44:02.000Z",
+          "uid": "35240-93a13642-8b29-4994-b4a2-ce15959d4577"
         }
       ],
-      "event": []
+      "id": "d50ee1d0-dd78-439a-a613-d3153decc436",
+      "createdAt": "2026-10-21T20:44:02.000Z",
+      "updatedAt": "2026-10-21T20:44:02.000Z",
+      "uid": "35240-d50ee1d0-dd78-439a-a613-d3153decc436"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "1ff4b716-2df4-4334-b81f-afe50e7ee37e",
-    "name": "Friendli Suite API Reference Container.Audio Dedicated.Messages API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

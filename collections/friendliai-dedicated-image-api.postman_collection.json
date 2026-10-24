@@ -1,394 +1,429 @@
 {
+  "info": {
+    "_postman_id": "22fb959f-7c5d-4127-afe6-852f0dad323a",
+    "name": "Friendli Suite API Reference Dedicated.Image API",
+    "description": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:43:56.000Z",
+    "updatedAt": "2026-10-21T20:43:56.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-22fb959f-7c5d-4127-afe6-852f0dad323a"
+  },
   "item": [
     {
-      "id": "d8e33bb2-10d0-4b46-afa1-eedf644495d8",
-      "name": "Dedicated.Image",
-      "description": {
-        "content": "",
-        "type": "text/plain"
-      },
+      "name": "dedicated",
       "item": [
         {
-          "id": "59cb66f3-4a0f-4b21-a348-28ec4d5f3421",
-          "name": "Image generations",
-          "request": {
-            "name": "Image generations",
-            "description": {
-              "content": "Generate an image from a text prompt.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "images",
-                "generations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\",\n  \"control_images\": [\n    {\n      \"image\": \"<string>\"\n    },\n    {\n      \"image\": \"<string>\"\n    }\n  ],\n  \"controlnet_weights\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
+          "name": "v1",
+          "item": [
             {
-              "id": "285e46fc-03b3-48bd-9d61-ac1cfa6ddfee",
-              "name": "Successfully generated image(s).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "images",
-                    "generations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"(endpoint-id)\",\n  \"num_inference_steps\": 10,\n  \"prompt\": \"An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "images",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "generations",
+                  "item": [
+                    {
+                      "name": "Image generations",
+                      "id": "15d66400-a2d3-4829-a6f9-5f60c19bc26a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"url\",\n  \"control_images\": [\n    {\n      \"image\": \"<string>\"\n    },\n    {\n      \"image\": \"<string>\"\n    }\n  ],\n  \"controlnet_weights\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/images/generations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "images",
+                            "generations"
+                          ]
+                        },
+                        "description": "Generate an image from a text prompt."
+                      },
+                      "response": [
+                        {
+                          "id": "47790b7b-da34-4db7-9ffe-ba1c196c3270",
+                          "name": "Successfully generated image(s).",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"url\",\n  \"control_images\": [\n    {\n      \"image\": \"<string>\"\n    },\n    {\n      \"image\": \"<string>\"\n    }\n  ],\n  \"controlnet_weights\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/images/generations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "images",
+                                "generations"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"seed\": \"<integer>\",\n      \"response_format\": \"url\",\n      \"url\": \"<string>\"\n    },\n    {\n      \"seed\": \"<integer>\",\n      \"response_format\": \"raw\",\n      \"url\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:43:57.000Z",
+                          "updatedAt": "2026-10-21T20:43:57.000Z",
+                          "uid": "35240-47790b7b-da34-4db7-9ffe-ba1c196c3270"
+                        },
+                        {
+                          "id": "c253e123-c6bf-43b1-a077-533e75e14c4a",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"model\": \"<string>\",\n  \"prompt\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"url\",\n  \"control_images\": [\n    {\n      \"image\": \"<string>\"\n    },\n    {\n      \"image\": \"<string>\"\n    }\n  ],\n  \"controlnet_weights\": [\n    \"<number>\",\n    \"<number>\"\n  ]\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/images/generations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "images",
+                                "generations"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:43:57.000Z",
+                          "updatedAt": "2026-10-21T20:43:57.000Z",
+                          "uid": "35240-c253e123-c6bf-43b1-a077-533e75e14c4a"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:43:57.000Z",
+                      "updatedAt": "2026-10-21T20:43:57.000Z",
+                      "uid": "35240-15d66400-a2d3-4829-a6f9-5f60c19bc26a"
+                    }
+                  ],
+                  "id": "696759f2-f11b-460b-88ef-6cb7edead7d1",
+                  "createdAt": "2026-10-21T20:43:57.000Z",
+                  "updatedAt": "2026-10-21T20:43:57.000Z",
+                  "uid": "35240-696759f2-f11b-460b-88ef-6cb7edead7d1"
+                },
+                {
+                  "name": "edits",
+                  "item": [
+                    {
+                      "name": "Image edits",
+                      "id": "533460e4-4bce-441f-9cd5-9032377723cb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "bearer",
+                          "bearer": [
+                            {
+                              "key": "token",
+                              "value": "{{bearerToken}}",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "ID of team to run requests as (optional parameter).",
+                            "key": "X-Friendli-Team",
+                            "value": "<string>"
+                          },
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"image\": {\n    \"image\": \"<string>\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"jpg\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/dedicated/v1/images/edits",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "dedicated",
+                            "v1",
+                            "images",
+                            "edits"
+                          ]
+                        },
+                        "description": "Edit an image based on a text prompt."
+                      },
+                      "response": [
+                        {
+                          "id": "43e4a79f-db38-4505-89fa-97c1d75e0a5a",
+                          "name": "Successfully edited image(s).",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"image\": {\n    \"image\": \"<string>\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"jpg\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/images/edits",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "images",
+                                "edits"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": [\n    {\n      \"seed\": \"<integer>\",\n      \"response_format\": \"url\",\n      \"url\": \"<string>\"\n    },\n    {\n      \"seed\": \"<integer>\",\n      \"response_format\": \"raw\",\n      \"url\": \"<string>\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:43:57.000Z",
+                          "updatedAt": "2026-10-21T20:43:57.000Z",
+                          "uid": "35240-43e4a79f-db38-4505-89fa-97c1d75e0a5a"
+                        },
+                        {
+                          "id": "e4d1ba17-8df9-4bce-aebd-e6d30146caeb",
+                          "name": "Unprocessable Entity",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "ID of team to run requests as (optional parameter).",
+                                "key": "X-Friendli-Team",
+                                "value": "<string>"
+                              },
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"image\": {\n    \"image\": \"<string>\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"jpg\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/dedicated/v1/images/edits",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "dedicated",
+                                "v1",
+                                "images",
+                                "edits"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:43:57.000Z",
+                          "updatedAt": "2026-10-21T20:43:57.000Z",
+                          "uid": "35240-e4d1ba17-8df9-4bce-aebd-e6d30146caeb"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:43:57.000Z",
+                      "updatedAt": "2026-10-21T20:43:57.000Z",
+                      "uid": "35240-533460e4-4bce-441f-9cd5-9032377723cb"
+                    }
+                  ],
+                  "id": "dd819aaf-a26a-49d3-ba17-97871fc54563",
+                  "createdAt": "2026-10-21T20:43:57.000Z",
+                  "updatedAt": "2026-10-21T20:43:57.000Z",
+                  "uid": "35240-dd819aaf-a26a-49d3-ba17-97871fc54563"
                 }
               ],
-              "body": "{\n  \"data\": [\n    {\n      \"url\": \"(url-to-generated-image)\",\n      \"seed\": 123,\n      \"response_format\": \"url\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "bda20038-c2ee-4489-a092-32f05ba8dcf7",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "images",
-                    "generations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"model\": \"(endpoint-id)\",\n  \"num_inference_steps\": 10,\n  \"prompt\": \"An orange Lamborghini driving down a hill road at night with a beautiful ocean view in the background.\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "9e33edcf-7ae2-4edd-be4a-577fd8a0756a",
+              "createdAt": "2026-10-21T20:43:57.000Z",
+              "updatedAt": "2026-10-21T20:43:57.000Z",
+              "uid": "35240-9e33edcf-7ae2-4edd-be4a-577fd8a0756a"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "f2be3c07-0df9-4c45-9a7a-93746e65bd30",
-          "name": "Image edits",
-          "request": {
-            "name": "Image edits",
-            "description": {
-              "content": "Edit an image based on a text prompt.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "dedicated",
-                "v1",
-                "images",
-                "edits"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
-            "header": [
-              {
-                "disabled": false,
-                "description": "ID of team to run requests as (optional parameter).",
-                "key": "X-Friendli-Team",
-                "value": "<string>"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"image\": {\n    \"image\": \"<string>\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"<string>\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "9daae18a-98b2-455d-9037-80da305701b2",
-              "name": "Successfully edited image(s).",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "images",
-                    "edits"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"image\": {\n    \"image\": \"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"(endpoint-id)\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"data\": [\n    {\n      \"url\": \"(url-to-edited-image)\",\n      \"seed\": 789,\n      \"response_format\": \"url\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0470d0d2-9aec-4e6f-86bc-67a4438acf2c",
-              "name": "Unprocessable Entity",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "dedicated",
-                    "v1",
-                    "images",
-                    "edits"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "ID of team to run requests as (optional parameter).",
-                    "key": "X-Friendli-Team",
-                    "value": "<string>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"image\": {\n    \"image\": \"https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/cat.png\"\n  },\n  \"prompt\": \"<string>\",\n  \"model\": \"(endpoint-id)\",\n  \"num_inference_steps\": 20,\n  \"guidance_scale\": \"<number>\",\n  \"seed\": \"<integer>\",\n  \"response_format\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
-              "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "9e7d0032-31f9-46e1-a8c2-0e0059b4f86d",
+          "createdAt": "2026-10-21T20:43:57.000Z",
+          "updatedAt": "2026-10-21T20:43:57.000Z",
+          "uid": "35240-9e7d0032-31f9-46e1-a8c2-0e0059b4f86d"
         }
       ],
-      "event": []
+      "id": "b953af7d-3c4c-4238-aad7-2b3f1af0b13f",
+      "createdAt": "2026-10-21T20:43:57.000Z",
+      "updatedAt": "2026-10-21T20:43:57.000Z",
+      "uid": "35240-b953af7d-3c4c-4238-aad7-2b3f1af0b13f"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.friendli.ai",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.friendli.ai"
     }
-  ],
-  "info": {
-    "_postman_id": "6d6c0c75-41c3-4181-9835-b2bb1123331c",
-    "name": "Friendli Suite API Reference Container.Audio Dedicated.Image API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "This is an OpenAPI reference of Friendli Suite API.\n\nContact Support:\n Name: FriendliAI Support Team\n Email: support@friendli.ai",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
